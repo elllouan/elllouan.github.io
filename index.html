@@ -1,34 +1,102 @@
 <!DOCTYPE html>
 
-<html>
+<html lang ="en">
 
-<head>
-    <title> My fisrt Website </title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- make sure that the content fit the device on which we open -->
+        <title> My Portofolio Website </title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong|Arial|Open+Sans">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
 
-<!-- Within de web page -->
-<body>
-    <h1>Who likes pizza ?</h1>
-    <hr> <!-- jump a line -->
-    <h4>Me of course ! </h4>
-    <br> <!-- break a line -->
-    <h4>Me of course ! </h4>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit ipsa voluptatibus veritatis quod minima neque harum labore, provident eveniet odit dolore esse temporibus eum, enim, possimus laboriosam? Facere, odio sunt.</p>
+    <!-- Within de web page -->
+    <body>
+        <header>
+            <div class="logo"> <!-- stands for 'division' -->
+                <!-- <img src="images/th.jfif" alt=""> -->
+            </div>
 
-    <a href="newpage.html" target=_blank title="newpage">
-        ---> To another page
-    </a>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
 
-    <table>
-        <tr>table1</tr>
-        <tr>table2</tr>
-        <tr>table3</tr>
-    </table>
+            <nav class="nav"> <!-- stands for 'navigation' -->
+                <ul class="nav__list"> <!-- stands for 'unordered list' -->
+                    <li class="aboutme__item"><a href="#about" class="aboutme__link">About me</a></li> <!-- href="#" means that the link is pointing to the current page -->
+                    <li class="activities"><a href="#activities" class="activities__link">My Current Activites</a></li>
+                    <li class="projects__item"><a href="#projects" class="projects__link">My Projects</a></li>
+                </ul>
+            </nav>
+        </header>
 
-    <audio autoplay controls>
-        <source src="music/NEFFEX_-_Legendary-CONNECTLOADED.COM.mp3">
-    </audio>
+        <!-- Introduction -->
+        <section class="intro" id="home">
+            <h1 class="section__title section__title--intro"> Hi, I am <strong>Elouan Théot</strong></h1>
+            <p class="section__subtitle section__subtitle--intro"> Third year engineering student at ENIB</p>
+            <img src="images/my_face.jpg" alt="my face" class="section__myface--intro">
+        </section>
 
-</body>
+        <!-- About me -->
+        <section class="aboutme" id="about">
+            <h2 class="section__title section__title--aboutme"> a short presentation ... </h2>
+            <div class="section__body --aboutme">
+                <p>I currently study at ENIB (Ecole Nationale d'Ingénieurs de Brest). </p>
+                <p>I learn mechanical engineering, electronics and computer science.</p>
+            </div>
+            <img src="" alt="">
+        </section>
+
+        <!-- My Activities -->
+        <section class="my_activities" id="activities">
+            <h2 class="section__title section__title--my_activities"> What I enjoy doing </h2>
+            <div class="section__list --my_activities">
+                <div class="activity">
+                    <h3 class="section__subtitle section__subtitle--my_activities"> Sports </h3>
+                    <p>I like running and climbing.</p>
+                    <img src="images/climbing.webp" alt="">
+                    <img src="images/running.webp" alt="">
+                </div>
+
+                <div class="activity">
+                    <h3 class="section__subtitle section__subtitle--my_activities"> Programming </h3>
+                    <p>I currently learn HTML, CSS and Js. </p>
+                </div>
+
+                <a href="#work" class="btn"> My Projects </a>
+            </div>
+        </section>
+
+        <!-- My Projects -->
+        <section class="my_projects" id="projects">
+            <h2 class="section__title section__title--my_projects"></h2>
+            <p class="section__subtitle --my_projects"> Here a glimpse of my projects.</p>
+            <div class="section__list --my_projects">
+                <div class="portofolio">
+                    <h3 class="section__subtitle portofolio__title"> Creation of my own Portofolio </h3>
+                    <p>thereby learning fundamentals of web development</p>
+                </div>
+
+                <div class="c++">
+                    <h3 class="section__subtitle c++__title"> Creation of my own Portofolio </h3>
+                    <p>with Qt to create basic gui applications</p>
+                </div>
+
+                <div class="abroad">
+                    <h3 class="section__subtitle abroad__title"> Creation of my own Portofolio </h3>
+                    <p>exploring, learning, growing !</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <h3 class="contactme" id="contact"> Here my contacts :</h3>
+            <p class="email-link">E-mail : <a href="elouantheot@gmail.com">elouantheot@gmail.com</a></p>
+            <p class="linkedIn-link">Linked In : <a href="https://www.linkedin.com/in/elouan-theot/">elouan-theot</a></p>
+            <p class="gitHub-link">Git Hub : <a href="https://github.com/elllouan">elllouan</a></p>
+            <p class="discord-pseudo">Add me on Discord : <span>Elouan#9436</span></p>
+        </footer>
+    </body>
 
 </html>

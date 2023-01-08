@@ -1,0 +1,159 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Custom properties */
+:root {
+    --ff-primary: 'Audiowide', sans-serif; 
+    --ff-secondary: 'Trirong', sans-serif;
+    --ff-regular: 'Open Sans';
+    --ff-subtitle: 'Courier New', Courier, monospace;
+    /* ff stands for 'font family' */
+
+    --clr-light: rgb(253, 209, 127);
+    --clr-dark: #444;
+    /* clr stands for 'color' */
+
+    --fw-bold: 800;
+    --fw-regular: 300;
+    --fw-light: 200;
+
+    --fs-h1: 2.5rem;
+    --fs-h2: 2rem;
+    --fs-h3: 1.25rem;
+    --fs-body: 1rem;
+    /* fs stands for 'family size' */
+} 
+
+/* General styles */
+
+body { /* set default characteristics within the body */
+    background: var(--clr-light);
+    color: rgb(83, 141, 228); /* text color */
+    font-family: var(--ff-regular);
+    font-size: var(--fs-body);
+    font-weight: var(--fw-regular);
+}
+
+img { /* set default characteristics for images */
+    display: block;
+    max-width: 100%;
+}
+
+strong {
+    font-weight: var(--fw-bold);
+}
+
+span {
+    font-style: italic;
+}
+
+/* Typography */
+
+h1, h2, h3 {
+    line-height: 1.2;
+    margin: 0;
+}
+
+h1 { font-size: var(--fs-h1); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+
+section {
+    padding: 2em; /* amount of void on sections edges */ 
+}
+
+.section__title {
+    margin-bottom: 0.2rem;
+    font-family: var(--ff-regular);
+}
+
+.section__title strong {
+    display: block;
+    font-family: var(--ff-primary);
+}
+
+.section__subtitle {
+    margin: 0;
+    background: orange;
+    background-size: 25% 100%;
+    font-size: var(--fs-h3);
+    font-family: var(--ff-subtitle);
+}
+
+nav, button {
+    display: none;
+}
+
+/* Introduction */
+
+.intro {
+    position: relative;
+}
+
+.section__title--intro {
+    text-indent: 200px;
+}
+
+.section__subtitle--intro {
+    margin-bottom: 0.5em;
+    text-indent: 100px;
+    color: white;
+}
+
+@media (min-width: 600px) {
+    .intro {
+        display: grid;
+        grid-template-areas: "title img" "subtitle img";
+        grid-template-columns: max-content min-content; /* minimum content in width but max in height */
+        border: 3px solid rgb(83, 141, 228);
+    }
+
+    .section__myface--intro {
+        grid-area: img;
+        min-width: 200px;
+        margin-left: 0.5em;
+    }
+
+    .section__title--intro {
+        grid-area: title;
+        font-family: var(--ff-regular);
+        background: #444;
+    }
+
+    .section__subtitle--intro {
+        grid-area: subtitle;
+        margin-bottom: 0.5em;
+        color: white;
+    }
+}
+
+footer {
+    /* background: #444; */
+    color: white;
+    margin: 0;
+    display: grid;
+    grid-template-areas: "contacts" "others";
+    grid-template-columns: max-content max-content;
+
+}
+
+.email-link, .linkedIn-link, .gitHub-link {
+    display: block;
+    font-family: var(--ff-regular);
+    background: orange;
+}
+.contactme {
+    margin-bottom: 0.25em;
+}
+ 
+.contactme, .email-link, .linkedIn-link, discord-pseudo {
+    grid-area: contacts;
+    min-height: 20px;
+}
+
+.gitHub-link {
+    grid-area: others;
+} 
