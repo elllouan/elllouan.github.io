@@ -32,19 +32,35 @@
 
         <!-- Introduction -->
         <section class="intro" id="home">
-            <h1 class="section__title section__title--intro"> Hi, I am <strong>Elouan Théot</strong></h1>
-            <p class="section__subtitle section__subtitle--intro"> Third year engineering student at ENIB</p>
-            <img src="images/my_face.jpg" alt="my face" class="section__myface--intro">
+            <div class="orange-square--intro"></div>
+            <div class="section__frame--intro">
+                <h1 class="section__title section__title--intro">Hi, I am <strong>Elouan Théot</strong></h1>
+                <p class="section__subtitle section__subtitle--intro"> Third year engineering student at ENIB</p>
+                <img src="images/my_face.jpg" alt="my face" class="section__myface--intro">
+                <div class="button-circle--intro"></div>
+            </div>
         </section>
 
         <!-- About me -->
         <section class="aboutme" id="about">
             <h2 class="section__title section__title--aboutme"> a short presentation ... </h2>
             <div class="section__body --aboutme">
-                <p>I currently study at ENIB (Ecole Nationale d'Ingénieurs de Brest). </p>
-                <p>I learn mechanical engineering, electronics and computer science.</p>
+                <p>I currently study engineering sciences at ENIB (Ecole Nationale d'Ingénieurs de Brest).</p>
+                <p>I study :</p>
+                <div class="subjects--aboutme">
+                    <ul>
+                        <li><span style="text-decoration: underline;">Computer Science</span></li> 
+                        <li><span style="text-decoration: underline;">Electronics</span></li>
+                        <li><span style="text-decoration: underline;">Mechanical Engineering</span></li>
+                    </ul>
+                </div>
+                <p class="wink">I am not a graphic designer though </p>
             </div>
-            <img src="" alt="">
+            <div class="section__img--aboutme">
+                <img src="images/programming.webp" alt="">
+                <img src="images/electronics.png" alt="">
+                <img src="images/mechanical.webp" alt="">
+            </div>
         </section>
 
         <!-- My Activities -->
@@ -69,8 +85,7 @@
 
         <!-- My Projects -->
         <section class="my_projects" id="projects">
-            <h2 class="section__title section__title--my_projects"></h2>
-            <p class="section__subtitle --my_projects"> Here a glimpse of my projects.</p>
+            <h2 class="section__title section__title--my_projects">Here a glimpse of my projects.</h2>
             <div class="section__list --my_projects">
                 <div class="portofolio">
                     <h3 class="section__subtitle portofolio__title"> Creation of my own Portofolio </h3>
@@ -78,24 +93,34 @@
                 </div>
 
                 <div class="c++">
-                    <h3 class="section__subtitle c++__title"> Creation of my own Portofolio </h3>
+                    <h3 class="section__subtitle c++__title"> Creation of basics c++ gui </h3>
                     <p>with Qt to create basic gui applications</p>
                 </div>
 
                 <div class="abroad">
-                    <h3 class="section__subtitle abroad__title"> Creation of my own Portofolio </h3>
+                    <h3 class="section__subtitle abroad__title"> Taking a step abroad </h3>
                     <p>exploring, learning, growing !</p>
                 </div>
             </div>
         </section>
 
         <!-- Footer -->
-        <footer>
-            <h3 class="contactme" id="contact"> Here my contacts :</h3>
-            <p class="email-link">E-mail : <a href="elouantheot@gmail.com">elouantheot@gmail.com</a></p>
-            <p class="linkedIn-link">Linked In : <a href="https://www.linkedin.com/in/elouan-theot/">elouan-theot</a></p>
-            <p class="gitHub-link">Git Hub : <a href="https://github.com/elllouan">elllouan</a></p>
-            <p class="discord-pseudo">Add me on Discord : <span>Elouan#9436</span></p>
+        <footer class="footer">
+            <section class="information">
+                <div class="contacts">
+                    <h3><a style="text-decoration: underline;">Here my contacts</a> :</h3>
+                    <p class="email-link"><a style="text-decoration: underline;">E-mail</a> : <a href="elouantheot@gmail.com">elouantheot@gmail.com</a></p>
+                    <p class="linkedIn-link"><a style="text-decoration: underline;">Linked In</a> : <a href="https://www.linkedin.com/in/elouan-theot/">elouan-theot</a></p>
+                    <p class="discord-pseudo"><a style="text-decoration: underline;">Add me on Discord</a> : <span style="font-style: italic;">Elouan#9436</span></p>
+                </div>
+                <div class="mywork" id="work">
+                    <h3><a style="text-decoration: underline;">See my work here</a> :</h3>
+                    <p class="gitHub-link"><a style="text-decoration: underline;">Git Hub</a> : <a href="https://github.com/elllouan">elllouan</a></p>
+                </div>
+            </section>
+            <section class="thanks">
+                <p> I would like to give a special thanks to <a href="https://www.freecodecamp.org/learn" style="font-style: italic;">freecodecamp</a> for providing free tutorials. It helped me a lot.</p>
+            </section>
         </footer>
     </body>
 

@@ -1,7 +1,14 @@
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* every measurement/size is given with padding and border*/
+}
+
+.wink::after {
+    content: "😉";
+    font-size: 1rem;
 }
 
 /* Custom properties */
@@ -12,8 +19,9 @@
     --ff-subtitle: 'Courier New', Courier, monospace;
     /* ff stands for 'font family' */
 
-    --clr-light: rgb(253, 209, 127);
-    --clr-dark: #444;
+    --clr-light: papayawhip;
+    --clr-light-orange: rgb(253, 209, 127);
+    --clr-dark: #333;
     /* clr stands for 'color' */
 
     --fw-bold: 800;
@@ -31,7 +39,8 @@
 
 body { /* set default characteristics within the body */
     background: var(--clr-light);
-    color: rgb(83, 141, 228); /* text color */
+    color: #333;
+    /* color: rgb(83, 141, 228); text color */
     font-family: var(--ff-regular);
     font-size: var(--fs-body);
     font-weight: var(--fw-regular);
@@ -46,10 +55,6 @@ strong {
     font-weight: var(--fw-bold);
 }
 
-span {
-    font-style: italic;
-}
-
 /* Typography */
 
 h1, h2, h3 {
@@ -58,11 +63,15 @@ h1, h2, h3 {
 }
 
 h1 { font-size: var(--fs-h1); }
-h2 { font-size: var(--fs-h2); }
+h2 { 
+    font-size: var(--fs-h2); 
+    border-top: 5px #444 solid;
+    width: 50%;
+}
 h3 { font-size: var(--fs-h3); }
 
 section {
-    padding: 2em; /* amount of void on sections edges */ 
+    padding: 1em; /* amount of void on sections edges */ 
 }
 
 .section__title {
@@ -78,7 +87,7 @@ section {
 .section__subtitle {
     margin: 0;
     background: orange;
-    background-size: 25% 100%;
+    width: fit-content;
     font-size: var(--fs-h3);
     font-family: var(--ff-subtitle);
 }
@@ -89,71 +98,173 @@ nav, button {
 
 /* Introduction */
 
-.intro {
+.intro, .aboutme, .my_activities {
     position: relative;
 }
 
-.section__title--intro {
-    text-indent: 200px;
-}
-
-.section__subtitle--intro {
-    margin-bottom: 0.5em;
-    text-indent: 100px;
-    color: white;
-}
-
-@media (min-width: 600px) {
+/* if the screen has a minimum-width of 600px */
+@media (min-width: 600px) { 
+    /* intro config */
     .intro {
+        grid-template-columns: 200px 500px;
+    }
+
+    .section__frame--intro {
+        margin: 0 auto;
+        margin-right: #444;
+        border-left: 2px #444 dashed;
+        border-bottom: 2px #444 dashed;
+        width: 50%;
         display: grid;
-        grid-template-areas: "title img" "subtitle img";
-        grid-template-columns: max-content min-content; /* minimum content in width but max in height */
-        border: 3px solid rgb(83, 141, 228);
+        grid-template-areas: "title img" "subtitle subtitle";
+        gap: 10px;
+        background-color: orange;
     }
 
     .section__myface--intro {
         grid-area: img;
-        min-width: 200px;
-        margin-left: 0.5em;
+        min-width: 100px;
+        width: auto;
     }
 
     .section__title--intro {
         grid-area: title;
         font-family: var(--ff-regular);
-        background: #444;
+        width: auto;
+        height: min-content;
+        background: var(--clr-dark);
+        display: block;
+        text-align: end;
+        color: var(--clr-light);
     }
 
     .section__subtitle--intro {
+        margin: 0;
         grid-area: subtitle;
-        margin-bottom: 0.5em;
+        color: white;
+        width: auto;
+        text-decoration: white underline;
+        text-align: end;
+    }
+
+    .button-circle--intro {
+        grid-area: title;
+        border: 0;
+        margin: 50% auto auto auto;
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+        border: 3px var(--clr-dark) solid;
+    }
+
+    .orange-square--intro {
+        background-color: rgba(235, 163, 10, 0.847);
+        margin: 3em auto -7.5em 53%;
+        height: 12em;
+        width: 30%;
+        border: 2px #444 dashed;
+    }
+
+/* aboutme config */
+    .aboutme div{
+        margin-left: 1em;
+    }
+
+    .section__img--aboutme {
+        display: grid;
+        grid-auto-flow: column;
+        margin-top: 1em;
+    }
+
+    .section__img--aboutme img {
+        width: auto;
+        height: auto;
+    }
+    
+/* footer config */
+    .footer {
+        background: #444;
+        font-family: var(--ff-regular);
+        width: 100%;
         color: white;
     }
+    
+    .information {
+        margin-left: 0;
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: 280px 280px;
+        grid-column-gap: 20px;
+    }
+
+    .information p {
+        display: block;
+        margin: 1em 0;
+        background-color: orange;
+        text-indent: 0.5em;
+        width: 280px;
+    }
+    
+    .thanks {
+        background-color: orange;
+    }
+
+    .thanks p {
+        margin: 0;
+        height: min-content;
+    }
+
+    .contacts h3, .mywork h3 {
+        width: 100%;
+    }
+    
+    .email-link, .linkedIn-link, .discord-pseudo, .gitHub-link {
+        line-height: 2em;
+        border: 2px #444 dashed;
+    }  
 }
 
-footer {
-    /* background: #444; */
-    color: white;
-    margin: 0;
-    display: grid;
-    grid-template-areas: "contacts" "others";
-    grid-template-columns: max-content max-content;
+@media(max-width: 600px) {
+    /* footer config */
+    .footer {
+        background: #444;
+        font-family: var(--ff-regular);
+        width: 100%;
+        color: white;
+    }
+        
+    .information {
+        display: grid;
+        grid-template-rows: auto auto;
+        grid-row-gap: 10px;
+    }
 
+    .thanks {
+        background-color: orange;
+    }
+    
+    .contacts h3 {
+        width: 100%;
+    }
+    
+    .information p {
+        display: block;
+        background: orange;
+        width: 100%;
+        text-indent: 10px;
+    }
+    
+    .mywork h3 {
+        margin-top: 1em;
+        width: 100%;
+    }
+    
+    .email-link, .linkedIn-link, .discord-pseudo, .gitHub-link {
+        line-height: 2em;
+        border: 2px #444 dashed;
+    }
+    
+    .thanks p {
+        margin: 0;
+    }
 }
-
-.email-link, .linkedIn-link, .gitHub-link {
-    display: block;
-    font-family: var(--ff-regular);
-    background: orange;
-}
-.contactme {
-    margin-bottom: 0.25em;
-}
- 
-.contactme, .email-link, .linkedIn-link, discord-pseudo {
-    grid-area: contacts;
-    min-height: 20px;
-}
-
-.gitHub-link {
-    grid-area: others;
-} 
