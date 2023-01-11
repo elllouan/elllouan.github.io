@@ -1,9 +1,0 @@
-<div > ... </div> : a div element is a generic container for content. 
-It has no inherent meaning or semantics, but you can use it to group elements together and apply styles to them.
-
-<section > ... </section> : represents a section of a page that contains navigation links.
-
-<span > ... </span> : a span element is a generic inline container for content. 
-It is similar to a div element.
-
-<nav > ... </nav>
