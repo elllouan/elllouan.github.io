@@ -16,7 +16,7 @@
     --ff-primary: 'Audiowide', sans-serif; 
     --ff-secondary: 'Trirong', sans-serif;
     --ff-regular: 'Open Sans';
-    --ff-subtitle: 'Courier New', Courier, monospace;
+    --ff-robot: 'Courier New', Courier, monospace;
     /* ff stands for 'font family' */
 
     --clr-light: papayawhip;
@@ -48,7 +48,8 @@ body { /* set default characteristics within the body */
 
 img { /* set default characteristics for images */
     display: block;
-    max-width: 100%;
+    width: 100%;
+    height: auto;
 }
 
 strong {
@@ -65,7 +66,8 @@ h1, h2, h3 {
 h1 { font-size: var(--fs-h1); }
 h2 { 
     font-size: var(--fs-h2); 
-    border-top: 5px #444 solid;
+    font-family: var(--ff-subtitle);
+    border-top: 5px var(--clr-dark) solid;
     width: 50%;
 }
 h3 { font-size: var(--fs-h3); }
@@ -74,22 +76,23 @@ section {
     padding: 1em; /* amount of void on sections edges */ 
 }
 
-.section__title {
+.title {
     margin-bottom: 0.2rem;
     font-family: var(--ff-regular);
 }
 
-.section__title strong {
+strong {
     display: block;
     font-family: var(--ff-primary);
+    font-size: var(--fs-h1);
 }
 
-.section__subtitle {
+.subtitle {
     margin: 0;
     background: orange;
     width: fit-content;
     font-size: var(--fs-h3);
-    font-family: var(--ff-subtitle);
+    font-family: var(--ff-robot);
 }
 
 nav, button {
@@ -103,87 +106,119 @@ nav, button {
 }
 
 /* if the screen has a minimum-width of 600px */
-@media (min-width: 600px) { 
-    /* intro config */
+@media (min-width: 600px) {
     .intro {
-        grid-template-columns: 200px 500px;
+        /* display: flex;
+        justify-content: space-evenly; */
+        margin: auto 1em;
+        padding: 1em auto;
+        height: 65vh;
     }
 
-    .section__frame--intro {
-        margin: 0 auto;
-        margin-right: #444;
-        border-left: 2px #444 dashed;
-        border-bottom: 2px #444 dashed;
+    .background-climbing img{
         width: 50%;
-        display: grid;
-        grid-template-areas: "title img" "subtitle subtitle";
-        gap: 10px;
+    }
+
+    /* intro config */
+    .img--intro {
+        position: relative;
+        border: 2px #444 dashed;
+        width: 250px;
+        height: auto;
+        border-radius: 50%;
+        margin: 1em auto 0 35%;
         background-color: orange;
     }
 
-    .section__myface--intro {
-        grid-area: img;
-        min-width: 100px;
-        width: auto;
-    }
-
-    .section__title--intro {
-        grid-area: title;
-        font-family: var(--ff-regular);
-        width: auto;
-        height: min-content;
-        background: var(--clr-dark);
-        display: block;
-        text-align: end;
-        color: var(--clr-light);
-    }
-
-    .section__subtitle--intro {
-        margin: 0;
-        grid-area: subtitle;
-        color: white;
-        width: auto;
-        text-decoration: white underline;
-        text-align: end;
-    }
-
-    .button-circle--intro {
-        grid-area: title;
-        border: 0;
-        margin: 50% auto auto auto;
-        width: 100px;
+    .background-circle--intro {
+        background-color: var(--clr-dark);
+        border-radius: 50%;
         height: 100px;
-        border-radius: 50px;
-        border: 3px var(--clr-dark) solid;
+        width: 100px;
+        border: 2px orange dashed;
+        margin: 0 auto;
     }
 
-    .orange-square--intro {
-        background-color: rgba(235, 163, 10, 0.847);
-        margin: 3em auto -7.5em 53%;
-        height: 12em;
-        width: 30%;
-        border: 2px #444 dashed;
+    .circle1--intro {
+        position: absolute;
+        top: 0;
     }
 
-/* aboutme config */
-    .aboutme div{
-        margin-left: 1em;
+    .circle2--intro {
+        position: absolute;
+        left: -10%;
+        top: 37%;
     }
 
-    .section__img--aboutme {
-        display: grid;
-        grid-auto-flow: column;
-        margin-top: 1em;
+    .circle3--intro {
+        position: absolute;
+        bottom: 0;
+        font-size: smaller;
     }
 
-    .section__img--aboutme img {
-        width: auto;
+    .background-circle--intro p{
+        font-family: var(--ff-secondary);
+        font-size: 14px;
+        text-align: center;
+        line-height: 1em;
+        margin: 1em auto;
+        color: papayawhip;
+    }
+
+    .img--intro img {
+        width: 250px;
         height: auto;
+        border-radius: 50%;
+        margin: 0 auto 0 30%;
+    }
+
+    .text-frame--intro {
+        background-color: var(--clr-dark);
+        color: var(--clr-light);
+        height: fit-content;
+        padding: 1em;
+        margin: 1em auto;
+        position: absolute;
+        bottom: 0;
+        border-radius: 3em;
+    }
+
+    .seemore {
+        text-align: center;
+        font-family: var(--ff-primary);
+        border-top: 8px var(--clr-dark) double;
+        border-bottom: 8px var(--clr-dark) double;
+        margin: 0 1em;
+    }
+
+    .flexbox-projects {
+        display: flex;
+        gap: 35vh;
+        margin: 1em auto;
+        padding-top: 0;
+    }
+
+    .project {
+        position: relative;
+        width: 27vh;
+        height: 60vh;
+        background-color: orange;
+        border: 2px var(--clr-dark) dashed;
+        border-radius: 3em;
+    }
+
+    .project h1 {
+        font-family: var(--ff-robot);
+        text-align: center;
+        position: absolute;
+        top: 25%;
+        width: 100%;
+        font-size: 1.7em;
     }
     
 /* footer config */
     .footer {
-        background: #444;
+        background: var(--clr-dark);
         font-family: var(--ff-regular);
         width: 100%;
         color: white;
@@ -220,17 +255,17 @@ nav, button {
     
     .email-link, .linkedIn-link, .discord-pseudo, .gitHub-link {
         line-height: 2em;
-        border: 2px #444 dashed;
+        border: 2px var(--clr-dark) dashed;
     }  
 }
 
 @media(max-width: 600px) {
     /* footer config */
     .footer {
-        background: #444;
+        background: var(--clr-dark);
         font-family: var(--ff-regular);
         width: 100%;
-        color: white;
+        color: papayawhip;
     }
         
     .information {
@@ -267,4 +302,8 @@ nav, button {
     .thanks p {
         margin: 0;
     }
+}
+
+.noDisplay {
+    display: none;
 }
