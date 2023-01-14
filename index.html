@@ -12,21 +12,29 @@
 
     <!-- Within de web page -->
     <body>
+        
+       
+        
+
         <header>
             <div class="logo"> <!-- stands for 'division' -->
                 <!-- <img src="images/th.jfif" alt=""> -->
             </div>
 
             <button class="nav-toggle" aria-label="toggle navigation">
-                <span class="hamburger"></span>
+                <p>button</p>
+                <!-- <span class="hamburger"></span> -->
             </button>
              
 
-            <nav class="nav"> <!-- stands for 'navigation' -->
+            <nav> <!-- stands for 'navigation' -->
+                <figure class="plus">
+                    <img src="images/plus.png" alt="Plus">
+                </figure>
                 <ul class="nav__list"> <!-- stands for 'unordered list' -->
-                    <li class="aboutme__item"><a href="#about" class="aboutme__link">About me</a></li> <!-- href="#" means that the link is pointing to the current page -->
-                    <li class="activities"><a href="#activities" class="activities__link">My Current Activites</a></li>
-                    <li class="projects__item"><a href="#projects" class="projects__link">My Projects</a></li>
+                    <li class="profile--nav">👉 <a href="#profile" class="profile-link--nav">My Profile</a></li> <!-- href="#" means that the link is pointing to the current page -->
+                    <li class="news--nav">👉 <a href="#news" class="news-link--nav">News</a></li>
+                    <li class="projects--nav">👉 <a href="#projects" class="projects-link--nav">My Projects</a></li>
                 </ul>
             </nav>
         </header>
@@ -53,12 +61,6 @@
                     <p>Work</p>
                 </div>
             </div>
-            <!-- <div class="me-img--intro">
-                <img src="images/my_face.jpg" alt="my face">
-            </div>
-            <div class="background-climbing--intro">
-                <img src="images/climbing2_screenshot.jpg" alt="">
-            </div> -->
         </section>
         
         <section class="seemore">
@@ -66,17 +68,20 @@
         </section>
             
         <section class="flexbox-projects">
-            <div class="project project1">
+            <div class="project">
                 <strong>1</strong>
-                <h1>See all my projects</h1>
+                <h1><a href="#">See all my projects</a></h1>
+                <img src="images/my_project_icon2.png" alt="">
             </div>
-            <div class="project project2">
+            <div class="project">
                 <strong>2</strong>
-                <h1>See my professional experience</h1>
+                <h1><a href="#">See my professional experience</a></h1>
+                <img src="images/work_experience_icon.png" alt="">
             </div>
-            <div class="project project3">
+            <div class="project">
                 <strong>3</strong>
-                <h1>See my stay in the Netherlands</h1>
+                <h1><a href="#">See my stay in the Netherlands</a></h1>
+                <img src="images/the_netherlands_icon.png" alt="">
             </div>
         </section>
 
