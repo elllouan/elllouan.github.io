@@ -44,6 +44,7 @@ body { /* set default characteristics within the body */
     font-family: var(--ff-regular);
     font-size: var(--fs-body);
     font-weight: var(--fw-regular);
+    border:  1em var(--clr-dark) solid;
 }
 
 img { /* set default characteristics for images */
@@ -107,27 +108,35 @@ nav, button {
 
 /* if the screen has a minimum-width of 600px */
 @media (min-width: 600px) {
-    .intro {
-        /* display: flex;
-        justify-content: space-evenly; */
-        margin: auto 1em;
-        padding: 1em auto;
-        height: 65vh;
-    }
-
-    .background-climbing img{
-        width: 50%;
-    }
-
     /* intro config */
-    .img--intro {
-        position: relative;
-        border: 2px #444 dashed;
-        width: 250px;
+    .intro {
+        height: 85vh;
+        background-color: orange;
+    }
+
+    .background-climbing--intro img{
+        position: absolute;
+        top: 20vh;
+        width: 30%;
         height: auto;
         border-radius: 50%;
-        margin: 1em auto 0 35%;
-        background-color: orange;
+    }
+
+    .title--intro {
+        background-color: var(--clr-dark);
+        color: var(--clr-light);
+        font-size: var(--fs-h3);
+        padding: 1em;
+        margin: 0 0;
+        text-align: center;
+        border-radius: 3em;
+    }
+    
+    .main--intro {
+        border: 3px var(--clr-dark) solid;
+        display: flex;
+        flex-direction: row;
+        margin-top: 1em;
     }
 
     .background-circle--intro {
@@ -139,23 +148,6 @@ nav, button {
         margin: 0 auto;
     }
 
-    .circle1--intro {
-        position: absolute;
-        top: 0;
-    }
-
-    .circle2--intro {
-        position: absolute;
-        left: -10%;
-        top: 37%;
-    }
-
-    .circle3--intro {
-        position: absolute;
-        bottom: 0;
-        font-size: smaller;
-    }
-
     .background-circle--intro p{
         font-family: var(--ff-secondary);
         font-size: 14px;
@@ -165,22 +157,10 @@ nav, button {
         color: papayawhip;
     }
 
-    .img--intro img {
-        width: 250px;
+    .me-img--intro img {
+        width: 100px;
         height: auto;
         border-radius: 50%;
-        margin: 0 auto 0 30%;
-    }
-
-    .text-frame--intro {
-        background-color: var(--clr-dark);
-        color: var(--clr-light);
-        height: fit-content;
-        padding: 1em;
-        margin: 1em auto;
-        position: absolute;
-        bottom: 0;
-        border-radius: 3em;
     }
 
     .seemore {
@@ -188,7 +168,7 @@ nav, button {
         font-family: var(--ff-primary);
         border-top: 8px var(--clr-dark) double;
         border-bottom: 8px var(--clr-dark) double;
-        margin: 0 1em;
+        /* margin: 0 1em; */
     }
 
     .flexbox-projects {
