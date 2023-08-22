@@ -7,78 +7,45 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- make sure that the content fit the device on which we open -->
         <title> My Portofolio Website </title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong|Arial|Open+Sans">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/index_style.css">
     </head>
 
     <!-- Within de web page -->
     <body>
-        
-       
-        
-
         <header>
-            <div class="logo"> <!-- stands for 'division' -->
-                <!-- <img src="images/th.jfif" alt=""> -->
+            <div class="header-container">
+                <img src="images/my_face.jpg" alt="me" class="header-img">
+                <div class="header-title">
+                    <strong>An Engineer Student</strong>
+                </div>
             </div>
-
-            <button class="nav-toggle" aria-label="toggle navigation">
-                <p>button</p>
-                <!-- <span class="hamburger"></span> -->
-            </button>
-             
-
-            <nav> <!-- stands for 'navigation' -->
-                <figure class="plus">
-                    <img src="images/plus.png" alt="Plus">
-                </figure>
-                <ul class="nav__list"> <!-- stands for 'unordered list' -->
-                    <li class="profile--nav">👉 <a href="#profile" class="profile-link--nav">My Profile</a></li> <!-- href="#" means that the link is pointing to the current page -->
-                    <li class="news--nav">👉 <a href="#news" class="news-link--nav">News</a></li>
-                    <li class="projects--nav">👉 <a href="#projects" class="projects-link--nav">My Projects</a></li>
-                </ul>
-            </nav>
         </header>
 
-        <!-- Introduction -->
-        <section class="intro" id="home">
-            <div class="title--intro">
-                <strong>Welcome to my Website</strong>
-            </div>
-            <div class="main--intro">
-                <div class="background-circle--intro">
-                    <p>Who</p>
-                    <p>I</p>
-                    <p>am ?</p>
-                </div>
-                <div class="background-circle--intro">
-                    <p>What ?</p>
-                    <p>&</p>
-                    <p>Why ?</p>
-                </div>
-                <div class="background-circle--intro">
-                    <p>Contacts</p>
-                    <p>&</p>
-                    <p>Work</p>
-                </div>
-            </div>
-        </section>
+        <nav> <!-- stands for 'navigation' -->
+            <li class="nav-news"><a href="portofolio.html" class="news-link">Portofolio</a></li>
+            <li class="nav-projects"><a href="school.html" class="projects-link">School</a></li>
+            <li class="nav-projects"><a href="experiences.html" class="projects-link">Experiences</a></li>
+            <li class="nav-projects"><a href="#projects" class="projects-link">Books & Podcasts</a></li>
+            <li class="nav-profile"><a href="about.html" class="profile-link">About</a></li> <!-- href="#" means that the link is pointing to the current page -->
+            <li class="nav-projects"><a href="#projects" class="projects-link">Contacts</a></li>
+        </nav>
         
         <section class="seemore">
             <h1>See more ... <h1>
         </section>
             
-        <section class="flexbox-projects">
-            <div class="project">
+        <section class="flexbox-frames">
+            <div class="frame">
                 <strong>1</strong>
                 <h1><a href="#">See all my projects</a></h1>
                 <img src="images/my_project_icon2.png" alt="">
             </div>
-            <div class="project">
+            <div class="frame">
                 <strong>2</strong>
                 <h1><a href="#">See my professional experience</a></h1>
                 <img src="images/work_experience_icon.png" alt="">
             </div>
-            <div class="project">
+            <div class="frame">
                 <strong>3</strong>
                 <h1><a href="#">See my stay in the Netherlands</a></h1>
                 <img src="images/the_netherlands_icon.png" alt="">
