@@ -1,6 +1,7 @@
 @import url("index_style.css");
 
 .main-container {
+    position: relative;
     height: 100vh;
 }
 
@@ -20,31 +21,34 @@
 @media screen and (min-width: 481px) {
     .projects-container {
         display: flex; /* Use flexbox for layout */
-        justify-content: space-between; /* Distribute boxes evenly across the container */
+        justify-content: center; /* Distribute boxes evenly across the container */
         align-items: center; /* Center vertically */
-        height: 300px; /* Set a height for the container */
+        max-height: 90%; /* Set a height for the container */
+         height: 90%; /*Set a height for the container */
         background-color: orange;
-        margin-top: 10px;
-        padding: 20px;
+        margin: 10px 0;
+        padding: 0;
         text-decoration: none;
-    }
-
-    .projects {
-        display: flex; /* Use flexbox for layout */
-        flex-direction: column; /* Align items vertically */
-        justify-content: space-between; /* Distribute boxes evenly across the container */
-        align-items: center; /* Center vertically */
-        height: 300px; /* Set a height for the container */
-        padding: 20px;
-        text-decoration: none;
-        border: solid slategray;
     }
 
     .project {
-        border: solid slategray;
-        /* padding: 0.5em; */
-        width: 100%;
-        font-size: var(--fs-h2);
+        display: flex; /* Use flexbox for layout */
+        flex-direction: column; /* Align items vertically */
+        justify-content: center; /* Distribute boxes evenly across the container */
+        align-items: center; /* Center vertically */
+        height: 90%; /* Set a height for the container */
+        text-decoration: none;
+    }
+
+    .project {
+        border: solid #444;
+        height: 100%;
+        text-align: center;
+        width: 50%;
+    }
+
+    .project a {
+        color: #444;
     }
 
 

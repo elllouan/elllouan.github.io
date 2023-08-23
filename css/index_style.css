@@ -283,6 +283,7 @@ strong {
     /* footer config */
 
     footer {
+        margin-top: 10px;
         background: var(--clr-dark);
         font-family: var(--ff-regular);
         width: 100%;
