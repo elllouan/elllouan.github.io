@@ -4,6 +4,10 @@
     height: 100vh;
 }
 
+.home-title {
+    margin-left: 5em;
+}
+
 .inner-link {
     font-style: italic;
     color: var(--clr-dark);
@@ -19,7 +23,7 @@
         justify-content: space-between; /* Distribute boxes evenly across the container */
         align-items: center; /* Center vertically */
         height: 300px; /* Set a height for the container */
-        background-color: rgb(81, 131, 185);
+        background-color: orange;
         margin-top: 10px;
         padding: 20px;
         text-decoration: none;
@@ -33,9 +37,13 @@
         height: 300px; /* Set a height for the container */
         padding: 20px;
         text-decoration: none;
+        border: solid slategray;
     }
 
     .project {
+        border: solid slategray;
+        /* padding: 0.5em; */
+        width: 100%;
         font-size: var(--fs-h2);
     }
 

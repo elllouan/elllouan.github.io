@@ -104,6 +104,7 @@ strong {
     }
 
     nav {
+        text-align: center;
         background-color: var(--clr-dark);
     }
 
@@ -229,7 +230,7 @@ strong {
     .flexbox-frames {
         display: flex;
         gap: 30vh;
-        margin: 0 auto;
+        margin: 0 10vh;
         padding: 1em;
     }
 
@@ -247,7 +248,7 @@ strong {
     .frame:focus                               ,
     .frame:hover a{
         background-color: var(--clr-dark);
-        color: var(--clr-light);
+        color: orange;
     }
 
     .frame:hover img {
@@ -269,7 +270,7 @@ strong {
         position: absolute;
         top: 20%;
         width: 100%;
-        font-size: 1.7em;
+        font-size: 2.5rem;
     }
 
     .frame img {
@@ -279,8 +280,9 @@ strong {
         margin: 75% auto;
     }
     
-/* footer config */
-    .footer {
+    /* footer config */
+
+    footer {
         background: var(--clr-dark);
         font-family: var(--ff-regular);
         width: 100%;
@@ -301,8 +303,21 @@ strong {
         background-color: orange;
         text-indent: 0.5em;
         width: 280px;
+        border: 2px #444 dashed;
+        line-height: 2em;
     }
-    
+
+    .contacts h3 {
+        width: 100%;
+    }
+
+    .email-link:hover,
+    .linkedIn-link:hover,
+    .discord-pseudo:hover,
+    .github-link:hover {
+        font-weight: bold;
+    }
+
     .thanks {
         background-color: orange;
     }
@@ -311,40 +326,29 @@ strong {
         margin: 0;
         height: min-content;
     }
-
-    .contacts h3, .mywork h3 {
-        width: 100%;
-    }
-    
-    .email-link, .linkedIn-link, .discord-pseudo, .gitHub-link {
-        line-height: 2em;
-        border: 2px var(--clr-dark) dashed;
-    }  
 }
 
 @media(max-width: 481px) {
+
     /* footer config */
+    
     .footer {
         background: var(--clr-dark);
         font-family: var(--ff-regular);
         width: 100%;
-        color: papayawhip;
+        color: var(--clr-light-grey);
     }
-        
+
     .information {
         display: grid;
         grid-template-rows: auto auto;
         grid-row-gap: 10px;
     }
 
-    .thanks {
-        background-color: orange;
+    .information h3 {
+        text-decoration: underline;
     }
-    
-    .contacts h3 {
-        width: 100%;
-    }
-    
+
     .information p {
         display: block;
         background: orange;
@@ -352,14 +356,20 @@ strong {
         text-indent: 10px;
     }
     
-    .mywork h3 {
-        margin-top: 1em;
-        width: 100%;
-    }
-    
-    .email-link, .linkedIn-link, .discord-pseudo, .gitHub-link {
+    .email-link,
+    .linkedIn-link,
+    .discord-pseudo,
+    .github-link {
         line-height: 2em;
         border: 2px #444 dashed;
+    }
+
+    .email-link:hover,
+    .linkedIn-link:hover,
+    .discord-pseudo:hover,
+    .github-link:hover {
+        text-decoration: underline;
+        font-weight: bold;
     }
     
     .thanks p {
