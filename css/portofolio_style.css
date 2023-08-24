@@ -2,7 +2,8 @@
 
 .main-container {
     position: relative;
-    height: 100vh;
+    height: 250vh;
+    padding: 3rem;
 }
 
 .home-title {
@@ -19,12 +20,22 @@
 }
 
 @media screen and (min-width: 481px) {
+
+    .main-container p {
+        padding: 1rem;
+        text-align: justify; /* justify text */ 
+    }
+
+    .main-container ul {
+        padding-left: 3em;
+    }
+
     .projects-container {
         display: flex; /* Use flexbox for layout */
         justify-content: center; /* Distribute boxes evenly across the container */
         align-items: center; /* Center vertically */
-        max-height: 90%; /* Set a height for the container */
-         height: 90%; /*Set a height for the container */
+        max-height: 50%; /* Set a height for the container */
+        height: 30%; /*Set a height for the container */
         background-color: orange;
         margin: 10px 0;
         padding: 0;
@@ -50,7 +61,5 @@
     .project a {
         color: #444;
     }
-
-
 
 }
