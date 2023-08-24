@@ -3,7 +3,7 @@
 .main-container {
     position: relative;
     height: 250vh;
-    padding: 3rem;
+    padding: 2rem 3rem;
 }
 
 .home-title {
@@ -20,6 +20,11 @@
 }
 
 @media screen and (min-width: 481px) {
+
+    .portofolio-title {
+        text-align: center;
+        text-decoration: underline;
+    }
 
     .main-container p {
         padding: 1rem;

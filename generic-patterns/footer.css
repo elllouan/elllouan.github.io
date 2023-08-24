@@ -1,0 +1,52 @@
+@import url("index_style.css");
+
+/* if the screen has a minimum width of 600px */
+@media screen and (min-width: 481px) {
+
+    footer {
+        margin-top: 10px;
+        background: var(--clr-dark);
+        font-family: var(--ff-regular);
+        width: 100%;
+        color: var(--clr-light);
+    }
+
+    .information {
+        margin-left: 0;
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: 280px 280px;
+        grid-column-gap: 20px;
+    }
+
+    .information p {
+        display: block;
+        margin: 1em 0;
+        background-color: orange;
+        text-indent: 0.5em;
+        width: 280px;
+        border: 2px #444 dashed;
+        line-height: 2em;
+    }
+
+    .contacts h3 {
+        width: 100%;
+    }
+
+    .email-link:hover,
+    .linkedIn-link:hover,
+    .discord-pseudo:hover,
+    .github-link:hover {
+        font-weight: bold;
+    }
+
+    .thanks {
+        background-color: orange;
+    }
+
+    .thanks p {
+        margin: 0;
+        height: min-content;
+    }
+
+}

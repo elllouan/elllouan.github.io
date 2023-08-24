@@ -1,0 +1,26 @@
+@import url("index_style.css");
+
+/* if the screen has a minimum width of 600px */
+@media screen and (min-width: 481px) {
+
+    nav {
+        text-align: center;
+        background-color: var(--clr-dark);
+    }
+
+    nav li {
+        color: var(--clr-light-grey);
+        padding: 1em;
+        display: inline-block; /* align list elements in a row */
+        margin-inline: 1em 1em;
+        position: sticky;
+        top: 0;
+        visibility: visible;
+        text-align: center;
+    }
+
+    nav li a:hover {
+        text-decoration: overline;
+    }
+
+}

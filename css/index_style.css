@@ -103,26 +103,6 @@ strong {
         display: none;
     }
 
-    nav {
-        text-align: center;
-        background-color: var(--clr-dark);
-    }
-
-    nav li {
-        color: var(--clr-light-grey);
-        padding: 1em;
-        display: inline-block; /* align list elements in a row */
-        margin-inline: 1em 1em;
-        position: sticky;
-        top: 0;
-        visibility: visible;
-        text-align: center;
-    }
-
-    nav li a:hover {
-        text-decoration: overline;
-    }
-
     /* class-specific settings */
 
     .header-container {
@@ -279,54 +259,7 @@ strong {
         top: 0;
         margin: 75% auto;
     }
-    
-    /* footer config */
 
-    footer {
-        margin-top: 10px;
-        background: var(--clr-dark);
-        font-family: var(--ff-regular);
-        width: 100%;
-        color: var(--clr-light);
-    }
-    
-    .information {
-        margin-left: 0;
-        display: grid;
-        grid-auto-flow: column;
-        grid-template-columns: 280px 280px;
-        grid-column-gap: 20px;
-    }
-
-    .information p {
-        display: block;
-        margin: 1em 0;
-        background-color: orange;
-        text-indent: 0.5em;
-        width: 280px;
-        border: 2px #444 dashed;
-        line-height: 2em;
-    }
-
-    .contacts h3 {
-        width: 100%;
-    }
-
-    .email-link:hover,
-    .linkedIn-link:hover,
-    .discord-pseudo:hover,
-    .github-link:hover {
-        font-weight: bold;
-    }
-
-    .thanks {
-        background-color: orange;
-    }
-
-    .thanks p {
-        margin: 0;
-        height: min-content;
-    }
 }
 
 @media(max-width: 481px) {
@@ -369,7 +302,6 @@ strong {
     .linkedIn-link:hover,
     .discord-pseudo:hover,
     .github-link:hover {
-        text-decoration: underline;
         font-weight: bold;
     }
     
