@@ -1,0 +1,63 @@
+@import url("index_style.css");
+
+a {
+    text-decoration: none;
+    color: var(--clr-light-grey);
+    font-size: var(--fs-std);
+}
+@media screen and (min-width: 481px) {
+
+    .main-container {
+        position: absolute;
+        width: 100%;
+    }
+    
+    .main-container p {
+        padding: 1rem;
+        text-align: justify; /* justify text */ 
+    }
+
+    .logos {
+        display: flex;
+        justify-items: center;
+        justify-content: space-evenly;
+    }
+    
+    .logo {
+        /* position: absolute; */
+        width: 25%;
+        top: 0;
+        padding: 1rem;
+    }
+
+    .title {
+        text-align: center;
+        padding: 1.5rem;
+    }
+
+    .second-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .text-container {
+        width: 110%;
+    }
+
+    .plan {
+        padding-left: 2rem;
+    }
+
+    .img-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Optional: center the images horizontally */
+        justify-content: space-evenly;
+        width: 30%;
+
+    }
+
+    .illustration {
+        justify-content: space-evenly;
+    }
+}

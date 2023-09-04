@@ -2,7 +2,7 @@
 
 .main-container {
     position: relative;
-    height: 250vh;
+    height: 400vh;
     padding: 2rem 3rem;
 }
 
@@ -36,31 +36,55 @@
     }
 
     .projects-container {
+        position: relative;
         display: flex; /* Use flexbox for layout */
-        justify-content: center; /* Distribute boxes evenly across the container */
-        align-items: center; /* Center vertically */
+        justify-content: space-around;
+        gap: 30%;
         max-height: 50%; /* Set a height for the container */
-        height: 30%; /*Set a height for the container */
-        background-color: orange;
-        margin: 10px 0;
-        padding: 0;
-        text-decoration: none;
+        height: 15%; /*Set a height for the container */
     }
 
-    .project {
+    .projects-academic h2,
+    .projects-personal h2 {
+        margin-bottom: 1rem;
+        width: max-content;
+    }
+
+    .projects-academic {
         display: flex; /* Use flexbox for layout */
-        flex-direction: column; /* Align items vertically */
-        justify-content: center; /* Distribute boxes evenly across the container */
+        flex-direction: column;
+        justify-content: space-between; /* Distribute boxes evenly across the container */
         align-items: center; /* Center vertically */
-        height: 90%; /* Set a height for the container */
-        text-decoration: none;
+        height: 100%; /*Set a height for the container */
+        background-color: rgb(255, 186, 58);
+        width: 50%;
+    }
+
+    .projects-personal {
+        display: flex; /* Use flexbox for layout */
+        flex-direction: column;
+        justify-content: space-between; /* Distribute boxes evenly across the container */
+        align-items: center; /* Center vertically */
+        height: 100%; /*Set a height for the container */
+        background-color: rgb(255, 186, 58);
+        width: 50%;
+    }
+
+    .project:hover {
+        text-decoration:double;
+        transition-property: all;
+        transition-duration: 1.5s;
+        transition-delay: 0s;
+        transform: scale(130%);
     }
 
     .project {
-        border: solid #444;
-        height: 100%;
+        left: 0;
+        text-decoration: overline;
         text-align: center;
-        width: 50%;
+        height: 15%;
+        text-align:center;
+        width: 100%;
     }
 
     .project a {

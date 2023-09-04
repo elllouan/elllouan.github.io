@@ -108,7 +108,7 @@ strong {
     .header-container {
         position: relative; /* Position relative to establish a containing block */
         margin: 0;
-        height: 25vh;
+        height: 10rem;
     }
 
     .header-img {
@@ -128,7 +128,7 @@ strong {
         background-color: var(--clr-dark);
         color: var(--clr-light);
         font-size: var(--fs-h3);
-        padding: 1em;
+        padding: 0.3em;
         margin: 1em;
         text-align: center;
         border-radius: 3em;
@@ -159,38 +159,6 @@ strong {
         display: flex;
         flex-direction: row;
         margin-top: 1em;
-    }
-
-    .background-circle--intro {
-        background-color: var(--clr-dark);
-        border-radius: 50%;
-        height: 100px;
-        width: 100px;
-        border: 2px orange dashed;
-        margin: 0 auto;
-    }
-
-    .background-circle--intro:hover {
-        background-color: var(--clr-light);
-    }
-
-    .background-circle--intro p{
-        font-family: var(--ff-secondary);
-        font-size: 14px;
-        text-align: center;
-        line-height: 1em;
-        margin: 1em auto;
-        color: papayawhip;
-    }
-
-    .background-circle--intro:hover p {
-        color: var(--clr-dark);
-    }
-
-    .me-img--intro img {
-        width: 100px;
-        height: auto;
-        border-radius: 50%;
     }
 
     .seemore {
