@@ -1,0 +1,35 @@
+@import url("index_style.css");
+
+@media screen and (min-width: 481px) {
+
+    .main-container {
+        position: absolute;
+        width: 100%;
+    }
+    
+    .main-container p {
+        padding: 1rem;
+        text-align: justify; /* justify text */ 
+    }
+
+    .enib-logo {
+        position: absolute;
+        right: 10vh;
+        background-color: var(--clr-dark);
+        border-radius: 30%;
+        width: 20%;
+    }
+
+    .year-4 {
+        display: flexbox;
+    }
+
+    .year-4 p{
+        text-align: justify;
+    }
+
+    .subject {
+        display: flexbox;
+    }
+    
+}

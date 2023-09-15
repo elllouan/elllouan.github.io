@@ -6,6 +6,10 @@
     padding: 2rem 3rem;
 }
 
+.main-container a {
+    color: #444;
+}
+
 .home-title {
     margin-left: 5em;
 }
@@ -85,10 +89,6 @@
         height: 15%;
         text-align:center;
         width: 100%;
-    }
-
-    .project a {
-        color: #444;
     }
 
 }

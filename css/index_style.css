@@ -168,13 +168,6 @@ strong {
         border-bottom: 8px var(--clr-dark) double;
     }
 
-    .seemore h1 {
-        animation-name: changeScale;
-        animation-duration: 1s;
-        animation-iteration-count: 1;
-        animation-delay: 0.5s;
-    }
-
     .flexbox-frames {
         display: flex;
         gap: 30vh;
