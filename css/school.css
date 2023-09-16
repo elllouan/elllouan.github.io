@@ -13,23 +13,52 @@
     }
 
     .enib-logo {
-        position: absolute;
-        right: 10vh;
-        background-color: var(--clr-dark);
+        padding-bottom: 10px;
+        display: block;
+        justify-self: center;
         border-radius: 30%;
         width: 20%;
     }
 
-    .year-4 {
-        display: flexbox;
+    .enib-link {
+        width: 50%;
+        height: fit-content;
     }
 
-    .year-4 p{
+    .year-4 {
+        position: relative;
+    }
+
+    .year-4 p {
         text-align: justify;
     }
 
+    .collapsible {
+        background-color: #99999928;
+        cursor: pointer;
+        padding: 18px;
+        width: 90%;
+        border: solid #444;
+        text-align: left;
+        font-size: 15px;
+        margin: 1rem;
+    }
+    
+    /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+    .active, .collapsible:hover {
+        background-color: #ccc;
+        outline: solid orange;
+    }
+    
+    /* Style the collapsible content. Note: hidden by default */
     .subject {
-        display: flexbox;
+        display: none;
+        overflow: hidden;
+        background-color: #f1f1f1;
+    }
+
+    .subject {
+        padding: 1rem;
     }
     
 }

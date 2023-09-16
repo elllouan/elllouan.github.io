@@ -95,14 +95,6 @@ strong {
 /* if the screen has a minimum width of 600px */
 @media screen and (min-width: 481px) {
 
-    /* general settings */
-
-    button {
-        width: 50px;
-        height: 50px;
-        display: none;
-    }
-
     /* class-specific settings */
 
     .header-container {
@@ -221,54 +213,6 @@ strong {
         margin: 75% auto;
     }
 
-}
-
-@media(max-width: 481px) {
-
-    /* footer config */
-    
-    .footer {
-        background: var(--clr-dark);
-        font-family: var(--ff-regular);
-        width: 100%;
-        color: var(--clr-light-grey);
-    }
-
-    .information {
-        display: grid;
-        grid-template-rows: auto auto;
-        grid-row-gap: 10px;
-    }
-
-    .information h3 {
-        text-decoration: underline;
-    }
-
-    .information p {
-        display: block;
-        background: orange;
-        width: 100%;
-        text-indent: 10px;
-    }
-    
-    .email-link,
-    .linkedIn-link,
-    .discord-pseudo,
-    .github-link {
-        line-height: 2em;
-        border: 2px #444 dashed;
-    }
-
-    .email-link:hover,
-    .linkedIn-link:hover,
-    .discord-pseudo:hover,
-    .github-link:hover {
-        font-weight: bold;
-    }
-    
-    .thanks p {
-        margin: 0;
-    }
 }
 
 .noDisplay {

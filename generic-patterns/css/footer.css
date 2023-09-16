@@ -12,25 +12,21 @@
     }
 
     .information {
+        padding: 1.5rem;
         margin-left: 0;
         display: grid;
         grid-auto-flow: column;
         grid-template-columns: 280px 280px;
-        grid-column-gap: 20px;
+        grid-column-gap: 30px;
     }
 
     .information p {
-        display: block;
-        margin: 1em 0;
+        display: inline-block;
         background-color: orange;
         text-indent: 0.5em;
         width: 280px;
         border: 2px #444 dashed;
         line-height: 2em;
-    }
-
-    .contacts h3 {
-        width: 100%;
     }
 
     .email-link:hover,
@@ -47,6 +43,55 @@
     .thanks p {
         margin: 0;
         height: min-content;
+    }
+
+}
+
+@media(max-width: 481px) {
+
+    /* footer config */
+    
+    .footer {
+        background: var(--clr-dark);
+        font-family: var(--ff-regular);
+        width: 100%;
+        color: var(--clr-light-grey);
+    }
+
+    .information {
+        display: grid;
+        grid-template-rows: auto auto;
+        grid-row-gap: 10px;
+    }
+
+    .information h3 {
+        text-decoration: underline;
+    }
+
+    .information p {
+        display: block;
+        background: orange;
+        width: 100%;
+        text-indent: 10px;
+    }
+    
+    .email-link,
+    .linkedIn-link,
+    .discord-pseudo,
+    .github-link {
+        line-height: 2em;
+        border: 2px #444 dashed;
+    }
+
+    .email-link:hover,
+    .linkedIn-link:hover,
+    .discord-pseudo:hover,
+    .github-link:hover {
+        font-weight: bold;
+    }
+    
+    .thanks p {
+        margin: 0;
     }
 
 }
