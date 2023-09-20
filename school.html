@@ -9,7 +9,6 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong|Arial|Open+Sans">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="js/includes.js"></script>
-        <script src="js/features.js"></script>
         <link rel="stylesheet" href="generic-patterns/css/horizontalmenu.css">
         <link rel="stylesheet" href="generic-patterns/css/footer.css">
         <link rel="stylesheet" href="generic-patterns/css/main.css">
@@ -23,41 +22,63 @@
         <section class="main-container">
 
             <a href="https://www.enib.fr/fr/" class="enib-link"><img src="images/enib.webp" class="enib-logo"></a>
-            
-            <section class="year-4"> <h2>4th year of engineering studies</h2>
+
+            <section class="accordion-y4">
+                <h2 class="title">4th year of engineering studies</h2>
                 <p>Within this section, I will endeavor to release a weekly content. By summarizing and explaining each what was covered during the lecture. 
-                    To have a broader view of each course, you can be click their entitlement.</p>
-                <button type="button" class="collapsible"><h3>Digital Signal Processing (Specialization)</h3></button>
-                <div class="subject" class="tsi">
-                    <p>Laplace & Fourier transforms, Butterworth & Tchebychev, Matlab, Jupyter NoteBook</p>
+                                            To have a broader view of each course, you can be click their entitlement.</p>
+                <hr>
+                <div class="container">
+                    <div class="label"> <h3>Signal Processing</h3>
+                        <div class="content">
+                            <p>Laplace & Fourier transforms, Butterworth & Tchebychev, Matlab, Jupyter NoteBook</p>
+                        </div>
+                    </div>
                 </div>
-
-                <button type="button" class="collapsible"><h3>Digital Embedded Systems</h3></button>
-                <div class="subject sen"> <a href=""></a>
-                    <p>OS architecture & performances</p>
+                <hr>
+                <div class="container">
+                    <div class="label"> <h3>Digital Embedded Systems</h3>
+                        <div class="content">
+                            <p>OS architectures, performances, synchronization</p>
+                        </div>
+                    </div>
                 </div>
-
-                <button type="button" class="collapsible"><h3>Instrumentation Power Interface</h3></button>
-                <div class="subject ips"> <a href=""></a>
-                    <p>Closed-loop systems, sensors, </p>
+                <hr>
+                <div class="container">
+                    <div class="label"> <h3>Network & Communication Systems</h3>
+                        <div class="content">
+                            <p>Networking, UDP/TCP, Sockets, CAN/UART/I²C</p>
+                        </div>
+                    </div>
                 </div>
-
-                <button type="button" class="collapsible"><h3>System and Network Communication</h3></button>
-                <div class="subject crs"> <a href=""></a>
-                    <p>Networking, UDP/TCP, Sockets, CAN/UART/I²C</p>
+                <hr>
+                <div class="container">
+                    <div class="label"> <h3>Interface Power Systems</h3>
+                        <div class="content">
+                            <p>Closed-loop system, sensors, motors</p>
+                        </div>
+                    </div>
                 </div>
-
-                <button type="button" class="collapsible"><h3>Company Administration and Management (Double-Diploma)</h3></button>
-                <div class="subject mae"> <a href=""></a>
-                    <p>Comptability, Finance</p>
+                <hr>
+                <div class="container">
+                    <div class="label"> <h3>lll</h3>
+                        <div class="content">
+                            <p>Closed-loop systems, sensors, </p>
+                        </div>
+                    </div>
                 </div>
-
-                <button type="button" class="collapsible"><h3>German</h3></button>
-                <div class="subject" class="all">
+                <hr>
+                <div class="container">
+                    <div class="label"> <h3>Company administration & management</h3>
+                        <div class="content">
+                            <p>Closed-loop systems, sensors, </p>
+                        </div>
+                    </div>
                 </div>
-            </section>
-            
-        </section>
+            </section> <!-- accordion -->
+        
+        
+        </section> <!-- main-container -->
 
         <div id="footer"></div>
 
