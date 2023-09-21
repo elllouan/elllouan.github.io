@@ -1,0 +1,113 @@
+@import url("index_style.css");
+
+.main-container {
+    position: relative;
+    padding: 1rem 8rem;
+}
+
+.main-container a {
+    color: #444;
+}
+
+.home-title {
+    margin-left: 5em;
+}
+
+.inner-link {
+    font-style: italic;
+    color: var(--clr-dark);
+}
+
+.inner-link:hover {
+    text-decoration: underline;
+}
+
+@media screen and (min-width: 481px) {
+
+    .portofolio-title {
+        text-align: center;
+        text-decoration: underline;
+    }
+
+    .main-container p {
+        padding: 1rem;
+        text-align: justify; /* justify text */ 
+    }
+
+    .main-container ul {
+        padding-left: 3em;
+    }
+
+    .projects-container {
+        position: relative;
+        display: flex; /* Use flexbox for layout */
+        justify-content: space-around;
+        gap: 30%;
+        max-height: 50%; /* Set a height for the container */
+        height: 15%; /*Set a height for the container */
+    }
+
+    .projects-academic h2,
+    .projects-personal h2 {
+        margin-bottom: 1rem;
+        width: max-content;
+    }
+
+    .projects-academic {
+        display: flex; /* Use flexbox for layout */
+        flex-direction: column;
+        justify-content: space-between; /* Distribute boxes evenly across the container */
+        align-items: center; /* Center vertically */
+        height: 100%; /*Set a height for the container */
+        background-color: rgb(255, 186, 58);
+        width: 50%;
+    }
+
+    .projects-personal {
+        display: flex; /* Use flexbox for layout */
+        flex-direction: column;
+        justify-content: space-between; /* Distribute boxes evenly across the container */
+        align-items: center; /* Center vertically */
+        height: 100%; /*Set a height for the container */
+        background-color: rgb(255, 186, 58);
+        width: 50%;
+    }
+
+    .project:hover {
+        text-decoration:double;
+        transition-property: all;
+        transition-duration: 1.5s;
+        transition-delay: 0s;
+        transform: scale(130%);
+    }
+
+    .project {
+        left: 0;
+        text-decoration: overline;
+        text-align: center;
+        height: 15%;
+        text-align:center;
+        width: 100%;
+    }
+
+    .pictures {
+        display: flex;
+    }
+
+    .pic1 {
+        width: 50%;
+    }
+
+    .pic2 {
+        width: 50%;
+    }
+
+    .pic3 {
+        width: 50%;
+    }
+
+    .pic4 {
+        width: 50%;
+    }
+
+}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html lang ="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- make sure that the content fit the device on which we open -->
+        <title> Haption </title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong|Arial|Open+Sans">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="js/includes.js"></script>
+        <link rel="stylesheet" href="generic-patterns/css/horizontalmenu.css">
+        <link rel="stylesheet" href="generic-patterns/css/footer.css">
+        <link rel="stylesheet" href="css/haption_style.css">
+        <link rel="stylesheet" href="css/portofolio_style.css">
+        <link rel="stylesheet" href="css/index_style.css">
+        <link rel="stylesheet" href="generic-patterns/css/main.css">
+    </head>
+
+    <!-- Within de web page -->
+    <body>        
+        <div id="horizontalmenu"></div>
+        
+        <section class="main-container">
+
+            <div class="logos">
+                <img src="images/haption_logo.png" alt="haptionlogo" class="logo">
+                <img src="images/enib.webp" alt="eniblogo" class="logo">
+            </div>
+
+            <h1 class="title"><strong>My first internship</strong>(2 months)</h1>
+
+            <section class="second-container">
+                <div class="text-container">
+                    <h3>This page talks about the first internship of my studies. I will be discussing the folowing topics:</h3>
+                    <p></p>
+                    <!-- <ol class="plan">
+                        <li><a href="#introduction-to-Haption"></a>The company Haption</li>
+                        <li><a href="#my-mission"></a>A shallow description of my mission</li>
+                        <li><a href="#technical-description"></a>A more in depth and technical description</li>
+                        <li><a href="#conclusion"></a>A reflection about my learning outcomes and my overall experience</li>
+                    </ol>
+                    <p></p> -->
+
+                    <h2 class="introduction-to-Haption">Introduction to Haption</h2>
+                    <p>Haption is a robotics company founded in 2001 located at Soulgé-Sur-Ouette in Mayenne (53). They develop force-feedback
+                        devices. Along building and selling their devices, they also thought up their own software API (RaptorAPI).
+                        Their are mostly known for their devices "Virtuose" that offer a force-feedback effort for 3 or 6 degrees of freedom along translations
+                        and rotations. They sell two different formats of Virtuose, namely the "Standard" version and the "Desktop" a smaller version.
+                        Their devices are used in a wide range of nuclear, robotics, health and industry applications.
+                        The site consists of roughly 15 employees and a few commercials scattered around the globe.
+                        There is also another site in Germany but this one consists of only one person, Jérôme, chief of the software department.
+                    </p>
+
+                    <h2 class="my-mission">My mission at Haption</h2>
+                    <p>I was in charge of developing a Graphical User Interface (GUI) application in C++. The purpose of this application was to run some
+                        portions of code of their newly developed API, namely RaptorAPI, in order to test the accuracy and well functioning of the devices.
+                        The ultimate goal was to incorporate tests of a validation test bench (done by another internee) so that the company and clients can
+                        conduct them in an easier way thanks to the help of a user-friendly graphical interface.
+                    </p>
+
+                    <h2 class="technical-description">Technical description</h2>
+                    <p>When I arrived at the end of June, there was a first version of the GUI but this version was really skimpy. 
+                        To give a clear overview of the work I accomplished, I split my whole work into multiple tasks that I identified:</p> 
+                    <ul>
+                        <li>Accomodate to my new environment</li>
+                        <p>First off, I needed to clearly understand the purpose of my mission here. I was assigned a spot inside the study office.
+                            Then, for the first 2 or so weeks I mostly dedicated my time to get familiar with the RaptorAPI and also to the whole setup.</p>
+                        <li>Learn how to build a project with CMake</li>
+                        <p>I quickly found out that I would need to use CMake to handle the build process of my project. It was a great opportunity to learn
+                            about compiler, linker, depdendencies and how they are linked to one another. I learnt a lot about CMake and you can check my tutorial to see more.</p>
+                        <li>Develop the GUI further</li>
+                        <p>The GUI was programmed using <a href="https://github.com/ocornut/imgui">DearImGui</a>. This is an open-source project available on
+                            GitHub. When I arrived the project consisted of only 2 classes and was not fully using the Object-Oriented Paradigm (OOP).
+                            Use OOP, rearange the graphical aspect, incorporate tests, Have the app cross-platform, </p>
+                        <li>Implement a configuration file to save settings</li>
+                        <p>First thought of a database, then yaml </p>
+                        <li>Write documentation and guidance</li>
+                        <p>To not lose all my throughput, I considered that I had to write a documentation for the Haption software team, as they will
+                            probably improve the GUI. This is just the beginning of the project    
+                        </p>
+                    </ul>    
+                    
+                    <p>
+                    </p>
+
+                    <h2 class="conclusion">Learning outcomes</h2>
+                    <p>
+                    </p>
+
+                    <h2>Conclusion</h2>
+                    <p>I would like to thank the whole Haption team that was really welcoming and pleasing to work with. The company gives off an extremely good atmosphere conducive
+                        to working efficiently. Even-though my original internship's subject was not considered, I took pleasure to put my C++ knowledge into practice. Also, I am
+                        satisfied that I was able to enhance my programmation skills (CMake, SQL, YAML, Git, VS Code) and personal skills (autonomy, team work). Overall, it was great
+                        first professional experience and I hope to live a such experience again in the future.   
+                        
+                    </p>
+                </div>
+
+                <div class="img-container"">
+                    <img src="images/haption_logo.png" alt="haptionlogo" class="illustration">
+                    <img src="images/enib.webp" alt="eniblogo" class="illustration">
+                </div>
+            </section>
+            
+           
+            
+        </section>
+
+        <div id="footer"></div>
+    </body>
+
+</html>
