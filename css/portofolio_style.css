@@ -2,7 +2,7 @@
 
 .main-container {
     position: relative;
-    padding: 2rem 3rem;
+    padding: 1rem 8rem;
 }
 
 .main-container a {
@@ -88,6 +88,26 @@
         height: 15%;
         text-align:center;
         width: 100%;
+    }
+
+    .pictures {
+        display: flex;
+    }
+
+    .pic1 {
+        width: 50%;
+    }
+
+    .pic2 {
+        width: 50%;
+    }
+
+    .pic3 {
+        width: 50%;
+    }
+
+    .pic4 {
+        width: 50%;
     }
 
 }

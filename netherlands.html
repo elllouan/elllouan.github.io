@@ -5,90 +5,31 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- make sure that the content fit the device on which we open -->
-        <title> My Portofolio Website </title>
+        <title> Fontys </title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong|Arial|Open+Sans">
-        <link rel="stylesheet" href="css/portofolio_style.css">
-        <link rel="stylesheet" href="css/index_style.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="js/includes.js"></script>
+        <link rel="stylesheet" href="generic-patterns/css/horizontalmenu.css">
+        <link rel="stylesheet" href="generic-patterns/css/footer.css">
+        <link rel="stylesheet" href="css/netherlands.css">
     </head>
 
     <!-- Within de web page -->
     <body>
+        
+        <div id="horizontalmenu"></div>
 
-        
-        
         <section class="main-container">
-            <p>This is my portofolio. It lists my most important experiences. Within this section, I aim at describing some of my personal, 
-            academic and professional achievements, and most importantly, what I learnt from them.</p>
 
-            <h2>Work philosophy</h2>
-            <p>First off, I would like to introduce you my goal. As I am entering my fourth year in my engineering studies, 
-            I realised that I needed to bring more tangibility into my work by documenting it. My mindset could be summarized in these adjectives:</p>
-            <ul>
-                <li>Curious: Especially for the fields of electronics and computer engineering.</li>
-                <li>Proactivity: Inquiring upfront, being inquisitive and asking for feedback.</li>
-                <li>Resourceful: Being able to self-teach or make efficient researchs on subjects or topics when necessary.</li>
-            </ul>
-            <p>I try as much as possible to build a deep and long-term knowledge.</p>
+            <h3 style="padding: 0 0 1rem 0;">Short Video about my embedded system project in the Netherlands: Implementation of a PID in C code.</h3>
+            <video controls width="400">
+                <source src="images/bot_project.mp4" type="video/mp4">
+            </video>
 
-            <h2>Resume</h2>
-            <p>This section is an overview of the major projects I worked in.</p>
-            <ul>
-                <li>Spring 2021 (3 months): Python game in the command line.</li>
-                <li>1st Semester 2022 (2 months): Mechanical project.</li>
-                <li>November 2022 (2 days): Participation at the Ocean Hackhathon.</li>
-                <li>Spring 2023 (2 months): Wheel-car project.</li>
-                <li>Spring 2023 (3 months): Power Load Balancer.</li>
-                <li>Summer 2023 (2 months): Development of a GUI.</li>
-            </ul>
-            <p></p>
-            
-            <h2>Projects</h2>
-            <p>This section aims at showing all the major projects, which I have contributed to, whether they are personal, academic or professional.</p>
-            
-            <section class="projects-container">
-                <div class="project"><a href="#">Python game</a></div>
-                <div class="project"><a href="#">Power Load Balancer</a></div>
-                <div class="project"><a href="#">Wheel-Car project</a></div>
-                <div class="project"><a href="#">Development of a GUI</a></div>
-                <div class="project"><a href="#">Wizz</a></div>
-                <div class="project"><a href="#">Learning OpenGL</a></div>
-                <div class="project"><a href="#">This website</a></div>
-            </section>
-            <p></p>
-
-            <h2>Transcript of records</h2>
-            <p>Finally, you can consult my grades aranged by semester: </p>
-            <ul>
-                <li>1st Semester: </li>
-                <li>2nd Semester: </li>
-                <li>3rd Semester: </li>
-                <li>4th Semester: </li>
-                <li>5th Semester: </li>
-                <li>6th Semester: </li>
-            </ul>
-
-                
         </section>
 
+        <div id="footer"></div>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <section class="information">
-                <div class="contacts">
-                    <h3><a style="text-decoration: underline;">Here my contacts</a> :</h3>
-                    <p class="email-link"><a style="text-decoration: underline;">E-mail</a> : <a href="elouantheot@gmail.com">elouantheot@gmail.com</a></p>
-                    <p class="linkedIn-link"><a style="text-decoration: underline;">Linked In</a> : <a href="https://www.linkedin.com/in/elouan-theot/">elouan-theot</a></p>
-                    <p class="discord-pseudo"><a style="text-decoration: underline;">Add me on Discord</a> : <span style="font-style: italic;">Elouan#9436</span></p>
-                </div>
-                <div class="mywork" id="work">
-                    <h3><a style="text-decoration: underline;">See my work here</a> :</h3>
-                    <p class="gitHub-link"><a style="text-decoration: underline;">Git Hub</a> : <a href="https://github.com/elllouan">elllouan</a></p>
-                </div>
-            </section>
-            <section class="thanks">
-                <p> I would like to give a special thanks to <a href="https://www.freecodecamp.org/learn" style="font-style: italic;">freecodecamp</a> for providing free tutorials. It helped me a lot.</p>
-            </section>
-        </footer>
     </body>
 
 </html>

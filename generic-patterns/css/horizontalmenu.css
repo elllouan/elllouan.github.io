@@ -10,17 +10,22 @@
 
     nav li {
         color: var(--clr-light-grey);
-        padding: 1em;
         display: inline-block; /* align list elements in a row */
         margin-inline: 1em 1em;
-        position: sticky;
         top: 0;
         visibility: visible;
         text-align: center;
+        line-height: 75px; /* Vertically center the text inside the items */
     }
 
     nav li a:hover {
         text-decoration: overline;
+        font-size: 18px;
+    }
+
+    .home-title::before {
+        content: url(../../images/home.svg);
+        padding-right: 20px;
     }
 
 }

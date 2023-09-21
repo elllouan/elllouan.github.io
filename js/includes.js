@@ -5,12 +5,13 @@ $(document).ready(function() {
 
     // Load and insert the footer content
     $("#footer").load("generic-patterns/html/footer.html");
+
+    $(".subject-container").on("click", function() {
+      $(this).toggleClass("subj-active");
+    });
+
+    $(".course-container").on("click", function() {
+      $(this).toggleClass("crs-active");
+    });
+
 });
-
-const accordion = document.getElementsByClassName('container');
-
-for (i=0; i<accordion.length; i++) {
-  accordion[i].addEventListener('click', function () {
-    this.classList.toggle('active')
-  })
-}
