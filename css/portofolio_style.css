@@ -38,13 +38,17 @@
         padding-left: 3em;
     }
 
+    .resume, .education {
+        display: flex;
+    }
+
     .projects-container {
         position: relative;
         display: flex; /* Use flexbox for layout */
         justify-content: space-around;
-        gap: 30%;
-        max-height: 50%; /* Set a height for the container */
-        height: 15%; /*Set a height for the container */
+        gap: 20%;
+        max-height: 80%; /* Set a height for the container */
+        height: 100%; /*Set a height for the container */
     }
 
     .projects-academic h2,
@@ -82,10 +86,9 @@
     }
 
     .project {
-        left: 0;
         text-decoration: overline;
         text-align: center;
-        height: 15%;
+        line-height: 300%;
         text-align:center;
         width: 100%;
     }
