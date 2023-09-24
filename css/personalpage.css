@@ -1,0 +1,43 @@
+@import url("index_style.css");
+
+.main-container {
+    position: relative;
+    padding: 1rem 8rem;
+}
+
+.main-container a {
+    color: #444;
+}
+
+@media screen and (min-width: 481px) {
+
+    .personalpage-title {
+        text-align: center;
+        text-decoration: underline;
+    }
+
+    .main-container p {
+        padding: 1rem;
+        text-align: justify; /* justify text */ 
+    }
+
+    .main-container ul {
+        padding-left: 3em;
+    }
+
+    .podcasts,
+    .books,
+    .sport {
+        display: flex;
+    }
+
+    .podcasts-img {
+        margin-top: 3rem;
+    }
+
+    .podcasts-img img {
+        width: 30%;
+        margin: 1rem;
+    }
+
+}
