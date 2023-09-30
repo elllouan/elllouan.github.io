@@ -1,0 +1,75 @@
+/* @import url("index_style.css"); */
+
+.main-container {
+    position: relative;
+}
+
+.main-container a {
+    color: #444;
+}
+
+@media screen and (min-width: 481px) {
+
+    .accordion-current-projects {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 85%;
+        text-align: left;
+        border: 2px solid #333;
+        background-color: lightgrey;
+    }
+
+    .accordion-current-projects .current-project {
+        position: relative;
+        border: solid orange;
+        padding: 0.5rem;
+        margin: 1rem 0;
+    }
+
+    .accordion-current-projects .current-project:hover {
+        background-color: #dedede;
+    }
+
+    .accordion-current-projects .label {
+        cursor: pointer;
+        position: relative;
+    }
+
+    .accordion-current-projects .label::before {
+        content: '+';
+        color: black;
+        position: absolute;
+        top: 50%;
+        right: -1px;
+        font-size: 30px;
+        transform: translateY(-50%);
+      }
+
+    .accordion-current-projects .content {
+        position: relative;
+        background-color: #f0f0f0;
+        height: 0;
+        text-align: justify;
+        width: 98%;
+        overflow: hidden;
+        transition: 0.5s;
+      }
+
+    .accordion-current-projects .current-project.proj-active .content {
+        height: fit-content;
+        margin: 1rem 0.3rem 0.3rem 0.3rem;
+        cursor:auto;
+    }
+
+    .accordion-current-projects .current-project.proj-active .label::before {
+        content: '-';
+        font-size: 30px;
+    }
+
+    .features {
+        padding: 0 3rem;
+    }
+
+
+}

@@ -10,8 +10,8 @@ $(document).ready(function() {
       $(this).toggleClass("subj-active");
     });
 
-    $(".course-container").on("click", function() {
-      $(this).toggleClass("crs-active");
+    $(".current-project").on("click", function() {
+      $(this).toggleClass("proj-active");
     });
 
 });

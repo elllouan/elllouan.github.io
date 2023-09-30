@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="generic-patterns/css/horizontalmenu.css">
         <link rel="stylesheet" href="generic-patterns/css/footer.css">
         <link rel="stylesheet" href="generic-patterns/css/main.css">
+        <link rel="stylesheet" href="css/currentprojetcs.css">
     </head>
 
     <!-- Within de web page -->
@@ -20,6 +21,48 @@
         
         <section class="main-container">
 
+            <section class="accordion-current-projects">
+
+                <h2 class="title">Current projects</h2>
+                <p>Within this section, I talk about my ongoing projects whether they are academic or personal.</p>
+                <hr>
+
+                <div class="current-project"> 
+                    <div class="label"> <h2>Control System (Academic)</h2>  </div>
+                    <div class="content">
+
+                    </div>
+                </div>
+
+                <div class="current-project">
+                    <div class="label"> <h2>Robot project</h2> </div>
+                    <div class="content">
+
+                    </div>
+                </div>
+
+                <div class="current-project">
+                    <div class="label"> <h2>Calculator project</h2> </div>
+                    <div class="content">
+                        <p>In this project, our goal is to develop a scripting calculator but embedded on a (NXP) microcontroller.
+                            Therefore, we use a C library called <span style="font-style: italic;">Calc</span> that can be integrated in a microcontroller
+                            and was developed to perform basic arithmetic operations.
+                            The project goes like this. We have a the PC that can communicate with the NXP board over UART. From the PC, we open a serial 
+                            terminal and input math operation commands. These are received by the microcontroller which interprets them (Calc library).
+                            From there, it computes and sends back the result of the input operation over UART that ends up printed out on our serial monitor.
+                            We aim at developing further this calculator by adding new features to the system.</p>
+                            <ol class="features">
+                                <li>Load files directly from an external storage device</li>
+                                <li>Display graphs on a LCD screen</li>
+                                <li>Use the two-core feature to split up tasks: one core that handles calculations and the other one that handles display.</li>
+                                <li>Integrate more advanced math operations such as FFT or matrix operations with <span style="font-style: italic;">PowerQuad</span>.</li>
+                            </ol>  
+                            <p>The NXP microcontroller we use (LPCS55S69-EVK), is a two-core microcontroller.</p>
+                        </p>
+                    </div>
+                </div>
+
+            </section>
             
 
         
