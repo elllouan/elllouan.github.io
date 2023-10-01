@@ -1,4 +1,133 @@
-p a {
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* every measurement/size is given with padding and border*/
+}
+
+.wink::after {
+    content: "😉";
+    font-size: 1rem;
+}
+
+/* Custom properties */
+:root {
+    --ff-primary: 'Audiowide', sans-serif; 
+    --ff-secondary: 'Trirong', sans-serif;
+    --ff-regular: 'Open Sans';
+    --ff-robot: 'Courier New', Courier, monospace;
+    /* ff stands for 'font family' */
+
+    --clr-light: papayawhip;
+    --clr-light-grey: #f0f0f0;
+    --clr-light-orange: rgb(253, 209, 127);
+    --clr-dark: #333;
+    /* clr stands for 'color' */
+
+    --fw-bold: 800;
+    --fw-regular: 300;
+    --fw-light: 200;
+
+    --fs-h1: 3rem;
+    --fs-h2: 2.5rem;
+    --fs-h3: 1.75rem;
+    --fs-h4: 1.25rem;
+    --fs-std: 1rem;
+    /* fs stands for 'family size' */
+} 
+
+/* General styles */
+
+body { /* set default characteristics within the body */
+    color: var(--clr-dark);
+    font-family: var(--ff-regular);
+    font-size: var(--fs-std);
+    font-weight: var(--fw-regular);
+    border:  0.5em var(--clr-dark) solid;
+    background: var(--clr-light-grey);
+}
+
+img { /* set default characteristics for images */
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* Typography */
+
+h1, h2, h3 {
+    line-height: 1.2;
+    margin: 0;
+}
+
+h1 { 
+    font-size: var(--fs-h1);
+    border-bottom: 5px var(--clr-dark) solid;
+}
+
+h2 { 
+    font-size: var(--fs-h2); 
+    font-family: var(--ff-subtitle);
+    border-top: 5px var(--clr-dark) solid;
+    width: 50%;
+}
+
+h3 { 
+    font-size: var(--fs-h3); 
+}
+
+h4 {
+    font-size: var(--fs-h4);
+}
+
+section {
+    padding: 1em; /* amount of void on sections edges */ 
+}
+
+a {
+    text-decoration: none;
+    color: var(--clr-light-grey);
+    font-size: var(--fs-std);
     font-style: italic;
-    color: blue;
+}
+
+strong {
+    display: block;
+    font-family: var(--ff-primary);
+    font-size: var(--fs-h1);
+    font-weight: var(--fw-bold);
+}
+
+button {
+    font-family: var(--ff-primary);
+    font-size: var(--fs-std);
+    font-weight: var(--fw-bold);
+    background-color: var(--clr-light-orange);
+    border: 2px solid var(--clr-dark);
+    border-radius: 5px;
+    padding: 0.5em;
+    margin: 1em;
+    cursor: pointer;
+}
+
+.home-title {
+    font-family: var(--ff-primary);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-h4);
+}
+
+.mark {
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: large;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.main-container {
+    position: relative;
+    padding: 1rem 8rem;
 }

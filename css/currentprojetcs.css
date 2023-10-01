@@ -1,5 +1,3 @@
-/* @import url("index_style.css"); */
-
 .main-container {
     position: relative;
 }
@@ -56,13 +54,13 @@
         transition: 0.5s;
       }
 
-    .accordion-current-projects .current-project.proj-active .content {
+    .accordion-current-projects .current-project.active .content {
         height: fit-content;
         margin: 1rem 0.3rem 0.3rem 0.3rem;
         cursor:auto;
     }
 
-    .accordion-current-projects .current-project.proj-active .label::before {
+    .accordion-current-projects .current-project.active .label::before {
         content: '-';
         font-size: 30px;
     }

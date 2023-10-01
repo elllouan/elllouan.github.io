@@ -8,7 +8,8 @@
         <title> School </title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong|Arial|Open+Sans">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="js/includes.js"></script>
+        <script src="js/script.js"></script>
+        <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
         <link rel="stylesheet" href="generic-patterns/css/horizontalmenu.css">
         <link rel="stylesheet" href="generic-patterns/css/footer.css">
         <link rel="stylesheet" href="generic-patterns/css/main.css">
@@ -32,18 +33,49 @@
                 <div class="subject-container">
                     <div class="label"> <h3>Signal Processing</h3>
                         <div class="content">
-                            <p>Our purpose in this course is to understand what are the impacts of the sampling on an analog signal.</p>
-                            <div class="keywords">Keywords: Sound/Image processing, Laplace/Fourier, Filters, Analog/Discrete signals</div>
-                            <div> <h4>1. Discrete Fourier Transform (TFD) and Analog Filter Synthesis</h4> </div>
-                                <div>
-                                    <p>First off, let's remind us of the TFD.
+                            <p>This course gives an understanding on how we numerize a signal, what are the impacts and how we can elaborate a digital filter to filter an analog signal.</p>
+                            <div class="keywords">Keywords: Sound/Image processing, Laplace/Fourier, Filters, Analog/Discrete signals, Sampling</div>
+                                <div> <h4>1. Discrete Fourier Transform (DFT) and Analog Filter Synthesis</h4>
+                                    <p>With a view to processing digital signals, we need to turn a continuous (or analog) signal into a discrete signal
+                                        that consists of a finite number of samples that can be handled by a processor. Therefore, we use the DFT, let's remind us quickly of that. </p>
                                     <ol>
-                                        <li> <div class="mark">1. Sampling & Quantification:</div> turns the continuous signal into a discrete signal.</li>
-                                        <li> <div class="mark">2. Temporal truncation of the signal:</div> get an finite amount of samplings.</li>
-                                        <li> <div class="mark">3. Spectral discretization:</div> turns the continuous spectrum into a discrete spectrum.</li>
-                                        <li> <div class="mark">4. Zero-Padding (optional):</div> increase the spectrum's resolution.</li>
+                                        <li> <span class="bold">1. Sampling & Quantification:</span>            turns the continuous signal into a discrete signal.</li>
+                                        <li> <span class="bold">2. Temporal truncation of the signal:</span>    get an finite amount of samplings.</li>
+                                        <li> <span class="bold">3. Spectral discretization:</span>              turns the continuous spectrum into a discrete spectrum.</li>
+                                        <li> <span class="bold">4. Zero-Padding (optional):</span>              increase the spectrum's resolution.</li>
                                     </ol>
-                                    </p>
+                                    <p>However, each one of these steps has an impact on the signal. Indeed, discretizing a signal is not without consequences and some parameters should be chosen wisely
+                                        to avoid aliasing and other artifacts.</p>
+                                    <button id="tsi-graphs1">Show illustrations</button>
+                                </div>
+                                <div> <h4>2. Digital Filter Synthesis</h4> </div>
+                                <div>
+                                    <p>There exists 2 types of digital filters: <span class="mark">IIR (Infinite Impulse Response)</span> and <span class="mark">FIR (Finite Impulse Response)</span>.</p>
+                                    <ol>
+                                        <div class="iir">
+                                            <li> <span class="mark">IIR:</span> the output depends on the current and previous inputs and outputs > <span class="math">\( s[n] = \sum_{i=0}^{M-1}{a_i e[i]} + \sum_{j=0}^{N-1}{a_i s[n-i]} \)</span></li>
+                                            <p>The purpose of this method is to determine the equivalent digital form \( H(z) \) (\(z\)-domain) of the analog template filter \( H(p) \). From there, we can deduce the <span class="bold">recursive algorithm \( s[n] \)</span> 
+                                                that will implement the digital filter.
+                                                This method is <span class="bold">more accurate</span> and will be generally preferred over the RIF method. However, the analog filter must meet some requirements to be feasible (stability).</p>
+                                            <p> - <span class="bold">Invariance of the Impulse Response:</span> This method consists of starting with an analog template </p>
+                                            <p> - <span class="bold">Discretization of the inverse DFT:</span> </p>
+                                            <p>All in all, this method has some benefits - <span class="bold">more selective, faster and requires only a few memory registers</span> - and some drawbacks - <span class="bold">can be unstable (poles), non-linear phase</span>.</p>
+                                        </div>
+                                        <div class="fir">
+                                            <li> <span class="mark">FIR:</span> the output depends only on the current and previous inputs > <span class="math">\( s[n] = \sum_{i=0}^{N-1}{a_i e[i] h[n-i]} \)</span></li>
+                                            <p>The purpose of this method is to determine an <span class="bold">approximation of the filter's impulse response</span> and then convolute it with the input signal.
+                                                As we consider only an approximation, the <span class="bold">filter's characteristics get modified</span> and we have to deal with some drawbacks such as the 
+                                                <span class="bold">apparition of wavelets</span> in the filter's spectrum (caused by the truncation --> convolution with sinc).</p>
+                                            <p> - <span class="bold">Coherence of the Impulse Response:</span></p>
+                                                <ol>
+                                                    <li>1. Sampling frequency: Determine \( f_{max}\) and apply the Shannon theorem: \(f_e\ \geq\ 2f_{max}\)</li>
+                                                    <li>2. Impulse response (IR): Find the impulse response of the analog filter.</li>
+                                                    <li>3. Signal truncation: Truncate the IR after a rank N such that \( h(N) \geq h_{max}/100\)</li>
+                                                </ol>
+                                            <p> - <span class="bold">Discretization of the inverse DFT:</span> We determine the IR samples using direclty the inverse DFT definition > <span class="math">\( h[n] = \frac{1}{N} \sum_{k=-\frac{N}{2}}^{\frac{N}{2}-1} X(k\delta f) e^{j2\pi \frac{n}{N}k} \)</span>.</p>
+                                            <p>All in all, this method has some benefits - <span class="bold">always stable (no poles), linear phase (if symmetric)</span> - and some drawbacks - <span class="bold">less selective, less efficient and requires more memory space</span>.</p>
+                                        </div>
+                                        
                                 </div>
                             </div>
                         </div>

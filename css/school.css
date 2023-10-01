@@ -1,19 +1,13 @@
-@import url("index_style.css");
-
 h4 {
     margin: 0 1rem 1rem 1rem;
     padding: 0.5rem;
     border: 1px solid #333;
     text-decoration: underline;
+    background-color: orange;
 }
 
 li {
     padding-left: 1rem;
-}
-
-.mark {
-    font-weight: bold;
-    text-decoration: underline;
 }
 
 .keywords {
@@ -21,16 +15,23 @@ li {
     padding: 0.5rem;
     border: 1px solid #333;
     font-weight: bold;
+    background-color: rgb(254, 196, 88);
+}
+
+.math {
+    outline: 2px solid orange;
+}
+
+.iir, .fir {
+    background-color: bisque;
+    margin: 0.2rem;
 }
 
 @media screen and (min-width: 481px) {
-
-    .main-container {
-        position: absolute;
-    }
     
     .main-container p {
-        text-align: justify; /* justify text */ 
+        text-align: justify; /* justify text */
+        margin: 0.75rem;
     }
 
     .enib-logo {
@@ -94,13 +95,13 @@ li {
         transition: 0.5s;
       }
 
-    .accordion-y4 .subject-container.subj-active .content {
+    .accordion-y4 .subject-container.active .content {
         height: fit-content;
         margin: 1rem 0.3rem 0.3rem 0.3rem;
         cursor:auto;
     }
 
-    .accordion-y4 .subject-container.subj-active .label::before {
+    .accordion-y4 .subject-container.active .label::before {
         content: '-';
         font-size: 30px;
     }

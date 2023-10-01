@@ -1,22 +1,11 @@
-@import url("index_style.css");
-
-.main-container {
-    position: relative;
-}
-
 .main-container a {
     color: #444;
 }
 
 @media screen and (min-width: 481px) {
 
-    .main-container {
-        margin: 1rem 7rem;
-    }
-
     .personalpage-title {
         text-align: center;
-        text-decoration: underline;
     }
 
     .personalpage-subtitle {
@@ -61,8 +50,50 @@
 @media(max-width: 481px) {
 
     .main-container {
-        margin: 1rem 4rem;
-        background-color: aqua;
+        margin: 1rem 1rem;
     }
 
+    .personalpage-title {
+        text-align: center;
+        text-decoration: underline;
+    }
+
+    .personalpage-subtitle {
+        text-align: justify;
+        padding: 1.5rem;
+    }
+
+    .main-container p {
+        padding: 1rem;
+        text-align: justify; /* justify text */ 
+    }
+
+    .podcasts,
+    .books,
+    .sport {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .radiolab,
+    .thinkerview,
+    .thegreatsimplification,
+    .metadechoc {
+        display: flex;
+        flex-direction: column;
+        /* justify-content: space-between; */
+        gap: 5vh;
+        align-items: center; /* align items vertically */
+    }
+
+    .podcast-description {
+        width: 100%;
+    }
+
+    .podcasts-img img {
+        width: 150px;
+        margin: auto;
+
+    }
 }
