@@ -58,8 +58,8 @@ $(document).ready(function() {
     // Load and insert the footer content
     $("#footer").load("generic-patterns/html/footer.html");
 
-    $(".subject-container").on("click", function() {
-      $(this).toggleClass("active");
+    $(".label").on("click", function() {
+      $(this).parent().toggleClass("active");
     });
 
     $(".current-project").on("click", function() {

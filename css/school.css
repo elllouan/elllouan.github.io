@@ -10,6 +10,10 @@ li {
     padding-left: 1rem;
 }
 
+ol {
+    margin-left: 1.5rem;
+}
+
 .keywords {
     margin: 0 1rem 1rem 1rem;
     padding: 0.5rem;
@@ -22,9 +26,72 @@ li {
     outline: 2px solid orange;
 }
 
-.iir, .fir {
-    background-color: bisque;
-    margin: 0.2rem;
+.frame-highlight {
+    background-color: rgb(255, 211, 154);
+    margin: 0.5rem;
+}
+
+.terminal {
+width: 400px;
+height: 300px;
+background-color: #000;
+color: #00FF00;
+font-family: 'Courier New', monospace;
+border: 1px solid #00FF00;
+border-radius: 5px;
+overflow: hidden;
+box-shadow: 0px 0px 10px #00FF00;
+}
+
+.header {
+background-color: #00FF00;
+padding: 5px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+color: #000;
+}
+
+.buttons {
+display: flex;
+}
+
+.button {
+width: 12px;
+height: 12px;
+border-radius: 50%;
+margin-right: 5px;
+}
+
+.close { background-color: #FF0000; }
+.minimize { background-color: #FFA500; }
+.maximize { background-color: #00FF00; }
+
+.output {
+margin: 0;
+padding: 10px;
+white-space: pre-wrap;
+overflow-y: auto;
+}
+
+.input {
+display: flex;
+align-items: center;
+padding: 5px;
+background-color: #000;
+}
+
+span {
+padding-right: 5px;
+}
+
+input[type="text"] {
+background-color: transparent;
+border: none;
+outline: none;
+color: #00FF00;
+font-family: 'Courier New', monospace;
+width: 100%;
 }
 
 @media screen and (min-width: 481px) {

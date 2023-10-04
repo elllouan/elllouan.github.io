@@ -31,51 +31,125 @@
                     To have a broader view of each course, you can click their entitlement.</p>
                 <hr>
                 <div class="subject-container">
-                    <div class="label"> <h3>Signal Processing</h3>
-                        <div class="content">
-                            <p>This course gives an understanding on how we numerize a signal, what are the impacts and how we can elaborate a digital filter to filter an analog signal.</p>
-                            <div class="keywords">Keywords: Sound/Image processing, Laplace/Fourier, Filters, Analog/Discrete signals, Sampling</div>
-                                <div> <h4>1. Discrete Fourier Transform (DFT) and Analog Filter Synthesis</h4>
-                                    <p>With a view to processing digital signals, we need to turn a continuous (or analog) signal into a discrete signal
-                                        that consists of a finite number of samples that can be handled by a processor. Therefore, we use the DFT, let's remind us quickly of that. </p>
+                    <div class="label"> <h3>Signal Processing</h3> </div>
+                    <div class="content">
+                        <p>This course gives an understanding on how we numerize a signal, what are the impacts and how we can elaborate a digital filter to filter an analog signal.</p>
+                        <div class="keywords">Keywords: Sound/Image processing, Laplace/Fourier, Filters, Analog/Discrete signals, Sampling</div>
+                            <div> <h4>1. Discrete Fourier Transform (DFT) and Analog Filter Synthesis</h4>
+                                <p>With a view to processing digital signals, we need to turn a continuous (or analog) signal into a discrete signal
+                                    that consists of a finite number of samples that can be handled by a processor. Therefore, we use the DFT, let's remind us quickly of that. </p>
+                                <div class="frame-highlight">
                                     <ol>
-                                        <li> <span class="bold">1. Sampling & Quantification:</span>            turns the continuous signal into a discrete signal.</li>
-                                        <li> <span class="bold">2. Temporal truncation of the signal:</span>    get an finite amount of samplings.</li>
-                                        <li> <span class="bold">3. Spectral discretization:</span>              turns the continuous spectrum into a discrete spectrum.</li>
-                                        <li> <span class="bold">4. Zero-Padding (optional):</span>              increase the spectrum's resolution.</li>
+                                        <li> <span class="bold">Sampling & Quantification:</span>            turns the continuous signal into a discrete signal.</li>
+                                        <li> <span class="bold">Temporal truncation of the signal:</span>    get an finite amount of samplings.</li>
+                                        <li> <span class="bold">Spectral discretization:</span>              turns the continuous spectrum into a discrete spectrum.</li>
+                                        <li> <span class="bold">Zero-Padding (optional):</span>              increase the spectrum's resolution.</li>
                                     </ol>
-                                    <p>However, each one of these steps has an impact on the signal. Indeed, discretizing a signal is not without consequences and some parameters should be chosen wisely
-                                        to avoid aliasing and other artifacts.</p>
-                                    <button id="tsi-graphs1">Show illustrations</button>
                                 </div>
-                                <div> <h4>2. Digital Filter Synthesis</h4> </div>
-                                <div>
-                                    <p>There exists 2 types of digital filters: <span class="mark">IIR (Infinite Impulse Response)</span> and <span class="mark">FIR (Finite Impulse Response)</span>.</p>
-                                    <ol>
-                                        <div class="iir">
-                                            <li> <span class="mark">IIR:</span> the output depends on the current and previous inputs and outputs > <span class="math">\( s[n] = \sum_{i=0}^{M-1}{a_i e[i]} + \sum_{j=0}^{N-1}{a_i s[n-i]} \)</span></li>
-                                            <p>The purpose of this method is to determine the equivalent digital form \( H(z) \) (\(z\)-domain) of the analog template filter \( H(p) \). From there, we can deduce the <span class="bold">recursive algorithm \( s[n] \)</span> 
-                                                that will implement the digital filter.
-                                                This method is <span class="bold">more accurate</span> and will be generally preferred over the RIF method. However, the analog filter must meet some requirements to be feasible (stability).</p>
-                                            <p> - <span class="bold">Invariance of the Impulse Response:</span> This method consists of starting with an analog template </p>
-                                            <p> - <span class="bold">Discretization of the inverse DFT:</span> </p>
-                                            <p>All in all, this method has some benefits - <span class="bold">more selective, faster and requires only a few memory registers</span> - and some drawbacks - <span class="bold">can be unstable (poles), non-linear phase</span>.</p>
-                                        </div>
-                                        <div class="fir">
-                                            <li> <span class="mark">FIR:</span> the output depends only on the current and previous inputs > <span class="math">\( s[n] = \sum_{i=0}^{N-1}{a_i e[i] h[n-i]} \)</span></li>
-                                            <p>The purpose of this method is to determine an <span class="bold">approximation of the filter's impulse response</span> and then convolute it with the input signal.
-                                                As we consider only an approximation, the <span class="bold">filter's characteristics get modified</span> and we have to deal with some drawbacks such as the 
-                                                <span class="bold">apparition of wavelets</span> in the filter's spectrum (caused by the truncation --> convolution with sinc).</p>
-                                            <p> - <span class="bold">Coherence of the Impulse Response:</span></p>
-                                                <ol>
-                                                    <li>1. Sampling frequency: Determine \( f_{max}\) and apply the Shannon theorem: \(f_e\ \geq\ 2f_{max}\)</li>
-                                                    <li>2. Impulse response (IR): Find the impulse response of the analog filter.</li>
-                                                    <li>3. Signal truncation: Truncate the IR after a rank N such that \( h(N) \geq h_{max}/100\)</li>
-                                                </ol>
-                                            <p> - <span class="bold">Discretization of the inverse DFT:</span> We determine the IR samples using direclty the inverse DFT definition > <span class="math">\( h[n] = \frac{1}{N} \sum_{k=-\frac{N}{2}}^{\frac{N}{2}-1} X(k\delta f) e^{j2\pi \frac{n}{N}k} \)</span>.</p>
-                                            <p>All in all, this method has some benefits - <span class="bold">always stable (no poles), linear phase (if symmetric)</span> - and some drawbacks - <span class="bold">less selective, less efficient and requires more memory space</span>.</p>
-                                        </div>
-                                        
+                                <p>However, each one of these steps has an impact on the signal. Indeed, discretizing a signal is not without consequences and some parameters should be chosen wisely
+                                    to avoid aliasing and other artifacts.</p>
+                                <button id="tsi-graphs1">Show illustrations</button>
+                            </div>
+                            <div> <h4>2. Digital Filter Synthesis</h4> </div>
+                            <div>
+                                <p>There exists 2 types of digital filters: <span class="mark">IIR (Infinite Impulse Response)</span> and <span class="mark">FIR (Finite Impulse Response)</span>.</p>
+                                <ul>
+                                    <div class="frame-highlight">
+                                        <li> <span class="mark">IIR:</span> the output depends on the current and previous inputs and outputs > <span class="math">\( s[n] = \sum_{i=0}^{M-1}{a_i e[i]} + \sum_{j=0}^{N-1}{a_i s[n-i]} \)</span></li>
+                                        <p>The purpose of this method is to determine the equivalent digital form \( H(z) \) (\(z\)-domain) of the analog template filter \( H(p) \). From there, we can deduce the <span class="bold">recursive algorithm \( s[n] \)</span> 
+                                            that will implement the digital filter.
+                                            This method is <span class="bold">more accurate</span> and will be generally preferred over the RIF method. However, the analog filter must meet some requirements to be feasible (stability).</p>
+                                        <p> - <span class="bold">Invariance of the Impulse Response:</span> This method consists of starting with an analog template </p>
+                                        <p> - <span class="bold">Discretization of the inverse DFT:</span> </p>
+                                        <p>All in all, this method has some benefits - <span class="bold">more selective, faster and requires only a few memory registers</span> - and some drawbacks - <span class="bold">can be unstable (poles), non-linear phase</span>.</p>
+                                    </div>
+                                    <div class="frame-highlight">
+                                        <li> <span class="mark">FIR:</span> the output depends only on the current and previous inputs > <span class="math">\( s[n] = \sum_{i=0}^{N-1}{a_i e[i] h[n-i]} \)</span></li>
+                                        <p>The purpose of this method is to determine an <span class="bold">approximation of the filter's impulse response</span> and then convolute it with the input signal.
+                                            As we consider only an approximation, the <span class="bold">filter's characteristics get modified</span> and we have to deal with some drawbacks such as the 
+                                            <span class="bold">apparition of wavelets</span> in the filter's spectrum (caused by the truncation --> convolution with sinc).</p>
+                                        <p> - <span class="bold">Coherence of the Impulse Response:</span></p>
+                                            <ol>
+                                                <li>Sampling frequency: Determine \( f_{max}\) and apply the Shannon theorem: \(f_e\ \geq\ 2f_{max}\)</li>
+                                                <li>Impulse response (IR): Find the impulse response of the analog filter.</li>
+                                                <li>Signal truncation: Truncate the IR after a rank N such that \( h(N) \geq h_{max}/100\)</li>
+                                            </ol>
+                                        <p> - <span class="bold">Discretization of the inverse DFT:</span> We determine the IR samples using direclty the inverse DFT definition > <span class="math">\( h[n] = \frac{1}{N} \sum_{k=-\frac{N}{2}}^{\frac{N}{2}-1} X(k\delta f) e^{j2\pi \frac{n}{N}k} \)</span>.</p>
+                                        <p>All in all, this method has some benefits - <span class="bold">always stable (no poles), linear phase (if symmetric)</span> - and some drawbacks - <span class="bold">less selective, less efficient and requires more memory space</span>.</p>
+                                    </div>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="subject-container">
+                    <div class="label"> <h3>Digital Embedded Systems</h3> </div>
+                    <div class="content">
+                        <p>Our purpose in this course is to understand what are the impacts of the sampling on an analog signal.</p>
+                        <div class="keywords">Keywords: OS architectures, performances, synchronization</div>
+                        <p style="font-style: italic;">In this course, we had a <a href="sen_proj.html">project</a> in which we had to ... .</p>
+                        <div> <h4>1. Architectures</h4>
+                            <p>Parallelism</p>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="subject-container">
+                    <div class="label"> <h3>Network & Communication Systems</h3> </div>
+                    <div class="content">
+                        <p>This course is exclusively organised around lab sessions (use of VMs) and also around a practical project.</p>
+                        <div class="keywords">Keymords: Networking concepts, UDP/TCP, Sockets, CAN/UART/I²C</div>
+                        <p style="font-style: italic;">The following section will be in french because I do not know precisely the vocabulary related to finance and management.</p>
+                        <div> <h4>1. Basis</h4>
+                            <p>In this first lab session, we basically covered :</p>
+                            <div class="frame-highlight">
+                                <ol>
+                                    <li> <span class="bold">the difference between hubs and switchs;</span> </li>
+                                        <p>Hubs are dumb, they broadcast all messages, therfore it is very easy to eavesdrop the network traffic and it reduces the bandwith.
+                                            Switchs are smart, they only broadcast the messages to the targeted host, therefore it is more secure and it increases the bandwith.</p>
+                                        </p>
+                                    <li> <span class="bold">how to configure a network interface;</span> </li>
+                                    <li> <span class="bold">basic protocols such as ICMP and ARP (MAC & IP addresses), ncat tool;</span> </li>
+                                        <p>ICMP is a protocol implemented on the network (3rd) layer where the IP address lies.
+                                            ARP is a protocol that matches an MAC (datalink layer) with an IP address (network layer) within an ARP table.
+                                            This protocol is used when a host sends data to an IP address </p>
+                                        </p>
+                                    <li> <span class="bold">OSI and TCP/IP models, encapsulation of data, subnet-mask.</span> </li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div> <h4>2. Building a more sophisticated network</h4>
+                            <p>In this lab session, we set up a network of PCs that consisted of several switchs :</p>
+                            <div class="frame-highlight">
+                                <ol>
+                                    <li> <span class="bold">reachability, hierarchial network structure;</span> </li>
+                                        <p>Each host on a sub-network has a default route that represents an access point to send a packet outside.</p>
+                                    <li> <span class="bold">IP forwarding & translation , routing table;</span> </li>
+                                        <p>When a packet is sent to a router, the dest MAC is the router's and the dest IP is the targeted host on the network.
+                                            When it is forwarded by the router, the src MAC is the router's and the src IP initial host's.</p>
+                                    <li> <span class="bold">TTL (Time To Live)</span> </li>
+                                        <p>When a packet is sent, the TTL is set to 64. Each time the packet is forwarded, the TTL is decremented by 1.
+                                            If the TTL reaches 0, the packet is dropped and an ICMP message is sent to the initial host.</p>
+                                </ol>
+                            </div>
+                        </div>
+                        <div> <h4>X. Important commands</h4>
+                            <div class="terminal">
+                                <div class="header">
+                                    <div class="buttons">
+                                    <div class="button close"></div>
+                                    <div class="button minimize"></div>
+                                    <div class="button maximize"></div>
+                                    </div>
+                                    Terminal
+                                </div>
+                                <pre class="output">
+                                    Welcome to My Terminal!
+                                </pre>
+                                <div class="input">
+                                    <span>$</span>
+                                    <input type="text" placeholder="Type a command" />
                                 </div>
                             </div>
                         </div>
@@ -83,52 +157,24 @@
                 </div>
                 <hr>
                 <div class="subject-container">
-                    <div class="label"> <h3>Digital Embedded Systems</h3>
-                        <div class="content">
-                            <p>Our purpose in this course is to understand what are the impacts of the sampling on an analog signal.</p>
-                            <div class="keywords"><h4>Keywords: OS architectures, performances, synchronization</h4></div>
-                            <p style="font-style: italic;">In this course, we had a <a href="sen_proj.html">project</a> in which we had to ... .</p>
-                            <div> <h4>1. Architectures</h4> </div>
-                                <div> <p></p> </div>
-                            </div>
+                    <div class="label"> <h3>Interface Power Systems</h3> </div>
+                    <div class="content">
+                        <p>Our purpose in this course is to understand what are the impacts of the sampling on an analog signal.</p>
+                        <div class="keywords">Keywords: Closed-loop system, sensors, motors</div>
+                        <p style="font-style: italic;">The following section will be in french because I do not know precisely the vocabulary related to finance and management.</p>
+                        <div> <h4>1. Resistive and reactive sensors</h4>
+                            <p>oooo</p>
                         </div>
                     </div>
                 </div>
                 <hr>
                 <div class="subject-container">
-                    <div class="label"> <h3>Network & Communication Systems</h3>
-                        <div class="content">
-                            <p>Our purpose in this course is to understand what are the impacts of the sampling on an analog signal.</p>
-                            <div class="keywords"><h4>Keymords: Networking, UDP/TCP, Sockets, CAN/UART/I²C</h4></div>
-                            <p style="font-style: italic;">The following section will be in french because I do not know precisely the vocabulary related to finance and management.</p>
-                            <div> <h4>1. Bilan et Compte de Résultat</h4> </div>
-                                <div> <p>oooo</p> </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="subject-container">
-                    <div class="label"> <h3>Interface Power Systems</h3>
-                        <div class="content">
-                            <p>Our purpose in this course is to understand what are the impacts of the sampling on an analog signal.</p>
-                            <div class="keywords"><h4>Keywords: Closed-loop system, sensors, motors</h4></div>
-                            <p style="font-style: italic;">The following section will be in french because I do not know precisely the vocabulary related to finance and management.</p>
-                            <div> <h4>1. Bilan et Compte de Résultat</h4> </div>
-                                <div> <p>oooo</p> </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="subject-container">
-                    <div class="label"> <h3>Company administration & management</h3>
-                        <div class="content">
-                            <div class="keywords"><h4>Mots clés : Comptatbilité, Finance, Gestion</h4></div>
-                            <p style="font-style: italic;">The following section will be in french because I do not know precisely the vocabulary related to finance and management.</p>
-                            <div> <h4>1. Bilan et Compte de Résultat</h4> </div>
-                                <div> <p>oooo</p> </div>
-                            </div>
+                    <div class="label"> <h3>Company administration & management</h3> </div>
+                    <div class="content">
+                        <div class="keywords">Mots clés : Comptatbilité, Finance, Gestion</div>
+                        <p style="font-style: italic;">The following section will be in french because I do not know precisely the vocabulary related to finance and management.</p>
+                        <div> <h4>1. Bilan et Compte de Résultat</h4>
+                            <p>000</p>
                         </div>
                     </div>
                 </div>
