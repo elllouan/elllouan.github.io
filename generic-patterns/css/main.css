@@ -46,6 +46,7 @@ body { /* set default characteristics within the body */
     font-weight: var(--fw-regular);
     border:  0.5em var(--clr-dark) solid;
     background: var(--clr-light-grey);
+    background-color: var(--clr-light);
 }
 
 img { /* set default characteristics for images */
@@ -88,7 +89,6 @@ section {
 a {
     text-decoration: none;
     color: var(--clr-light-grey);
-    font-size: var(--fs-std);
     font-style: italic;
 }
 

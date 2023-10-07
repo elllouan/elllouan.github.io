@@ -9,11 +9,15 @@
     nav li {
         color: var(--clr-light-grey);
         display: inline-block; /* align list elements in a row */
-        margin-inline: 1em 1em;
+        margin-inline: 1rem 3rem;
         top: 0;
         visibility: visible;
         text-align: center;
         line-height: 75px; /* Vertically center the text inside the items */
+    }
+
+    nav li a {
+        font-size: 1.5rem;
     }
 
     nav li a:hover {

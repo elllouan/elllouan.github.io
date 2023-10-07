@@ -40,24 +40,11 @@
         font-size: var(--fs-std);
         padding: 0.3em;
         margin: 1em auto;
-        width: 50%;
+        width: 150vh;
         text-align: center;
         border-radius: 3em;
         z-index: 1;
     }
-
-    /* .text-swap {
-        animation: roll 5s linear infinite alternate;
-    }
-
-    @keyframes roll {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(-100%);
-    }
-    } */
     
     .intro {
         height: 85vh;
@@ -82,8 +69,16 @@
     .seemore {
         text-align: center;
         font-family: var(--ff-primary);
-        border-top: 8px var(--clr-dark) double;
-        border-bottom: 8px var(--clr-dark) double;
+        border-bottom: 4px var(--clr-dark) solid;
+    }
+
+    .internship-warning {
+        color: #333;
+        font-family: 'Courier New' Courier, monospace;
+        font-size: 1.5rem;
+        background-color: orange;
+        width: fit-content;
+        margin: 1rem auto 0 auto;
     }
 
     .flexbox-frames {
@@ -106,8 +101,8 @@
     .frame:hover ,
     .frame:focus                               ,
     .frame:hover a{
-        background-color: var(--clr-dark);
-        color: orange;
+        background-color: bisque;
+        /* color: orange; */
     }
 
     .frame:hover img {
@@ -123,24 +118,24 @@
     }
 
     .frame h1 {
-        position: relative;
         font-family: var(--ff-robot);
         text-align: center;
-        position: absolute;
-        top: 20%;
-        width: 100%;
-        font-size: 2.5rem;
+        margin: 1rem 0;
+    }
+
+    .frame h1:hover {
+        text-decoration: underline;
+        border-bottom: 5px orange solid;
     }
 
     .frame img {
-        width: 50%;
+        width: 60%;
         height: auto;
-        top: 0;
-        margin: 75% auto;
+        margin: 3rem auto;
+        transition-property: all;
+        transition-duration: 1.5s;
+        transition-delay: 1.5s;
+        transform: scale(75%);
     }
 
-}
-
-.noDisplay {
-    display: none;
 }
