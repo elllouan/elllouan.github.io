@@ -33,7 +33,7 @@
     --fs-h2: 2.5rem;
     --fs-h3: 1.75rem;
     --fs-h4: 1.25rem;
-    --fs-std: 1rem;
+    --fs-std: 1.25rem;
     /* fs stands for 'family size' */
 } 
 
@@ -47,6 +47,7 @@ body { /* set default characteristics within the body */
     border:  0.5em var(--clr-dark) solid;
     background: var(--clr-light-grey);
     background-color: var(--clr-light);
+    /* line-height: 1rem; */
 }
 
 img { /* set default characteristics for images */
@@ -88,7 +89,8 @@ section {
 
 a {
     text-decoration: none;
-    color: var(--clr-light-grey);
+    color: var(--clr-light);
+    font-weight: bold;
     font-style: italic;
 }
 
@@ -120,14 +122,23 @@ button {
 .mark {
     font-weight: bold;
     text-decoration: underline;
-    font-size: large;
+    font-size: larger;
 }
 
 .bold {
     font-weight: bold;
 }
 
+.italic {
+    font-style: italic;
+}
+
 .main-container {
     position: relative;
-    padding: 1rem 8rem;
+    padding: 1rem 5rem;
+}
+
+hr {
+    border: 2px solid black;
+    margin: 0.5rem 0;
 }

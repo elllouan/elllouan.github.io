@@ -15,14 +15,14 @@
         display: grid;
         grid-auto-flow: column;
         grid-template-columns: 280px 280px;
-        grid-column-gap: 30px;
+        grid-column-gap: 75px;
     }
 
     .information p {
         display: inline-block;
         background-color: orange;
         text-indent: 0.5em;
-        width: 280px;
+        width: 350px;
         border: 2px #444 dashed;
         line-height: 2em;
     }

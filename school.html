@@ -27,15 +27,16 @@
             <section class="accordion-y4">
 
                 <h2 class="title">4th year of engineering studies</h2>
-                <p>Within this section, I will endeavor to create content about my courses, by summarizing and explaining the most important points. 
-                    To have a broader view of each course, you can click their entitlement.</p>
+                <p>In this section, I try to provide an overview of my learning outcomes by presenting the most relevant parts of each course. 
+                    To have a broader view of each course's content, you can expand their section by clicking on their title.</p>
                 <hr>
                 <div class="subject-container">
                     <div class="label"> <h3>Signal Processing</h3> </div>
+                    <div class="keywords">Convolution systems, Sound/Image processing, OpenCV, Matlab, Laplace/Fourier transforms, FIR & IIR filters, Analog/Discrete signals, modulation in amplitude / frequency</div>
                     <div class="content">
-                        <p>This course gives an understanding on how we numerize a signal, what are the impacts and how we can elaborate a digital filter to filter an analog signal.</p>
-                        <div class="keywords">Keywords: Sound/Image processing, Laplace/Fourier, Filters, Analog/Discrete signals, Sampling</div>
-                            <div> <h4>1. Discrete Fourier Transform (DFT) and Analog Filter Synthesis</h4>
+                        <p>The following content gives an overview of the image and digital/analog signal processing course that I follow at my school. This is not meant to be a comprhensive description but rather a brief guide.</p>
+                            <div class="subject-subdiv"> <h4>1. Discrete Fourier Transform (DFT) and Analog Filter Synthesis</h4>
+                                <p>This course gives an understanding on how we numerize a signal, what are the impacts and how we can elaborate a digital filter to filter an analog signal.</p>
                                 <p>With a view to processing digital signals, we need to turn a continuous (or analog) signal into a discrete signal
                                     that consists of a finite number of samples that can be handled by a processor. Therefore, we use the DFT, let's remind us quickly of that. </p>
                                 <div class="frame-highlight">
@@ -50,7 +51,7 @@
                                     to avoid aliasing and other artifacts.</p>
                                 <button id="tsi-graphs1">Show illustrations</button>
                             </div>
-                            <div> <h4>2. Digital Filter Synthesis</h4> </div>
+                            <div class="subject-subdiv"> <h4>2. Digital Filter Synthesis</h4> </div>
                             <div>
                                 <p>There exists 2 types of digital filters: <span class="mark">IIR (Infinite Impulse Response)</span> and <span class="mark">FIR (Finite Impulse Response)</span>.</p>
                                 <ul>
@@ -79,17 +80,28 @@
                                     </div>
                                 </ol>
                             </div>
+                            <div class="subject-subdiv"> <h4>3. Signal modulation</h4> </div>
+                            <div>
+                                <p>When it comes to transmitting information using signals, we face some issues:</p>
+                                <div class="frame-highlight">
+                                <ol>
+                                    <li>most of the time the signal transmitted is comprised within a range of 20 to 20kHz (voice frequency), thus if we transmit the signal at its original frequency, we would end up having all signals interfering with each other (all the same frequency)</li>
+                                    <li>the size of the receiver should also be ridiculously large for detecting such signals (several kilometers)</li>
+                                </ol>
+                                <p>Modulation allows to slide the signal spectrum along the frequency axis to a higher frequency, thereby countering the two previous problems because now we can control the frequency at which we want our signal to be broadcasted and as the frequency gets higher, the receiver gets smaller.</p>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <hr>
                 <div class="subject-container">
                     <div class="label"> <h3>Digital Embedded Systems</h3> </div>
+                    <div class="keywords">OS architectures, performances, parallelism paradigm (semaphores), process, FreeRTOS</div>
                     <div class="content">
                         <p>Our purpose in this course is to understand what are the impacts of the sampling on an analog signal.</p>
-                        <div class="keywords">Keywords: OS architectures, performances, synchronization</div>
                         <p style="font-style: italic;">In this course, we had a <a href="sen_proj.html">project</a> in which we had to ... .</p>
-                        <div> <h4>1. Architectures</h4>
+                        <div class="subject-subdiv"> <h4>1. Architectures</h4>
                             <p>Parallelism</p>
                         </div>
                     </div>
@@ -97,44 +109,37 @@
                 <hr>
                 <div class="subject-container">
                     <div class="label"> <h3>Network & Communication Systems</h3> </div>
+                    <div class="keywords">Networking concepts, UDP / TCP, HTTPS , Sockets, CAN / UART / I²C / SPI</div>
                     <div class="content">
-                        <p>This course is exclusively organised around lab sessions (use of VMs) and also around a practical project.</p>
-                        <div class="keywords">Keymords: Networking concepts, UDP/TCP, Sockets, CAN/UART/I²C</div>
-                        <p style="font-style: italic;">The following section will be in french because I do not know precisely the vocabulary related to finance and management.</p>
-                        <div> <h4>1. Basis</h4>
-                            <p>In this first lab session, we basically covered :</p>
+                        <p>This course is organised around lab sessions where we simulated virtual networks (use of VMs). It involved a practical project as well.</p>
+                        <p>You can find code that we encountered during these network classes by clicking <a href="network.html" style="color: black;">here</a>.</p>
+                        <div class="subject-subdiv"> <h4>1. Fundamentals: Addressing / Routing / Firewall</h4>
+                            <p>In these lab sessions, we basically covered :</p>
                             <div class="frame-highlight">
                                 <ol>
-                                    <li> <span class="bold">the difference between hubs and switchs;</span> </li>
-                                        <p>Hubs are dumb, they broadcast all messages, therfore it is very easy to eavesdrop the network traffic and it reduces the bandwith.
-                                            Switchs are smart, they only broadcast the messages to the targeted host, therefore it is more secure and it increases the bandwith.</p>
-                                        </p>
-                                    <li> <span class="bold">how to configure a network interface;</span> </li>
-                                    <li> <span class="bold">basic protocols such as ICMP and ARP (MAC & IP addresses), ncat tool;</span> </li>
-                                        <p>ICMP is a protocol implemented on the network (3rd) layer where the IP address lies.
-                                            ARP is a protocol that matches an MAC (datalink layer) with an IP address (network layer) within an ARP table.
-                                            This protocol is used when a host sends data to an IP address </p>
-                                        </p>
-                                    <li> <span class="bold">OSI and TCP/IP models, encapsulation of data, subnet-mask.</span> </li>
-                                </ol>
-                            </div>
-                        </div>
-                        <div> <h4>2. Building a more sophisticated network</h4>
-                            <p>In this lab session, we set up a network of PCs that consisted of several switchs :</p>
-                            <div class="frame-highlight">
-                                <ol>
-                                    <li> <span class="bold">reachability, hierarchial network structure;</span> </li>
-                                        <p>Each host on a sub-network has a default route that represents an access point to send a packet outside.</p>
-                                    <li> <span class="bold">IP forwarding & translation , routing table;</span> </li>
-                                        <p>When a packet is sent to a router, the dest MAC is the router's and the dest IP is the targeted host on the network.
-                                            When it is forwarded by the router, the src MAC is the router's and the src IP initial host's.</p>
+                                    <li> <span class="bold">The difference between hubs and switchs;</span> </li>
+                                    <li> <span class="bold">How to configure a network interface;</span> </li>
+                                    <li> <span class="bold">Basic protocols such as ICMP and ARP (MAC & IP addresses);</span> </li>
+                                    <li> <span class="bold">OSI and TCP/IP models, encapsulation of data, subnet-mask;</span> </li>
+                                    <li> <span class="bold">Reachability, hierarchial network structure;</span> </li>
+                                    <li> <span class="bold">IP forwarding , routing table;</span> </li>
                                     <li> <span class="bold">TTL (Time To Live)</span> </li>
-                                        <p>When a packet is sent, the TTL is set to 64. Each time the packet is forwarded, the TTL is decremented by 1.
-                                            If the TTL reaches 0, the packet is dropped and an ICMP message is sent to the initial host.</p>
+                                    <li> <span class="bold">SNAT, DNAT;</span> </li>
+                                    <li> <span class="bold">Firewall (filtering network traffic).</span> </li>
                                 </ol>
                             </div>
                         </div>
-                        <div> <h4>X. Important commands</h4>
+                        <div class="subject-subdiv"> <h4>2. Sockets</h4>
+                            <p>In these lab sessions, we basically covered :</p>
+                            <div class="frame-highlight">
+                                <ol>
+                                    <li> <span class="bold">UDP sockets;</span> </li>
+                                    <li> <span class="bold">TCP sockets;</span> </li>
+                                    <li> <span class="bold">Sockets performances.</span> </li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="subject-subdiv"> <h4>X. Important commands</h4>
                             <div class="terminal">
                                 <div class="header">
                                     <div class="buttons">
@@ -145,11 +150,20 @@
                                     Terminal
                                 </div>
                                 <pre class="output">
-                                    Welcome to My Terminal!
+                                    Networking Commands
                                 </pre>
-                                <div class="input">
-                                    <span>$</span>
-                                    <input type="text" placeholder="Type a command" />
+                                <div class="output">
+                                    <div>$ ip link set dev <span style="font-style: italic;">eth0</span> up   /* Set up the eth0 network interface */</div>
+                                    <div>$ ip addr [add/del] <span style="font-style: italic;">[IP/mask]</span> dev eth0   /* Add a new IP to eth0 */</div>
+                                    <div>$ ip route add default via <span style="font-style: italic;">IP</span> /* Add a default route to a host */</div>
+                                    <div>$ echo 1 >/proc/sys/net/ipv4/ip_forward   /* Enables the OS to perform IP forward */</div>
+                                    <div>$ iptables -t nat -A [PREROUTING/POSTROUTING] -s [IP/mask] -p [] --dport [] [-to--source/-to--destination]   /* Enables the OS to perform IP forward */</div>
+                                    <div>$ ip filter -A [INPUT/OUTPUT/FORWARD] DROP   /* Enables the OS to perform IP forward */</div>
+                                    <div>$ tcpdump -eni <span style="font-style: italic;">eth0</span>   /* Listen traffic on eth0 */</div>
+                                    
+                                    <div>$ ncat -lp [port]   /* Initiate the communication on a specific port */</div>
+                                    <div>$ ncat [IP] [port] /* Initiate the communication with another host on a specific port */</div>
+                                    <!-- <input type="text" placeholder="Type a command" /> -->
                                 </div>
                             </div>
                         </div>
@@ -158,10 +172,8 @@
                 <hr>
                 <div class="subject-container">
                     <div class="label"> <h3>Interface Power Systems</h3> </div>
+                    <div class="keywords">Closed-loop / feedback systems, sensors, motors, power electronics</div>
                     <div class="content">
-                        <p>Our purpose in this course is to understand what are the impacts of the sampling on an analog signal.</p>
-                        <div class="keywords">Keywords: Closed-loop system, sensors, motors</div>
-                        <p style="font-style: italic;">The following section will be in french because I do not know precisely the vocabulary related to finance and management.</p>
                         <div> <h4>1. Resistive and reactive sensors</h4>
                             <p>oooo</p>
                         </div>
@@ -170,17 +182,28 @@
                 <hr>
                 <div class="subject-container">
                     <div class="label"> <h3>Company administration & management</h3> </div>
+                    <p style="font-style: italic;">The following section will be in french because I do not know precisely the vocabulary related to finance and management.</p>
+                    <div class="keywords">Mots clés : Comptabilité française, Finance, Gestion, Management</div>
                     <div class="content">
-                        <div class="keywords">Mots clés : Comptatbilité, Finance, Gestion</div>
-                        <p style="font-style: italic;">The following section will be in french because I do not know precisely the vocabulary related to finance and management.</p>
-                        <div> <h4>1. Bilan et Compte de Résultat</h4>
-                            <p>000</p>
+                        <p>This course .</p>
+                        <div class="subject-subdiv"> <h4>1. Bilan et Compte de Résultat</h4>
+                            <p>...</p>
                         </div>
-                        <div> <h4>1. Bilan et Compte de Résultat</h4>
-                            <p>000</p>
+                        <div class="subject-subdiv"> <h4>2. TVA</h4>
+                            <p>...</p>
                         </div>
-                        <div> <h4>Calcul des coûts complets d'un produit</h4>
-                            <p>Afin de déterminer, les coûts complets d'un produit, nous utiliserons la méthode des centres d'analyses. Elle consiste en 8 étapes:</p>
+                        <div class="subject-subdiv"> <h4>3. Sources d'investissements</h4>
+                            <p>R&D</p>
+                            <ul>
+                                <li>Source d'investissements internes: Capital social, apport au compte courant des associés, autofinancement, subventions</li>
+                                <li>Source d'investissements externes: Emprunt, LOA (Location avec Option d'Achat)</li>
+                            </ul>
+                        </div>
+                        <div class="subject-subdiv"> <h4>4. Dotations</h4>
+                            <p>...</p>
+                        </div>
+                        <div class="subject-subdiv"> <h4>5. Calcul des coûts complets d'un produit par la méthode des centres d'analyses</h4>
+                            <p>Afin de déterminer, les coûts complets d'un produit, nous utilisons la . Elle consiste en 8 étapes:</p>
                             <ol>
                                 <div class="frame-highlight">
                                 <li> <span class="bold">Répartition des charges indirectes</span> </li>
@@ -197,7 +220,7 @@
                                             Charges directes + Charges indirectes liées à l'achat (approvisionnement, réception livraisons ...).
                                         </p>
                                         <ul>
-                                            <li style=>Prix d'achat nets des MP.</li>
+                                            <li>Prix d'achat nets des MP.</li>
                                             <li>Charges de main d'oeuvre directe (pas la main d'oeuvre employée pour la fabrication du produit !).</li>
                                             <li>Accessoires d'achats: transport.</li>
                                         </ul>

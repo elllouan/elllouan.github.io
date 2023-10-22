@@ -1,0 +1,12 @@
+@media screen and (min-width: 481px) {
+    
+    .main-container {
+        line-height: 1.75rem;
+    }
+
+    .main-container p {
+        text-align: justify; /* justify text */
+        margin: 0.75rem;
+    }
+
+}

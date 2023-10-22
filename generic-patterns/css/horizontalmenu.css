@@ -22,7 +22,7 @@
 
     nav li a:hover {
         text-decoration: overline;
-        font-size: 18px;
+        font-size: 1.65rem;
     }
 
     .home-title::before {

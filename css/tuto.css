@@ -1,0 +1,54 @@
+.main-container {
+    position: relative;
+    line-height: 2.5rem;
+}
+
+.main-container a {
+    color: black;
+}
+
+ul, ol {
+    list-style-type: none;
+}
+
+@media screen and (min-width: 481px) {
+
+    .cmake {
+        position: relative;
+        width: 100%;
+        border: 5px solid black;
+        padding-left: 0.5rem;
+        background-color: lightgrey;
+    }
+
+    .frame-highlight {
+        background-color: rgb(255, 211, 154);
+        margin: 0.5rem;
+        width: 80%;
+    }
+
+    .cmake-tuto {
+        display: flexbox;
+        justify-content: space-evenly;
+    }
+
+    /* .cmake-tuto div {
+        text-align:start;
+        width: 100%;
+    } */
+
+    .linux-terminal {
+        font-family: 'Courier New', monospace;
+        background-color: black;
+        color: greenyellow;
+        border: 5px solid gray;
+        width: 80%;
+    }
+
+    .linux-terminal div {
+        line-height: 200%;
+        text-align:start;
+        width: 100%;
+    }
+
+}

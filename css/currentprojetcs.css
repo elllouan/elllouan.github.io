@@ -1,9 +1,10 @@
 .main-container {
     position: relative;
+    line-height: 2.5rem;
 }
 
-.main-container a {
-    color: #444;
+.maincontainer a {
+    color: black;
 }
 
 @media screen and (min-width: 481px) {
@@ -58,6 +59,7 @@
         height: fit-content;
         margin: 1rem 0.3rem 0.3rem 0.3rem;
         cursor:auto;
+        padding: 0.5rem 1rem;
     }
 
     .accordion-current-projects .current-project.active .label::before {
@@ -65,9 +67,22 @@
         font-size: 30px;
     }
 
-    .features {
+    .tasks {
         padding: 0 3rem;
     }
 
+    .intro-img img {
+        display: inline-block;
+        width: 30%;
+    }
+
+    .task1 div {
+        padding: 1rem;
+    }
+
+    .task1-1-img img, .task1-2-img img, .task1-3-img img {
+        display: inline-block;
+        width: 40%;
+    }
 
 }

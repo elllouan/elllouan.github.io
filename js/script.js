@@ -62,36 +62,32 @@ $(document).ready(function() {
       $(this).parent().toggleClass("active");
     });
 
-    $(".project-1").on("mouseenter", function() {
-      $(".hover-image1").toggleClass("active");
-    });
-    $(".project-1").on("mouseleave", function() {
-      $(".hover-image1").toggleClass("active");
-    });
+    // $(".project-1").on("mouseenter", function() {
+    //   $(".hover-image1").toggleClass("active");
+    // });
+    // $(".project-1").on("mouseleave", function() {
+    //   $(".hover-image1").toggleClass("active");
+    // });
 
-    $(".project-2").on("mouseenter", function() {
-      $(".hover-image2").toggleClass("active");
-    });
-    $(".project-2").on("mouseleave", function() {
-      $(".hover-image2").toggleClass("active");
-    });
+    // $(".project-2").on("mouseenter", function() {
+    //   $(".hover-image2").toggleClass("active");
+    // });
+    // $(".project-2").on("mouseleave", function() {
+    //   $(".hover-image2").toggleClass("active");
+    // });
 
-    $(".project-3").on("mouseenter", function() {
-      $(".hover-image3").toggleClass("active");
-    });
-    $(".project-3").on("mouseleave", function() {
-      $(".hover-image3").toggleClass("active");
-    });
+    // $(".project-3").on("mouseenter", function() {
+    //   $(".hover-image3").toggleClass("active");
+    // });
+    // $(".project-3").on("mouseleave", function() {
+    //   $(".hover-image3").toggleClass("active");
+    // });
 
-    $(".project-4").on("mouseenter", function() {
-      $(".hover-image4").toggleClass("active");
-    });
-    $(".project-4").on("mouseleave", function() {
-      $(".hover-image4").toggleClass("active");
-    });
-
-    $(".current-project").on("click", function() {
-      $(this).toggleClass("active");
-    });
+    // $(".project-4").on("mouseenter", function() {
+    //   $(".hover-image4").toggleClass("active");
+    // });
+    // $(".project-4").on("mouseleave", function() {
+    //   $(".hover-image4").toggleClass("active");
+    // });
 
 });

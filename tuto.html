@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html lang ="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- make sure that the content fit the device on which we open -->
+        <title> Tutorials </title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong|Arial|Open+Sans">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="js/script.js"></script>
+        <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+        <link rel="stylesheet" href="generic-patterns/css/horizontalmenu.css">
+        <link rel="stylesheet" href="generic-patterns/css/footer.css">
+        <link rel="stylesheet" href="generic-patterns/css/main.css">
+        <link rel="stylesheet" href="css/tuto.css">
+    </head>
+
+    <!-- Within de web page -->
+    <body>
+        <div id="horizontalmenu"></div>
+        
+        <section class="main-container">
+
+            <div>
+                <h4>I want to keep track of all stuff I learnt besides school. This page aims at keeping a record of basic tutos.</h4>
+            </div>
+
+            <div class="cmake">
+                <h2>CMAKE</h2>
+                <p>In this section, I want to go over the fundamentals of CMake. CMake is a meta-build file. This means that cmake is a file that creates build files.
+                    CMake is really convenient ecause it is cross-platform and can generate build files for different IDEs. During my intership at Haption, I used it 
+                    to generate Makefiles (Linux) and Visual Studio project files (Windows).
+                    A build file is a script file that contains all the instructions to build a project (e.g., compile, link, etc.).
+                    If you want to know more about building a project, you can check out my <a href="build.html">build page</a>.
+                    To use CMake in your project, you first need to <a href="https://cmake.org/download/" target="_blank">install</a> it. Then you can follow along the next steps.
+                </p>
+                <ul class="frame-highlight">
+                    <li><a href="#project-config">Project configuration</a></li>
+                    <li><a href="#basic-functionalities">Basic functionalities</a></li>
+                    <li><a href="#terminal-commands">Basic terminal commands</a></li>
+                    <li><a href="#packages">Packages</a></li>
+                </ul>
+                <div class="cmake-tuto">
+                    <hr>
+                    <div id="project-config">
+                        <h3>Project configuration</h3>
+                        <p>First off, start by creating a folder for your project. Then, create a CMakeLists.txt file in this folder at its root.</p>
+                        <div class="linux-terminal">
+                            <div>host:/.../$ mkdir cmake-tuto</div>
+                            <div>host:/.../$ cd cmake-tuto</div>
+                            <div>host:/.../cmake-tuto$ touch CMakeLists.txt</div>
+                        </div>
+                        <p>Secondly, create a build folder for your project (you can create one build folder for each platform or IDE). Here, I am assuming to be
+                            on a Linux machine.
+                        </p>
+                        <div class="linux-terminal">
+                            <div>host:/.../cmake-tuto$ mkdir build-linux</div>
+                            <div>host:/.../cmake-tuto$ cd build-linux</div>
+                            <div>host:/.../cmake-tuto/build-linux$ cmake -G "Unix Makefiles" -B . -S ..</div>
+                        </div>
+                        <p>
+                            <div><span class="italic">-G</span> argument specifies which platform you are aiming at building your project.</div>
+                            <div><span class="italic">-B</span> argument specifies where the build folder is located (. means the current folder).</div>
+                            <div><span class="italic">-S</span> argument specifies where the CMakeLists.txt file is located (.. means the parent folder).</div>
+                        </p>
+                        <p>You are ready to start modifying your CMakeLists.txt file !</p>
+                    </div>
+                    <hr>
+                    <div id="basic-functionalities">
+                        <h3>Basic functionalities</h3>
+                        <p>The screenshot below shows some of the most commonly used CMake "functions". To know what parameters are expected, you can refer to the CMake documentation.</p>
+                        <img src="images/cmake_functions.JPG" alt="cmake_functions" style="width: 60%;">
+                        <p>This is not an exhaustive list of all CMake functions but I basically only used those for my project during my intership.
+                            It is important to know that CMake defines its own variables such as <span class="italic">CMAKE_SOURCE_DIR, CMAKE_CURENNT_SOURCE_DIR, CMAKE_BINARY_DIR ...</span> and
+                            they are surrounded by <span class="italic">${}</span>.
+                        </p>
+                    </div>
+                    <hr>
+                    <div id="terminal-commands">
+                        <h3>Terminal commands</h3>
+                        <p>To build your project entirely through CMake, you need to do it in 2 times.</p>
+                        <ol class="frame-highlight">
+                            <li><span class="mark">1. Config instructions</span></li>
+                            <div class="linux-terminal">
+                                <div>host:/.../cmake-tuto/build-linux$ cmake -G ... -A ... -B ... -S ...</div>
+                            </div>
+                            <p>The list of argmuents is not exhaustive.</p>
+                            <li><span class="mark">2. Build instructions</span></li>
+                            <div class="linux-terminal">
+                                <div>host:/.../cmake-tuto/build-linux$ cmake --build . --config [Debug/Release] --target [INSTALL]</div>
+                            </div>
+                            <p>The list of argmuents is not exhaustive.</p>
+                        </ol>
+                    </div>
+                    <div id="packages">
+                        <h3>Packages</h3>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+
+
+        </section> <!-- main-container -->
+
+        <div id="footer"></div>
+
+    </body>
+
+</html>

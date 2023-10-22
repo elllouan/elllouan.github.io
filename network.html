@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html lang ="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- make sure that the content fit the device on which we open -->
+        <title> Tutorial </title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong|Arial|Open+Sans">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="js/script.js"></script>
+        <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+        <link rel="stylesheet" href="generic-patterns/css/horizontalmenu.css">
+        <link rel="stylesheet" href="generic-patterns/css/footer.css">
+        <link rel="stylesheet" href="generic-patterns/css/main.css">
+        <link rel="stylesheet" href="css/tuto.css">
+    </head>
+
+    <!-- Within de web page -->
+    <body>
+        <div id="horizontalmenu"></div>
+        
+        <section class="main-container">
+
+            <section class="accordion-network">
+
+                <h2 class="title">Current projects</h2>
+                <p>In this section, I go more in depth about the concepts we learnt and networking tools we used.</p>
+                <hr>
+
+                <div class="socket-labs"> 
+                    <div class="label"> <h2>UDP Socket</h2>  </div>
+                    A socket is a <span class="mark">communication point</span> that binds an IP address and a port number.
+                    <div class="udp-lab">
+                        UDP (for User Datagram Protocol) is a <span class="mark">connectionless</span> protocol that works on top of IP.
+                    </div>
+                    <div class="tcp-lab">
+                        An UDP socket is a <span class="mark">communication point</span> that binds an IP address and a port number.
+                    </div>
+                    <div class="encryption-course">
+                        An UDP socket is a <span class="mark">communication point</span> that binds an IP address and a port number.
+                    </div>
+                </div>
+
+                <div class="current-project">
+                    <div class="label"> <h2>Robot project</h2> </div>
+                    <div class="content">
+
+                    </div>
+                </div>
+
+                <div class="current-project">
+                    <div class="label"> <h2>Calculator project</h2> </div>
+                    <div class="content">
+                        <p>In this project, our goal is to develop a scripting calculator but embedded on a (NXP) microcontroller.
+                            We have a the PC that can communicate with the NXP board over UART. From the PC, we open a serial 
+                            terminal and input math operation commands. These are received by the microcontroller which interprets them.
+                            Therefore, we use a C library called <span style="font-style: italic;">Calc</span> that can be integrated in a microcontroller
+                            and was developed to perform basic arithmetic operations.
+                            From there, it computes and sends back the result of the input operation over UART that ends up printed out on our serial monitor.
+                            We aim at developing this calculator farther by adding new features to the system.</p>
+                            <ol class="features">
+                                <li>Load files directly from an external storage device (SD card).</li>
+                                <li>Display graphs on a LCD screen.</li>
+                                <li>Use the two-core feature to split up tasks: one core that handles calculations and the other one that handles display.</li>
+                                <li>Integrate more advanced math operations such as FFT or matrix operations with <span style="font-style: italic;">PowerQuad</span>.</li>
+                            </ol>  
+                            <p>The NXP microcontroller we use (LPCS55S69-EVK), is a two-core microcontroller.</p>
+                        </p>
+                    </div>
+                </div>
+
+            </section>
+
+
+        </section> <!-- main-container -->
+
+        <div id="footer"></div>
+
+    </body>
+
+</html>
