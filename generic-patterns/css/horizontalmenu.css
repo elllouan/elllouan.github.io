@@ -7,7 +7,7 @@
     }
 
     nav li {
-        color: var(--clr-light-grey);
+        color: white;
         display: inline-block; /* align list elements in a row */
         margin-inline: 1rem 3rem;
         top: 0;

@@ -32,65 +32,94 @@
                 <hr>
                 <div class="subject-container">
                     <div class="label"> <h3>Signal Processing</h3> </div>
-                    <div class="keywords">Convolution systems, Sound/Image processing, OpenCV, Matlab, Laplace/Fourier transforms, FIR & IIR filters, Analog/Discrete signals, modulation in amplitude / frequency</div>
+                    <div class="keywords">Convolution systems, FIR & IIR filters, distorsion, correlation, Butterworth & Chebychev, Laplace/Fourier transforms, Analog/Discrete signals, modulation, Matlab</div>
                     <div class="content">
-                        <p>The following content gives an overview of the image and digital/analog signal processing course that I follow at my school. This is not meant to be a comprhensive description but rather a brief guide.</p>
-                            <div class="subject-subdiv"> <h4>1. Discrete Fourier Transform (DFT) and Analog Filter Synthesis</h4>
-                                <p>This course gives an understanding on how we numerize a signal, what are the impacts and how we can elaborate a digital filter to filter an analog signal.</p>
-                                <p>With a view to processing digital signals, we need to turn a continuous (or analog) signal into a discrete signal
-                                    that consists of a finite number of samples that can be handled by a processor. Therefore, we use the DFT, let's remind us quickly of that. </p>
-                                <div class="frame-highlight">
-                                    <ol>
-                                        <li> <span class="bold">Sampling & Quantification:</span>            turns the continuous signal into a discrete signal.</li>
-                                        <li> <span class="bold">Temporal truncation of the signal:</span>    get an finite amount of samplings.</li>
-                                        <li> <span class="bold">Spectral discretization:</span>              turns the continuous spectrum into a discrete spectrum.</li>
-                                        <li> <span class="bold">Zero-Padding (optional):</span>              increase the spectrum's resolution.</li>
-                                    </ol>
-                                </div>
-                                <p>However, each one of these steps has an impact on the signal. Indeed, discretizing a signal is not without consequences and some parameters should be chosen wisely
-                                    to avoid aliasing and other artifacts.</p>
-                                <button id="tsi-graphs1">Show illustrations</button>
-                            </div>
-                            <div class="subject-subdiv"> <h4>2. Digital Filter Synthesis</h4> </div>
-                            <div>
-                                <p>There exists 2 types of digital filters: <span class="mark">IIR (Infinite Impulse Response)</span> and <span class="mark">FIR (Finite Impulse Response)</span>.</p>
-                                <ul>
-                                    <div class="frame-highlight">
-                                        <li> <span class="mark">IIR:</span> the output depends on the current and previous inputs and outputs > <span class="math">\( s[n] = \sum_{i=0}^{M-1}{a_i e[i]} + \sum_{j=0}^{N-1}{a_i s[n-i]} \)</span></li>
-                                        <p>The purpose of this method is to determine the equivalent digital form \( H(z) \) (\(z\)-domain) of the analog template filter \( H(p) \). From there, we can deduce the <span class="bold">recursive algorithm \( s[n] \)</span> 
-                                            that will implement the digital filter.
-                                            This method is <span class="bold">more accurate</span> and will be generally preferred over the RIF method. However, the analog filter must meet some requirements to be feasible (stability).</p>
-                                        <p> - <span class="bold">Invariance of the Impulse Response:</span> This method consists of starting with an analog template </p>
-                                        <p> - <span class="bold">Discretization of the inverse DFT:</span> </p>
-                                        <p>All in all, this method has some benefits - <span class="bold">more selective, faster and requires only a few memory registers</span> - and some drawbacks - <span class="bold">can be unstable (poles), non-linear phase</span>.</p>
-                                    </div>
-                                    <div class="frame-highlight">
-                                        <li> <span class="mark">FIR:</span> the output depends only on the current and previous inputs > <span class="math">\( s[n] = \sum_{i=0}^{N-1}{a_i e[i] h[n-i]} \)</span></li>
-                                        <p>The purpose of this method is to determine an <span class="bold">approximation of the filter's impulse response</span> and then convolute it with the input signal.
-                                            As we consider only an approximation, the <span class="bold">filter's characteristics get modified</span> and we have to deal with some drawbacks such as the 
-                                            <span class="bold">apparition of wavelets</span> in the filter's spectrum (caused by the truncation --> convolution with sinc).</p>
-                                        <p> - <span class="bold">Coherence of the Impulse Response:</span></p>
-                                            <ol>
-                                                <li>Sampling frequency: Determine \( f_{max}\) and apply the Shannon theorem: \(f_e\ \geq\ 2f_{max}\)</li>
-                                                <li>Impulse response (IR): Find the impulse response of the analog filter.</li>
-                                                <li>Signal truncation: Truncate the IR after a rank N such that \( h(N) \geq h_{max}/100\)</li>
-                                            </ol>
-                                        <p> - <span class="bold">Discretization of the inverse DFT:</span> We determine the IR samples using direclty the inverse DFT definition > <span class="math">\( h[n] = \frac{1}{N} \sum_{k=-\frac{N}{2}}^{\frac{N}{2}-1} X(k\delta f) e^{j2\pi \frac{n}{N}k} \)</span>.</p>
-                                        <p>All in all, this method has some benefits - <span class="bold">always stable (no poles), linear phase (if symmetric)</span> - and some drawbacks - <span class="bold">less selective, less efficient and requires more memory space</span>.</p>
-                                    </div>
-                                </ol>
-                            </div>
-                            <div class="subject-subdiv"> <h4>3. Signal modulation</h4> </div>
-                            <div>
-                                <p>When it comes to transmitting information using signals, we face some issues:</p>
-                                <div class="frame-highlight">
+                        <p>The following content gives an overview of the digital/analog signal processing courses that I followed at my school. This is not meant to be a comprhensive description but rather a brief guide.</p>
+                        <div class="subject-subdiv"> <h4>1. Discrete Fourier Transform (DFT) and Analog Filter Synthesis</h4>
+                            <p>This course gives an understanding on how we numerize a signal, what are the impacts and how we can elaborate a digital filter to filter an analog signal.</p>
+                            <p>With a view to processing digital signals, we need to turn a continuous (or analog) signal into a discrete signal
+                                that consists of a finite number of samples that can be handled by a processor. Therefore, we use the DFT, let's remind us quickly of that. </p>
+                            <div class="frame-highlight">
                                 <ol>
-                                    <li>most of the time the signal transmitted is comprised within a range of 20 to 20kHz (voice frequency), thus if we transmit the signal at its original frequency, we would end up having all signals interfering with each other (all the same frequency)</li>
-                                    <li>the size of the receiver should also be ridiculously large for detecting such signals (several kilometers)</li>
+                                    <li> <span class="bold">Sampling & Quantification:</span>            turns the continuous signal into a discrete signal.</li>
+                                    <li> <span class="bold">Temporal truncation of the signal:</span>    get an finite amount of samplings.</li>
+                                    <li> <span class="bold">Spectral discretization:</span>              turns the continuous spectrum into a discrete spectrum.</li>
+                                    <li> <span class="bold">Zero-Padding (optional):</span>              increase the spectrum's resolution.</li>
                                 </ol>
-                                <p>Modulation allows to slide the signal spectrum along the frequency axis to a higher frequency, thereby countering the two previous problems because now we can control the frequency at which we want our signal to be broadcasted and as the frequency gets higher, the receiver gets smaller.</p>
                             </div>
+                            <p>However, each one of these steps has an impact on the signal. Indeed, discretizing a signal is not without consequences and some parameters should be chosen wisely
+                                to avoid aliasing and other artifacts.
+                            </p>
+                            <button id="tsi-graphs1">Show illustrations</button>
+                        </div>
+                        <div class="subject-subdiv"> <h4>2. Digital Filter Synthesis</h4> </div>
+                        <div>
+                            <p>There exists 2 types of digital filters: <span class="mark">IIR (Infinite Impulse Response)</span> and <span class="mark">FIR (Finite Impulse Response)</span>.</p>
+                            <ul>
+                                <div class="frame-highlight">
+                                    <li> <span class="mark">IIR:</span> the output depends on the current and previous inputs and outputs <span class="math">\( s[n] = \sum_{i=0}^{M-1}{a_i e[i]} + \sum_{j=0}^{N-1}{a_i s[n-i]} \)</span></li>
+                                    <p>The purpose of this method is to determine the equivalent digital form \( H(z) \) (\(z\)-domain) of the analog template filter \( H(p) \). From there, we can deduce the <span class="bold">recursive algorithm \( s[n] \)</span> 
+                                        that will implement the digital filter.
+                                        This method is <span class="bold">more accurate</span> and will be generally preferred over the RIF method. However, the analog reference filter must meet some stability criteria (poles on the left half part of the complex plane).</p>
+                                    <p> - <span class="bold">Invariance of the Impulse Response:</span> This method consists of starting with a digital filter template and then switch to an analog template by considering that \( \omega_n = \omega_a \).
+                                        Then we figure out the analog filter's transfer function (analog poles \(p)\) and we match back this analog filter with the correspondong digital filter. </p>
+                                    </p>
+                                    <p> - <span class="bold">Bilinear transform:</span> This method consists of the same approach as the previous one expects we consider that digital pulsations are transformed to analog pulsations by the following relation:
+                                        \( \omega_a = \frac{2}{T_e} tan(\frac{\omega_n T_e}{2}) \). This relation comes from this approximation: \( p \equiv \frac{2}{T_e}\frac{(1-z^{-1})}{(1+z^{-1})} \).
+                                        <img src="images/bilinear.svg" alt="bilinear">
+                                    </p>
+                                    <p>All in all, this method has some benefits - <span class="bold">more selective, faster and requires fewer memory registers</span> - and some drawbacks - <span class="bold">can be unstable (poles), non-linear phase</span>.</p>
+                                </div>
+                                <div class="frame-highlight">
+                                    <li> <span class="mark">FIR:</span> the output depends only on the current and previous inputs > <span class="math">\( s[n] = \sum_{i=0}^{N-1}{a_i e[i] h[n-i]} \)</span></li>
+                                    <p>The purpose of this method is to determine an <span class="bold">approximation of the filter's impulse response</span> and then convolute it with the input signal.
+                                        As we consider only an approximation, the <span class="bold">filter's characteristics get modified</span> and we have to deal with some drawbacks such as the 
+                                        <span class="bold">apparition of wavelets</span> in the filter's spectrum (caused by the truncation --> convolution with sinc).</p>
+                                    <p> - <span class="bold">Coherence of the Impulse Response:</span></p>
+                                        <ol>
+                                            <li>Sampling frequency: Determine \( f_{max}\) and apply the Shannon theorem: \(f_e\ \geq\ 2f_{max}\)</li>
+                                            <li>Impulse response (IR): Find the impulse response of the analog filter.</li>
+                                            <li>Signal truncation: Truncate the IR after a rank N such that \( h(N) \geq \frac{h_{max}}{100}\)</li>
+                                        </ol>
+                                    <p> - <span class="bold">Discretization of the inverse DFT:</span> We determine the IR samples using direclty the inverse DFT definition > <span class="math">\( h[n] = \frac{1}{N} \sum_{k=-\frac{N}{2}}^{\frac{N}{2}-1} X(k\delta f) e^{j2\pi \frac{n}{N}k} \)</span>.</p>
+                                    <p>All in all, this method has some benefits - <span class="bold">always stable (no poles), linear phase (if symmetric)</span> - and some drawbacks - <span class="bold">less selective, less efficient and requires more memory space</span>.</p>
+                                </div>
+                            </ol>
+                        </div>
+                        <div class="subject-subdiv"> <h4>3. Signal modulation</h4> </div>
+                        <div>
+                            <p>When it comes to transmitting information using signals, we face some issues:</p>
+                            <div class="frame-highlight">
+                            <ol>
+                                <li>most of the time the signal transmitted is comprised within a range of 20 to 20kHz (voice frequency), thus if we transmit the signal at its original frequency, we would end up having all signals interfering with each other (all the same frequency)</li>
+                                <li>the size of the receiver should also be ridiculously large for detecting such signals (several kilometers)</li>
+                            </ol>
+                            <p>Modulation allows to slide the signal spectrum along the frequency axis to a higher frequency, thereby countering the two previous problems because now we can control the frequency at which we want our signal to be broadcasted and as the frequency gets higher, the receiver gets smaller.</p>
                             </div>
+                        </div>
+                        <div class="subject-subdiv"> <h4>4. Intercorrelation</h4> </div>
+                        <div>
+                            <p>The correlation method is used when emitting a signal and waiting for a response. When a response is detected by the sensor, it compares the signal received with the one emitted.
+
+                            </p>
+                            <div class="frame-highlight">
+                            <ol>
+                                <li>most of the time the signal transmitted is comprised within a range of 20 to 20kHz (voice frequency), thus if we transmit the signal at its original frequency, we would end up having all signals interfering with each other (all the same frequency)</li>
+                                <li>the size of the receiver should also be ridiculously large for detecting such signals (several kilometers)</li>
+                            </ol>
+                            <p>Modulation allows to slide the signal spectrum along the frequency axis to a higher frequency, thereby countering the two previous problems because now we can control the frequency at which we want our signal to be broadcasted and as the frequency gets higher, the receiver gets smaller.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="subject-container">
+                    <div class="label"> <h3>Image Processing</h3> </div>
+                    <div class="keywords">Image representation and acquisition, segmentation by contours/regions, filtering, image classification and recognition </div>
+                    <div class="content">
+                        <p>This course will start in the second part of this semester.</p>
+                        <div class="subject-subdiv"> <h4>1. Architectures</h4>
+                            <p>Parallelism</p>
                         </div>
                     </div>
                 </div>
@@ -98,6 +127,7 @@
                 <div class="subject-container">
                     <div class="label"> <h3>Digital Embedded Systems</h3> </div>
                     <div class="keywords">OS architectures, performances, parallelism paradigm (semaphores), process, FreeRTOS</div>
+                    <p>You can consult some <a href="currentprojects.html" target="_parent">projects</a> done as part of this course.</p>
                     <div class="content">
                         <p>Our purpose in this course is to understand what are the impacts of the sampling on an analog signal.</p>
                         <p style="font-style: italic;">In this course, we had a <a href="sen_proj.html">project</a> in which we had to ... .</p>
@@ -185,12 +215,16 @@
                     <p style="font-style: italic;">The following section will be in french because I do not know precisely the vocabulary related to finance and management.</p>
                     <div class="keywords">Mots clés : Comptabilité française, Finance, Gestion, Management</div>
                     <div class="content">
-                        <p>This course .</p>
-                        <div class="subject-subdiv"> <h4>1. Bilan et Compte de Résultat</h4>
-                            <p>...</p>
+                        <p>Ce cours couvre les fondamentaux de la gestion comptable d'une entreprise.</p>
+                        <div class="subject-subdiv"> <h4>1. Bilan, Compte de Résultat et Flux de Trésorerie</h4>
+                            Le schéma ci-dessous (en cours d'élaboration) résume les principaux éléments de ses documents.
+                            <img src="images/MAE_Chap1.svg" alt="mae">
                         </div>
                         <div class="subject-subdiv"> <h4>2. TVA</h4>
-                            <p>...</p>
+                            <p>La TVA est neutre pour les entreprises. Elles jouent le rôle de percepteur auprès de l'état. Lorsqu'une entreprise vend ses services ou produits, elle doit reverser 20% de
+                                ses produits à l'état (TVA due = dettes auprès de l'état), lorsqu'elle achète des services ou marchandises auprès d'autres entreprises, elle les paie T.T.C. mais 20% de ses charges sont
+                                remboursées par l'état (TVA déductible = créances auprès de l'état).
+                            </p>
                         </div>
                         <div class="subject-subdiv"> <h4>3. Sources d'investissements</h4>
                             <p>R&D</p>
