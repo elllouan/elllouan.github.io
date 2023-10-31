@@ -186,4 +186,8 @@ width: 100%;
         font-size: 30px;
     }
     
+    .modulation-img {
+        width: 50%;
+        margin: 0 auto;
+    }
 }

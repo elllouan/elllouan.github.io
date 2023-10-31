@@ -32,23 +32,6 @@ ul, ol {
         justify-content: space-evenly;
     }
 
-    /* .cmake-tuto div {
-        text-align:start;
-        width: 100%;
-    } */
 
-    .linux-terminal {
-        font-family: 'Courier New', monospace;
-        background-color: black;
-        color: greenyellow;
-        border: 5px solid gray;
-        width: 80%;
-    }
-
-    .linux-terminal div {
-        line-height: 200%;
-        text-align:start;
-        width: 100%;
-    }
 
 }

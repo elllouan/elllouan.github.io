@@ -1,10 +1,15 @@
+.main-container a {
+    color: #444;
+}
+
 .main-container {
     position: relative;
     line-height: 2.5rem;
 }
 
-.maincontainer a {
-    color: black;
+.frame-highlight {
+    background-color: rgb(255, 211, 154);
+    margin: 0.5rem;
 }
 
 @media screen and (min-width: 481px) {
@@ -67,6 +72,16 @@
         font-size: 30px;
     }
 
+    .academic-projects, .personal-projects {
+        margin: 0.5rem auto;
+    }
+
+    .title {
+        background-color: #ffab52;
+    }
+
+    /* =========== ACADEMIC PROJECTS =========== */
+
     .tasks {
         padding: 0 3rem;
     }
@@ -84,5 +99,7 @@
         display: inline-block;
         width: 40%;
     }
+
+    /* =========== PERSONAL PROJECTS =========== */
 
 }

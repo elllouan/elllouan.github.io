@@ -9,7 +9,7 @@
     nav li {
         color: white;
         display: inline-block; /* align list elements in a row */
-        margin-inline: 1rem 3rem;
+        margin-inline: 1rem 2rem;
         top: 0;
         visibility: visible;
         text-align: center;
@@ -22,7 +22,7 @@
 
     nav li a:hover {
         text-decoration: overline;
-        font-size: 1.65rem;
+        font-size: 1.6rem;
     }
 
     .home-title::before {

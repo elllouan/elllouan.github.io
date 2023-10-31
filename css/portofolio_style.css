@@ -44,8 +44,8 @@
         align-items: center; /* Center vertically */
         height: 100%; /*Set a height for the container */
         background-color: rgb(255, 186, 58);
-        width: 60%;
-        margin: 0 auto;
+        width: 50%;
+        margin: 0 0;
     }
 
     .projects-container h2 {
@@ -59,9 +59,16 @@
     
     .projects-container div {
         text-decoration: overline;
-        line-height: 400%;
+        line-height: 200%;
         text-align: center;
         width: 100%;
+    }
+
+    .projects h3 {
+        line-height: 300%;
+        text-align: start;
+        border-top: 2px solid #444;
+        width: 50%;
     }
 
     .project a {

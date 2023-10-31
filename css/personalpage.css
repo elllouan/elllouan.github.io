@@ -30,7 +30,6 @@
     .thegreatsimplification,
     .metadechoc {
         display: flex;
-        /* justify-content: space-between; */
         gap: 5vh;
         align-items: center; /* align items vertically */
     }
@@ -82,7 +81,6 @@
     .metadechoc {
         display: flex;
         flex-direction: column;
-        /* justify-content: space-between; */
         gap: 5vh;
         align-items: center; /* align items vertically */
     }

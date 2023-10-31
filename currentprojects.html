@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong|Arial|Open+Sans">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="js/script.js"></script>
+        <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
         <link rel="stylesheet" href="generic-patterns/css/horizontalmenu.css">
         <link rel="stylesheet" href="generic-patterns/css/footer.css">
         <link rel="stylesheet" href="generic-patterns/css/main.css">
@@ -23,125 +24,199 @@
 
             <section class="accordion-current-projects">
 
-                <h2 class="title">Current projects</h2>
-                <p>Within this section, I talk about my ongoing projects whether they are academic or personal.</p>
-                <hr>
+                <div class="academic-projects">
+                    <h2 class="title">Current academic projects</h2>
 
-                <div class="current-project"> 
-                    <div class="label"> <h2>Buidling an OS from Scratch</h2>  </div>
-                    <div class="content">
-                        <p>This project will start in the second part of this semester.</p>
-                    </div>
-                </div>
-
-                <div class="current-project">
-                    <div class="label"> <h2>Robot project</h2> </div>
-                    <div class="content">
-                        <p>This project will start in the second part of this semester.</p>
-                    </div>
-                </div>
-
-                <div class="current-project">
-                    <div class="label"> <h2>Calculator project</h2> </div>
-                    <div class="content calculator">
-                        <div class="introduction">
-                            <p>In this project, our goal is to develop an embedded scripting calculator on a NXP microcontroller.
-                            We have the PC that can communicate with the NXP board over UART. From the PC, we open a serial communication and input math operation commands.
-                            These are received by the microcontroller which interprets them.
-                            Therefore, we use a C library called <span class="mark">Calc</span> that can be integrated in a microcontroller.
-                            This library was developed to perform arithmetic operations using a scripting approach like Matlab. The board has already some of the code
-                            implemented in it. This project organises itself around three tasks:</p>
-                            <ul class="tasks">
-                                <li> <span class="mark">Task 1: External communication</span>
-                                    <ol style="margin-left: 1rem;">
-                                        <li>Handling VT100 (ANSI escape sequences);</li>
-                                        <li>Mounting a file system on a SD card;</li>
-                                        <li>Executing syscalls on files stored on the SD card.</li>
-                                    </ol>
-                                </li>
-                                <li> <span class="mark">Task 2: Multicore system</span>
-                                    <ol style="margin-left: 1rem;">
-                                        <li>Booting the two cores;</li>
-                                        <li>Sharing data between the two cores;</li>
-                                        <li>Performing synchronous and asynchronous tasks.</li>
-                                    </ol>
-                                </li>
-                                <li> <span class="mark">Task 3: Bringing math further</span>
-                                    <ol style="margin-left: 1rem;">
-                                        <li>Adding PowerQuad to the system;</li>
-                                        <li>Computing the cosine of a function;</li>
-                                        <li>Performing advanced math operations like FFT.</li>
-                                    </ol>
-                                </li>
-                            </ul>
+                    <div class="current-project"> 
+                        <div class="label"> <h2>Buidling an OS from Scratch</h2>  </div>
+                        <div class="content">
+                            <p>This project is part of both an academic project and a personal project.</p>
                             <hr>
-                            <div class="project-structure">
-                                <h3>Project structure</h3>
-                                <p>The project is aranged this way. The folders which we are mainly interested in are <span class="italic">source, fatfs, lcd, sdmmc</span>.
-                                    Folder names are pretty self-explanatory, except for <span class="italic">sdmmc</span> which contains the drivers for the SD card.
-                                    I provided a view of the source folder.
-                                </p>
-                                <div class="intro-img">
-                                    <img src="images/project_structure.JPG" alt="proj_struct">
-                                    <img src="images/src_structure.JPG" alt="src_struct">
-                                    <img src="images/nxp_board.jpg" alt="nxp_board">
+                            <div> <h3>Bootstrapping & Cross-compilation</h3>
+                                My journey starts with understanding these terms.
+                                <span class="mark">Bootstrapping</span> is a process in which we use an older version of a compiler to compile its new version.
+                                Hence, we start with a basic compiler (compiled with a native compiler) up to buidling a more advanced (and maybe self-hosted) compiler.
+                                Bootstrapping is very interesting as it leverages previous features and achievements of a compiler to create a new and more advanced version of it.
+                                Here is an illustration with the T-diagram:
+                                <img src="images/bootstrapping.svg" alt="bootstrapping">
+                                A <span class="mark">self-hosted</span> compiler is a compiler designed to compile its source programmation language.
+                                A <span class="mark">cross-compiler</span> is a compiler whose purpose is to build executable programs (binary files) which are aimed at another OS or architecture
+                                than the one we are working on. For example, if we work on a Linux environment but we want to create executables for Windows whose OS
+                                (and maybe architecture) differs, we can use a cross-compiler (such as minGW-64) to do so.
+                                <div class="frame-highlight">
+                                    <p>To give an example, the GCC compiler is a cross-compiler that relies on bootstrapping. Thus, it can be configured to generate code on various
+                                    targets and architectures (using minGW-64 for Windows OS on a x64 architecture). On top of that, it supports a wide range of source langages such as C, C++, Fortran, Go, Pascal, Rust, etc.
+                                    This is due to its structure, which allows it to separate front-end (source syntax) and back-end (target syntax) code.
+                                    </p>
                                 </div>
-                                <p><span class="italic">sysdep.c</span> is the file containing the main function.</p>
+                            </div>
+                            <hr>
+                            <div>
+
                             </div>
                         </div>
-                        <hr>
-                        <div class="task1">
-                            <p>I was assigned the <span class="mark">first task</span>, so in this section I will explain how I proceeded to complete those.
-                                I mostly worked in the <span class="italic">sysdep.c</span> file.
+                    </div>
+
+                    <div class="current-project">
+                        <div class="label"> <h2>Robot project</h2> </div>
+                        <div class="content">
+                            <p>This project will start in the second part of this semester.</p>
+                        </div>
+                    </div>
+
+                    <div class="current-project">
+                        <div class="label"> <h2>Calculator project</h2> </div>
+                        <div class="content calculator">
+                            <div class="introduction">
+                                <p>In this project, our goal is to develop an embedded scripting calculator on a NXP microcontroller.
+                                We have the PC that can communicate with the NXP board over UART. From the PC, we open a serial communication and input math operation commands.
+                                These are received by the microcontroller which interprets them.
+                                Therefore, we use a C library called <span class="mark">Calc</span> that can be integrated in a microcontroller.
+                                This library was developed to perform arithmetic operations using a scripting approach like Matlab. The board has already some of the code
+                                implemented in it. This project organises itself around three tasks:</p>
+                                <ul class="tasks">
+                                    <li> <span class="mark">Task 1: External communication</span>
+                                        <ol style="margin-left: 1rem;">
+                                            <li>Handling VT100 (ANSI escape sequences);</li>
+                                            <li>Mounting a file system on a SD card;</li>
+                                            <li>Executing syscalls on files stored on the SD card.</li>
+                                        </ol>
+                                    </li>
+                                    <li> <span class="mark">Task 2: Multicore system</span>
+                                        <ol style="margin-left: 1rem;">
+                                            <li>Booting the two cores;</li>
+                                            <li>Sharing data between the two cores;</li>
+                                            <li>Performing synchronous and asynchronous tasks.</li>
+                                        </ol>
+                                    </li>
+                                    <li> <span class="mark">Task 3: Bringing math further</span>
+                                        <ol style="margin-left: 1rem;">
+                                            <li>Adding PowerQuad to the system;</li>
+                                            <li>Computing the cosine of a function;</li>
+                                            <li>Performing advanced math operations like FFT.</li>
+                                        </ol>
+                                    </li>
+                                </ul>
+                                <hr>
+                                <div class="project-structure">
+                                    <h3>Project structure</h3>
+                                    <p>The project is aranged this way. The folders which we are mainly interested in are <span class="italic">source, fatfs, lcd, sdmmc</span>.
+                                        Folder names are pretty self-explanatory, except for <span class="italic">sdmmc</span> which contains the drivers for the SD card.
+                                        I provided a view of the source folder.
+                                    </p>
+                                    <div class="intro-img">
+                                        <img src="images/project_structure.JPG" alt="proj_struct">
+                                        <img src="images/src_structure.JPG" alt="src_struct">
+                                        <img src="images/nxp_board.jpg" alt="nxp_board">
+                                    </div>
+                                    <p><span class="italic">sysdep.c</span> is the file containing the main function.</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="task1">
+                                <p>I was assigned the <span class="mark">first task</span>, so in this section I will explain how I proceeded to complete those.
+                                    I mostly worked in the <span class="italic">sysdep.c</span> file.
+                                </p>
+                                <div class="task1-1">
+                                    <h3>1. VT100 code</h3>
+                                    <p>Historically, a terminal could only interpret keyboards that would output printing characters. In that matter, the VT100 (or ANSI escape sequences)
+                                        were invented so that a terminal could also interpret non-printing characters such as arrow cursors or f keyboards. With this new standard was
+                                        introduced brand new features and we could now move the cursor, clear the screen, change the color of the text, etc.
+                                        In this project, the terminal on the laptop's end sends characters to the board that are sent back so they can be visualized on the terminal.
+                                        This way, when a VT100 characters sequence is sent to the board, we just need to send it back and the terminal will interpret it accordingly.
+                                    </p>
+                                    <div class="task1-1-img">
+                                        <img src="images/sys_waitkey.JPG" alt="vt100">
+                                        <img src="images/scan_t.JPG" alt="scan_t">
+                                    </div>
+                                    <p><span class="italic">sys_wait_key</span> is called by a Calc function. It returns <span class="italic">c</span> and modifies the <span class="italic">scan</span> pointer.
+                                        <span class="italic">scan_t</span> is a enum type defined in the Calc header. Here we can see that this function gets the c character and depending on what characters it is we assigned to scan the right value.
+                                        In the case of a VT100 sequence, the first character is an escape character (0x1B = 27). Since the function is quite long, I did not screenshot it entierly, though we can see the approach for the first sequences.
+                                    </p>
+                                </div>
+                                <hr>
+                                <div class="task1-2">
+                                    <h3>2. File system</h3>
+                                    <p>We want to be able to load files from the SD card and execute them and to do so, we need to mount a file system on the SD card. We were required to use
+                                        the FAT32 file system. The FAT32 file system is a simple file system and is the most commonly used. It is part of the FAT family file system developed by Windows.
+                                        A file system allows to arange memory space of a storage device such as an SD card, thereby providing a convenient way to naviguate through the memory, store and access data.
+                                        The FAT32 library documentation is available at this <a href="http://elm-chan.org/fsw/ff/00index_e.html">link</a>.
+                                    </p>
+                                    <div class="task1-2-img">
+                                        <img src="images/fs_cd.JPG" alt="fs_cd">
+                                        <img src="images/fs_mkdir_rm.JPG" alt="fs_mkdir">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="task1-3">
+                                    <h3>3. Syscalls</h3>
+                                    <p>Now that we can access with files stored on a SD card, we would like to be able to interact with them (modifying or executing them).
+                                        To do so, we need to implement basic syscalls-like features.
+                                        Indeed, the Calc library makes available some commands that are meant for opening, closing, reading and writing files.
+                                        My job here was to implement Calc functions using FAT32 functions.
+                                    </p>
+                                    <div class="task1-3-img">
+                                        <img src="images/open_close.JPG" alt="open_close">
+                                        <img src="images/read_write.JPG" alt="read_write">
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="personal-projects">
+                    <h2 class="title">Personal projects</h2>
+
+                    <div class="current-project">
+                        <div class="label"> <h2>Learning AI with tensorflow</h2> </div>
+                        <div class="content">
+                            <p>I have started to learn the basics of AI using the tensorflow python module.
+                                For now, I am taking a freecodecamp <a href="https://www.youtube.com/watch?v=IA3WxTTPXqQ&list=LL&index=2&t=440s" target="_blank">course</a>.
+                                I work with Google Colab and I will fill this section as I become more confident about this topic.
                             </p>
-                            <div class="task1-1">
-                                <h3>1. VT100 code</h3>
-                                <p>Historically, a terminal could only interpret keyboards that would output printing characters. In that matter, the VT100 (or ANSI escape sequences)
-                                    were invented so that a terminal could also interpret non-printing characters such as arrow cursors or f keyboards. With this new standard was
-                                    introduced brand new features and we could now move the cursor, clear the screen, change the color of the text, etc.
-                                    In this project, the terminal on the laptop's end sends characters to the board that are sent back so they can be visualized on the terminal.
-                                    This way, when a VT100 characters sequence is sent to the board, we just need to send it back and the terminal will interpret it accordingly.
-                                </p>
-                                <div class="task1-1-img">
-                                    <img src="images/sys_waitkey.JPG" alt="vt100">
-                                    <img src="images/scan_t.JPG" alt="scan_t">
-                                </div>
-                                <p><span class="italic">sys_wait_key</span> is called by a Calc function. It returns <span class="italic">c</span> and modifies the <span class="italic">scan</span> pointer.
-                                    <span class="italic">scan_t</span> is a enum type defined in the Calc header. Here we can see that this function gets the c character and depending on what characters it is we assigned to scan the right value.
-                                    In the case of a VT100 sequence, the first character is an escape character (0x1B = 27). Since the function is quite long, I did not screenshot it entierly, though we can see the approach for the first sequences.
-                                </p>
-                            </div>
                             <hr>
-                            <div class="task1-2">
-                                <h3>2. File system</h3>
-                                <p>We want to be able to load files from the SD card and execute them and to do so, we need to mount a file system on the SD card. We were required to use
-                                    the FAT32 file system. The FAT32 file system is a simple file system and is the most commonly used. It is part of the FAT family file system developed by Windows.
-                                    A file system allows to arange memory space of a storage device such as an SD card, thereby providing a convenient way to naviguate through the memory, store and access data.
-                                    The FAT32 library documentation is available at this <a href="http://elm-chan.org/fsw/ff/00index_e.html">link</a>.
-                                </p>
-                                <div class="task1-2-img">
-                                    <img src="images/fs_cd.JPG" alt="fs_cd">
-                                    <img src="images/fs_mkdir_rm.JPG" alt="fs_mkdir">
-                                </div>
+                            <div> <h3>Convolution</h3>
+                                First off, it is essential to capture the essence of convolution. Indeed, convolution plays a fundamental role in AI, image and signal processing.
+                                In AI, more specifically in Deep Neuronal Network, convolution is used to compute probability.
+                                Now, it also important to differentiate the discrete and continuous cases.
+                                For a more comprehensive explanation I let you watch the wonderful video of <a href="https://www.youtube.com/watch?v=IaSGqQa5O-M" target="_blank">3Blue1Brown</a>.
+                                
+                                <h4>Discrete convolution</h4>
+                                The formula goes \( (f(x)*g(x))(s) = \sum^{N}_{x=0} f(x) g(s-x) \), where \(f(x)\) and \(g(y)\)
+                                are functions representing the probability of a random variable.
+
+                                <h4>Continuous convolution</h4>
+                                The formula goes \( (f(x)*g(x))(s) = \int^{+\infty}_{-\infty} f(x) g(s-x) dx \), where \(f(x)\) and \(g(y)\)
+                                are functions representing the probability density of a random variable.
+                                The outcome of this convolution operation is a new function \(h(s)\), called the probability density function,
+                                where \(s\) represents the random variable \(X+Y\) and its image represents the probability (density) that \(P_x + P_y\) occurs.
+
                             </div>
-                            <hr>
-                            <div class="task1-3">
-                                <h3>3. Syscalls</h3>
-                                <p>Now that we can access with files stored on a SD card, we would like to be able to interact with them (modifying or executing them).
-                                    To do so, we need to implement basic syscalls-like features.
-                                    Indeed, the Calc library makes available some commands that are meant for opening, closing, reading and writing files.
-                                    My job here was to implement Calc functions using FAT32 functions.
-                                </p>
-                                <div class="task1-3-img">
-                                    <img src="images/open_close.JPG" alt="open_close">
-                                    <img src="images/read_write.JPG" alt="read_write">
-                                </div>
+
+                            <div> <h3>Basics of tensorflow</h3>
+                                This section is an introduction to tensors and tensorflow syntax and features.
                             </div>
-                            <hr>
+                        </div>
+                    </div>
+
+                    <div class="current-project">
+                        <div class="label"> <h2>Podcast</h2> </div>
+                        <div class="content">
+                            <p>Tech, environmental issuses, personal reflections, book reviews and experience feedback. (no episode released yet)</p>
+                        </div>
+                    </div>
+
+                    <div class="current-project">
+                        <div class="label"> <h2>Website & Web server</h2> </div>
+                        <div class="content">
+                            <p>So far, this small presentation website has been hosting on GitHub servers. I want to expand it so that it becomes like a personal blog and host it on my own web server.
+                                This will be a great opportunity to enhance my understanding and skills of network concepts and security. 
+                            </p>
                         </div>
                     </div>
                 </div>
-
             </section>
             
 
