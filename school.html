@@ -69,8 +69,7 @@
                             </p>
                             <button id="tsi-graphs1">Show illustrations</button>
                         </div>
-                        <div class="subject-subdiv"> <h4>3. Digital Filter Synthesis</h4> </div>
-                        <div>
+                        <div class="subject-subdiv"> <h4>3. Digital Filter Synthesis</h4>
                             <p>There exists 2 types of digital filters: <span class="mark">IIR (Infinite Impulse Response)</span> and <span class="mark">FIR (Finite Impulse Response)</span>.</p>
                             <ul>
                                 <div class="frame-highlight">
@@ -103,8 +102,7 @@
                                 </div>
                             </ol>
                         </div>
-                        <div class="subject-subdiv"> <h4>3. Signal modulation</h4> </div>
-                        <div>
+                        <div class="subject-subdiv"> <h4>4. Signal modulation</h4>
                             <p>When it comes to transmitting information using signals, we face some issues:</p>
                             <div class="frame-highlight">
                                 <ol>
@@ -119,11 +117,9 @@
                             </p>
                             <img class="modulation-img" src="images/modulation.drawio.png" alt="mod">
                         </div>
-                        <div class="subject-subdiv"> <h4>4. Intercorrelation</h4> </div>
-                        <div>
+                        <div class="subject-subdiv"> <h4>5. Intercorrelation</h4>
                             <p>The correlation method is in the field of radar. When emitting a signal, we want to be able to detect if the signal comes back to us (obstacle detection for instance).
                                 Thus, the detector needs to constantly compare any received signal to with the one that was originally emitted.
-
                             </p>
                             <div class="frame-highlight">
                             <ol>
@@ -194,40 +190,23 @@
                             </div>
                             <p>In Linux everything is a file. For example, writing into a socket is like writing in a file.
                                 The kernel creates a pipe that can be written into or read from via a file descriptor (fd).
-                                
                             </p>
                             <div class="linux-terminal">
-                                <div>$ man write, read, open, close</div>
-                                <div>$ man socket, bind, send</div>
-                                <div>$ touch CMakeLists.txt</div>
+                                <div>$ man write / read / open, close</div>
+                                <div>$ man socket / bind / send</div>
+                                <div>$ man accept / </div>
                             </div>
                         </div>
-                        <div class="subject-subdiv"> <h4>X. Important commands</h4>
-                            <div class="terminal">
-                                <div class="header">
-                                    <div class="buttons">
-                                    <div class="button close"></div>
-                                    <div class="button minimize"></div>
-                                    <div class="button maximize"></div>
-                                    </div>
-                                    Terminal
-                                </div>
-                                <pre class="output">
-                                    Networking Commands
-                                </pre>
-                                <div class="output">
-                                    <div>$ ip link set dev <span style="font-style: italic;">eth0</span> up   /* Set up the eth0 network interface */</div>
-                                    <div>$ ip addr [add/del] <span style="font-style: italic;">[IP/mask]</span> dev eth0   /* Add a new IP to eth0 */</div>
-                                    <div>$ ip route add default via <span style="font-style: italic;">IP</span> /* Add a default route to a host */</div>
-                                    <div>$ echo 1 >/proc/sys/net/ipv4/ip_forward   /* Enables the OS to perform IP forward */</div>
-                                    <div>$ iptables -t nat -A [PREROUTING/POSTROUTING] -s [IP/mask] -p [] --dport [] [-to--source/-to--destination]   /* Enables the OS to perform IP forward */</div>
-                                    <div>$ ip filter -A [INPUT/OUTPUT/FORWARD] DROP   /* Enables the OS to perform IP forward */</div>
-                                    <div>$ tcpdump -eni <span style="font-style: italic;">eth0</span>   /* Listen traffic on eth0 */</div>
-                                    
-                                    <div>$ ncat -lp [port]   /* Initiate the communication on a specific port */</div>
-                                    <div>$ ncat [IP] [port] /* Initiate the communication with another host on a specific port */</div>
-                                    <!-- <input type="text" placeholder="Type a command" /> -->
-                                </div>
+                        <div class="subject-subdiv"> 
+                            <h4>X. Important config commands</h4>
+                            <div class="linux-terminal">
+                                <div>$ ip link set dev <span style="font-style: italic;">eth0</span> up   /* Set up the eth0 network interface */</div>
+                                <div>$ ip addr [add/del] <span style="font-style: italic;">[IP/mask]</span> dev eth0   /* Add a new IP to eth0 */</div>
+                                <div>$ ip route add default via <span style="font-style: italic;">IP</span> /* Add a default route to a host */</div>
+                                <div>$ echo 1 >/proc/sys/net/ipv4/ip_forward   /* Enables the OS to perform IP forward */</div>
+                                <div>$ iptables -t nat -A [PREROUTING/POSTROUTING] -s [IP/mask] -p [] --dport [] [-to--source/-to--destination]   /* Enables the OS to SNAT and DNAT */</div>
+                                <div>$ ip filter -A [INPUT/OUTPUT/FORWARD] DROP   /* Enables the OS to act like a firewall (block all communications) */</div>
+                                <div>$ tcpdump -eni <span style="font-style: italic;">eth0</span>   /* Listen to traffic on eth0 */</div>
                             </div>
                         </div>
                     </div>

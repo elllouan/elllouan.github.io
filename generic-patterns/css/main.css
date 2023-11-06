@@ -31,8 +31,8 @@
 
     --fs-h1: 3rem;
     --fs-h2: 2.5rem;
-    --fs-h3: 1.75rem;
-    --fs-h4: 1.25rem;
+    --fs-h3: 2rem;
+    --fs-h4: 1.5rem;
     --fs-std: 1.25rem;
     /* fs stands for 'family size' */
 } 
@@ -46,8 +46,8 @@ body { /* set default characteristics within the body */
     font-weight: var(--fw-regular);
     border:  0.5em var(--clr-dark) solid;
     background: var(--clr-light-grey);
-    background-color: var(--clr-light);
     /* line-height: 1rem; */
+    text-align: justify;
 }
 
 img { /* set default characteristics for images */
@@ -66,6 +66,7 @@ h1, h2, h3 {
 h1 { 
     font-size: var(--fs-h1);
     border-bottom: 5px var(--clr-dark) solid;
+    line-height: 1.5;
 }
 
 h2 { 
@@ -73,14 +74,22 @@ h2 {
     font-family: var(--ff-subtitle);
     border-top: 5px var(--clr-dark) solid;
     width: 50%;
+    line-height: 1.4;
 }
 
 h3 { 
-    font-size: var(--fs-h3); 
+    font-size: var(--fs-h3);
+    line-height: 1.3;
 }
 
 h4 {
     font-size: var(--fs-h4);
+    width: 50%;
+    margin: 0.75rem 0rem;
+    padding: 0.5rem;
+    border: 1px solid #333;
+    text-decoration: underline;
+    background-color: orange;
 }
 
 section {
@@ -139,8 +148,8 @@ button {
 }
 
 hr {
-    border: 2px solid black;
-    margin: 0.5rem 0;
+    border: 4px solid #444;
+    margin: 0.75rem 0;
 }
 
 .linux-terminal {
@@ -148,7 +157,8 @@ hr {
     background-color: black;
     color: greenyellow;
     border: 5px solid gray;
-    width: 80%;
+    width: 100%;
+    margin-bottom: 1rem;
 }
 
 .linux-terminal div {
@@ -156,3 +166,11 @@ hr {
     text-align:start;
     width: 100%;
 }
+
+.frame-highlight {
+    background-color: rgb(255, 211, 154);
+    margin: 0.5rem;
+    border: 2px solid #444;
+    padding: 0.5rem;
+}
+

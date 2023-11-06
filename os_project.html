@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html lang ="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- make sure that the content fit the device on which we open -->
+        <title> OS project </title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong|Arial|Open+Sans">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="js/script.js"></script>
+        <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+        <link rel="stylesheet" href="generic-patterns/css/horizontalmenu.css">
+        <link rel="stylesheet" href="generic-patterns/css/footer.css">
+        <link rel="stylesheet" href="generic-patterns/css/main.css">
+        <link rel="stylesheet" href="css/os_project.css">
+    </head>
+
+    <!-- Within de web page -->
+    <body>
+        <div id="horizontalmenu"></div>
+        
+        <section class="main-container">
+            <p>I will be working with the Windows Subsystem for Linux (WSL 2) as my platform of developement.
+                <div class="frame-highlight">Note: You cannot have your cross compiler in the /mnt/c/ (or /mnt/"x") areas, as trying to compile your cross-compiler there will generate errors, whereas building to $HOME/opt/cross works perfectly.
+                    This is fixed with Windows Update KB3176929</div>                  
+            </p>
+            <hr>
+            <div class="cross-compiler-tuto">
+                <div> <h3>1. Bootstrapping & Cross-compilation</h3>
+                    <p>Our goal here is to build a GCC cross-compiler for the <span class="mark">i386-elf</span> target.
+                        Therefore, I have to build binutils, gdb and gcc myself to set them for this configuration.
+                    </p>
+                    <p><span class="mark">Bootstrapping</span> is a process in which we use an older version of a compiler to compile its new version.
+                        Hence, we start with a basic compiler (compiled with a native compiler) up to buidling a more advanced (and maybe self-hosted) compiler.
+                        Bootstrapping is very interesting as it leverages previous features and achievements of a compiler to create a new and more advanced version of it.
+                        Here is an illustration with the T-diagram:
+                        <img src="images/bootstrapping.svg" alt="bootstrapping">
+                        A <span class="mark">self-hosted</span> compiler is a compiler designed to compile its source programmation language.
+                        A <span class="mark">cross-compiler</span> is a compiler whose purpose is to build executable programs (binary files) which are aimed at another OS or architecture
+                        than the one we are working on. For example, if we work on a Linux environment but we want to create executables for Windows whose OS
+                        (and maybe architecture) differs, we can use a cross-compiler (such as minGW-64) to do so.
+                        <div class="frame-highlight">
+                            <p>As an example, the GCC compiler is a cross-compiler that relies on bootstrapping. Thus, it can be configured to generate code on various
+                            targets and architectures (using minGW-64 for Windows OS on a x64 architecture). On top of that, it supports a wide range of source langages such as C, C++, Fortran, Go, Pascal, Rust, etc.
+                            This is due to its structure, which allows it to separate front-end (source syntax) and back-end (target syntax) code.
+                            </p>
+                        </div>
+                    </p>
+                </div>
+                <hr>
+                <div> <h3>Buidling a GCC cross-compiler</h3>
+                    <div> <h4>Compilation of Binutils</h4>
+                        <p>
+                            Binutils is a 
+                            Download these <a href="https://ftp.gnu.org/gnu/binutils/" target="_blank">Binutils packages</a> in the <span class="mark">$HOME/src</span> directory.
+                            <div class="linux-terminal">
+                                <div>HOME/src$ mkdir build-bin</div>
+                            </div> 
+                        </p>
+                        
+                    </div>
+                    <div> <h4>Compilation of GDB</h4>
+                        <a href="https://sourceware.org/pub/gdb/releases/?C=M;O=D" target="_blank">GDB packages</a>
+                        <div class="linux-terminal">
+                            <div>HOME/src$</div>
+                        </div>
+                    </div>
+                    <div> <h4>Compilation of GCC</h4>
+                        <p>Clone the GCC repository.
+                            <div class="linux-terminal">
+                                <div>HOME/src$ git clone https://gcc.gnu.org/git/gcc.git</div>
+                            </div>
+
+                            Once downloaded, make sure to dwonload prerequisites (GMP, MPFR, ISL and MPC).
+                            <div class="linux-terminal">
+                                <div>HOME/src/gdb$ ./contrib/download_prerequisites</div>
+                            </div>
+
+                            Finally, configure and build our GCC cross-compiler for the <span class="mark">i686-elf</span> target. 
+                            <div class="linux-terminal">
+                                <div>HOME/src/build-gdb$ ../gcc/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --enable-languages=c,c++ --without-headers </div>
+                            </div>
+                        </p>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </section> <!-- main-container -->
+
+        <div id="footer"></div>
+
+    </body>
+
+</html>

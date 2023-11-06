@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="generic-patterns/css/horizontalmenu.css">
         <link rel="stylesheet" href="generic-patterns/css/footer.css">
         <link rel="stylesheet" href="generic-patterns/css/main.css">
-        <link rel="stylesheet" href="css/currentprojetcs.css">
+        <link rel="stylesheet" href="css/currentprojects.css">
     </head>
 
     <!-- Within de web page -->
@@ -30,27 +30,38 @@
                     <div class="current-project"> 
                         <div class="label"> <h2>Buidling an OS from Scratch</h2>  </div>
                         <div class="content">
-                            <p>This project is part of both an academic project and a personal project.</p>
+                            <p>This project is part of both an academic project and a personal project. In this section, I just go over the main steps I went through.
+                                This is not aimed at giving an in-depth view on my project. To see a more detailed version, you can refer to my <a href="os_project.html" target="_blank">tuto</a>.
+                            </p>
                             <hr>
-                            <div> <h3>Bootstrapping & Cross-compilation</h3>
-                                My journey starts with understanding these terms.
-                                <span class="mark">Bootstrapping</span> is a process in which we use an older version of a compiler to compile its new version.
-                                Hence, we start with a basic compiler (compiled with a native compiler) up to buidling a more advanced (and maybe self-hosted) compiler.
-                                Bootstrapping is very interesting as it leverages previous features and achievements of a compiler to create a new and more advanced version of it.
-                                Here is an illustration with the T-diagram:
-                                <img src="images/bootstrapping.svg" alt="bootstrapping">
-                                A <span class="mark">self-hosted</span> compiler is a compiler designed to compile its source programmation language.
-                                A <span class="mark">cross-compiler</span> is a compiler whose purpose is to build executable programs (binary files) which are aimed at another OS or architecture
-                                than the one we are working on. For example, if we work on a Linux environment but we want to create executables for Windows whose OS
-                                (and maybe architecture) differs, we can use a cross-compiler (such as minGW-64) to do so.
-                                <div class="frame-highlight">
-                                    <p>To give an example, the GCC compiler is a cross-compiler that relies on bootstrapping. Thus, it can be configured to generate code on various
-                                    targets and architectures (using minGW-64 for Windows OS on a x64 architecture). On top of that, it supports a wide range of source langages such as C, C++, Fortran, Go, Pascal, Rust, etc.
-                                    This is due to its structure, which allows it to separate front-end (source syntax) and back-end (target syntax) code.
-                                    </p>
-                                </div>
+                            <div> <h3>1. Academic project</h3>
+                                <p>In this project, we program an OS aimed at the Cortex-M33 processor. The purpose here is to understand how an OS works, what is a the difference between the kernel and the user.
+                                    We want to be able to understand what happens in the background when we make a syscall.
+                                    Here, I will only provide a brief overview about this project. However, you can find a more comprehensive view of it <a href="os_enib_project.html">there</a>.
+                                </p>
+                                <p>This project consists of several steps:
+                                    <div class="frame-highlight">
+                                        <ol>
+                                            <li>Understanding of how a syscall works;</li>
+                                            <li>Creating a task (thread) and testing task commutation;</li>
+                                            <li>Implementing our own semaphore and mutex;</li>
+                                            <li>Implementing the delay feature;</li>
+                                            <li>Terminating a task;</li>
+                                            <li>Implementing basic features with peripherals: RGB led, button;</li>
+                                            <li>Programming more advanced functionalities: UART, etc.</li>
+                                        </ol>
+                                    </div>
+                                    I dedicate a section to each one of these steps on this <a href="os_enib_project.html">page</a>.
+                                </p>
                             </div>
                             <hr>
+                            <div> <h3>2. Personal project</h3>
+                                <p>In this project, I intend to build an OS from scratch. I want to leverage the knowledge I will acquire along the academic project to learn more about this topic.
+                                    I find it to be really interesting to be able to comprehend thoroughly what building an OS really requires, I mean the whole process.
+                                    This will be a much harder task, as I will self-teach me most of the stuffs.
+                                    As for the academic project, you can find a deeper view of this project on this <a href="os_project.html">page</a>.
+                                </p>
+                            </div>
                             <div>
 
                             </div>
@@ -177,26 +188,59 @@
                                 I work with Google Colab and I will fill this section as I become more confident about this topic.
                             </p>
                             <hr>
-                            <div> <h3>Convolution</h3>
-                                First off, it is essential to capture the essence of convolution. Indeed, convolution plays a fundamental role in AI, image and signal processing.
-                                In AI, more specifically in Deep Neuronal Network, convolution is used to compute probability.
-                                Now, it also important to differentiate the discrete and continuous cases.
-                                For a more comprehensive explanation I let you watch the wonderful video of <a href="https://www.youtube.com/watch?v=IaSGqQa5O-M" target="_blank">3Blue1Brown</a>.
+                            <div> <h3>Convolution in probability and image processing</h3>
+                                First off, I would like to mention this wonderful video of <a href="https://www.youtube.com/watch?v=IaSGqQa5O-M" target="_blank">3Blue1Brown</a>.
+                                There I learnt a lot and improve my understanding about the role that convolution plays in probability and image processing.
+                                To get started, I will try to summarize quickly what it is explained in this video.
                                 
                                 <h4>Discrete convolution</h4>
-                                The formula goes \( (f(x)*g(x))(s) = \sum^{N}_{x=0} f(x) g(s-x) \), where \(f(x)\) and \(g(y)\)
-                                are functions representing the probability of a random variable.
-
+                                <p>We can start by focusing on the discrete case which (in my opinion) brings the main idea of why we use convolution in probability.
+                                    The formula goes \[ (f(n)*g(n))(s) = \sum^{N}_{n=0} f(n) g(s-n) \]
+                                    Here \(f(n)\) and \(g(m)\) are functions representing the probability of a random discrete variable.
+                                    So if we try to think this through, we can notice that a new variable appeared \(s\) and also we do this weird operation consisting of multiplying \(g(s-n)\) with \(f(n)\).
+                                </p>
+                                <p>Now let's image I want to determine the probability that 2 consecutive and independent events (let's say \( n+m=5 \)) occur.
+                                    To be easier, let's consider that \(n\) and \(m\) are variables representing the face of a dice.
+                                    We need to consider all possibilities, such as \(n=1\) and \(m=4\), \(n=2\) and \(m=3\) and so on. So we end up adding these probabilities:
+                                    \(f(n=1) \times g(m=4) + f(n=2) \times g(m=3) + f(n=3) \times g(m=2) ... \). If we generalize this operation to all other possible combinaisons of events \( n+m=s \),
+                                    where \(s\) can take any possible value an event can take (in our case, from 1 to 6).
+                                    You may have understood it, \(s\) represents the combinaison of two successive and independent events \(n\) and \(m\). So to get back to the example,
+                                    the probability that we get a total of 5 after having thrown the dice twice can be written as follows:
+                                    \[ P(5) = \sum^{6}_{n=1} f(n) g(5-n) = f(n=1) \times g(m=4) + f(n=2) \times g(m=3) + ... + f(n=4) \times g(m=1) \]
+                                    If we repeat this operation for each value of \(s\), we get a function of \(s\) where the image represents the probability that \(s=n+m\) occurs.
+                                </p>
+                                
+                                
                                 <h4>Continuous convolution</h4>
-                                The formula goes \( (f(x)*g(x))(s) = \int^{+\infty}_{-\infty} f(x) g(s-x) dx \), where \(f(x)\) and \(g(y)\)
-                                are functions representing the probability density of a random variable.
+                                The formula goes \[ (f(x)*g(x))(s) = \int^{+\infty}_{-\infty} f(x) g(s-x) dx \]
+                                Here \(f(x)\) and \(g(y)\) are functions representing the probability density of a random variable.
                                 The outcome of this convolution operation is a new function \(h(s)\), called the probability density function,
-                                where \(s\) represents the random variable \(X+Y\) and its image represents the probability (density) that \(P_x + P_y\) occurs.
-
+                                where \(s\) represents the random variable \(X+Y\) and its image represents the probability (density) that \(P_X + P_P\) occurs.
+                                The concept is basically the same, since we are in a contiuous set of random variables,
+                                we just expand the discrete case \(\sum\) to the continuous case \(\int\), which means we consider the area under the curve.
                             </div>
-
-                            <div> <h3>Basics of tensorflow</h3>
-                                This section is an introduction to tensors and tensorflow syntax and features.
+                            <hr>
+                            <div> <h3>Basics of TensorFlow</h3>
+                                <p>This section is an introduction to TensorFlow. As stated before, I use Google Colab to get familiar with the tensorflow module.
+                                    The purpose of this first part is to get more familiar with the concept of tensor and how to manipulate them using tensorflow.
+                                    I have been introduced to these subjects:
+                                    <ul>
+                                        <li>Tensor initialization and casting</li>
+                                        <li>Math operations</li>
+                                        <li>Linear operations</li>
+                                        <li>TensorFlow's common functions and tensor manipulation</li>
+                                        <li>Types of tensor: RaggedTensor, SparseTensor and string tensors</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <hr>
+                            <div> <h3>Introduction to Machine Learning</h3>
+                                <p>After having been through the main functionalities of TensorFlow, this is now the time to implement a concrete example.
+                                    I will build a simple machine learning model based on linear regression in order to predict the price of a current car.
+                                    For this, I have downloaded this <a href="">csv</a> file, which stores thousand different cars and their features.
+                                    The model will predict, using the linear regression method, the likely price of a car given some of its features.
+                                </p>
+                                
                             </div>
                         </div>
                     </div>

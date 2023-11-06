@@ -1,0 +1,36 @@
+.main-container a {
+    color: #444;
+}
+
+.main-container {
+    position: relative;
+    line-height: 2.5rem;
+}
+
+ul, ol {
+    margin-left: 1.5rem;
+}
+
+.illustration {
+    display: flex;
+    gap: 1rem;
+}
+
+.sub-illustration {
+    display: flexbox;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+@media screen and (min-width: 481px) {
+
+    .illustration img {
+        width: 30%;
+        margin: auto 0;
+    }
+
+    .sub-illustration img {
+        width: 100%;
+    }
+    
+}

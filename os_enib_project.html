@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html lang ="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- make sure that the content fit the device on which we open -->
+        <title> OS project </title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong|Arial|Open+Sans">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="js/script.js"></script>
+        <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+        <link rel="stylesheet" href="generic-patterns/css/horizontalmenu.css">
+        <link rel="stylesheet" href="generic-patterns/css/footer.css">
+        <link rel="stylesheet" href="generic-patterns/css/main.css">
+        <link rel="stylesheet" href="css/os_project.css">
+    </head>
+
+    <!-- Within de web page -->
+    <body>
+        <div id="horizontalmenu"></div>
+        
+        <section class="main-container">
+            <hr>
+            <div><h3>1. Structure of the project</h3>
+                <p>The project is divided into several steps:</p>
+                <div class="frame-highlight">
+                    <ol>
+                        <a href="#syscalls"><li>Understanding of how syscalls work;</li></a>
+                        <a href=""><li>Creating a task (thread) and testing task commutation;</li></a>
+                        <a href=""><li>Implementing our own semaphore and mutex;</li></a>
+                        <a href=""><li>Implementing the delay feature;</li></a>
+                        <a href=""><li>Terminating a task;</li></a>
+                        <a href=""><li>Implementing basic features with peripherals: RGB led, button;</li></a>
+                        <a href=""><li>Programming more advanced functionalities: UART, etc.</li></a>
+                    </ol>
+                </div>
+                <div class="illustration">
+                    <img width="100%" src="images/os_proj/structure_proj.svg" alt="structure_proj">
+                    <div>
+                        <p>Thsi </p>
+                    </div>
+                </div>
+
+            </div>
+            <hr>
+            <div><h3 id="syscalls">2. Syscalls</h3>
+                <p>To understand syscalls, we must understand the difference between the <span class="mark">user session and the kernel</span>. Basically, when we run any application or software
+                    on our computer, we are located in the user session, meaning that we have restricted privilieges. But most of the time, the program (software) needs to perform
+                    or have access to some stuffs that require the use of the kernel. The application would then issue a <span class="mark">syscall</span> to request the OS for higher services.
+                    Hence, the OS comes <span class="mark">between the user-level program (session) and the hardware</span>. The <span class="mark">kernel</span> is the low-level part of the OS that has access to all the resources of the computer.
+                    It handles essential resources such as process management (priorities, round-robin), memory management (data allocation), device-driver management and syscall handling.
+                    It coordinates all the prgrams by deciding which one is the most urgent and providing resources accordingly. Having access to the kernel means having the highest privileges.
+                    In Ubuntu, when we issue the <span class="mark">sudo</span> command, we are asking for kernel privileges.
+                </p>
+                <p>We work with the platform MCUXpresso IDE,  and will build targets for the Cortex-M33 CPU. 
+
+                </p>
+                <div><h4>2.1 Handler/Thread modes</h4>
+                    <p>By default, when we run a task (or thread), we are in a <span class="mark">Unprivileged Thread</span> mode.
+                        To trigger a syscall, we need to call a function implemented in the OS library (like os_alloc). This function will then
+                        call the <span class="mark">SVC (SuperVisor Call)</span> followed by a number, which refers to the type of syscall requested (1 for os_alloc).
+                        This call is operated in assembly code, and will branch to the <span class="mark">SVC_Handler</span> function in the OS kernel (svc.s).
+                        This function executes the C code related to the syscall (svc_dispatch) and then returns to the user session. The instruction __ASM volatile("...") injects
+                        assembly code. 
+                    </p>
+                    <div class="illustration">
+                        <div class="sub-illustration">
+                            <img src="images/os_proj/os_alloc.JPG" alt="os_alloc">
+                            <img src="images/os_proj/SVC_Handler.JPG" alt="svc_handler">
+                        </div>
+                        <img src="images/os_proj/svc_dispatch.JPG" alt="svc_dispatch">
+                    </div>
+                    <p>At this point, we are in the <span class="mark">Privileged Handler</span> mode. This mode can not be interrupted and is used to dispatch (svc_dispatch)
+                        the syscall to the right process (regarding the svc number). Below, the argument n represents the svc number and the argument args[] points to the
+                        <a href="#2.2">MSP</a> .
+
+                    </p>
+                    <div class="illustration">
+                        
+                    </div>
+                </div>
+                <div><h4 id="2.2">2.2 MSP, PSP and SP</h4>
+                    <p>The <span class="mark">MSP</span> (Main Stack Pointer) and <span class="mark">PSP</span> (Process Stack Pointer) are registers which respectively point to the ... in Handler or Thread mode. 
+
+                    </p>
+                </div>
+            </div>
+        </section> <!-- main-container -->
+
+        <div id="footer"></div>
+
+    </body>
+
+</html>

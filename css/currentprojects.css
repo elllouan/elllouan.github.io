@@ -7,9 +7,8 @@
     line-height: 2.5rem;
 }
 
-.frame-highlight {
-    background-color: rgb(255, 211, 154);
-    margin: 0.5rem;
+ul, ol {
+    margin-left: 1.5rem;
 }
 
 @media screen and (min-width: 481px) {
