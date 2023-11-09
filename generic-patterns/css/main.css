@@ -69,6 +69,7 @@ h1 {
     line-height: 1.25;
     padding-top: 1rem;
     text-align: center;
+    font-family: var(--ff-primary);
 }
 
 h2 { 
@@ -172,7 +173,7 @@ hr {
 }
 
 .frame-highlight {
-    background-color: rgb(255, 211, 154);
+    background-color: rgb(252, 196, 122);
     margin: 0.5rem;
     border: 2px solid #444;
     padding: 0.5rem;

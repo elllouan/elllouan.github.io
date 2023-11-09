@@ -21,15 +21,14 @@
         <div id="horizontalmenu"></div>
         
         <section class="main-container">
-            <h1></h1>
+            <h1>OS from scratch</h1>
             <p>I will be working with the Windows Subsystem for Linux (WSL 2) as my platform of developement.
                 <div class="frame-highlight">Note: You cannot have your cross compiler in the /mnt/c/ (or /mnt/"x") areas, as trying to compile your cross-compiler there will generate errors, whereas building to $HOME/opt/cross works perfectly.
                     This is fixed with Windows Update KB3176929</div>                  
             </p>
-            <hr>
             <div class="cross-compiler-tuto">
                 <h2>1. Bootstrapping & Cross-compilation</h2>
-                <div> <h4>1.1 Definitions</h4>
+                <div class="section"> <h3>1.1 Definitions</h3>
                     <p>Our goal here is to build a GCC cross-compiler for the <span class="mark">i386-elf</span> target.
                         Therefore, I have to build binutils, gdb and gcc myself to set them for this configuration.
                     </p>
@@ -50,32 +49,54 @@
                         </div>
                     </p>
                 </div>
-                <hr>
-                <div> <h4>1.Buidling a GCC cross-compiler</h4>
-                    <div> <h5>Compilation of Binutils</h5>
+                <div class="section">
+                    <h3>1.2 Buidling a GCC cross-compiler</h3>
+                    <p>GCC is a comprehensive tool. It can be configured to compile code for various <span class="bold">targets</span> (platforms and architectures). Therefore, I will be using it. Some <a href="https://gcc.gnu.org/install/prerequisites.html">dependencies</a>
+                        need to be installed before processing gcc compilation. First off, I need to configure and compile other tools that will be useful for the future of this project. These are <span class="bold">Binutils</span> and <span class="bold">GDB</span>.
+                        Though, I don't fully understand what Binutils is used for. I have understood that it is a collection of GNU tools with the <span class="bold">ld</span> linker and <span class="bold">as</span> assembler.
+                        On the other hand, GDB is a debugger. It will come handy when I will be debugging my OS.
+                    </p>
+                    <p>First, start by setting some environment variables to make our lives easier. <span class="bold">TARGET</span> is the target architecture, <span class="bold">PREFIX</span> is the path to your compiler's root directory.
+                        This path can be changed. Finally, <span class="bold">PATH</span> is the path to the compiler binaries (or executable).
+                    </p>
+                    <div class="linux-terminal">
+                        <div>export TARGET=i686-elf</div>
+                        <div>export PREFIX="$HOME/opt/cross"</div>
+                        <div>export PATH="PREFIX/bin:$PATH"</div>
+                    </div> 
+                    <div> <h4>Compilation of Binutils</h4>
                         <p>
-                            Binutils is a 
                             Download these <a href="https://ftp.gnu.org/gnu/binutils/" target="_blank">Binutils packages</a> in the <span class="mark">$HOME/src</span> directory.
                             <div class="linux-terminal">
-                                <div>HOME/src$ mkdir build-bin</div>
+                                <div>HOME/src$ mkdir build-binutils</div>
+                                <div>$../binutils-x.y.z/configure --target=$TARGET --prefix=$PREFIX</div>
                             </div> 
                         </p>
-                        
                     </div>
                     <div> <h4>Compilation of GDB</h4>
                         <a href="https://sourceware.org/pub/gdb/releases/?C=M;O=D" target="_blank">GDB packages</a>
                         <div class="linux-terminal">
-                            <div>HOME/src$</div>
+                            <div>HOME/src$ mkdir build-gdb</div>
+                            <div>$../gdb-x.y.z/configure --target=$TARGET --prefix=$PREFIX</div>
                         </div>
                     </div>
                     <div> <h4>Compilation of GCC</h4>
-                        <p>Clone the GCC repository.
+                        <p>FOr more detailed information, read through this <a href="https://gcc.gnu.org/wiki/InstallingGCC">page</a>. Clone the GCC repository.</p>
                             <div class="linux-terminal">
                                 <div>HOME/src$ git clone https://gcc.gnu.org/git/gcc.git</div>
                             </div>
 
-                            Once downloaded, make sure to dwonload prerequisites (GMP, MPFR, ISL and MPC).
+                            Once downloaded, make sure to download prerequisites (GMP, MPFR, ISL and MPC libraries).
                             <div class="linux-terminal">
+                                <div>tar xzf gcc-x.y.z.tar.gz</div>
+                                <div>cd gcc-x.y.z</div>
+                                <div>./contrib/download_prerequisites</div>
+                                <div>cd ..</div>
+                                <div></div>mkdir build-gcc
+                                <div>cd build-gcc</div>
+                                <div>$../gcc-x.y.z/configure --target=$TARGET --prefix=$PREFIX --enable-languages=c,c++</div>
+                                make
+                                make install
                                 <div>HOME/src/gdb$ ./contrib/download_prerequisites</div>
                             </div>
 

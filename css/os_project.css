@@ -32,5 +32,12 @@ ul, ol {
     .sub-illustration img {
         width: 100%;
     }
+
+    .section {
+        border: 3px dashed var(--clr-dark);
+        margin: 0.5rem 0;
+        padding: 1rem;
+        background-color: rgb(253, 237, 212);
+    }
     
 }
