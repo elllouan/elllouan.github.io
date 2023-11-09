@@ -52,7 +52,7 @@
                                 
                             </p>
                         </div>
-                        <div class="subject-subdiv"> <h4>2. Discrete Fourier Transform (DFT) and Analog Filter Synthesis</h4>
+                        <div class="subject-subdiv"> <h4>3. Discrete Fourier Transform (DFT) and Analog Filter Synthesis</h4>
                             <p>This course gives an understanding on how we numerize a signal, what are the impacts and how we can elaborate a digital filter to filter an analog signal.</p>
                             <p>With a view to processing digital signals, we need to turn a continuous (or analog) signal into a discrete signal
                                 that consists of a finite number of samples that can be handled by a processor. Therefore, we use the DFT, let's remind us quickly of that. </p>
@@ -69,11 +69,10 @@
                             </p>
                             <button id="tsi-graphs1">Show illustrations</button>
                         </div>
-                        <div class="subject-subdiv"> <h4>3. Digital Filter Synthesis</h4>
+                        <div class="subject-subdiv"> <h4>4. Digital Filter Synthesis</h4>
                             <p>There exists 2 types of digital filters: <span class="mark">IIR (Infinite Impulse Response)</span> and <span class="mark">FIR (Finite Impulse Response)</span>.</p>
-                            <ul>
-                                <div class="frame-highlight">
-                                    <li> <span class="mark">IIR:</span> the output depends on the current and previous inputs and outputs <span class="math">\( s[n] = \sum_{i=0}^{M-1}{a_i e[i]} + \sum_{j=0}^{N-1}{a_i s[n-i]} \)</span></li>
+                            <div class="frame-highlight">
+                            <span class="mark">IIR:</span> the output depends on the current and previous inputs and outputs <span class="math">\( s[n] = \sum_{i=0}^{M-1}{a_i e[i]} + \sum_{j=0}^{N-1}{a_i s[n-i]} \)</span>
                                     <p>The purpose of this method is to determine the equivalent digital form \( H(z) \) (\(z\)-domain) of the analog template filter \( H(p) \). From there, we can deduce the <span class="bold">recursive algorithm \( s[n] \)</span> 
                                         that will implement the digital filter.
                                         This method is <span class="bold">more accurate</span> and will be generally preferred over the RIF method. However, the analog reference filter must meet some stability criteria (poles on the left half part of the complex plane).</p>
@@ -85,24 +84,23 @@
                                         <img src="images/bilinear.svg" alt="bilinear">
                                     </p>
                                     <p>All in all, this method has some benefits - <span class="bold">more selective, faster and requires fewer memory registers</span> - and some drawbacks - <span class="bold">can be unstable (poles), non-linear phase</span>.</p>
-                                </div>
-                                <div class="frame-highlight">
-                                    <li> <span class="mark">FIR:</span> the output depends only on the current and previous inputs > <span class="math">\( s[n] = \sum_{i=0}^{N-1}{a_i e[i] h[n-i]} \)</span></li>
-                                    <p>The purpose of this method is to determine an <span class="bold">approximation of the filter's impulse response</span> and then convolute it with the input signal.
-                                        As we consider only an approximation, the <span class="bold">filter's characteristics get modified</span> and we have to deal with some drawbacks such as the 
-                                        <span class="bold">apparition of wavelets</span> in the filter's spectrum (caused by the truncation --> convolution with sinc).</p>
-                                    <p> - <span class="bold">Coherence of the Impulse Response:</span></p>
-                                        <ol>
-                                            <li>Sampling frequency: Determine \( f_{max}\) and apply the Shannon theorem: \(f_e\ \geq\ 2f_{max}\)</li>
-                                            <li>Impulse response (IR): Find the impulse response of the analog filter.</li>
-                                            <li>Signal truncation: Truncate the IR after a rank N such that \( h(N) \geq \frac{h_{max}}{100}\)</li>
-                                        </ol>
-                                    <p> - <span class="bold">Discretization of the inverse DFT:</span> We determine the IR samples using direclty the inverse DFT definition > <span class="math">\( h[n] = \frac{1}{N} \sum_{k=-\frac{N}{2}}^{\frac{N}{2}-1} X(k\delta f) e^{j2\pi \frac{n}{N}k} \)</span>.</p>
-                                    <p>All in all, this method has some benefits - <span class="bold">always stable (no poles), linear phase (if symmetric)</span> - and some drawbacks - <span class="bold">less selective, less efficient and requires more memory space</span>.</p>
-                                </div>
-                            </ol>
+                            </div>
+                            <div class="frame-highlight">
+                                <span class="mark">FIR:</span> the output depends only on the current and previous inputs > <span class="math">\( s[n] = \sum_{i=0}^{N-1}{a_i e[i] h[n-i]} \)</span>
+                                <p>The purpose of this method is to determine an <span class="bold">approximation of the filter's impulse response</span> and then convolute it with the input signal.
+                                    As we consider only an approximation, the <span class="bold">filter's characteristics get modified</span> and we have to deal with some drawbacks such as the 
+                                    <span class="bold">apparition of wavelets</span> in the filter's spectrum (caused by the truncation --> convolution with sinc).</p>
+                                <p> - <span class="bold">Coherence of the Impulse Response:</span></p>
+                                    <ol>
+                                        <li>Sampling frequency: Determine \( f_{max}\) and apply the Shannon theorem: \(f_e\ \geq\ 2f_{max}\)</li>
+                                        <li>Impulse response (IR): Find the impulse response of the analog filter.</li>
+                                        <li>Signal truncation: Truncate the IR after a rank N such that \( h(N) \geq \frac{h_{max}}{100}\)</li>
+                                    </ol>
+                                <p> - <span class="bold">Discretization of the inverse DFT:</span> We determine the IR samples using direclty the inverse DFT definition > <span class="math">\( h[n] = \frac{1}{N} \sum_{k=-\frac{N}{2}}^{\frac{N}{2}-1} X(k\delta f) e^{j2\pi \frac{n}{N}k} \)</span>.</p>
+                                <p>All in all, this method has some benefits - <span class="bold">always stable (no poles), linear phase (if symmetric)</span> - and some drawbacks - <span class="bold">less selective, less efficient and requires more memory space</span>.</p>
+                            </div>
                         </div>
-                        <div class="subject-subdiv"> <h4>4. Signal modulation</h4>
+                        <div class="subject-subdiv"> <h4>5. Signal modulation</h4>
                             <p>When it comes to transmitting information using signals, we face some issues:</p>
                             <div class="frame-highlight">
                                 <ol>
@@ -117,7 +115,7 @@
                             </p>
                             <img class="modulation-img" src="images/modulation.drawio.png" alt="mod">
                         </div>
-                        <div class="subject-subdiv"> <h4>5. Intercorrelation</h4>
+                        <div class="subject-subdiv"> <h4>6. Intercorrelation</h4>
                             <p>The correlation method is in the field of radar. When emitting a signal, we want to be able to detect if the signal comes back to us (obstacle detection for instance).
                                 Thus, the detector needs to constantly compare any received signal to with the one that was originally emitted.
                             </p>
@@ -129,6 +127,8 @@
                             <p>Modulation allows to slide the signal spectrum along the frequency axis to a higher frequency, thereby countering the two previous problems because now we can control the frequency at which we want our signal to be broadcasted and as the frequency gets higher, the receiver gets smaller.</p>
                             </div>
                         </div>
+                        <div class="subject-subdiv"> <h4>7. Further discussions</h4>
+                        </div>
                     </div>
                 </div>
                 <hr>
@@ -137,8 +137,49 @@
                     <div class="keywords">Image representation and acquisition, segmentation by contours/regions, filtering, image classification and recognition </div>
                     <div class="content">
                         <p>This course will start in the second part of this semester.</p>
-                        <div class="subject-subdiv"> <h4>1. Architectures</h4>
-                            <p>Parallelism</p>
+                        <div class="subject-subdiv"> <h4>1. Introduction</h4>
+                            <p>Image processing encompasses several steps from image filtering to classification. The ultimate purpose is to train a machine to recognize patterns on an image
+                                in order to automate image analysis. It is important to note that, we increase the dimension by one (regarding signal processing) and we do not deal with the time coordonate \(t\) anymore
+                                but with spatial coordonates represented by \(x\) and \(y\).
+                            </p>
+                        </div>
+                        <div class="subject-subdiv"> <h4>2. Textures</h4>
+                            <p>In this section, we focus on how to classify textures. Textures are hard to define as they highly depend on the context. The purpose here is to be able to detect 
+                                 and classify textures by identifying patterns. To do so, we can use two approaches: <span class="mark">statistical</span> or <span class="mark">spectral</span>.
+                            </p>
+                            <p>The <span class="mark">spectral</span> approach consists of computing the Fourier transform of the image's pixels. Now, I have to inroduce the Fourier transform of a 2D signal.
+                                \[ I(u,v) = \int^{+\infty}_{-\infty}\int^{+\infty}_{-\infty} I(x,y) e^{-j2\pi(ux+vy)} dxdy \]
+                                The result \( I(u,v) \) is the description of the image in the frequency domain, where \(u\) and \(v\) represent respectively the frequency along the \(x\) and \(y\) axis.
+                                There are also <span class="bold">Gabor filters</span> that are used to detect edges in an image. They are band-pass filters and operate a linear filter on the image
+                                to extract information about the frequency and orientation. They are defined by the following equation:
+                                \[ G(x,y) = e^{-\frac{x^2+\gamma^2 y^2}{2\sigma^2}} e^{j2\pi(\omega_x x + \omega_y y + \psi)} \]
+                                Il peut être pratique de la voir comme un couple de fonctions réelles, déphasées de \( \frac {\pi }{2} \). Il s'agit alors de la partie réelle et la partie imaginaire de la fonction complexe.
+                                \[ G_1(x,y) = cos(\omega_x x + \omega_y b) e^{-\frac{x^2+\gamma^2 y^2}{2\sigma^2}}\]
+                                \[ G_2(x,y) = sin(\omega_x x + \omega_y b) e^{-\frac{x^2+\gamma^2 y^2}{2\sigma^2}}\]
+                                where \( \sigma \) is the standard deviation of the Gaussian function and \(u\) and \(v\) are the frequencies along the \(x\) and \(y\) axis.
+                            </p>
+                            <button id="textures-illustrations"> Show illustrations</button>
+                            <p>The <span class="mark">statistical</span> approach consists of computing the co-occurrence matrix of the image.
+                                \[ \Gamma(d,\theta) = P(i,j) = \frac{1}{N} \sum_{x,y} \delta(i-I(x,y)) \delta(j-I(x,y)) \]
+                                where \(N\) is the number of pixels in the image and \(I(x,y)\) is the intensity of the pixel at coordinates \((x,y)\). This matrix simply stores the number of occurences of each pair of intensity values \( i <-> j \).
+                                This pair is defined by the distance \(d\) and the angle \(\alpha\) between the two pixels. The distance \(d\) is the distance between the two pixels in the image and the angle \(\alpha\) is the angle between the two pixels in the image.
+                                Usually, we compute multiple co-occurrence matrices with different values of \(d\) and \(\alpha\) and then we compute several characteristics from them such as:
+                            </p>    
+                            <ul>
+                                <li>Entropy: \( H(d,\theta) \)</li>
+                                <li>Energy: \( E(d,\theta) \)</li>
+                                <li>Contrast: \( C(d,\theta) \)</li>
+                                <li>Homogeneity: \( Hom(d,\theta) \)</li>
+                                <li>Correlation: \( Corr(d,\theta) \)</li>
+                            </ul>
+                            <p>Finally, we put them in a <span class="bold">Haralick vector</span> to represent the image. This vector is a vector of characteristics that can be used to classify the image.
+                                On Matlab, we can use the function <span class="bold">graycomatrix</span> to compute the co-occurrence matrix and the function <span class="bold">graycoprops</span> to compute the characteristics.
+                            </p>
+                            <button id="textures-illustrations"> Show illustrations</button>
+                            <p>The <span class="mark">synthesis of textures</span> is also a common practice in image processing. It consists of generating a texture from a given model. The model can be a texture or a set of textures.
+                                The purpose is to generate a texture that looks like the model.
+
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -249,68 +290,66 @@
                             <p>...</p>
                         </div>
                         <div class="subject-subdiv"> <h4>5. Calcul des coûts complets d'un produit par la méthode des centres d'analyses</h4>
-                            <p>Afin de déterminer, les coûts complets d'un produit, nous utilisons la . Elle consiste en 8 étapes:</p>
-                            <ol>
-                                <div class="frame-highlight">
-                                <li> <span class="bold">Répartition des charges indirectes</span> </li>
-                                    <ol>
-                                        <li>Répartition primaire: charges indirectes réparties sur les centres principaux et de structures.</li>
-                                        <li>Répartition secondaire: ajout des charges des centres auxiliaires réparties sur les centres principaux .</li>
-                                        <li>Coût d'une Unité d'oeuvre (UO): répartition secondaire finale * quantité d'UO.</li>
-                                    </ol>
-                                </div>
-                                <p></p>
-                                <div class="frame-highlight">
-                                    <li> <span class="bold">Coût d'achat</span> </li>
-                                        <p>Cela couvre l'ensemble des processus impliqués dans l'acheminement de biens nécessaires à la fabrication d'un produit: 
-                                            Charges directes + Charges indirectes liées à l'achat (approvisionnement, réception livraisons ...).
-                                        </p>
-                                        <ul>
-                                            <li>Prix d'achat nets des MP.</li>
-                                            <li>Charges de main d'oeuvre directe (pas la main d'oeuvre employée pour la fabrication du produit !).</li>
-                                            <li>Accessoires d'achats: transport.</li>
-                                        </ul>
-                                </div>
-                                <p></p>
-                                <div class="frame-highlight">
-                                    <li> <span class="bold">Etude des stocks de matières premières (MP)</span> </li>
-                                        <ol>
-                                            <li>Stock initial / Stock consommé: Quantité, coût unitaire, valeur.</li>
-                                            <li>Achat début mois / Stock final: Quantité, coût unitaire, valeur.</li>
-                                        </ol>
-                                </div>
-                                <p></p>
-                                <div class="frame-highlight">
-                                    <li> <span class="bold">Coût de production</span> </li>
-                                        <ol>
-                                            <li>Stock initial / Stock consommé: Quantité, coût unitaire, valeur.</li>
-                                            <li>Production du mois / Stock final: Quantité, coût unitaire, valeur.</li>
-                                        </ol>
-                                </div>
-                                <p></p>
-                                <div class="frame-highlight">
-                                    <li> <span class="bold">Etude des stocks de prdouits finis (PF)</span> </li>
-                                        <ol>
-                                            <li>Stock initial / Stock vendus: Quantité, coût unitaire, valeur.</li>
-                                            <li>Production du mois / Stock final: Quantité, coût unitaire, valeur.</li>
-                                        </ol>
-                                </div>
-                                <p></p>
-                                <div class="frame-highlight">
-                                    <li> <span class="bold">Coût de production</span> </li>
-                                        <ol>
-                                            <li>Stock initial / Stock consommé: Quantité, coût unitaire, valeur.</li>
-                                            <li>Production du mois / Stock final: Quantité, coût unitaire, valeur.</li>
-                                        </ol>
-                                </div>
-                                <p></p>
-                                <div class="frame-highlight">
-                                    <li> <span class="bold">Calcul du coût de revient</span> </li>
-                                        <p>Il s'agit du montant nécessaire à dépenser pour l'entreprise afin de fabriquer un produit:
-                                            Coût des PF vendus + Coût hors-production
-                                        </p>
-                                </div>
-                            </ol>
+                            <p>Afin de déterminer, les coûts complets d'un produit, nous utilisons la méthode des centres d'analyses. Elle consiste en 8 étapes:</p>
+                            <div class="frame-highlight">
+                                <span class="bold">Répartition des charges indirectes</span>
+                                <ol>
+                                    <li>Répartition primaire: charges indirectes réparties sur les centres principaux et de structures.</li>
+                                    <li>Répartition secondaire: ajout des charges des centres auxiliaires réparties sur les centres principaux .</li>
+                                    <li>Coût d'une Unité d'oeuvre (UO): répartition secondaire finale * quantité d'UO.</li>
+                                </ol>
+                            </div>
+                            <!-- <p></p> -->
+                            <div class="frame-highlight">
+                                <span class="bold">Coût d'achat</span>
+                                <p>Cela couvre l'ensemble des processus impliqués dans l'acheminement de biens nécessaires à la fabrication d'un produit: 
+                                Charges directes + Charges indirectes liées à l'achat (approvisionnement, réception livraisons ...).
+                                </p>
+                                <ul>
+                                    <li>Prix d'achat nets des MP.</li>
+                                    <li>Charges de main d'oeuvre directe (pas la main d'oeuvre employée pour la fabrication du produit !).</li>
+                                    <li>Accessoires d'achats: transport.</li>
+                                </ul>
+                            </div>
+                            <p></p>
+                            <div class="frame-highlight">
+                                <span class="bold">Etude des stocks de matières premières (MP)</span>
+                                <ol>
+                                    <li>Stock initial / Stock consommé: Quantité, coût unitaire, valeur.</li>
+                                    <li>Achat début mois / Stock final: Quantité, coût unitaire, valeur.</li>
+                                </ol>
+                            </div>
+                            <p></p>
+                            <div class="frame-highlight">
+                                <span class="bold">Coût de production</span>
+                                <ol>
+                                    <li>Stock initial / Stock consommé: Quantité, coût unitaire, valeur.</li>
+                                    <li>Production du mois / Stock final: Quantité, coût unitaire, valeur.</li>
+                                </ol>
+                            </div>
+                            <p></p>
+                            <div class="frame-highlight">
+                                <span class="bold">Etude des stocks de prdouits finis (PF)</span>
+                                <ol>
+                                    <li>Stock initial / Stock vendus: Quantité, coût unitaire, valeur.</li>
+                                    <li>Production du mois / Stock final: Quantité, coût unitaire, valeur.</li>
+                                </ol>
+                            </div>
+                            <p></p>
+                            <div class="frame-highlight">
+                                <span class="bold">Coût de production</span>
+                                <ol>
+                                    <li>Stock initial / Stock consommé: Quantité, coût unitaire, valeur.</li>
+                                    <li>Production du mois / Stock final: Quantité, coût unitaire, valeur.</li>
+                                </ol>
+                            </div>
+                            <p></p>
+                            <div class="frame-highlight">
+                                <span class="bold">Calcul du coût de revient</span>
+                                <p>Il s'agit du montant nécessaire à dépenser pour l'entreprise afin de fabriquer un produit:
+                                    Coût des PF vendus + Coût hors-production
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>

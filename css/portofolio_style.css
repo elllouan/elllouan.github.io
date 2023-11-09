@@ -17,35 +17,39 @@
 
 @media screen and (min-width: 481px) {
 
-    .portofolio-title {
-        text-align: center;
-    }
-
     .main-container p {
         padding: 1rem;
         text-align: justify; /* justify text */ 
     }
 
     .main-container ul {
-        padding-left: 3em;
+        padding-left: 1.5rem;
     }
 
     .resume, .education {
         display: flex;
     }
 
+    .projects,
+    .skills,
+    .experiences,
+    .resume,
+    .education {
+        margin-top: 1rem;
+        margin-bottom: 0;
+    }
+
+
     .projects-container {
         position: relative;
-        max-height: 150%; /* Set a height for the container */
-        height: 150%; /*Set a height for the container */
         display: flex; /* Use flexbox for layout */
         flex-direction: column;
         justify-content: space-between; /* Distribute boxes evenly across the container */
-        align-items: center; /* Center vertically */
         height: 100%; /*Set a height for the container */
-        background-color: rgb(255, 186, 58);
+        background-color: rgb(255, 211, 154);
+        border: 3px solid #444;
         width: 50%;
-        margin: 0 0;
+        padding: 0.5rem;
     }
 
     .projects-container h2 {
@@ -83,28 +87,17 @@
         transform: scale(130%);
     }
 
-    .hover-image1, .hover-image2, .hover-image3, .hover-image4, .hover-image5, .hover-image6 {
-        position: relative;
-        width: 0;
-        visibility: hidden;
-    }
-
-    .hover-image1.active, .hover-image2.active, .hover-image3.active, .hover-image4.active, .hover-image5.active, .hover-image6.active {
-        position: relative;
-        margin: 1rem auto;
-        width: 40vh;
-        object-fit: cover; /* Ensure the image covers the container */
-        visibility: visible;
-        opacity: 1;
-        transition: opacity 0.3s ease; /* Add a smooth transition for opacity */
-    }
-
     .pictures {
         display: flex;
+        gap: 10px;
     }
 
     .pic1, .pic2, .pic3, .pic4 {
-        width: 50%;
+        width: 30%;
+    }
+
+    .section {
+        margin-top: 1rem;
     }
 
 }
