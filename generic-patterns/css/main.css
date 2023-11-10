@@ -22,18 +22,18 @@
     --clr-light: papayawhip;
     --clr-light-grey: #f0f0f0;
     --clr-light-orange: rgb(253, 209, 127);
-    --clr-dark: #333;
+    --clr-dark: rgb(0, 0, 0);
     /* clr stands for 'color' */
 
     --fw-bold: 800;
     --fw-regular: 300;
     --fw-light: 200;
 
-    --fs-h1: 3.5rem;
-    --fs-h2: 2.5rem;
+    --fs-h1: 4rem;
+    --fs-h2: 3rem;
     --fs-h3: 2rem;
-    --fs-h4: 1.5rem;
-    --fs-std: 1.25rem;
+    --fs-h4: 1.75rem;
+    --fs-std: 1.35rem;
     /* fs stands for 'family size' */
 } 
 
@@ -46,8 +46,11 @@ body { /* set default characteristics within the body */
     font-weight: var(--fw-regular);
     border:  0.5em var(--clr-dark) solid;
     background: var(--clr-light-grey);
-    /* line-height: 1rem; */
     text-align: justify;
+}
+
+p {
+    line-height: 2.5rem;
 }
 
 img { /* set default characteristics for images */
@@ -78,6 +81,7 @@ h2 {
     border-top: 5px var(--clr-dark) solid;
     width: 100%;
     line-height: 1.4;
+    font-weight: bold;
     /* margin-top: 0.5rem; */
 }
 
@@ -89,8 +93,8 @@ h3 {
 h4 {
     font-size: var(--fs-h4);
     width: 50%;
-    margin: 0.75rem 0rem;
-    padding: 0.5rem;
+    margin: 1rem 0rem;
+    padding: 0.25rem;
     border: 1px solid #333;
     text-decoration: underline;
     background-color: orange;
@@ -159,11 +163,12 @@ hr {
 
 .linux-terminal {
     font-family: 'Courier New', monospace;
-    background-color: black;
+    background-color: #000000;
     color: greenyellow;
     border: 5px solid gray;
     width: 100%;
-    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    /* margin-bottom: 1rem; */
 }
 
 .linux-terminal div {
@@ -173,9 +178,20 @@ hr {
 }
 
 .frame-highlight {
-    background-color: rgb(252, 196, 122);
+    background-color: var(--clr-light-orange);
     margin: 0.5rem;
-    border: 2px solid #444;
-    padding: 0.5rem;
+    border: 3px solid #444;
+    padding: 0.25rem;
+    /* width: 100%; */
 }
+
+.page-subtitle {
+    margin: 1rem 0;
+    padding: 0.5rem;
+    text-align: justify;
+    background-color: var(--clr-light-orange);
+    /* width: fit-content; */
+}
+
+
 

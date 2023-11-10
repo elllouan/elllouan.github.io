@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- make sure that the content fit the device on which we open -->
-        <title> Tutorial </title>
+        <title> Network </title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong|Arial|Open+Sans">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="js/script.js"></script>
@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="generic-patterns/css/horizontalmenu.css">
         <link rel="stylesheet" href="generic-patterns/css/footer.css">
         <link rel="stylesheet" href="generic-patterns/css/main.css">
-        <link rel="stylesheet" href="css/tuto.css">
+        <link rel="stylesheet" href="css/network.css">
     </head>
 
     <!-- Within de web page -->
@@ -24,50 +24,88 @@
 
             <section class="accordion-network">
 
-                <h2 class="title">Current projects</h2>
-                <p>In this section, I go more in depth about the concepts we learnt and networking tools we used.</p>
-                <hr>
-
-                <div class="socket-labs"> 
-                    <div class="label"> <h2>UDP Socket</h2>  </div>
-                    A socket is a <span class="mark">communication point</span> that binds an IP address and a port number.
-                    <div class="udp-lab">
-                        UDP (for User Datagram Protocol) is a <span class="mark">connectionless</span> protocol that works on top of IP.
-                    </div>
-                    <div class="tcp-lab">
-                        An UDP socket is a <span class="mark">communication point</span> that binds an IP address and a port number.
-                    </div>
-                    <div class="encryption-course">
-                        An UDP socket is a <span class="mark">communication point</span> that binds an IP address and a port number.
-                    </div>
+                <h1 class="title">Network learnings</h1>
+                <div class="page-subtitle">
+                    <h3>In this section, I go more in depth about the concepts I have learnt and the networking tools I used during the lab sessions.</h3>
                 </div>
 
-                <div class="current-project">
-                    <div class="label"> <h2>Robot project</h2> </div>
-                    <div class="content">
-
-                    </div>
-                </div>
-
-                <div class="current-project">
-                    <div class="label"> <h2>Calculator project</h2> </div>
-                    <div class="content">
-                        <p>In this project, our goal is to develop a scripting calculator but embedded on a (NXP) microcontroller.
-                            We have a the PC that can communicate with the NXP board over UART. From the PC, we open a serial 
-                            terminal and input math operation commands. These are received by the microcontroller which interprets them.
-                            Therefore, we use a C library called <span style="font-style: italic;">Calc</span> that can be integrated in a microcontroller
-                            and was developed to perform basic arithmetic operations.
-                            From there, it computes and sends back the result of the input operation over UART that ends up printed out on our serial monitor.
-                            We aim at developing this calculator farther by adding new features to the system.</p>
-                            <ol class="features">
-                                <li>Load files directly from an external storage device (SD card).</li>
-                                <li>Display graphs on a LCD screen.</li>
-                                <li>Use the two-core feature to split up tasks: one core that handles calculations and the other one that handles display.</li>
-                                <li>Integrate more advanced math operations such as FFT or matrix operations with <span style="font-style: italic;">PowerQuad</span>.</li>
-                            </ol>  
-                            <p>The NXP microcontroller we use (LPCS55S69-EVK), is a two-core microcontroller.</p>
+                <div class="session">
+                    <div class="label"> <h2>1. Parallelism</h2> </div>
+                    <div> <h4>1.1 Managing resources with pipes</h4>
+                        <p>A <span class="bold">file descriptor (fd)</span> is a number which identifies a specific <span class="bold">pipe</span>.
+                            A <span class="bold">pipe</span> is a key concept in communication systems. It is a way to write or read from various ressources.
+                            It is also a way to communicate between processes. By default, there are already 3 file descriptors open: STDIN_FILENO, STDOUT_FILENO, STDERR_FILENO.
+                            To write in a specific pipe, we use the C function <span class="bold">write</span> and to read from a specific pipe, we use the C function <span class="bold">read</span>.
+                        </p>
+                        <div class="linux-terminal">
+                            <div>$ man 2 [write/read/open/close]</div>
+                        </div>
+                        <p>
+                            It is important to note that in an Unix-like environment, every is considered as being a file. In the socket section, we will see that fil descriptors are used to identify sockets.
                         </p>
                     </div>
+
+                    <div> <h4>1.2 Process</h4>
+                        <p>A <span class="bold">process</span> (also called task or thread) can be seen as a function that executes a particular task.
+                            A <span class="bold">program</span> is a collection of tasks. The point of threads is that, we may need to run several in parallel to achieve different tasks simultaneously.
+                            To create a process direclty from the main process (or any other process), we use the C function <span class="bold">fork</span>. A new thread, completely independent from the original one is created.
+                            The new process is called the <span class="bold">child process</span> and the original process is called the <span class="bold">parent process</span>. Each process is identified by unique
+                            <span class="bold">PID (Process IDentifier)</span>. The child process is attributed a new PID (0) but its parent process keeps its PID.
+                        </p>
+                        <div class="linux-terminal">
+                            <div>$ man 2 [fork/waitpid/exit]</div>
+                        </div>
+                    </div>
+
+                    <div> <h4>1.3 Communication inter-process</h4>
+                        <p>Now that we have seen how to write to or read from a pipe (identified by a file descriptor) and we are more familiar with the notion of thread, we can bind them together
+                            and try to have a pipe connect 2 processes. One would read from the pipe and the second one would write to it. To do so, we use the C function <span class="bold">pipe</span>.
+                        </p>
+                        <div class="linux-terminal">
+                            <div>$ man 2 [pipe]</div>
+                        </div>
+                        <p>We can also make a <span class="bold">pipe redirection (or process overlapping)</span>. This a way of linking 2 file descriptors. To do so, we use the C function <span class="bold">dup2</span>.
+                            The first argument is the file descriptor we want to duplicate and the second argument is the file descriptor we want to link it to.
+                        </p>
+                        <div class="linux-terminal">
+                            <div>$ man 2 [dup2/exec]</div>
+                        </div>
+                        <div class="frame-highlight">
+                            <p>To open a pipe in Bash, we use the '<span class="bold">|</span>' symbol. It redirects the output (STDOUT_FILENO) of the first command to the input (STDOUT_FILENO) for the next command.
+                                For instance, <span class="bold">ls | grep "file"</span> will list all the files in the current directory and then search for the word "file" in the output of the previous command.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div> <h4>1.4 Issues</h4>
+                        <p>This Multi-threading paradigm brings with it some issues such as the <span class="bold">starvation problem</span>, in which a thread monopolizes the resources.
+                            Another issue is the <span class="bold">deadlock problem</span>, in which two threads are waiting for each other to finish their tasks.
+                            To counter these issues, we use <span class="bold">mutexes</span> (mutual exclusion) and <span class="bold">semaphores</span>. They play the role of guardian of the critical or shared
+                            resource with a system of locks and keys.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="session">
+                    <div class="label"> <h2>2. Sockets</h2> </div>
+                    <p>A socket is a <span class="bold">communication point</span> that binds an IP address and a port number. There exist sockets at different levels of the OSI model.
+                        We will see in the encryption session that raw sockets are used to send and receive packets at the <span class="bold">network layer</span>.
+                        <span class="bold">UDP (User Datagram Protocol)</span>  is a <span class="bold">connectionless</span> protocol, in which the sender does not wait for client's acknowledgment.
+                        <span class="bold">TCP (Transport Communication Protocol)</span> is a <span class="bold">connection-oriented</span> protocol, in which the sender does wait for client's acknowledgment.
+                        If it does not get any acknowledgment back, it will send the packet again.
+                    </p>
+                    <img class="sockets-img" src="images/network/sockets.svg" alt="sockets">
+                    <p>The flow charts above describes a simple case of communication between a server and a client for <span class="bold">TCP</span> and <span class="bold">UDP</span>.
+                        We can notice that these protocols are slighlty different. Indeed, <span class="bold">TCP</span> requires one step more than <span class="bold">UDP</span> to establish a connection between the client and the server. 
+                        This involves that after having created the socket and bound it, the server listens to any connection request on a <span class="bold">listen socket</span>.
+                        Once a request received, the server accepts and creates a new socket, called the <span class="bold">dialogue socket (circled in red)</span> provided by the client.
+                        Now, both the server and the client have a socket to communicate with each other.
+                    </p>
+                </div>
+
+                <div class="session">
+                    <div class="label"> <h2>Encryption and security</h2> </div>
+                    <p>We only learnt fundamentals: OpenSSL, Certificates, private/public key, etc.</p>
                 </div>
 
             </section>

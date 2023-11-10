@@ -16,7 +16,8 @@ hr {
 
 .topic {
     margin-bottom: 1rem;
-    background-color: bisque;
+    padding-left: 0.5rem;
+    background-color: rgba(252, 217, 153, 0.842);
 }
 
 @media screen and (min-width: 481px) {

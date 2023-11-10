@@ -22,10 +22,7 @@
         
         <section class="main-container">
             <h1>OS from scratch</h1>
-            <p>I will be working with the Windows Subsystem for Linux (WSL 2) as my platform of developement.
-                <div class="frame-highlight">Note: You cannot have your cross compiler in the /mnt/c/ (or /mnt/"x") areas, as trying to compile your cross-compiler there will generate errors, whereas building to $HOME/opt/cross works perfectly.
-                    This is fixed with Windows Update KB3176929</div>                  
-            </p>
+            <h3 class="page-subtitle">This page describes more throughly the steps of the project and my learning outcomes.</h3>
             <div class="cross-compiler-tuto">
                 <h2>1. Bootstrapping & Cross-compilation</h2>
                 <div class="section"> <h3>1.1 Definitions</h3>
@@ -51,7 +48,11 @@
                 </div>
                 <div class="section">
                     <h3>1.2 Buidling a GCC cross-compiler</h3>
-                    <p>GCC is a comprehensive tool. It can be configured to compile code for various <span class="bold">targets</span> (platforms and architectures). Therefore, I will be using it. Some <a href="https://gcc.gnu.org/install/prerequisites.html">dependencies</a>
+                    <p>I will be working with the Windows Subsystem for Linux (WSL 2) as my platform of developement.
+                        <div class="frame-highlight">Note: You cannot have your cross compiler in the /mnt/c/ (or /mnt/"x") areas, as trying to compile your cross-compiler there will generate errors, whereas building to $HOME/opt/cross works perfectly.
+                            This is fixed with Windows Update KB3176929
+                        </div>
+                        GCC is a comprehensive tool. It can be configured to compile code for various <span class="bold">targets</span> (platforms and architectures). Therefore, I will be using it. Some <a href="https://gcc.gnu.org/install/prerequisites.html">dependencies</a>
                         need to be installed before processing gcc compilation. First off, I need to configure and compile other tools that will be useful for the future of this project. These are <span class="bold">Binutils</span> and <span class="bold">GDB</span>.
                         Though, I don't fully understand what Binutils is used for. I have understood that it is a collection of GNU tools with the <span class="bold">ld</span> linker and <span class="bold">as</span> assembler.
                         On the other hand, GDB is a debugger. It will come handy when I will be debugging my OS.
