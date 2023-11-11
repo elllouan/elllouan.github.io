@@ -22,8 +22,7 @@
         
         <section class="main-container">
             <h1>OS Project</h1>
-            <hr>
-            <div><h3>1. Structure of the project</h3>
+            <div><h2>Structure of the project</h2>
                 <p>The project is divided into several steps:</p>
                 <div class="frame-highlight">
                     <ol>
@@ -44,8 +43,7 @@
                 </div>
 
             </div>
-            <hr>
-            <div><h3 id="syscalls">2. Syscalls</h3>
+            <div><h2 id="syscalls">1. Syscalls</h2>
                 <p>To understand syscalls, we must understand the difference between the <span class="mark">user session and the kernel</span>. Basically, when we run any application or software
                     on our computer, we are located in the user session, meaning that we have restricted privilieges. But most of the time, the program (software) needs to perform
                     or have access to some stuffs that require the use of the kernel. The application would then issue a <span class="mark">syscall</span> to request the OS for higher services.
@@ -81,11 +79,46 @@
                         
                     </div>
                 </div>
-                <div><h4 id="2.2">2.2 MSP, PSP and SP</h4>
-                    <p>The <span class="mark">MSP</span> (Main Stack Pointer) and <span class="mark">PSP</span> (Process Stack Pointer) are registers which respectively point to the ... in Handler or Thread mode. 
-
-                    </p>
+                
+                <div><h2 id="syscalls">2. Task creation</h2>
+                    <div><h4 id="2.2">2.1 Definition</h4>
+                        <p>A <span class="bold">task</span> is a code entity (generally a function) that runs independently from the main context. To function properly, it needs to store its context (registers).
+                            Therefore, we allocate memory for the task's <span class="bold">stack and members</span> (because it is a structure). Generally, the point of having multiple tasks is to have several, either run in parallel
+                            or one after another, where each one is dedicated to a specific job (e.g., task). Hence, we create a <span class="bold">list of tasks</span> which a variable <span class="bold">tsk_running</span> points to.
+                            In the pictures displayed below, we have an illustration of how a task is structured and a code example where <span class="bold">new_task</span> is created and added to the list of tasks.
+                            <span class="bold">sp</span> and <span class="bold">splim</span> respectively point to the current task's stack pointer and the stack limit.
+                        </p>
+                        <div class="illustration">
+                            <img src="images/os_proj/task_creation.JPG" alt="task_creation">
+                            <img src="images/os_proj/task_creation(2).JPG" alt="task_creation">
+                            <img src="images/os_proj/code_task_creation.JPG" alt="code_task_creation">
+                            <img src="images/os_proj/task_creation_dbg.JPG" alt="task_creation_dbg">
+                        </div>
+                    </div>
+                    <div><h4 id="2.2">2.2 Switching context</h4>
+                        <p>When we start a program (in the function main), we are by default in the main context. But we may want to switch context to run another task, which has a different context.
+                            Switching context involves several steps:
+                        </p>
+                        <div class="frame-highlight">
+                            <ol>
+                                <li><span class="bold">Save current context:</span> MSP is modified if we were in the main context</li>
+                                <li><span class="bold">Trigger the PendSV_Handler:</span> see the code snippet below</li>
+                                <li><span class="bold">Switch the PSP to the new task's stack:</span> see the chart below</li>
+                                <li><span class="bold">Execution of the task:</span> see the picture below</li>
+                            </ol>
+                        </div>
+                        <div class="illustration">
+                            <img style="width: 40%;" src="images/os_proj/switch_context.JPG" alt="switch_context">
+                            <img src="images/os_proj/PendSV.JPG" alt="PendSV">
+                        </div>
+                        <p>A context switch can be triggered using a timer <span class="bold">(Round Robin)</span> to allocate a defined amount of time for each task. 
+                        </p>
+                    </div>
                 </div>
+                
+
+                
+
             </div>
         </section> <!-- main-container -->
 
