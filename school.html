@@ -134,50 +134,61 @@
                 <div class="subject-container"> <div class="label"> <h3>Image Processing</h3> </div>
                     <div class="keywords">Image representation and acquisition, segmentation by contours/regions, filtering, image classification and recognition </div>
                     <div class="content">
-                        <p>This course will start in the second part of this semester.</p>
+                        <p>You can find out some of my personal experiments regarding image filtering and processing <a href="">here</a>.</p>
+
                         <div class="subject-subdiv"> <h4>1. Introduction</h4>
                             <p>Image processing encompasses several steps from image filtering to classification. The ultimate purpose is to train a machine to recognize patterns on an image
                                 in order to automate image analysis. It is important to note that, we increase the dimension by one (regarding signal processing) and we do not deal with the time coordonate \(t\) anymore
                                 but with spatial coordonates represented by \(x\) and \(y\).
                             </p>
                         </div>
+
                         <div class="subject-subdiv"> <h4>2. Textures</h4>
                             <p>In this section, we focus on how to classify textures. Textures are hard to define as they highly depend on the context. The purpose here is to be able to detect 
-                                 and classify textures by identifying patterns. To do so, we can use two approaches: <span class="mark">statistical</span> or <span class="mark">spectral</span>.
+                                 and classify textures by identifying patterns. To do so, we can use two approaches: <span class="bold">statistical</span> or <span class="bold">spectral</span>.
                             </p>
-                            <p>The <span class="mark">spectral</span> approach consists of computing the Fourier transform of the image's pixels. Now, I have to inroduce the Fourier transform of a 2D signal.
-                                \[ I(u,v) = \int^{+\infty}_{-\infty}\int^{+\infty}_{-\infty} I(x,y) e^{-j2\pi(ux+vy)} dxdy \]
-                                The result \( I(u,v) \) is the description of the image in the frequency domain, where \(u\) and \(v\) represent respectively the frequency along the \(x\) and \(y\) axis.
-                                There are also <span class="bold">Gabor filters</span> that are used to detect edges in an image. They are band-pass filters and operate a linear filter on the image
-                                to extract information about the frequency and orientation. They are defined by the following equation:
-                                \[ G(x,y) = e^{-\frac{x^2+\gamma^2 y^2}{2\sigma^2}} e^{j2\pi(\omega_x x + \omega_y y + \psi)} \]
-                                Il peut être pratique de la voir comme un couple de fonctions réelles, déphasées de \( \frac {\pi }{2} \). Il s'agit alors de la partie réelle et la partie imaginaire de la fonction complexe.
-                                \[ G_1(x,y) = cos(\omega_x x + \omega_y b) e^{-\frac{x^2+\gamma^2 y^2}{2\sigma^2}}\]
-                                \[ G_2(x,y) = sin(\omega_x x + \omega_y b) e^{-\frac{x^2+\gamma^2 y^2}{2\sigma^2}}\]
-                                where \( \sigma \) is the standard deviation of the Gaussian function and \(u\) and \(v\) are the frequencies along the \(x\) and \(y\) axis.
-                            </p>
+                            <div> <h5>Spectral approach</h5>
+                                <p>The <span class="bold">spectral</span> approach consists of computing the Fourier transform of the image's pixels. Now, I have to inroduce the Fourier transform of a 2D signal.
+                                    \[ I(u,v) = \int^{+\infty}_{-\infty}\int^{+\infty}_{-\infty} I(x,y) e^{-j2\pi(ux+vy)} dxdy \]
+                                    The result \( I(u,v) \) is the description of the image in the frequency domain, where \(u\) and \(v\) represent respectively the frequency along the \(x\) and \(y\) axis.
+                                </p>
+                            </div>
+                            <div> <h5>Gabor filters</h5>
+                                <p>There are also <span class="bold">Gabor filters</span> that are used to detect edges in an image. They are band-pass filters and operate a linear filter on the image
+                                    to extract information about the frequency and orientation. They are defined by the following equation:
+                                    \[ G(x,y) = e^{-\frac{x^2+\gamma^2 y^2}{2\sigma^2}} e^{j2\pi(\omega_x x + \omega_y y + \psi)} \]
+                                    Il peut être pratique de la voir comme un couple de fonctions réelles, déphasées de \( \frac {\pi }{2} \). Il s'agit alors de la partie réelle et la partie imaginaire de la fonction complexe.
+                                    \[ G_1(x,y) = cos(\omega_x x + \omega_y b) e^{-\frac{x^2+\gamma^2 y^2}{2\sigma^2}}\]
+                                    \[ G_2(x,y) = sin(\omega_x x + \omega_y b) e^{-\frac{x^2+\gamma^2 y^2}{2\sigma^2}}\]
+                                    where \( \sigma \) is the standard deviation of the Gaussian function and \(u\) and \(v\) are the frequencies along the \(x\) and \(y\) axis.
+                                </p>
+                            </div>    
+                            
                             <button id="textures-illustrations"> Show illustrations</button>
-                            <p>The <span class="mark">statistical</span> approach consists of computing the co-occurrence matrix of the image.
-                                \[ \Gamma(d,\theta) = P(i,j) = \frac{1}{N} \sum_{x,y} \delta(i-I(x,y)) \delta(j-I(x,y)) \]
-                                where \(N\) is the number of pixels in the image and \(I(x,y)\) is the intensity of the pixel at coordinates \((x,y)\). This matrix simply stores the number of occurences of each pair of intensity values \( i <-> j \).
-                                This pair is defined by the distance \(d\) and the angle \(\alpha\) between the two pixels. The distance \(d\) is the distance between the two pixels in the image and the angle \(\alpha\) is the angle between the two pixels in the image.
-                                Usually, we compute multiple co-occurrence matrices with different values of \(d\) and \(\alpha\) and then we compute several characteristics from them such as:
-                            </p>    
-                            <ul>
-                                <li>Entropy: \( H(d,\theta) \)</li>
-                                <li>Energy: \( E(d,\theta) \)</li>
-                                <li>Contrast: \( C(d,\theta) \)</li>
-                                <li>Homogeneity: \( Hom(d,\theta) \)</li>
-                                <li>Correlation: \( Corr(d,\theta) \)</li>
-                            </ul>
-                            <p>Finally, we put them in a <span class="bold">Haralick vector</span> to represent the image. This vector is a vector of characteristics that can be used to classify the image.
-                                On Matlab, we can use the function <span class="bold">graycomatrix</span> to compute the co-occurrence matrix and the function <span class="bold">graycoprops</span> to compute the characteristics.
-                            </p>
-                            <button id="textures-illustrations"> Show illustrations</button>
-                            <p>The <span class="mark">synthesis of textures</span> is also a common practice in image processing. It consists of generating a texture from a given model. The model can be a texture or a set of textures.
-                                The purpose is to generate a texture that looks like the model.
 
-                            </p>
+                            <div> <h5>Statistical approach</h5>
+                                <p>The <span class="bold">statistical</span> approach consists of computing the co-occurrence matrix of the image.
+                                    \[ \Gamma(d,\theta) = P(i,j) = \frac{1}{N} \sum_{x,y} \delta(i-I(x,y)) \delta(j-I(x,y)) \]
+                                    where \(N\) is the number of pixels in the image and \(I(x,y)\) is the intensity of the pixel at coordinates \((x,y)\). This matrix simply stores the number of occurences of each pair of intensity values \( i <-> j \).
+                                    This pair is defined by the distance \(d\) and the angle \(\alpha\) between the two pixels. The distance \(d\) is the distance between the two pixels in the image and the angle \(\alpha\) is the angle between the two pixels in the image.
+                                    Usually, we compute multiple co-occurrence matrices with different values of \(d\) and \(\alpha\) and then we compute several characteristics from them such as:
+                                </p>    
+                                <ul>
+                                    <li>Entropy: \( H(d,\theta) \)</li>
+                                    <li>Energy: \( E(d,\theta) \)</li>
+                                    <li>Contrast: \( C(d,\theta) \)</li>
+                                    <li>Homogeneity: \( Hom(d,\theta) \)</li>
+                                    <li>Correlation: \( Corr(d,\theta) \)</li>
+                                </ul>
+                                <p>Finally, we put them in a <span class="bold">Haralick vector</span> to represent the image. This vector is a vector of characteristics that can be used to classify the image.
+                                    On Matlab, we can use the function <span class="bold">graycomatrix</span> to compute the co-occurrence matrix and the function <span class="bold">graycoprops</span> to compute the characteristics.
+                                </p>
+                                <button id="textures-illustrations"> Show illustrations</button>
+                                <p>The <span class="mark">synthesis of textures</span> is also a common practice in image processing. It consists of generating a texture from a given model. The model can be a texture or a set of textures.
+                                    The purpose is to generate a texture that looks like the model.
+
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
