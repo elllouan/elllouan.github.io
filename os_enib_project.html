@@ -22,7 +22,8 @@
         
         <section class="main-container">
             <h1>OS Project</h1>
-            <div><h2>Structure of the project</h2>
+
+            <div> <h2>Structure of the project</h2>
                 <p>The project is divided into several steps:</p>
                 <div class="frame-highlight">
                     <ol>
@@ -41,9 +42,9 @@
                         <p>Thsi </p>
                     </div>
                 </div>
-
             </div>
-            <div><h2 id="syscalls">1. Syscalls</h2>
+
+            <div> <h2 id="syscalls">1. Syscalls</h2>
                 <p>To understand syscalls, we must understand the difference between the <span class="mark">user session and the kernel</span>. Basically, when we run any application or software
                     on our computer, we are located in the user session, meaning that we have restricted privilieges. But most of the time, the program (software) needs to perform
                     or have access to some stuffs that require the use of the kernel. The application would then issue a <span class="mark">syscall</span> to request the OS for higher services.
@@ -53,9 +54,9 @@
                     In Ubuntu, when we issue the <span class="mark">sudo</span> command, we are asking for kernel privileges.
                 </p>
                 <p>We work with the platform MCUXpresso IDE,  and will build targets for the Cortex-M33 CPU. 
-
                 </p>
-                <div><h4>2.1 Handler/Thread modes</h4>
+
+                <div> <h3>2.1 Handler/Thread modes</h3>
                     <p>By default, when we run a task (or thread), we are in a <span class="mark">Unprivileged Thread</span> mode.
                         To trigger a syscall, we need to call a function implemented in the OS library (like os_alloc). This function will then
                         call the <span class="mark">SVC (SuperVisor Call)</span> followed by a number, which refers to the type of syscall requested (1 for os_alloc).
@@ -75,13 +76,14 @@
                         <a href="#2.2">MSP</a> .
 
                     </p>
-                    <div class="illustration">
+                    <!-- <div class="illustration">
                         
-                    </div>
+                    </div> -->
                 </div>
                 
-                <div><h2 id="syscalls">2. Task creation</h2>
-                    <div><h4 id="2.2">2.1 Definition</h4>
+                <div> <h2 id="syscalls">2. Task creation</h2>
+
+                    <div> <h3 id="2.2">2.1 Definition</h3>
                         <p>A <span class="bold">task</span> is a code entity (generally a function) that runs independently from the main context. To function properly, it needs to store its context (registers).
                             Therefore, we allocate memory for the task's <span class="bold">stack and members</span> (because it is a structure). Generally, the point of having multiple tasks is to have several, either run in parallel
                             or one after another, where each one is dedicated to a specific job (e.g., task). Hence, we create a <span class="bold">list of tasks</span> which a variable <span class="bold">tsk_running</span> points to.
@@ -95,7 +97,8 @@
                             <img src="images/os_proj/task_creation_dbg.JPG" alt="task_creation_dbg">
                         </div>
                     </div>
-                    <div><h4 id="2.2">2.2 Switching context</h4>
+
+                    <div><h3 id="2.2">2.2 Switching context</h3>
                         <p>When we start a program (in the function main), we are by default in the main context. But we may want to switch context to run another task, which has a different context.
                             Switching context involves several steps:
                         </p>
@@ -114,6 +117,7 @@
                         <p>A context switch can be triggered using a timer <span class="bold">(Round Robin)</span> to allocate a defined amount of time for each task. 
                         </p>
                     </div>
+                    
                 </div>
                 
 

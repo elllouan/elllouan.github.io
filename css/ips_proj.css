@@ -1,0 +1,44 @@
+.main-container a {
+    color: #444;
+}
+
+.main-container {
+    position: relative;
+    line-height: 2.5rem;
+}
+
+ul, ol {
+    margin-left: 1.5rem;
+}
+
+.illustration {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.sub-illustration {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media screen and (min-width: 481px) {
+
+    .illustration img {
+        width: 25%;
+        margin: auto 0;
+    }
+
+    .sub-illustration img {
+        width: 100%;
+    }
+
+    .section {
+        border: 3px dashed var(--clr-dark);
+        margin: 0.5rem 0;
+        padding: 1rem;
+        background-color: rgb(253, 237, 212);
+    }
+    
+}

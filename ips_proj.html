@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="generic-patterns/css/horizontalmenu.css">
         <link rel="stylesheet" href="generic-patterns/css/footer.css">
         <link rel="stylesheet" href="generic-patterns/css/main.css">
+        <link rel="stylesheet" href="css/ips_proj.css">
     </head>
 
     <!-- Within de web page -->
@@ -19,6 +20,144 @@
         <div id="horizontalmenu"></div>
         
         <section class="main-container">
+
+            <h1>Control of the height of a mass</h1>
+            <h3 class="page-subtitle">This page describes more throughly the steps of the project and my learning outcomes.</h3>
+
+            <div class="section"> <h2>Structure of the project</h2>
+                <div class="sub-section"> <h3>General overview</h3>
+                    <p>We are a group of 5 students working on this project. The goal is to control the height of a mass, hooked to a shape memory spring, accordingly to the command done by the user.
+                        To do so, we have a flight time sensor that measures the distance between the mass and the ground. This sensor is connected via I²C to the STM32F4 microcontroller.
+                        The board implements a PID controller that serves the whole system with a PWM signal. The PWM signal is then amplified by a MOSFET to control the current flowing through the shape memory spring.
+                    </p>
+
+                    <div> <h4>Equipment</h4>
+                        <p>The basic equipment for this project consisted of:</p>
+                        <div class="frame-highlight">
+                            <ul>
+                                <li>Shape memory spring</li>
+                                <li>Mass</li>
+                                <li>Gallows</li>
+                                <li>Flight time sensor</li>
+                                <li>STM32F411RE microcontroller</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div> <h4>Method</h4>
+                        <p>We divided this project into multiple steps:</p>
+                        <div class="frame-highlight">
+                            <ul>
+                                <li>Testing and getting familiar the system</li>
+                                <li>Implementing basic functionalities on the microcontroller: PWM generation, ADC, Timer, etc.</li>
+                                <li>Devising the PCB structure and testing remote parts</li>
+                                <li>Elaborating the PCB on Eagle</li>
+                                <li>Developing an GUI</li>
+                                <li>Figuring out PID parameters</li>
+                                <li>Creating a web page to present our project</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div> <h4>Workload repartition</h4>
+                        <p>As mentionned above, we are a group of 5 students. Regarding our preferences, we assign ourselves different parts: </p>
+                        <div class="frame-highlight">
+                            <ul>
+                                <li><span class="bold">Julien:</span> worked on the hardware electronics (Eagle) and Gantt digram.</li>
+                                <li><span class="bold">Gentilla:</span> worked with Julien (Eagle) and with me for the web page.</li>
+                                <li><span class="bold">Titouan:</span> worked on the GUI (Python).</li>
+                                <li><span class="bold">Pierre-Nicolas:</span> worked on the software electronics (STM32).</li>
+                                <li><span class="bold">Elouan (me):</span> worked on the web page and also on the PID algorithm (STM32).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div> <h4>Upfront difficulties</h4>
+                        <p>The system we aim to serve is a shape memory spring. However, it is very hard to predict the system's behavior because its transfer function changes as the spring
+                            temperature increases. Therefore, we will be considering the spring as a black box and we will try to find the best PID parameters by trials and errors.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section"> <h2>PCB</h2>
+                <div> <h4>Designing the PCB</h4>
+                </div>
+
+                <div> <h4>Current measurement</h4>
+                </div>
+
+                <div> <h4>STM32 peripherals</h4>
+                </div>
+
+                <div> <h4>Building the PCB with Eagle</h4>
+                </div>
+            
+            </div>
+                
+            <div class="section"> <h2>PID implementation</h2>
+                <p>In control systems, ideally we know (or can figure out by stimulating the system) the behavior of the system we aim to control. However here it is slighlty different ...</p>
+                <div> <h4>Command control</h4>
+                    <p>The STM32 microcontroller implements a PID that outputs a PWM signal. This PWM signal is input to the transistor. As a result, the board pilots the transistor
+                        in an open-closed mode. The duty cycle of this signal directly impacts how much current flows through the spring. We know (from the teacher) that the spring behaves somehow like a low-pass filter (actually, the spring is a black box).
+                        Hence, it will only see the average of the current flowing through it. Then, it is easy to understand that the wider duty cycle, the higher the tension (so the current). 
+                        It is important to mention that we supply the spring with a 3V source. It takes time to heat up. We have experimented different duty cycle to see how the system behaves.
+                        This is aimed at giving us a rough hint about how fast the spring reacts. 
+                    </p>
+                    <ol>
+                        <li>Test different duty cycles to control the spring \( T_e = 5ms \)</li>
+                        <li>For each test, store the height evolution of the mass</li>
+                        <li>Provide this web page with those</li>
+                    </ol>
+                </div>
+
+                <div> <h4>PID algorithm</h4>
+                    <p>As we noticed, we can control the rise process of the system quite decently (e.g., the spring fold), by tweaking the duty cycle of the PWM signal, even though we do not know exactly its behavior.
+                        However, the fall process cannot be controlled as it is the surrounding temperature that makes the spring unfold. We have to wait for the spring to cool to have it go down.
+                        Thus, we should avoid overshooting the target height. Eventually, we want a PID that makes the system reach the target as fast as possible without overshooting it.
+                        We decided to remove the derivative factor \(K_d\). In the end, we only need to tune the proportional \(K_p\) and integral \(K_i\) factors.
+                        The \( K_p \) factor will make the system reach the target faster. The \( K_i \) factor will correct the error over time. Moreover, we know that:
+                        \[ \delta_e \leq \delta_{max} = 100mm \]
+                        \[ \delta_e \leq 0 \implies dc=0\% \implies 0V \]
+                        \[ \delta_e=\delta_{max} \implies dc=100\% \implies 3V \]
+                        The duty cycle can vary from 0% to 100%. Now let's consider the algorithm :
+                        \[ u_p = K_p \cdot \delta_e \]
+                        \[ u_i = u_i + K_i \cdot u_p \]
+                        \[ u_{cmd} = u_p + u_i \]
+                        \( \delta_e \) represents the error (in mm) between the current position and the target position. Regurlarly, we update the PWM duty cycle using the output variation \( u_{cmd} \).
+                        Thus, we need to map the variation \(u_{cmd}\) to a variation of our PWM duty cycle, because that is how we serve our system.
+                        It is important to note that what we calculated here is a variation of the command, meaning that it should be in the same order of magnitude as the PWM duty cycle (comprised between 0 and 100), to avoid saturation.
+                        <!-- Therefore, we could map one millimeter for one percent of duty cycle. However, we want to be able to reach the target as fast as possible. So, we will use a linear mapping function
+                        I think that our _( K_i \) will be very important. -->
+                    </p>
+                </div>
+
+                <div> <h4>Saturation and unstability</h4>
+                    <p>We want to make sure that our command does not saturate for too long as it can cause quick changes and in the end may lead to unstability.
+                    </p>
+                </div>
+
+                <div> <h4>Current loop</h4>
+                    <p>We also have to be careful about the current flowing through the spring.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="section"> <h2>GUI</h2>
+                <div> <h4>Communication</h4>
+
+                </div>
+
+                <div> <h4>Real-time display</h4>
+
+                </div>
+            </div>
+
+            <div class="section"> <h2>Conclusion</h2>
+                            
+            </div>
+
         </section> <!-- main-container -->
 
         <div id="footer"></div>

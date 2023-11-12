@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }, delay);
   }
 
-  const originalTextElement = $(".header-description");
+  const originalTextElement = $(".header-annoucement");
   const originalText = originalTextElement.text();
   const newText = "Upcoming event !";
   const delay = 3000;

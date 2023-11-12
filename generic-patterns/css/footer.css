@@ -3,7 +3,7 @@
 
     footer {
         margin-top: 10px;
-        background: var(--clr-dark);
+        background-color: var(--clr-light-dark);
         font-family: var(--ff-regular);
         width: 100%;
         color: var(--clr-light);

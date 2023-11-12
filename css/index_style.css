@@ -3,27 +3,25 @@
 
     /* class-specific settings */
 
-    .header-container {
+    header {
         position: relative; /* Position relative to establish a containing block */
-        margin: 0;
-        height: 10rem;
+        margin-bottom: 1rem;
     }
 
     .header-img {
         position: absolute;
-        background-color: var(--clr-dark);
+        background-color: var(--clr-light-dark);
         border-radius: 50%;
-        height: 150px;
-        width: 150px;
+        height: 200px;
+        width: 200px;
         overflow: hidden; /* Hides the overflow of the img */
         object-fit: cover;
-        margin-left: 5vh;
+        margin-left: 7vh;
         z-index: 2;
     }
 
     .header-title {
-        position: relative;
-        background-color: var(--clr-dark);
+        background-color: var(--clr-light-dark);
         color: var(--clr-light);
         font-size: var(--fs-h3);
         padding: 0.3em;
@@ -33,14 +31,12 @@
         z-index: 1;
     }
 
-    .header-description {
-        position: relative;
-        background-color: var(--clr-dark);
+    .header-annoucement {
+        background-color: var(--clr-light-dark);
         color: var(--clr-light);
-        font-size: var(--fs-std);
         padding: 0.3em;
-        margin: auto;
-        width: 75%;
+        margin: 0 auto;
+        width: fit-content;
         text-align: center;
         border-radius: 3em;
         z-index: 1;
@@ -108,16 +104,14 @@
         color: var(--clr-dark);
     }
 
-    .frame h3 {
-        font-family: var(--ff-robot);
-        text-align: center;
-        margin: 1rem 0;
-        border: 2px solid #444;
-    }
-
-    .frame h3:hover {
+    .frame-text:hover {
         text-decoration: underline;
         border-bottom: 5px orange solid;
+    }
+
+    .frame-text {
+        text-align: center;
+        font-family: var(--ff-robot);
     }
 
     .frame img {

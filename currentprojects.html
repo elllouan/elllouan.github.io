@@ -27,8 +27,7 @@
                 <div class="academic-projects">
                     <h2 class="title">Current academic projects</h2>
 
-                    <div class="current-project"> 
-                        <div class="label"> <h2>NXP OS project</h2>  </div>
+                    <div class="current-project"> <div class="label"> <h2>NXP OS project</h2> </div>
                         <div class="content">
                                 <p>In this project, we program an OS aimed at the Cortex-M33 processor. The purpose here is to understand how an OS works, what is a the difference between the kernel and the user.
                                     We want to be able to understand what happens in the background when we make a syscall.
@@ -50,16 +49,14 @@
                         </div>
                     </div>
 
-                    <div class="current-project">
-                        <div class="label"> <h2>Robot project</h2> </div>
+                    <div class="current-project"> <div class="label"> <h2>Robot project</h2> </div>
                         <div class="content">
                             <p>This project will start in the second part of this semester.</p>
                         </div>
                     </div>
 
-                    <div class="current-project">
-                        <div class="label"> <h2>Calculator project</h2> </div>
-                        <div class="content calculator">
+                    <div class="current-project"> <div class="label"> <h2>Calculator project</h2> </div>
+                        <div class="content">
                             <div class="introduction">
                                 <p>In this project, our goal is to develop an embedded scripting calculator on a NXP microcontroller.
                                 We have the PC that can communicate with the NXP board over UART. From the PC, we open a serial communication and input math operation commands.
@@ -67,32 +64,33 @@
                                 Therefore, we use a C library called <span class="mark">Calc</span> that can be integrated in a microcontroller.
                                 This library was developed to perform arithmetic operations using a scripting approach like Matlab. The board has already some of the code
                                 implemented in it. This project organises itself around three tasks:</p>
-                                <ul class="tasks">
-                                    <li> <span class="mark">Task 1: External communication</span>
-                                        <ol style="margin-left: 1rem;">
-                                            <li>Handling VT100 (ANSI escape sequences);</li>
-                                            <li>Mounting a file system on a SD card;</li>
-                                            <li>Executing syscalls on files stored on the SD card.</li>
-                                        </ol>
-                                    </li>
-                                    <li> <span class="mark">Task 2: Multicore system</span>
-                                        <ol style="margin-left: 1rem;">
-                                            <li>Booting the two cores;</li>
-                                            <li>Sharing data between the two cores;</li>
-                                            <li>Performing synchronous and asynchronous tasks.</li>
-                                        </ol>
-                                    </li>
-                                    <li> <span class="mark">Task 3: Bringing math further</span>
-                                        <ol style="margin-left: 1rem;">
-                                            <li>Adding PowerQuad to the system;</li>
-                                            <li>Computing the cosine of a function;</li>
-                                            <li>Performing advanced math operations like FFT.</li>
-                                        </ol>
-                                    </li>
-                                </ul>
+                                <div class="frame-highlight">
+                                    <ul>
+                                        <li> <span class="mark">Task 1: External communication</span>
+                                            <ol style="margin-left: 1rem;">
+                                                <li>Handling VT100 (ANSI escape sequences);</li>
+                                                <li>Mounting a file system on a SD card;</li>
+                                                <li>Executing syscalls on files stored on the SD card.</li>
+                                            </ol>
+                                        </li>
+                                        <li> <span class="mark">Task 2: Multicore system</span>
+                                            <ol style="margin-left: 1rem;">
+                                                <li>Booting the two cores;</li>
+                                                <li>Sharing data between the two cores;</li>
+                                                <li>Performing synchronous and asynchronous tasks.</li>
+                                            </ol>
+                                        </li>
+                                        <li> <span class="mark">Task 3: Bringing math further</span>
+                                            <ol style="margin-left: 1rem;">
+                                                <li>Adding PowerQuad to the system;</li>
+                                                <li>Computing the cosine of a function;</li>
+                                                <li>Performing advanced math operations like FFT.</li>
+                                            </ol>
+                                        </li>
+                                    </ul>
+                                </div>
                                 <hr>
-                                <div class="project-structure">
-                                    <h3>Project structure</h3>
+                                <div class="project-structure"> <h3>Project structure</h3>
                                     <p>The project is aranged this way. The folders which we are mainly interested in are <span class="italic">source, fatfs, lcd, sdmmc</span>.
                                         Folder names are pretty self-explanatory, except for <span class="italic">sdmmc</span> which contains the drivers for the SD card.
                                         I provided a view of the source folder.
@@ -110,8 +108,7 @@
                                 <p>I was assigned the <span class="mark">first task</span>, so in this section I will explain how I proceeded to complete those.
                                     I mostly worked in the <span class="italic">sysdep.c</span> file.
                                 </p>
-                                <div class="task1-1">
-                                    <h3>1. VT100 code</h3>
+                                <div class="task1-1"> <h4>1. VT100 code</h4>
                                     <p>Historically, a terminal could only interpret keyboards that would output printing characters. In that matter, the VT100 (or ANSI escape sequences)
                                         were invented so that a terminal could also interpret non-printing characters such as arrow cursors or f keyboards. With this new standard was
                                         introduced brand new features and we could now move the cursor, clear the screen, change the color of the text, etc.
@@ -128,8 +125,7 @@
                                     </p>
                                 </div>
                                 <hr>
-                                <div class="task1-2">
-                                    <h3>2. File system</h3>
+                                <div class="task1-2"> <h4>2. File system</h4>
                                     <p>We want to be able to load files from the SD card and execute them and to do so, we need to mount a file system on the SD card. We were required to use
                                         the FAT32 file system. The FAT32 file system is a simple file system and is the most commonly used. It is part of the FAT family file system developed by Windows.
                                         A file system allows to arange memory space of a storage device such as an SD card, thereby providing a convenient way to naviguate through the memory, store and access data.
@@ -141,8 +137,7 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <div class="task1-3">
-                                    <h3>3. Syscalls</h3>
+                                <div class="task1-3"> <h4>3. Syscalls</h4>
                                     <p>Now that we can access with files stored on a SD card, we would like to be able to interact with them (modifying or executing them).
                                         To do so, we need to implement basic syscalls-like features.
                                         Indeed, the Calc library makes available some commands that are meant for opening, closing, reading and writing files.
@@ -159,11 +154,9 @@
                     </div>
                 </div>
 
-                <div class="personal-projects">
-                    <h2 class="title">Personal projects</h2>
+                <div class="personal-projects"> <h2 class="title">Personal projects</h2>
 
-                    <div class="current-project">
-                        <div class="label"> <h2>Learning AI with tensorflow</h2> </div>
+                    <div class="current-project"> <div class="label"> <h2>Learning AI with tensorflow</h2> </div>
                         <div class="content">
                             <p>I have started to learn the basics of AI using the tensorflow python module.
                                 For now, I am taking a freecodecamp <a href="https://www.youtube.com/watch?v=IA3WxTTPXqQ&list=LL&index=2&t=440s" target="_blank">course</a>.
@@ -175,31 +168,34 @@
                                 There I learnt a lot and improve my understanding about the role that convolution plays in probability and image processing.
                                 To get started, I will try to summarize quickly what it is explained in this video.
                                 
-                                <h4>Discrete convolution</h4>
-                                <p>We can start by focusing on the discrete case which (in my opinion) brings the main idea of why we use convolution in probability.
-                                    The formula goes \[ (f(n)*g(n))(s) = \sum^{N}_{n=0} f(n) g(s-n) \]
-                                    Here \(f(n)\) and \(g(m)\) are functions representing the probability of a random discrete variable.
-                                    So if we try to think this through, we can notice that a new variable appeared \(s\) and also we do this weird operation consisting of multiplying \(g(s-n)\) with \(f(n)\).
-                                </p>
-                                <p>Now let's image I want to determine the probability that 2 consecutive and independent events (let's say \( n+m=5 \)) occur.
-                                    To be easier, let's consider that \(n\) and \(m\) are variables representing the face of a dice.
-                                    We need to consider all possibilities, such as \(n=1\) and \(m=4\), \(n=2\) and \(m=3\) and so on. So we end up adding these probabilities:
-                                    \(f(n=1) \times g(m=4) + f(n=2) \times g(m=3) + f(n=3) \times g(m=2) ... \). If we generalize this operation to all other possible combinaisons of events \( n+m=s \),
-                                    where \(s\) can take any possible value an event can take (in our case, from 1 to 6).
-                                    You may have understood it, \(s\) represents the combinaison of two successive and independent events \(n\) and \(m\). So to get back to the example,
-                                    the probability that we get a total of 5 after having thrown the dice twice can be written as follows:
-                                    \[ P(5) = \sum^{6}_{n=1} f(n) g(5-n) = f(n=1) \times g(m=4) + f(n=2) \times g(m=3) + ... + f(n=4) \times g(m=1) \]
-                                    If we repeat this operation for each value of \(s\), we get a function of \(s\) where the image represents the probability that \(s=n+m\) occurs.
-                                </p>
+                               <div> <h4>Discrete convolution</h4>
+                                    <p>We can start by focusing on the discrete case which (in my opinion) brings the main idea of why we use convolution in probability.
+                                        The formula goes \[ (f(n)*g(n))(s) = \sum^{N}_{n=0} f(n) g(s-n) \]
+                                        Here \(f(n)\) and \(g(m)\) are functions representing the probability of a random discrete variable.
+                                        So if we try to think this through, we can notice that a new variable appeared \(s\) and also we do this weird operation consisting of multiplying \(g(s-n)\) with \(f(n)\).
+                                    </p>
+                                    <p>Now let's image I want to determine the probability that 2 consecutive and independent events (let's say \( n+m=5 \)) occur.
+                                        To be easier, let's consider that \(n\) and \(m\) are variables representing the face of a dice.
+                                        We need to consider all possibilities, such as \(n=1\) and \(m=4\), \(n=2\) and \(m=3\) and so on. So we end up adding these probabilities:
+                                        \(f(n=1) \times g(m=4) + f(n=2) \times g(m=3) + f(n=3) \times g(m=2) ... \). If we generalize this operation to all other possible combinaisons of events \( n+m=s \),
+                                        where \(s\) can take any possible value an event can take (in our case, from 1 to 6).
+                                        You may have understood it, \(s\) represents the combinaison of two successive and independent events \(n\) and \(m\). So to get back to the example,
+                                        the probability that we get a total of 5 after having thrown the dice twice can be written as follows:
+                                        \[ P(5) = \sum^{6}_{n=1} f(n) g(5-n) = f(n=1) \times g(m=4) + f(n=2) \times g(m=3) + ... + f(n=4) \times g(m=1) \]
+                                        If we repeat this operation for each value of \(s\), we get a function of \(s\) where the image represents the probability that \(s=n+m\) occurs.
+                                    </p>
+                                </div>
                                 
-                                
-                                <h4>Continuous convolution</h4>
-                                The formula goes \[ (f(x)*g(x))(s) = \int^{+\infty}_{-\infty} f(x) g(s-x) dx \]
-                                Here \(f(x)\) and \(g(y)\) are functions representing the probability density of a random variable.
-                                The outcome of this convolution operation is a new function \(h(s)\), called the probability density function,
-                                where \(s\) represents the random variable \(X+Y\) and its image represents the probability (density) that \(P_X + P_P\) occurs.
-                                The concept is basically the same, since we are in a contiuous set of random variables,
-                                we just expand the discrete case \(\sum\) to the continuous case \(\int\), which means we consider the area under the curve.
+                                <div> <h4>Continuous convolution</h4>
+                                    <p>The formula goes \[ (f(x)*g(x))(s) = \int^{+\infty}_{-\infty} f(x) g(s-x) dx \]
+                                        Here \(f(x)\) and \(g(y)\) are functions representing the probability density of a random variable.
+                                        The outcome of this convolution operation is a new function \(h(s)\), called the probability density function,
+                                        where \(s\) represents the random variable \(X+Y\) and its image represents the probability (density) that \(P_X + P_P\) occurs.
+                                        The concept is basically the same, since we are in a contiuous set of random variables,
+                                        we just expand the discrete case \(\sum\) to the continuous case \(\int\), which means we consider the area under the curve.
+                                    </p>
+                                </div>
+
                             </div>
                             <hr>
                             <div> <h3>Basics of TensorFlow</h3>
@@ -230,8 +226,8 @@
                         </div>
                     </div>
 
-                    <div class="current-project">
-                        <div class="label"> <h2>Buidling an OS from Scratch</h2> </div>
+                    <div class="current-project"> <div class="label"> <h2>Buidling an OS from Scratch</h2> </div>
+                        
                         <div class="content">
                             <p>In this project, I intend to build an OS from scratch. I want to leverage the knowledge I will acquire along the academic OS project to learn more about this topic.
                                 Therefore, I started off this new OS journey to program a complete OS from scratch. I will be following the contents and tutos provided by <a href="https://wiki.osdev.org/Main_Page">OSDev.org</a>.

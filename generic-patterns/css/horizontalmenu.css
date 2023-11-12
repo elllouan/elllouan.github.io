@@ -3,7 +3,8 @@
 
     nav {
         text-align: center;
-        background-color: var(--clr-dark);
+        background-color: var(--clr-light-dark);
+        /* margin: 3rem auto; */
     }
 
     nav li {
