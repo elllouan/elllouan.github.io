@@ -65,7 +65,7 @@ img { /* set default characteristics for images */
 
 h1, h2, h3 {
     line-height: 1.2;
-    margin: 0;
+    margin: 00.5rem 0;
 }
 
 h1 { 

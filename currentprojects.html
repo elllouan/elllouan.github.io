@@ -158,9 +158,11 @@
 
                     <div class="current-project"> <div class="label"> <h2>Learning AI with tensorflow</h2> </div>
                         <div class="content">
-                            <p>I have started to learn the basics of AI using the tensorflow python module.
-                                For now, I am taking a freecodecamp <a href="https://www.youtube.com/watch?v=IA3WxTTPXqQ&list=LL&index=2&t=440s" target="_blank">course</a>.
-                                I work with Google Colab and I will fill this section as I become more confident about this topic.
+                            <p>My curiosity and genuine desire to learn more about engineering topics caused me to start this new journey of learning the basics of AI.
+                                My guide is this freecodecamp <a href="https://www.youtube.com/watch?v=IA3WxTTPXqQ&list=LL&index=2&t=440s" target="_blank">course</a>.
+                                My goal with this web page is to try to explain what I learn and writing it with <span class="bold">my own words</span>. Therefore, <span class="bold">does not take this content as a reference</span>,
+                                there might be some inaccuracies (or even mistakes). While, this page is more dedicated to a theorical approach (because understanding the theory and math is satisfying but not enough),
+                                <a href="ai.html">here</a> can be found a more practical approach, using Google Colab with the python module <span class="bold">Tensorflow</span>.
                             </p>
                             <hr>
                             <div> <h3>Convolution in probability and image processing</h3>
@@ -196,23 +198,6 @@
                                     </p>
                                 </div>
 
-                            </div>
-                            <hr>
-                            <div> <h3>Basics of TensorFlow</h3>
-                                <p>This section is an introduction to TensorFlow. As stated before, I use Google Colab to get familiar with the tensorflow module.
-                                    The purpose of this first part is to get more familiar with the concept of tensor and how to manipulate them using tensorflow.
-                                    I have been introduced to these subjects:
-                                    <div class="frame-highlight">
-                                        <ul>
-                                            <li>Tensor initialization and casting</li>
-                                            <li>Math operations</li>
-                                            <li>Linear operations</li>
-                                            <li>TensorFlow's common functions and tensor manipulation</li>
-                                            <li>Types of tensor: RaggedTensor, SparseTensor and string tensors</li>
-                                        </ul>
-                                    </div>
-                                </p>
-                                <p>Soon, I will be uploading a Google Colab notebook that shows all my code for this.</p>
                             </div>
                             <hr>
                             <div> <h3>Introduction to Machine Learning</h3>
@@ -252,31 +237,47 @@
                                         things separately but ... well. I will try to explain what I have understood and also bring up what I am still struggling with.
                                         At each iteration (each time the model is fed with an input data \( X \)), it computes the loss (difference between prediction and truth) after having processed the data according to weights \( w_n \).
                                         For each neuron this would go as follows:
-                                        \[ X = (x_1, x_2, x_3, x_4 ... x_n) \rightarrow a_1 = \sigma(w_1 \cdot x_1+w_2 \cdot x_2+w_3 \cdot x_3+...+b) \]
-                                        with \( a_1 \) the output of the neuron and \( \sigma \) the activation function.
+                                        \[ X = (x_1, x_2, x_3, x_4 ... x_n) \rightarrow a_i = \sigma(w_{i1} \cdot x_1+w_{i2} \cdot x_2+w_{i3} \cdot x_3+...+b) \]
+                                        with \( a_i \) the output of the neuron \(i^{th}\) of a given layer and \( \sigma \) the activation function.
                                         <div class="frame-highlight">
                                             <p>Already here, I am not sure about the activation function. I have seen several activation functions such as the sigmoid function, the ReLU function, etc.
                                                 However I don't fully understand their purpose and why not other functions.
                                             </p>
                                         </div>
-                                        <h5>Loss and Cost functions</h5>
-                                        <p>Then, after going through all hidden layers, it reaches the output layer, where it computes the loss function. There exist different loss functions,
-                                            such as the mean squared error (MSE), absolute error (AE), Huber, etc. For sake of simplicity, I will only consider the MSE. 
-                                            \[ loss = \frac{1}{2}(y_{pred}-y_{true})^2 \]
-                                            
+                                    </p>
+
+                                    <h5>Loss and cost functions</h5>
+                                    <p>Then, after going through all hidden layers, it reaches the output layer, where it computes the <span class="bold">loss function</span>. There exist different loss functions,
+                                        such as the <span class="bold">mean squared error</span> (MSE), <span class="bold">absolute error</span> (AE), <span class="bold">Huber</span>, etc. For sake of simplicity, I will only consider the MSE. 
+                                        \[ L = \frac{1}{2}(y_{pred}-y_{true})^2 \]
+                                    </p>
+
+                                    <h5>Adjusting the weights</h5>
+                                    <p>When I will have studied more about the math behind I will try to explain it here. However, I got the concept. The idea is to compute the gradient of the <span class="bold">cost function </span>(batch of data) with respect to the weights and biases of the model.
+                                        After each batch of data the model takes the average of each loss function. So let's say our model is fed with batches of 32 inputs, it will compute the cost function as follows:
+                                        \[ C = \frac{1}{B} \sum_{i=1}^{B} L_i\]
+                                        where \(B\) is the batch size (32 here) and \( L_i \) the loss function of the \(i^{th}\) input of the batch. Then, the model computes how much each weight of the output layer impacts the cost function.
+                                    </p>
+                                    <div class="frame-highlight">
+                                        <p>If a <span class="bold">slight variation</span> of a weight \( w_i \) causes a <span class="bold">significant variation</span> of the cost function, then it means that this weight has a <span class="bold">great</span> impact on <span class="bold">reducing the error</span>.
+                                            On the other hand, if a <span class="bold">slight variation</span> of a weight \( w_i \) causes a <span class="bold">slight variation</span> of the cost function, then it means that this weight has a <span class="bold">small</span> impact on reducing the error.
+                                            To empower this chacteristics, we use the <span class="bold">gradient</span> \( \nabla \), which is an equivalent of the derivative for multi-arguments functions. As a result, the <span class="bold">weight is modified proportionnaly to the variation it causes in the cost function</span>.
                                         </p>
-
-                                        <h5>Adjusting the weights</h5>
-                                        <p>The idea is to compute the gradient of the Cost function (batch of data) with respect to the weights and biases of the model.
-                                            
+                                    </div>
+                                    <div class="frame-highlight">
+                                        <p>To be more accurate, this method is called the <span class="bold">stocastic gradient descent (SGD)</span> which is a statistical approximation of the gradient descent.
+                                            This approximation holds because we take the average of the loss function, and not each loss function.
+                                            Otherwise, the model would take too much time to compute the gradient of the cost function with respect to each weight and bias.
                                         </p>
-                                        
-
-
-                                       
+                                    </div>
+                                    <p>The model will recursively adjust all the weights and biases starting from the output layer and going back to the input layer. We determine the new weights for each data of the output layer as follows:
+                                        \[ w_i = w_i - \mu \frac{\delta C(w_i)}{\delta w_i} = w_i - \mu \nabla \cdot \vec{C_{w_i}} \]
+                                        where \( \mu \) is the learning rate, \( \nabla \cdot \vec{C_{w_i}} \) the gradient of the cost function with respect to the weight \( w_i \) and \( i \) the index of each input data \( a_i \).
+                                        This process is repeated now for the hidden layers. We determine the new weights for each neuron of each layer:
+                                        \[ w_{hi} = w_{hi}- \mu \frac{\delta C(w_{hi})}{\delta w_{hi}} \]
+                                        where \( h \) is the index of each neuron and \( i \) the index of each input data \( a_i \).
                                     </p>
                                 </div>
-                                
                             </div>
                         </div>
                     </div>

@@ -25,8 +25,8 @@
 
             <div> <h2>Structure of the project</h2>
                 <p>The project is divided into several steps:</p>
-                <div class="frame-highlight">
-                    <ol>
+                <div class="frame-highlight" style="display: flex; flex-direction: row;">
+                    <ol style="margin: auto 1.5rem;">
                         <a href="#syscalls"><li>Understanding of how syscalls work;</li></a>
                         <a href=""><li>Creating a task (thread) and testing task commutation;</li></a>
                         <a href=""><li>Implementing our own semaphore and mutex;</li></a>
@@ -35,32 +35,32 @@
                         <a href=""><li>Implementing basic features with peripherals: RGB led, button;</li></a>
                         <a href=""><li>Programming more advanced functionalities: UART, etc.</li></a>
                     </ol>
+                    <img style="width: 40%;" src="images/os_proj/structure_proj.svg" alt="structure_proj">
                 </div>
-                <div class="illustration">
-                    <img width="100%" src="images/os_proj/structure_proj.svg" alt="structure_proj">
-                    <div>
-                        <p>Thsi </p>
-                    </div>
-                </div>
+                
             </div>
 
             <div> <h2 id="syscalls">1. Syscalls</h2>
-                <p>To understand syscalls, we must understand the difference between the <span class="mark">user session and the kernel</span>. Basically, when we run any application or software
+                <p>To understand syscalls, we must understand the difference between the <span class="bold">user session and the kernel</span>. Basically, when we run any application or software
                     on our computer, we are located in the user session, meaning that we have restricted privilieges. But most of the time, the program (software) needs to perform
-                    or have access to some stuffs that require the use of the kernel. The application would then issue a <span class="mark">syscall</span> to request the OS for higher services.
-                    Hence, the OS comes <span class="mark">between the user-level program (session) and the hardware</span>. The <span class="mark">kernel</span> is the low-level part of the OS that has access to all the resources of the computer.
+                    or have access to some stuffs that require the use of the kernel. The application would then issue a <span class="bold">syscall</span> to request the OS for higher services.
+                    Hence, the OS comes <span class="bold">between the user-level program (session) and the hardware</span>. The <span class="bold">kernel</span> is the low-level part of the OS that has access to all the resources of the computer.
                     It handles essential resources such as process management (priorities, round-robin), memory management (data allocation), device-driver management and syscall handling.
                     It coordinates all the prgrams by deciding which one is the most urgent and providing resources accordingly. Having access to the kernel means having the highest privileges.
-                    In Ubuntu, when we issue the <span class="mark">sudo</span> command, we are asking for kernel privileges.
+                    In Ubuntu, when we issue the <span class="bold">sudo</span> command, we are asking for kernel privileges.
                 </p>
                 <p>We work with the platform MCUXpresso IDE,  and will build targets for the Cortex-M33 CPU. 
                 </p>
 
-                <div> <h3>2.1 Handler/Thread modes</h3>
-                    <p>By default, when we run a task (or thread), we are in a <span class="mark">Unprivileged Thread</span> mode.
+                <div> <h3>1.1 Handler/Thread modes</h3>
+                    <p>By default, when we run a task (or thread), we are in a <span class="bold">Unprivileged Thread</span> mode.
                         To trigger a syscall, we need to call a function implemented in the OS library (like os_alloc). This function will then
-                        call the <span class="mark">SVC (SuperVisor Call)</span> followed by a number, which refers to the type of syscall requested (1 for os_alloc).
-                        This call is operated in assembly code, and will branch to the <span class="mark">SVC_Handler</span> function in the OS kernel (svc.s).
+                        call the <span class="bold">SVC (SuperVisor Call)</span> followed by a number, which refers to the type of syscall requested (1 for os_alloc).
+                        <div class="frame-highlight">
+                            <p><span class="bold">Important:</span> calling the <span class="bold">svc</span> assembly instruction will trigger an exception. Therefore, it will involve the
+                                <span class="bold">NVIC</span>, which will branch the PC to the <span class="bold">SVC_Handler</span> function in the OS kernel (svc.s).
+                            </p>
+                        </div>
                         This function executes the C code related to the syscall (svc_dispatch) and then returns to the user session. The instruction __ASM volatile("...") injects
                         assembly code. 
                     </p>
@@ -71,7 +71,7 @@
                         </div>
                         <img src="images/os_proj/svc_dispatch.JPG" alt="svc_dispatch">
                     </div>
-                    <p>At this point, we are in the <span class="mark">Privileged Handler</span> mode. This mode can not be interrupted and is used to dispatch (svc_dispatch)
+                    <p>At this point, we are in the <span class="bold">Privileged Handler</span> mode. This mode can not be interrupted and is used to dispatch (svc_dispatch)
                         the syscall to the right process (regarding the svc number). Below, the argument n represents the svc number and the argument args[] points to the
                         <a href="#2.2">MSP</a> .
 
@@ -81,12 +81,15 @@
                     </div> -->
                 </div>
                 
-                <div> <h2 id="syscalls">2. Task creation</h2>
+                <div> <h2 id="syscalls">2. Tasks</h2>
 
-                    <div> <h3 id="2.2">2.1 Definition</h3>
-                        <p>A <span class="bold">task</span> is a code entity (generally a function) that runs independently from the main context. To function properly, it needs to store its context (registers).
-                            Therefore, we allocate memory for the task's <span class="bold">stack and members</span> (because it is a structure). Generally, the point of having multiple tasks is to have several, either run in parallel
-                            or one after another, where each one is dedicated to a specific job (e.g., task). Hence, we create a <span class="bold">list of tasks</span> which a variable <span class="bold">tsk_running</span> points to.
+                    <div> <h3 id="2.2">2.1 Definition and context</h3>
+                        <p>A <span class="bold">task</span> is a code entity (generally a function) that runs independently from the main context. To function independently, it needs to have its own context, meaning that a task should
+                            have a stack which would store its context (see illustrations below).
+                            Therefore, we allocate memory for the task's <span class="bold">stack and members</span> (because it is a structure). Generally, the point of having multiple tasks is to have them, either run in parallel
+                            or one after another <span class="bold">(Round Robin)</span>, each one being dedicated to a specific job (e.g., task).
+                            Hence, we create a <span class="bold">list of tasks</span> which a variable <span class="bold">tsk_running</span> points to. This is a <span class="bold">circular double linked list</span>.
+                            Each task points the previous running task and also to the next running one in the list.
                             In the pictures displayed below, we have an illustration of how a task is structured and a code example where <span class="bold">new_task</span> is created and added to the list of tasks.
                             <span class="bold">sp</span> and <span class="bold">splim</span> respectively point to the current task's stack pointer and the stack limit.
                         </p>
@@ -99,28 +102,52 @@
                     </div>
 
                     <div><h3 id="2.2">2.2 Switching context</h3>
-                        <p>When we start a program (in the function main), we are by default in the main context. But we may want to switch context to run another task, which has a different context.
+                        <p>When we start a program (in the main function), we are by default in the main context. But, in our case, we want to switch context to run multiple task (either concurrently or alternatively),
+                            which have their own context. To do so, we need to trigger another exception, the <span class="bold">PendSV</span> exception. Again, the NVIC will branch the PC to the <span class="bold">PendSV_Handler</span> function in the OS kernel (svc.s).
+                            This function does operate the context switch. This function is in charge of saving the current running task's context (in its stack) and also to pop the next running task's context.
+                            Hence, the task needs a basic context to be able to run. That is what we do with the code at the most right below. We initiliaze <span class="bold">sp</span> and <span class="bold">splim</span>.
+                            Then, we decrement our stack pointer of 18 (\( sizeof(uint32\_t) \)). Then, we initiliaze the minimum required registers for the task to run: <span class="bold">xPSR, PC, EXC_RETURN and CONTROL</span>. 
                             Switching context involves several steps:
                         </p>
-                        <div class="frame-highlight">
-                            <ol>
-                                <li><span class="bold">Save current context:</span> MSP is modified if we were in the main context</li>
-                                <li><span class="bold">Trigger the PendSV_Handler:</span> see the code snippet below</li>
-                                <li><span class="bold">Switch the PSP to the new task's stack:</span> see the chart below</li>
-                                <li><span class="bold">Execution of the task:</span> see the picture below</li>
-                            </ol>
-                        </div>
                         <div class="illustration">
                             <img style="width: 40%;" src="images/os_proj/switch_context.JPG" alt="switch_context">
                             <img src="images/os_proj/PendSV.JPG" alt="PendSV">
+                            <img style="width: 35%;" src="images/os_proj/code_task_creation_switch_context.JPG" alt="code_task_creation_switch_context">
                         </div>
-                        <p>A context switch can be triggered using a timer <span class="bold">(Round Robin)</span> to allocate a defined amount of time for each task. 
+                        <p>As a result, switching context involves</p>
+                        <div class="frame-highlight">
+                            <ol>
+                                <li><span class="bold">Triggering the PendSV exception:</span> NVIC --> PendSV_Handler.</li>
+                                <li><span class="bold">Saving the current context:</span> stack register values into the previous running task's stack.</li>
+                                <li><span class="bold">Moving the PSP to the new task's stack:</span> pop the new running task's context.</li>
+                                <li><span class="bold">Execution of the task:</span> the task is run until it gets interrupted by an event (preemption).</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div> <h3>2.3 Reentrance</h3>
+                        <p>The <span class="bold">reentrance</span> consists in using the same function for different tasks. 
+                            Though we create 3 tasks with the same function, the function is context-dependent.
+                            Meaning that function parameters depend on each task's context.
                         </p>
                     </div>
                     
                 </div>
                 
-
+                <div> <h2 id="syscalls">3. Semaphores</h2>
+                    <p>This is not aimed at explaining in-depth waht are semaphores. A <span class="bold">semaphore</span> plays the role of a guardian. It uses a system of <span class="bold">token</span>
+                        to control the access to a resource or a critical section (portion of code that should not be interrupted). Like a <span class="bold">task</span>,  a semaphore is a structure which stores
+                        the <span class="bold">number of token left</span> and the <span class="bold">queue of waiting tasks</span>.
+                        <div class="illustration">
+                            <img src="images/os_proj/sem_new.JPG" alt="sem_new">
+                            <img src="images/os_proj/sem_p.JPG" alt="sem_p">
+                            <img src="images/os_proj/sem_v.JPG" alt="sem_v">
+                            <img src="images/os_proj/switch_ctx.JPG" alt="switch_ctx">
+                        </div>
+                        As soon as a token is available, the first task on the waiting queue is dequeued and placed directly in the running state, meaning that we need to switch context <span class="bold">sys_switch_ctx()</span>.
+                        This function simply sets a bit in a register that will trigger the PendSV exception.
+                    </p>
+                </div>
                 
 
             </div>

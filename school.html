@@ -167,10 +167,22 @@
                             <button id="textures-illustrations"> Show illustrations</button>
 
                             <div> <h5>Statistical approach</h5>
-                                <p>The <span class="bold">statistical</span> approach consists of computing the co-occurrence matrix of the image.
-                                    \[ \Gamma(d,\theta) = P(i,j) = \frac{1}{N} \sum_{x,y} \delta(i-I(x,y)) \delta(j-I(x,y)) \]
-                                    where \(N\) is the number of pixels in the image and \(I(x,y)\) is the intensity of the pixel at coordinates \((x,y)\). This matrix simply stores the number of occurences of each pair of intensity values \( i <-> j \).
-                                    This pair is defined by the distance \(d\) and the angle \(\alpha\) between the two pixels. The distance \(d\) is the distance between the two pixels in the image and the angle \(\alpha\) is the angle between the two pixels in the image.
+                                <p>The <span class="bold">statistical</span> approach consists in trying to spot some repetitive interactions between 2 pixels separated by a distance \( d \) and a direction.
+                                    This can be gathered by computing the co-occurrence matrix of the image.
+                                    \[
+                                        \Gamma(d,\theta) = \Gamma(dx,dy) = \frac{1}{N}
+                                        \left(
+                                        \begin{matrix}
+                                            ... & ... & ...\\
+                                            ... & P(X(i,j),X(i+dx,j+dy)) & ...\\
+                                            ... & ... & ... \\
+                                        \end{matrix}
+                                        \right).   
+                                    \]
+                                    (N\) is the number of pixels in the image, \(i(x,y)\) is the intensity of the 1st pixel and \(j(x,y)\) of the 2nd one. This formula is makes things look harder than they really are.
+                                    This matrix simply stores the number of occurences of each pair of intensity values \( i <-> j \). This pair is defined by the distance \(d\) and the angle \(\alpha\) between the two pixels.
+                                    The distance \(d\) is the distance between the two pixels in the image and the angle \(\alpha\) is the angle between the two pixels in the image.
+                                    Hence, a strong diagonal means that the image is homogeneous because the diagonal is where the intensity values \(i\) and \(j\) are the same.
                                     Usually, we compute multiple co-occurrence matrices with different values of \(d\) and \(\alpha\) and then we compute several characteristics from them such as:
                                 </p>    
                                 <ul>
@@ -180,14 +192,22 @@
                                     <li>Homogeneity: \( Hom(d,\theta) \)</li>
                                     <li>Correlation: \( Corr(d,\theta) \)</li>
                                 </ul>
-                                <p>Finally, we put them in a <span class="bold">Haralick vector</span> to represent the image. This vector is a vector of characteristics that can be used to classify the image.
+                                <p>Finally, we put them in a <span class="bold">Haralick vector</span> to represent the image. This vector is a vector of those characteristics and can be used to classify the image.
                                     On Matlab, we can use the function <span class="bold">graycomatrix</span> to compute the co-occurrence matrix and the function <span class="bold">graycoprops</span> to compute the characteristics.
                                 </p>
                                 <button id="textures-illustrations"> Show illustrations</button>
+                            </div>
+                            <div> <h5>Texture generation</h5>
                                 <p>The <span class="mark">synthesis of textures</span> is also a common practice in image processing. It consists of generating a texture from a given model. The model can be a texture or a set of textures.
-                                    The purpose is to generate a texture that looks like the model.
-
+                                    We start with a texture A and we generate a whole image different from A but looks the same. Neither is it as simple as a copy-paste, nor completely random operation. There exist several methodswhich are not fit for the same type of textures.
                                 </p>
+                                <div class="frame-highlight">
+                                    <ul>
+                                        <li>Image Quilting: we slice the image in rectangles and at each border and we compute the overlapping erro and merge borders where this error is the least significant.</li>
+                                        <li>Chaos Mosaic: we randomly copy-paste the input texture to form an image and we apply a low-pass filter on the image.</li>
+                                        <li>Resampling: we form each pixel by one by one by considering its environment.</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
