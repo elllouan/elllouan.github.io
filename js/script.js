@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   const originalTextElement = $(".header-annoucement");
   const originalText = originalTextElement.text();
-  const newText = "Upcoming event !";
+  const newText = "Upcoming event!! Click to learn more :)";
   const delay = 3000;
 
   let i = 0;
