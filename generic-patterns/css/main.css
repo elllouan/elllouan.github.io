@@ -32,7 +32,7 @@
 
     --fs-h1: 4.25rem;
     --fs-h2: 3.25rem;
-    --fs-h3: 2.25rem;
+    --fs-h3: 2.5rem;
     --fs-h4: 2rem;
     --fs-h5: 1.6rem;
     --fs-std: 1.35rem;
@@ -52,7 +52,9 @@ body { /* set default characteristics within the body */
 }
 
 p {
-    line-height: 2.5rem;
+    text-align: justify;
+    line-height: 2.25rem;
+    margin: 0.5rem;
 }
 
 img { /* set default characteristics for images */
@@ -65,7 +67,7 @@ img { /* set default characteristics for images */
 
 h1, h2, h3 {
     line-height: 1.2;
-    margin: 00.5rem 0;
+    margin: 0.5rem 0;
 }
 
 h1 { 
@@ -204,6 +206,12 @@ hr {
     text-align: justify;
     background-color: var(--clr-light-orange);
     /* width: fit-content; */
+}
+
+.illustration-horiz {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
 }
 
 

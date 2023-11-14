@@ -154,13 +154,17 @@
                                 </p>
                             </div>
                             <div> <h5>Gabor filters</h5>
-                                <p>There are also <span class="bold">Gabor filters</span> that are used to detect edges in an image. They are band-pass filters and operate a linear filter on the image
-                                    to extract information about the frequency and orientation. They are defined by the following equation:
+                                <p>There are also <span class="bold">Gabor filters</span> that are used to detect orientations in an image. They are band-pass filters and operate a linear filter on the image
+                                    to extract information about the frequency and the orientation. They are defined by the following equation:
                                     \[ G(x,y) = e^{-\frac{x^2+\gamma^2 y^2}{2\sigma^2}} e^{j2\pi(\omega_x x + \omega_y y + \psi)} \]
-                                    Il peut être pratique de la voir comme un couple de fonctions réelles, déphasées de \( \frac {\pi }{2} \). Il s'agit alors de la partie réelle et la partie imaginaire de la fonction complexe.
+                                    <div class="frame-highlight">
+                                        <p>In the frequency domain, this results in shifting the mean of the gaussian curve from 0 to the frequency \( \omega_x \) and \( \omega_y \). </p>
+                                    </div>
+                                    It can be easier to consider it as a couple of real functions, dephased of \( \frac {\pi }{2} \), the first one being the real part and the second one the imaginary part.
                                     \[ G_1(x,y) = cos(\omega_x x + \omega_y b) e^{-\frac{x^2+\gamma^2 y^2}{2\sigma^2}}\]
                                     \[ G_2(x,y) = sin(\omega_x x + \omega_y b) e^{-\frac{x^2+\gamma^2 y^2}{2\sigma^2}}\]
-                                    where \( \sigma \) is the standard deviation of the Gaussian function and \(u\) and \(v\) are the frequencies along the \(x\) and \(y\) axis.
+                                    where \( \sigma \) is the standard deviation of the Gaussian function and \(u\) and \(v\) are the frequencies along the \(x\) and \(y\) axis. By changing the value of sigma, we whange the bandwidth of the filter.
+                                    The more sigma is small, the less the filter is selective. The more sigma is large, the more the filter is selective. Indeed, a compression in the frequency domain is an expansion in the spatial domain.
                                 </p>
                             </div>    
                             
@@ -206,6 +210,88 @@
                                         <li>Image Quilting: we slice the image in rectangles and at each border and we compute the overlapping erro and merge borders where this error is the least significant.</li>
                                         <li>Chaos Mosaic: we randomly copy-paste the input texture to form an image and we apply a low-pass filter on the image.</li>
                                         <li>Resampling: we form each pixel by one by one by considering its environment.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="subject-subdiv"> <h4>3. Image treatment</h4>
+                            <div> <h5>Histogram</h5>
+                                <p>To describe an image, we can use a <span class="bold">histogram</span> that shows the occurences of each intensity value (it is a statistical approach). A histogram is a good indicator of the <span class="bold">dynamic</span>
+                                    of an image. An example of a histogram done with Matlab is shown below. The illustration below shows an <span class="bold">anamorphosis</span> of the histogram. We started with a poorly contrasted image, applied a <span class="bold">normalization</span>
+                                    to it. This process aims to maximize the range of intensities in order to make objects more distinguishable. The formula is \( I_s = \alpha I_e + \beta \), where \(I_s\) is the output image, \(I_e\) the source image.
+                                </p>
+                                <img style="width: 70%; margin: 0.5rem auto;" src="images/ai/histogram_example.PNG" alt="histogram">
+                                <div class="frame-highlight">
+                                    <p>What we mean by <span class="bold">dynamic</span> is the range of intensity values that the image contains. The less the dynamic, the harder it is to distinguish objects on the image.
+                                        In this case, we say that the image has a <span class="bold">restrained dynamic</span> (left image).
+                                        The word dynamic refers also to the <span class="bold">contrast</span> or <span class="bold">depth</span> of the image.
+                                        However, the <span class="bold">resolution</span> refers to the number of pixels in the image.
+                                    </p>
+                                </div>
+                                <p>In the example above, we applied a linear transform to go from \( I_e \) to \( I_s \). Nonetheless, we could choose to apply a non-linear transform to emphasize on a particular range of intensities.
+                                    In the screenshot below, the brightest pixels have been more scaled than the darkest ones. This results in a histogram that is more spread on the right side.
+                                </p>
+                                <img style="width: 70%; margin: 0.5rem auto;" src="images/ai/histogram_example_nonlinear.PNG" alt="histogram">
+                                <p>With the histogram, we can also spot where details of an image lie. They are located to the lowest occurences. In the image above, details are mainly clustered from the 25th to 100th intensity level.
+                                    To make these details more visible, we can apply a <span class="bold">histogram equalization</span>, which evenly spreads the histogram over the whole range of intensities.
+                                </p>
+                                <div class="frame-highlight">
+                                    <p>This technique also amplifies the noise because noise is detail.</p>
+                                </div>
+                            </div>
+
+                            <div> <h5>Object segmentation</h5>
+                                <p>We can use this histogram to distinguish objects from the background. Indeed, by choosing a background that is different from the object's overall intensity,
+                                    we shall see 2 bumps on the histogram. This is called a <span class="bold">bi-modal histogram</span>. From this histogram, we can determine a <span class="bold">threshold</span>
+                                    that will separate the range of intensities of the object from the background. Then, by applying a <span class="bold">binarization (also called thresholding)</span>, a pixel below the threshold,
+                                    is set to 0 and a pixel above the threshold is set to 1.
+                                </p>
+                                <div class="illustration-horiz">
+                                    <img style="width: 30%; margin: 0.5rem auto;"" src="images/ai/sic.PNG" alt="sic">
+                                    <img style="width: 30%; margin: 0.5rem auto;"" src="images/ai/sic_thresholding.PNG" alt="thresholding">
+                                </div>
+                                <p>However, this may result in adding an <span class="bold">impulse noise</span> to the image. This can be fixed by <span class="bold">filtering the image with a non-linear filter</span>.
+                                    There exist different types of segmentation methods, I will expand on them when I will find the time.
+                                </p>
+                                <div class="frame-highlight">
+                                    <ul>
+                                        <li>Histogram methods: Otsu, local thresholding and multpile thresholding, etc.</li>
+                                        <li>Region transform methods: Division-Fusion, region growth, etc.</li>
+                                        <li>Optimization methods</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div> <h5>Connectedness</h5>
+                                <p>In an image, to move from one pixel to another one, we can use the <span class="bold">4-connectedness</span> or the <span class="bold">8-connectedness</span>. 
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="subject-subdiv"> <h4>4. Filtering</h4>
+                            <div> <h5>Convolution</h5>
+                                <p>In 2D, we also have the concept of <span class="bold">convolution</span> that is used to filter an image. The convolution is defined as follows:
+                                    \[ I(u,v) = \sum^{u}_{-\infty}\sum^{v}_{-\infty} I(x,y) h(u-x,v-y) dxdy \]
+
+                                </p>
+                                <div class="frame-highlight">
+                                    <p>In signal processing, the filter's impulse response must be <span class="bold">causal</span>, it is a physical limit. However, we do not have this constraint for image processing, as
+                                        we treat the image in <span class="bold">deferred time (spatial filtering)</span>, thus we can use non-causal filters. Our filter will be centered on the pixel we want to filter using all surrounding pixels. 
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div> <h5>Image extension</h5>
+                                <p>Since our filter requires to have access to all surrounding pixels, pixels at borders are quite unconvenient.
+                                    In these cases, we need to extend our image to be able to operate the filter. There exist 3 main techniques:
+                                </p>
+                                <div class="frame-highlight">
+                                    <ul>
+                                        <li>Zero-Padding: can introduce discontinuities to the image</li>
+                                        <li>Image mirroring</li>
+                                        <li>Image periodization</li>
                                     </ul>
                                 </div>
                             </div>

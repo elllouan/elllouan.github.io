@@ -2,10 +2,6 @@ ul, ol {
     margin-left: 1.5rem;
 }
 
-ul {
-    margin-left: 2.5rem;
-}
-
 .keywords {
     margin: 1rem 0.5rem 0.5rem 0.51rem;
     padding: 0.5rem;
@@ -22,11 +18,6 @@ ul {
     
     .main-container {
         line-height: 1.75rem;
-    }
-
-    .main-container p {
-        text-align: justify; /* justify text */
-        margin: 0.75rem;
     }
 
     .main-container a {
@@ -113,4 +104,5 @@ ul {
         width: 50%;
         margin: 0 auto;
     }
+
 }
