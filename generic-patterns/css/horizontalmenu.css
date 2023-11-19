@@ -23,12 +23,19 @@
 
     nav li a:hover {
         text-decoration: overline;
-        font-size: 1.6rem;
+        font-size: 1.75rem;
     }
 
     .home-title::before {
         content: url(../../images/home.svg);
         padding-right: 20px;
+    }
+
+    .a-nav {
+        text-decoration: none;
+        color: var(--clr-light);
+        font-weight: bold;
+        font-style: italic;
     }
 
 }

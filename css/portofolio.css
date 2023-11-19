@@ -1,0 +1,98 @@
+img {
+    width: 100%;
+}
+
+.main-container a {
+    color: #444;
+}
+
+.home-title {
+    margin-left: 5em;
+}
+
+.inner-link {
+    font-style: italic;
+    color: var(--clr-dark);
+}
+
+.inner-link:hover {
+    text-decoration: underline;
+}
+
+@media screen and (min-width: 481px) {
+
+    .main-container p {
+        padding: 1rem;
+        text-align: justify; /* justify text */ 
+    }
+
+    .main-container ul {
+        padding-left: 1.5rem;
+    }
+
+    .resume, .education {
+        display: flex;
+    }
+
+    .projects,
+    .skills,
+    .experiences,
+    .resume,
+    .education {
+        margin-top: 1rem;
+        margin-bottom: 0;
+    }
+
+
+    .projects-container {
+        position: relative;
+        display: flex; /* Use flexbox for layout */
+        flex-direction: column;
+        justify-content: space-between; /* Distribute boxes evenly across the container */
+        height: 100%; /*Set a height for the container */
+        background-color: rgb(255, 211, 154);
+        border: 3px solid #444;
+        width: 50%;
+        padding: 0.5rem;
+    }
+
+    .projects-container h2 {
+        margin-bottom: 1rem;
+        width: max-content;
+    }
+
+    .projects-container.active1 {
+        background-image: url(images/enib.webp);
+    }
+    
+    .projects-container div {
+        text-decoration: overline;
+        line-height: 200%;
+        text-align: center;
+        width: 100%;
+    }
+
+    .project a {
+        font-size: 1.5rem;
+        color: var(--clr-dark);
+    }
+
+    .projects-container a:hover {
+        transition-property: all;
+        transition-duration: 1.5s;
+        transition-delay: 0s;
+        transform: scale(130%);
+    }
+
+    .pictures {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        gap: 10px;
+    }
+
+    .section {
+        margin-top: 1rem;
+    }
+
+}

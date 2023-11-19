@@ -1,0 +1,163 @@
+/* if the screen has a minimum width of 600px */
+@media screen and (min-width: 481px) {
+
+    /* class-specific settings */
+
+    header {
+        position: relative; /* Position relative to establish a containing block */
+        margin-bottom: 1rem;
+    }
+
+    .header-img {
+        position: absolute;
+        background-color: var(--clr-light-dark);
+        border-radius: 50%;
+        height: 200px;
+        width: 200px;
+        overflow: hidden; /* Hides the overflow of the img */
+        object-fit: cover;
+        margin-left: 7vh;
+        z-index: 2;
+    }
+
+    .header-title {
+        background-color: var(--clr-light-dark);
+        color: var(--clr-light);
+        font-size: var(--fs-h3);
+        padding: 0.3em;
+        margin: 1em;
+        text-align: center;
+        border-radius: 3em;
+        z-index: 1;
+    }
+
+    .header-annoucement {
+        background-color: var(--clr-light-dark);
+        color: var(--clr-light);
+        padding: 0.3em;
+        margin: 0 auto;
+        width: fit-content;
+        text-align: center;
+        border-radius: 3em;
+        z-index: 1;
+    }
+
+    .header-annoucement:hover {
+        background-color: var(--clr-light-orange);
+        color: var(--clr-dark);
+        transition-property: all;
+        transition-duration: 1s;
+        transition-delay: 0.0s;
+    }
+    
+    .intro {
+        height: 85vh;
+        position: relative;
+    }
+
+    .title--intro strong {
+        animation-name: changeScale;
+        animation-duration: 2s;
+        animation-iteration-count: 1;
+        animation-delay: 0.5s;
+        animation-timing-function: ease-out;
+    }
+    
+    .main--intro {
+        border: 3px var(--clr-dark) solid;
+        display: flex;
+        flex-direction: row;
+        margin-top: 1em;
+    }
+
+    .seemore {
+        text-align: center;
+        border-bottom: 4px var(--clr-dark) solid;
+    }
+
+    .internship-annoucement {
+        color: #444;
+        /* font-family: 'Courier New' Courier, monospace; */
+        font-size: 1.5rem;
+        background-color: orange;
+        width: fit-content;
+        margin: 1rem auto;
+    }
+
+    .flexbox-frames {
+        display: flex;
+        gap: 30vh;
+        margin: 0 10vh;
+        padding: 1em;
+    }
+
+    .frame {
+        position: relative;
+        width: 35vh;
+        height: 40vh;
+        background-color: orange;
+        color: var(--clr-dark);
+        border: 2px var(--clr-dark) dashed;
+        border-radius: 3em;
+    }
+
+    .frame:hover ,
+    .frame:focus                               ,
+    .frame:hover a{
+        background-color: bisque;
+    }
+
+    .frame a {
+        text-decoration: none;
+        color: var(--clr-dark);
+    }
+
+    .frame-text:hover {
+        text-decoration: underline;
+        border-bottom: 5px orange solid;
+    }
+
+    .frame-text {
+        text-align: center;
+        font-family: var(--ff-robot);
+    }
+
+    .frame img {
+        width: 50%;
+        height: auto;
+        margin: 1.5rem auto;
+        transition-property: all;
+        transition-duration: 1.5s;
+        transition-delay: 1s;
+        transform: scale(75%);
+    }
+
+    .frame:hover img {
+        transition-property: all;
+        transition-duration: 1s;
+        transition-delay: 0s;
+        transform: scale(115%);
+    }
+
+}
+
+@media screen and (max-width: 481px) {
+
+    .frame img {
+        width: 60%;
+        height: auto;
+        margin: 3rem auto;
+        transition-property: all;
+        transition-duration: 1.5s;
+        transition-delay: 1.5s;
+        transform: scale(75%);
+    }
+
+    .frame:hover img {
+        transition-property: all;
+        transition-duration: 1.5s;
+        transition-delay: 0s;
+        transform: scale(130%);
+    }
+
+}
