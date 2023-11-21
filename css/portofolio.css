@@ -2,6 +2,10 @@ img {
     width: 100%;
 }
 
+ul {
+    padding-left: 1.5rem;
+}
+
 .main-container a {
     color: #444;
 }
@@ -20,15 +24,6 @@ img {
 }
 
 @media screen and (min-width: 481px) {
-
-    .main-container p {
-        padding: 1rem;
-        text-align: justify; /* justify text */ 
-    }
-
-    .main-container ul {
-        padding-left: 1.5rem;
-    }
 
     .resume, .education {
         display: flex;

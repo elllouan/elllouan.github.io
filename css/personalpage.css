@@ -1,23 +1,15 @@
 .main-container {
     padding: 0 5rem;
 }
-.main-container a {
-    color: #444;
-}
 
 ol, ul {
     margin-left: 2rem;
 }
 
-hr {
-    border: 1px solid #444;
-    width: 80%;
-}
-
 .topic {
     margin-bottom: 1rem;
     padding-left: 0.5rem;
-    background-color: rgba(252, 217, 153, 0.842);
+    background-color: rgb(180, 180, 180);
 }
 
 @media screen and (min-width: 481px) {

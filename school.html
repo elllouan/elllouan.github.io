@@ -25,15 +25,16 @@
 
             <section class="accordion-y4">
 
-                <h2 class="title">4th year of engineering studies</h2>
+                <h1 class="title">4th year of engineering studies</h1>
                 <p>In this section, I try to provide an overview of my learning outcomes by presenting the most relevant parts of each course. 
                     To have a broader view of each course's content, you can expand their section by clicking on their title.</p>
-                <hr>
-                <div class="subject-container"> <div class="label"> <h3>Signal Processing</h3> </div>
+                
+                <div class="subject-container"> <div class="label"> <h2>Signal Processing</h2> </div>
                     <div class="keywords">Convolution systems, FIR & IIR filters, distorsion, correlation, Butterworth & Chebychev, Laplace/Fourier transforms, Analog/Discrete signals, modulation, Matlab</div>
                     <div class="content">
                         <p>The following content gives an overview of the digital/analog signal processing courses that I followed at my school. This is not meant to be a comprhensive description but rather a brief guide.</p>
-                        <div class="subject-subdiv"> <h4>1. Convolution</h4>
+                        <hr>
+                        <div class="subject-subdiv"> <h3>1. Convolution</h3>
                             <p>In linear filtering, convolution plays a fundamental role. Indeed, if we write a signal \(x(t)\) such that \(x(t) = \int^{+\infty}_{-\infty} x(\tau)\delta(t-\tau) d\tau \),
                                 with \( \delta(t) \) the Dirac impulse. Then when applying the filter function on the signal, we have :
                                 \[ f(x) = \int^{+\infty}_{-\infty} f(x(\tau)\delta(t-\tau)) d\tau \]
@@ -43,14 +44,16 @@
                                 We end up on the convolution operation between the input signal and the Dirac impulse output function.
                             </p>
                         </div>
-                        <div class="subject-subdiv"> <h4>2. Physical limitations and signal reconstitution</h4>
+                        <hr>
+                        <div class="subject-subdiv"> <h3>2. Physical limitations and signal reconstitution</h3>
                             <p>To simplify calculations, physicians invented this mathematical object called Dirac impulse. Unfortunately, in the real world we cannot recreate this impulse.
                                 Indeed, transistors have a toggle limitation due to the speed of current, causing a Dirac impulse to look like more of a brief door function.
                                 But what does this actually involve for a signal? Because to sample a continuous signal, we need to use this theorical object. Does this inaccuracy cause the signal to transform?
                                 
                             </p>
                         </div>
-                        <div class="subject-subdiv"> <h4>3. Discrete Fourier Transform (DFT) and Analog Filter Synthesis</h4>
+                        <hr>
+                        <div class="subject-subdiv"> <h3>3. Discrete Fourier Transform (DFT) and Analog Filter Synthesis</h3>
                             <p>This course gives an understanding on how we numerize a signal, what are the impacts and how we can elaborate a digital filter to filter an analog signal.</p>
                             <p>With a view to processing digital signals, we need to turn a continuous (or analog) signal into a discrete signal
                                 that consists of a finite number of samples that can be handled by a processor. Therefore, we use the DFT, let's remind us quickly of that. </p>
@@ -67,7 +70,8 @@
                             </p>
                             <button id="tsi-graphs1">Show illustrations</button>
                         </div>
-                        <div class="subject-subdiv"> <h4>4. Digital Filter Synthesis</h4>
+                        <hr>
+                        <div class="subject-subdiv"> <h3>4. Digital Filter Synthesis</h3>
                             <p>There exists 2 types of digital filters: <span class="mark">IIR (Infinite Impulse Response)</span> and <span class="mark">FIR (Finite Impulse Response)</span>.</p>
                             <div class="frame-highlight">
                             <span class="mark">IIR:</span> the output depends on the current and previous inputs and outputs <span class="math">\( s[n] = \sum_{i=0}^{M-1}{a_i e[i]} + \sum_{j=0}^{N-1}{a_i s[n-i]} \)</span>
@@ -98,7 +102,8 @@
                                 <p>All in all, this method has some benefits - <span class="bold">always stable (no poles), linear phase (if symmetric)</span> - and some drawbacks - <span class="bold">less selective, less efficient and requires more memory space</span>.</p>
                             </div>
                         </div>
-                        <div class="subject-subdiv"> <h4>5. Signal modulation</h4>
+                        <hr>
+                        <div class="subject-subdiv"> <h3>5. Signal modulation</h3>
                             <p>When it comes to transmitting information using signals, we face some issues:</p>
                             <div class="frame-highlight">
                                 <ol>
@@ -113,7 +118,8 @@
                             </p>
                             <img class="modulation-img" src="images/modulation.drawio.png" alt="mod">
                         </div>
-                        <div class="subject-subdiv"> <h4>6. Intercorrelation</h4>
+                        <hr>
+                        <div class="subject-subdiv"> <h3>6. Intercorrelation</h3>
                             <p>The correlation method is in the field of radar. When emitting a signal, we want to be able to detect if the signal comes back to us (obstacle detection for instance).
                                 Thus, the detector needs to constantly compare any received signal to with the one that was originally emitted.
                             </p>
@@ -125,34 +131,48 @@
                             <p>Modulation allows to slide the signal spectrum along the frequency axis to a higher frequency, thereby countering the two previous problems because now we can control the frequency at which we want our signal to be broadcasted and as the frequency gets higher, the receiver gets smaller.</p>
                             </div>
                         </div>
-                        <div class="subject-subdiv"> <h4>7. Further discussions</h4>
+                        <hr>
+                        <div class="subject-subdiv"> <h3>7. Further discussions</h3>
                         </div>
                     </div>
                 </div>
-                <hr>
-                <div class="subject-container"> <div class="label"> <h3>Image Processing</h3> </div>
-                    <div class="keywords">Image representation and acquisition, segmentation by contours/regions, filtering, image classification and recognition </div>
+               
+                <div class="subject-container"> <div class="label"> <h2>Image Processing</h2> </div>
+                    <div class="keywords">Image representation and acquisition, image segmentation, filtering, image classification and recognition, CNN, Matlab</div>
                     <div class="content">
-                        <p>You can find out some of my personal experiments regarding image filtering and processing <a href="">here</a>.</p>
-
-                        <div class="subject-subdiv"> <h4>1. Introduction</h4>
+                        <p>You can find out some of my personal experiments regarding image filtering and processing <a href="">here</a>. Also, you will find at the end of this page,
+                            some useful Matlab examples and commands. 
+                        </p>
+                        <hr>
+                        <div class="subject-subdiv"> <h3>1. Introduction</h3>
                             <p>Image processing encompasses several steps from image filtering to classification. The ultimate purpose is to train a machine to recognize patterns on an image
                                 in order to automate image analysis. It is important to note that, we increase the dimension by one (regarding signal processing) and we do not deal with the time coordonate \(t\) anymore
                                 but with spatial coordonates represented by \(x\) and \(y\).
                             </p>
                         </div>
-
-                        <div class="subject-subdiv"> <h4>2. Textures</h4>
+                        <hr>
+                        <div class="subject-subdiv"> <h3>2. Textures</h3>
                             <p>In this section, we focus on how to classify textures. Textures are hard to define as they highly depend on the context. The purpose here is to be able to detect 
                                  and classify textures by identifying patterns. To do so, we can use two approaches: <span class="bold">statistical</span> or <span class="bold">spectral</span>.
                             </p>
-                            <div> <h5>Spectral approach</h5>
+                            <div> <h4>Spectral approach</h4>
                                 <p>The <span class="bold">spectral</span> approach consists of computing the Fourier transform of the image's pixels. Now, I have to inroduce the Fourier transform of a 2D signal.
                                     \[ I(u,v) = \int^{+\infty}_{-\infty}\int^{+\infty}_{-\infty} I(x,y) e^{-j2\pi(ux+vy)} dxdy \]
                                     The result \( I(u,v) \) is the description of the image in the frequency domain, where \(u\) and \(v\) represent respectively the frequency along the \(x\) and \(y\) axis.
+                                    Below examples of Fourier transforms. This approach is useful to detect periodic textures. For example in this first spectrum, we notice 2 small disks which means that the image
+                                    has a diagonal periodicity. In the second spectrum, we notice a circle which means that the image has a circular periodicity.
+                                </p>
+                                <div class="illustration-horiz">
+                                    <img src="images/ai/tf_img1.PNG" alt="">
+                                    <img src="images/ai/tf_img2.PNG" alt="">
+                                    <img src="images/ai/tf_img3.PNG" alt="">
+                                </div>
+                                <p>With this approach, we only seek to modify the image's module (in the frequency domain). Indeed, modifying the module results in changing the looking of the objects (contrast, luminosity, etc.)
+                                    but <span class="bold">NOT the shapes themselves</span>, which are encoded in the phase.
+                                    \[ I(u,v) = |I(u,v)| e^{j\phi(u,v)} \]
                                 </p>
                             </div>
-                            <div> <h5>Gabor filters</h5>
+                            <div> <h4>Gabor filters</h4>
                                 <p>There are also <span class="bold">Gabor filters</span> that are used to detect orientations in an image. They are band-pass filters and operate a linear filter on the image
                                     to extract information about the frequency and the orientation. They are defined by the following equation:
                                     \[ G(x,y) = e^{-\frac{x^2+\gamma^2 y^2}{2\sigma^2}} e^{j2\pi(\omega_x x + \omega_y y + \psi)} \]
@@ -169,7 +189,7 @@
                             
                             <button id="textures-illustrations"> Show illustrations</button>
 
-                            <div> <h5>Statistical approach</h5>
+                            <div> <h4>Statistical approach</h4>
                                 <p>The <span class="bold">statistical</span> approach consists in trying to spot some repetitive interactions between 2 pixels separated by a distance \( d \) and a direction.
                                     This can be gathered by computing the co-occurrence matrix of the image.
                                     \[
@@ -187,20 +207,22 @@
                                     The distance \(d\) is the distance between the two pixels in the image and the angle \(\alpha\) is the angle between the two pixels in the image.
                                     Hence, a strong diagonal means that the image is homogeneous because the diagonal is where the intensity values \(i\) and \(j\) are the same.
                                     Usually, we compute multiple co-occurrence matrices with different values of \(d\) and \(\alpha\) and then we compute several characteristics from them such as:
-                                </p>    
-                                <ul>
-                                    <li>Entropy: \( H(d,\theta) \)</li>
-                                    <li>Energy: \( E(d,\theta) \)</li>
-                                    <li>Contrast: \( C(d,\theta) \)</li>
-                                    <li>Homogeneity: \( Hom(d,\theta) \)</li>
-                                    <li>Correlation: \( Corr(d,\theta) \)</li>
-                                </ul>
+                                </p>
+                                <div class="frame-highlight">
+                                    <ul>
+                                        <li>Entropy: \( H(d,\theta) \)</li>
+                                        <li>Energy: \( E(d,\theta) \)</li>
+                                        <li>Contrast: \( C(d,\theta) \)</li>
+                                        <li>Homogeneity: \( Hom(d,\theta) \)</li>
+                                        <li>Correlation: \( Corr(d,\theta) \)</li>
+                                    </ul>
+                                </div>
                                 <p>Finally, we put them in a <span class="bold">Haralick vector</span> to represent the image. This vector is a vector of those characteristics and can be used to classify the image.
                                     On Matlab, we can use the function <span class="bold">graycomatrix</span> to compute the co-occurrence matrix and the function <span class="bold">graycoprops</span> to compute the characteristics.
                                 </p>
                                 <button id="textures-illustrations"> Show illustrations</button>
                             </div>
-                            <div> <h5>Texture generation</h5>
+                            <div> <h4>Texture generation</h4>
                                 <p>The <span class="mark">synthesis of textures</span> is also a common practice in image processing. It consists of generating a texture from a given model. The model can be a texture or a set of textures.
                                     We start with a texture A and we generate a whole image different from A but looks the same. Neither is it as simple as a copy-paste, nor completely random operation. There exist several methodswhich are not fit for the same type of textures.
                                 </p>
@@ -213,9 +235,9 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="subject-subdiv"> <h4>3. Image treatment</h4>
-                            <div> <h5>Histogram</h5>
+                        <hr>
+                        <div class="subject-subdiv"> <h3>3. Image preprocessing</h3>
+                            <div> <h4>Histogram</h4>
                                 <p>To describe an image, we can use a <span class="bold">histogram</span> that shows the occurences of each intensity value (it is a statistical approach). A histogram is a good indicator of the <span class="bold">dynamic</span>
                                     of an image. An example of a histogram done with Matlab is shown below. The illustration below shows an <span class="bold">anamorphosis</span> of the histogram. We started with a poorly contrasted image, applied a <span class="bold">normalization</span>
                                     to it. This process aims to maximize the range of intensities in order to make objects more distinguishable. The formula is \( I_s = \alpha I_e + \beta \), where \(I_s\) is the output image, \(I_e\) the source image.
@@ -240,7 +262,7 @@
                                 </div>
                             </div>
 
-                            <div> <h5>Object segmentation</h5>
+                            <div id="object-segmentation"> <h4>Object segmentation</h4>
                                 <p>We can use this histogram to distinguish objects from the background. Indeed, by choosing a background that is different from the object's overall intensity,
                                     we shall see 2 bumps on the histogram. This is called a <span class="bold">bi-modal histogram</span>. From this histogram, we can determine a <span class="bold">threshold</span>
                                     that will separate the range of intensities of the object from the background. Then, by applying a <span class="bold">binarization (also called thresholding)</span>, a pixel below the threshold,
@@ -250,7 +272,7 @@
                                     <img style="width: 30%; margin: 0.5rem auto;"" src="images/ai/sic.PNG" alt="sic">
                                     <img style="width: 30%; margin: 0.5rem auto;"" src="images/ai/sic_thresholding.PNG" alt="thresholding">
                                 </div>
-                                <p>However, this may result in adding an <span class="bold">impulse noise</span> to the image. This can be fixed by <span class="bold">filtering the image with a non-linear filter</span>.
+                                <p>However, this may result in adding an <span class="bold">impulse noise</span> to the image. This can be fixed by filtering the image with a <a href="#non-linear-filter">non-linear filter</a>.
                                     There exist different types of segmentation methods, I will expand on them when I will find the time.
                                 </p>
                                 <div class="frame-highlight">
@@ -262,60 +284,110 @@
                                 </div>
                             </div>
 
-                            <div> <h5>Connectedness</h5>
+                            <div> <h4>Connectedness</h4>
                                 <p>In an image, to move from one pixel to another one, we can use the <span class="bold">4-connectedness</span> or the <span class="bold">8-connectedness</span>. 
                                 </p>
                             </div>
 
-                        </div>
-
-                        <div class="subject-subdiv"> <h4>4. Filtering</h4>
-                            <div> <h5>Convolution</h5>
-                                <p>In 2D, we also have the concept of <span class="bold">convolution</span> that is used to filter an image. The convolution is defined as follows:
-                                    \[ I(u,v) = \sum^{u}_{-\infty}\sum^{v}_{-\infty} I(x,y) h(u-x,v-y) dxdy \]
-
-                                </p>
-                                <div class="frame-highlight">
-                                    <p>In signal processing, the filter's impulse response must be <span class="bold">causal</span>, it is a physical limit. However, we do not have this constraint for image processing, as
-                                        we treat the image in <span class="bold">deferred time (spatial filtering)</span>, thus we can use non-causal filters. Our filter will be centered on the pixel we want to filter using all surrounding pixels. 
+                            <div> <h4>Filtering</h4>
+                                <div> <h5>Noise</h5>
+                                    <p>In image processing, we try as much as possible to get rid of the noise before the actual image modification. This avoids expensive computations.
+                                        There exist 2 types of noise in image processing: <span class="bold">additive</span> and <span class="bold">multiplicative</span>.
+                                        In my case, I will only focus on the additive noise as it is the most common one. To modelize the noise, we use probabilities. Therefore, there are different types of :
+                                    </p>
+                                    <div class="frame-highlight">
+                                        <ul>
+                                            <li> <span class="bold">Impulse noise</span> (or salt-and-pepper)</li>
+                                            <li> <span class="bold">Gaussian noise</span></li>
+                                            <li> <span class="bold">Uniform noise</span></li>
+                                            <li> and many more ...</li> 
+                                        </ul>                                     
+                                    </div>
+                                    <p>Depending on which probability law we assume the noise follows, we either use <span class="bold">linear filtering</span> or <span class="bold">non-linear-filtering</span>..
+                                    </p>
+                                </div>
+                                <div> <h5>Linear Filtering</h5>
+                                    <p>In 2D, we also have the concept of <span class="bold">convolution</span> that is used to filter an image. The convolution is defined as follows:
+                                        \[ I(u,v) = \sum^{u}_{-\infty}\sum^{v}_{-\infty} I(x,y) h(u-x,v-y) dxdy \]
+                                        I(u,v) is the output image, I(x,y) is the input image, h(u,v) is the filter and \(u\) and \(v\) are the spatial coordonates.
+                                    </p>
+                                    <div class="frame-highlight">
+                                        <p>In signal processing, the filter's impulse response must be <span class="bold">causal</span>, it is a physical limit. However, we do not have this constraint for image processing, as
+                                            we treat the image in <span class="bold">deferred time (spatial filtering)</span>, thus we can use non-causal filters. Our filter will be centered on the pixel we want to filter using all surrounding pixels. 
+                                        </p>
+                                    </div>
+                                    <p>Our filter requires accessing all surrounding pixels, hence pixels at borders are quite unconvenient.
+                                        In these cases, we need to extend our image to be able to operate the filter. There exist 3 main techniques:
+                                    </p>
+                                    <div class="frame-highlight">
+                                        <ul>
+                                            <li>Zero-Padding: can introduce discontinuities to the image</li>
+                                            <li>Image mirroring</li>
+                                            <li>Image periodization</li>
+                                        </ul>
+                                    </div>
+                                    <p>Finally, linear filters are fit for filtering the gaussian noise. The pictures below show the impact of an average filter of size 3x3, 5x5, 7x7.
+                                    </p>
+                                </div>
+                                <div id="non-linear-filter"> <h5>Non-linear Filtering</h5>
+                                    <p>To filter <div class="bold">impulse noise</div>, we cannot use linear filters because instead of diminishing the noise they would spread it over the surrounding pixels.
+                                        On the other hand, non-linear filters, such as the <div class="bold">median filter</div>, allow to tackle this issue by considering a statistical approach rather than a spectral one.
+                                        In the case of the median filter, all pixels contained within the kernel are <div class="bold">ranged by intensity</div> and the median value is chosen as the output value. As a result,
+                                        the noise is likely to be the among the lowest or highest values and will be discarded.
                                     </p>
                                 </div>
                             </div>
 
-                            <div> <h5>Image extension</h5>
-                                <p>Since our filter requires to have access to all surrounding pixels, pixels at borders are quite unconvenient.
-                                    In these cases, we need to extend our image to be able to operate the filter. There exist 3 main techniques:
+                            <div> <h4>Math morphology</h4>
+                                <p>In a context where we need to detect objects on an image, we already saw that we needed to perform a <a href="#object-segmentation">segmentation</a> using <span class="bold">histograms and thresholding</span> (or binarization).
+                                    However, it turns out that objects may not be properly segmented. Therefore, we need a method which can correct object's shapes such that they are segmented as we wish.
+                                    This is where <span class="bold">math morphology</span> comes in. It has 2 parameters to set: <span class="bold">Application point</span> and <span class="bold">Element's shape</span>.
                                 </p>
                                 <div class="frame-highlight">
                                     <ul>
-                                        <li>Zero-Padding: can introduce discontinuities to the image</li>
-                                        <li>Image mirroring</li>
-                                        <li>Image periodization</li>
+                                        <li>Erosion: to erase objects from the image (small imperfections, excrescence ...)</li>
+                                        <li>Dilatation: to fill holes in a shape</li>
                                     </ul>
                                 </div>
+                                <p>Usually we apply an erosion followed by a dilatation to get rid of small imperfections and fill holes. This is called an <span class="bold">opening</span>.
+                                    We can also apply a dilatation followed by an erosion to fill holes and get rid of small imperfections. This is called a <span class="bold">closing</span>.
+                                    The order of these operations matters !!!
+                                </p>
+                                <div> <h5>Gray levels</h5>
+                                    <p>When considering the image with multiple levels of gray, </p>
+                                </div>
+                            </div>
+
+                            <div> <h4>Blur</h4>
+                                <p>Usually blur is the outcome of a low-pass filtering. A low-pass filter widens the transition area which leads to a reduce the contrast (sharp discontinuities) of objects shapes.
+                                    To counter this effect, we can substract the original image to the <span class="bold">Laplacian of the image</span>:
+                                    \[ I(x,y) = I(x,y) - \lambda \Delta I(x,y) \]
+                                    To have a better understanding of what the Laplacian is, click <a href="math&IT.html">here</a>.
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <hr>
-                <div class="subject-container"> <div class="label"> <h3>Digital Embedded Systems</h3> </div>
+
+                <div class="subject-container"> <div class="label"> <h2>Digital Embedded Systems</h2> </div>
                     <div class="keywords">OS architectures, performances, parallelism paradigm (semaphores), process, FreeRTOS</div>
                     <p>You can consult some <a href="currentprojects.html" target="_parent">projects</a> done as part of this course.</p>
                     <div class="content">
                         <p>Our purpose in this course is to understand what are the impacts of the sampling on an analog signal.</p>
                         <p style="font-style: italic;">In this course, we had a <a href="sen_proj.html">project</a> in which we had to ... .</p>
-                        <div class="subject-subdiv"> <h4>1. Architectures</h4>
+                        <div class="subject-subdiv"> <h3>1. Architectures</h3>
                             <p>Parallelism</p>
                         </div>
                     </div>
                 </div>
-                <hr>
-                <div class="subject-container"> <div class="label"> <h3>Network & Communication Systems</h3> </div>
+
+                <div class="subject-container"> <div class="label"> <h2>Network & Communication Systems</h2> </div>
                     <div class="keywords">Networking concepts, UDP / TCP, HTTPS , Sockets, CAN / UART / I²C / SPI</div>
                     <div class="content">
                         <p>This course is organised around lab sessions where we simulated virtual networks (use of VMs). It involved a practical project as well.</p>
                         <p>You can find code that we encountered during these network classes by clicking <a href="network.html" style="color: black;">here</a>.</p>
-                        <div class="subject-subdiv"> <h4>1. Fundamentals: Addressing / Routing / Firewall</h4>
+                        <hr>
+                        <div class="subject-subdiv"> <h3>1. Fundamentals: Addressing / Routing / Firewall</h3>
                             <p>In these lab sessions, we basically covered :</p>
                             <div class="frame-highlight">
                                 <ol>
@@ -331,7 +403,8 @@
                                 </ol>
                             </div>
                         </div>
-                        <div class="subject-subdiv"> <h4>2. Process & Sockets</h4>
+                        <hr>
+                        <div class="subject-subdiv"> <h3>2. Process & Sockets</h3>
                             <p>In these lab sessions, we basically covered :</p>
                             <div class="frame-highlight">
                                 <ol>
@@ -350,8 +423,8 @@
                                 <div>$ man accept / </div>
                             </div>
                         </div>
-                        <div class="subject-subdiv"> 
-                            <h4>X. Important config commands</h4>
+                        <hr>
+                        <div class="subject-subdiv"> <h3>X. Important config commands</h3>
                             <div class="linux-terminal">
                                 <div>$ ip link set dev <span style="font-style: italic;">eth0</span> up   /* Set up the eth0 network interface */</div>
                                 <div>$ ip addr [add/del] <span style="font-style: italic;">[IP/mask]</span> dev eth0   /* Add a new IP to eth0 */</div>
@@ -364,42 +437,46 @@
                         </div>
                     </div>
                 </div>
-                <hr>
-                <div class="subject-container"> <div class="label"> <h3>Interface Power Systems</h3> </div>
+
+                <div class="subject-container"> <div class="label"> <h2>Interface Power Systems</h2> </div>
                     <div class="keywords">Closed-loop / feedback systems, sensors, motors, power electronics</div>
                     <div class="content">
-                        <div> <h4>1. Resistive and reactive sensors</h4>
+                        <div> <h3>1. Resistive and reactive sensors</h3>
                             <p><a href="ips_proj.html">project</a></p>
                         </div>
                     </div>
                 </div>
-                <hr>
-                <div class="subject-container"> <div class="label"> <h3>Company administration & management</h3> </div>
+
+                <div class="subject-container"> <div class="label"> <h2>Company administration & management</h2> </div>
                     <p style="font-style: italic;">The following section will be in french because I do not know precisely the vocabulary related to finance and management.</p>
                     <div class="keywords">Mots clés : Comptabilité française, Finance, Gestion, Management</div>
                     <div class="content">
                         <p>Ce cours couvre les fondamentaux de la gestion comptable d'une entreprise.</p>
-                        <div class="subject-subdiv"> <h4>1. Bilan, Compte de Résultat et Flux de Trésorerie</h4>
+                        <hr>
+                        <div class="subject-subdiv"> <h3>1. Bilan, Compte de Résultat et Flux de Trésorerie</h3>
                             Le schéma ci-dessous (en cours d'élaboration) résume les principaux éléments de ses documents.
                             <img src="images/MAE_Chap1.svg" alt="mae">
                         </div>
-                        <div class="subject-subdiv"> <h4>2. TVA</h4>
+                        <hr>
+                        <div class="subject-subdiv"> <h3>2. TVA</h3>
                             <p>La TVA est neutre pour les entreprises. Elles jouent le rôle de percepteur auprès de l'état. Lorsqu'une entreprise vend ses services ou produits, elle doit reverser 20% de
                                 ses produits à l'état (TVA due = dettes auprès de l'état), lorsqu'elle achète des services ou marchandises auprès d'autres entreprises, elle les paie T.T.C. mais 20% de ses charges sont
                                 remboursées par l'état (TVA déductible = créances auprès de l'état).
                             </p>
                         </div>
-                        <div class="subject-subdiv"> <h4>3. Sources d'investissements</h4>
+                        <hr>
+                        <div class="subject-subdiv"> <h3>3. Sources d'investissements</h3>
                             <p>R&D</p>
                             <ul>
                                 <li>Source d'investissements internes: Capital social, apport au compte courant des associés, autofinancement, subventions</li>
                                 <li>Source d'investissements externes: Emprunt, LOA (Location avec Option d'Achat)</li>
                             </ul>
                         </div>
-                        <div class="subject-subdiv"> <h4>4. Dotations</h4>
+                        <hr>
+                        <div class="subject-subdiv"> <h3>4. Dotations</h3>
                             <p>...</p>
                         </div>
-                        <div class="subject-subdiv"> <h4>5. Calcul des coûts complets d'un produit par la méthode des centres d'analyses</h4>
+                        <div class="subject-subdiv"> <h3>5. Calcul des coûts complets d'un produit par la méthode des centres d'analyses</h3>
                             <p>Afin de déterminer, les coûts complets d'un produit, nous utilisons la méthode des centres d'analyses. Elle consiste en 8 étapes:</p>
                             <div class="frame-highlight">
                                 <span class="bold">Répartition des charges indirectes</span>

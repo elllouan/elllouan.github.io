@@ -31,6 +31,10 @@
         padding-right: 20px;
     }
 
+    .home-title {
+        color: var(--clr-light);
+    }
+
     .a-nav {
         text-decoration: none;
         color: var(--clr-light);

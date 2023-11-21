@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang ="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- make sure that the content fit the device on which we open -->
+        <title> IT </title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong|Arial|Open+Sans">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="js/script.js"></script>
+        <link rel="stylesheet" href="generic-patterns/css/main.css">
+        <link rel="stylesheet" href="generic-patterns/css/horizontalmenu.css">
+        <link rel="stylesheet" href="generic-patterns/css/footer.css">
+        <link rel="stylesheet" href="css/topics.css">
+    </head>
+
+    <!-- Within de web page -->
+    <body>
+        <div id="horizontalmenu"></div>
+        
+        <section class="main-container">
+
+            <h1>Math topics</h1>
+            
+            <div> <h3>Convolution</h3>
+                First off, I would like to mention this wonderful video of <a href="https://www.youtube.com/watch?v=IaSGqQa5O-M" target="_blank">3Blue1Brown</a>.
+                There I learnt a lot and improve my understanding about the role that convolution plays in probability and image processing.
+                To get started, I will try to summarize quickly what it is explained in this video.
+                
+                <div> <h4>Discrete convolution</h4>
+                    <p>We can start by focusing on the discrete case which (in my opinion) brings the main idea of why we use convolution in probability.
+                        The formula goes \[ (f(n)*g(n))(s) = \sum^{N}_{n=0} f(n) g(s-n) \]
+                        Here \(f(n)\) and \(g(m)\) are functions representing the probability of a random discrete variable.
+                        So if we try to think this through, we can notice that a new variable appeared \(s\) and also we do this weird operation consisting of multiplying \(g(s-n)\) with \(f(n)\).
+                    </p>
+                    <p>Now let's image I want to determine the probability that 2 consecutive and independent events (let's say \( n+m=5 \)) occur.
+                        To be easier, let's consider that \(n\) and \(m\) are variables representing the face of a dice.
+                        We need to consider all possibilities, such as \(n=1\) and \(m=4\), \(n=2\) and \(m=3\) and so on. So we end up adding these probabilities:
+                        \(f(n=1) \times g(m=4) + f(n=2) \times g(m=3) + f(n=3) \times g(m=2) ... \). If we generalize this operation to all other possible combinaisons of events \( n+m=s \),
+                        where \(s\) can take any possible value an event can take (in our case, from 1 to 6).
+                        You may have understood it, \(s\) represents the combinaison of two successive and independent events \(n\) and \(m\). So to get back to the example,
+                        the probability that we get a total of 5 after having thrown the dice twice can be written as follows:
+                        \[ P(5) = \sum^{6}_{n=1} f(n) g(5-n) = f(n=1) \times g(m=4) + f(n=2) \times g(m=3) + ... + f(n=4) \times g(m=1) \]
+                        If we repeat this operation for each value of \(s\), we get a function of \(s\) where the image represents the probability that \(s=n+m\) occurs.
+                    </p>
+                </div>
+                
+                <div> <h4>Continuous convolution</h4>
+                    <p>The formula goes \[ (f(x)*g(x))(s) = \int^{+\infty}_{-\infty} f(x) g(s-x) dx \]
+                        Here \(f(x)\) and \(g(y)\) are functions representing the probability density of a random variable.
+                        The outcome of this convolution operation is a new function \(h(s)\), called the probability density function,
+                        where \(s\) represents the random variable \(X+Y\) and its image represents the probability (density) that \(P_X + P_P\) occurs.
+                        The concept is basically the same, since we are in a contiuous set of random variables,
+                        we just expand the discrete case \(\sum\) to the continuous case \(\int\), which means we consider the area under the curve.
+                    </p>
+                </div>
+
+            </div>
+            <hr>
+
+        </section> <!-- main-container -->
+
+        <div id="footer"></div>
+
+    </body>
+
+</html>

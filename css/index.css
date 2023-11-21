@@ -1,3 +1,7 @@
+a {
+    color: var(--clr-light)
+}
+
 /* if the screen has a minimum width of 600px */
 @media screen and (min-width: 481px) {
 
