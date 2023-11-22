@@ -21,42 +21,43 @@
         <section class="main-container">
             <h1>Ocean Hackathon 2023: PlanktoVision</h1>
             <div class="page-subtitle">
-                <h3>On this page, I share my experience at the <span class="bold">Ocean Hackathon 2023</span> (8th edition).</h3>
+                <h3>On this page, I share my experience at the <span class="bold">Ocean Hackathon 2023</span> (8th edition). This is still being updated.</h3>
             </div>
 
             <div> <h2>Event overview</h2>
                 <hr>
                 <div> <h3>What is Ocean Hackathon?</h3>
-                    <div style="display: flex; flex-direction: row; gap: 150px;">
-                        <p style="margin: auto; width: 200%;">The Ocean Hackathon is a 48-hour international event during which several teams work on challenges related to the marine environment. This event is held in several cities in France and abroad. 
-                            Some challenges holders publish their project for the event. The goal is to develop a prototype in order to bring a solution to the problematics. For this new edition, I applied for and participated in a project realted to plankton.
+                    <div class="illustration-horiz" style="gap: 150px;">
+                        <p>The Ocean Hackathon is a 48-hour international event during which several teams work on challenges related to the marine environment.
+                            This event is held in several cities in France and abroad. Some challenges holders publish their project for the event.
+                            The goal is to develop a prototype in order to bring a solution to the problematics. For this new edition, I applied for and participated in a project realted to plankton.
                         </p>
-                        <img style="margin: auto;" src="images/oceanhackathon/banner.webp" alt="banner">
+                        <img src="images/oceanhackathon/banner.webp" alt="banner">
                     </div>
                 </div>
                 <hr>
                 <div> <h3>The project</h3>
-                    <div style="display: flex; flex-direction: row; gap: 150px;">
-                        <p style="margin: auto; width: 200%;">The project originates from <span class="bold">Thibault Pollina</span>. He has co-founded a small company called <span class="bold">Fairscope</span>, which develops, produces and sells
-                            its own low-cost microscopes. This microscope, called <span class="bold">PlanktoVision</span>, is basically aimed at public institutions and is designed for analyzing plankton samples.
-                        </p>
-                        <img style="width: 30%;" src="images/oceanhackathon/planktoscope.jpg" alt="planktoscope">
+                    <div style="display: flex; flex-direction: row; gap: 100px;">
+                        <div>
+                            <p>The project originates from <span class="bold">Thibault Pollina</span>. He has co-founded a small company called <span class="bold">Fairscope</span>, which develops, produces and sells
+                                its own low-cost microscopes. This microscope, called <span class="bold">PlanktoVision</span>, is basically aimed at public institutions and is designed for analyzing plankton samples.
+                                The sample follows a series of steps after having taken from the sea:
+                            </p>
+                            <div class="frame-highlight">
+                                <li> <span class="bold">Data acquisition:</span> the user takes several images of the sample.</li>
+                                <li> <span class="bold">Data Segmentation:</span> an automated program segments the objects in the image.</li>
+                                <li> <span class="bold">Data classification:</span> similar objects are classified by hand and then uploaded on <span class="bold">Ecotaxa</span>.</li>
+                            </div>
+                            <p>The purpose of this week-end was to add value to the existing data process by adding a <span class="bold">visualization</span> step between the <span class="bold">segmentation</span>
+                                and the <span class="bold">classification</span> steps. The idea was to create an <span class="bold">intuitive, interactive and targeted</span> visualization platform so that anyone who take a sample
+                                of water can understand quickly the composition of the sample. Also, it has been thought to automate the process of classification by using <span class="bold">machine learning</span> algorithms. 
+                            </p>
+                            <p>On the business/science side, the idea was to expand the target of the microscope to <span class="bold">private companies</span>, <span class="bold">private individuals</span> (participative sciences) and <span class="bold">academic structures</span>.
+                                Eventually, the goal was to make the microscope more <span class="bold">accessible</span> to everyone and the data more <span class="bold">understandable</span>.
+                            </p>
+                        </div>
+                        <div> <img style="width: 75%;" src="images/oceanhackathon/planktoscope.jpg" alt="planktoscope"> </div>
                     </div>
-                        The sample follows a series of steps after having taken from the sea:
-                    </p>
-                    <div class="frame-highlight">
-                        <li>Data acquisition: the user takes several images of the sample.</li>
-                        <li>Data Segmentation: an automated program segments objects in the image.</li>
-                        <li>Data classification: similar objects are classified by hand and then uploaded on <span class="bold">Ecotaxa</span>.</li>
-                    </div>
-                    <p>The purpose of this week-end was to add value to the existing data process by adding a <span class="bold">visualization</span> step between the <span class="bold">segmentation</span>
-                        and the <span class="bold">classification</span> steps. The idea was to create an <span class="bold">intuitive, interactive and targeted</span> visualization platform so that anyone who take a sample
-                        of water can understand quickly the composition of the sample. Also, it has been thought to automate the process of classification by using <span class="bold">machine learning</span> algorithms. 
-                    </p>
-                    <p>On the business/science side, the idea was to expand the target of the microscope to <span class="bold">private companies</span>, <span class="bold">private individuals</span> (participative sciences) and <span class="bold">academic structures</span>.
-                        Eventually, the goal was to make the microscope more <span class="bold">accessible</span> to everyone and the data more <span class="bold">understandable</span>.
-                    </p>
-                </div>
                 <hr>
                 <div> <h3>The team</h3>
                     <p>The project was carried out by a team of 12 people. We split the team into 3 groups: the <span class="bold">devs</span>, <span class="bold">bioscientists</span> and <span class="bold">designers</span>.
@@ -76,8 +77,48 @@
             </div>
 
             <div> <h2>Technical part</h2>
-                
-            </div>
+                <div> <h3>Task understanding</h3>
+                    <p>In the dev group, we assigned each member of the group a task to explore <span class="bold">different visualization approaches</span>. The goal was to find an intuitive and fast ways to analyze the composition of a sample.
+                        I and another student were assigned to testing UMAP. <span class="bold">UMAP</span> is a dimensional-reduction model and let me trying to clarify the purpose of this tool.
+                        Each object identified in the sample by the program (in the segmentation part), has a series of <span class="bold">features</span> (96 to be precise).
+                        However, we want to be able to visualize (so with our eyes) the different plankton species contained within this sample.
+                        To do so, we need a <span class="bold">dimensional-reduction model</span> that can picture distances between objects from a 96-dimension space into a 2D or 3D space. Indeed, as human-being we cannot see over a 3D space.
+                        Based upon the features we give it, UMAP figures out a way to modelize in a 2D graph the repartition of objects (points) from a 96D space. Therefore, the X and Y axes are not meaningful anymore.
+                    </p>
+                </div>
+                <hr>
+                <div> <h3>Procedure</h3>
+                    <div> <h5>Data acquisition and preprocessing</h5>
+                        <p>We used examples of sample files (.tsv). Each sample file contained several hundreds of objects, each being represented with 96 features.</p>
+                        <p>Among the data we were provided with, there were a <span class="bold">lot of features that were not relevant</span> for our aim. For example, meta-data such as the date, the person, the location, etc. were not useful.
+                            Instead, we searched for features that <span class="bold">described the object image</span> such as the height, width, color, area covered, etc. We ended up with 29 features instead of 96.
+                            Then, we had to dispose of all objects that were not plantkon. Indeed, when segmentation the program can identify objects that are not plankton such as detritus.
+                            We started with a dataset of 2264 objects segmented and 96 features for each. After having reduced the number of features and objects, we finally had a dataset of 1173 objects and 29 features for each.
+                            This work of <span class="bold">data acquisition</span> is essential in data processing as it prevents from <span class="bold">expensive and unnecessary</span> computations later.
+                        </p>
+                    </div>
+                    <div> <h5>Feeding the model</h5>
+                        <p>Now, with this much cleaner dataset we can start experimenting UMAP. You can consult my <a href="downloads/OceanHackathon2023.ipynb" download="">Google Colab notebook</a> if you wish (not very clean though).</p>
+                        <p>The left graph below shows the repartition of the 5 most present species in this dataset (from 0 the most present to 4 the least present).
+                            We can see 4 clear clusters (red, orange, green and brown). However, the gray points are quite intricated with the green ones. These species are not clearly distinguishable.
+
+                        </p>
+                        <p>To clusterized points, we used the <span class="bold">K-Mean</span> method. We expected the result to be uncorrect because the gray points were really close to the green ones.
+                            To improve this and have a better distinction between clusters of species, we could have modified <span class="bold">hyperparameters</span> of the UMAP models. Unfortunaetly, we did not have time to go further.
+                            The right picture shows what we were aiming at.
+                        </p>
+                        <div class="illustration-horiz">
+                            <img src="images/oceanhackathon/umap_1st.PNG" alt="umap_1st">
+                            <img src="images/oceanhackathon/clusters.PNG" alt="clusters">
+                            <img src="images/oceanhackathon/umap_end.jpg" alt="umap_end">
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div> <h3>Conclusion</h3>
+
+                </div>
+            </div>  
 
             <div> <h2>Conclusion</h2>
                 <p>Once again, this <span class="bold">Ocean Hackathon</span> experience was rich. I could learn from my more-experienced developer teammates, namely <span class="bold">Angueran, Gwenn, Matthieu</span>.

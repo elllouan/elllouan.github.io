@@ -48,7 +48,25 @@ document.addEventListener("DOMContentLoaded", function() {
   // Call swapText to start the swapping
   setInterval(swapText, delay);
 
+  var illustrationHoriz = document.querySelector('.illustration-horiz');
+  var images = illustrationHoriz.querySelectorAll('img');
+  var numImages = images.length;
+
+  // You can adjust the sizes based on the number of images
+  if (numImages === 2) {
+      // Set larger size for 2 images
+      images.forEach(function (img) {
+          img.style.width = '50%';
+      });
+  } else if (numImages === 3) {
+      // Set smaller size for 3 images
+      images.forEach(function (img) {
+          img.style.width = '33%';
+      });
+  }
+
 });
+
 
 
 $(document).ready(function() {
@@ -61,33 +79,5 @@ $(document).ready(function() {
     $(".label").on("click", function() {
       $(this).parent().toggleClass("active");
     });
-
-    // $(".project-1").on("mouseenter", function() {
-    //   $(".hover-image1").toggleClass("active");
-    // });
-    // $(".project-1").on("mouseleave", function() {
-    //   $(".hover-image1").toggleClass("active");
-    // });
-
-    // $(".project-2").on("mouseenter", function() {
-    //   $(".hover-image2").toggleClass("active");
-    // });
-    // $(".project-2").on("mouseleave", function() {
-    //   $(".hover-image2").toggleClass("active");
-    // });
-
-    // $(".project-3").on("mouseenter", function() {
-    //   $(".hover-image3").toggleClass("active");
-    // });
-    // $(".project-3").on("mouseleave", function() {
-    //   $(".hover-image3").toggleClass("active");
-    // });
-
-    // $(".project-4").on("mouseenter", function() {
-    //   $(".hover-image4").toggleClass("active");
-    // });
-    // $(".project-4").on("mouseleave", function() {
-    //   $(".hover-image4").toggleClass("active");
-    // });
 
 });
