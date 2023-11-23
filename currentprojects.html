@@ -90,14 +90,56 @@
                                 </div>
 
                                 <div> <h4>PI implementation</h4>
-                                    
+                                    <img style="width: 20%;" src="images/os_proj/task_motor_robot.PNG" alt="task_motor_robot">
                                 </div>
-                                <img style="width: 30%;" src="images/os_proj/task_motor_robot.PNG" alt="task_motor_robot">
                             </div>
+
                             <hr>
-                            
                             <div> <h3>Multi-threading</h3>
-                                <p>In this project, our goal is to remotely control a rolling robot by implementing multi-tasking and control command.</p>
+                                <p>In this project, our goal is to remotely control a rolling robot by implementing multi-tasking and control command.
+                                    We decided that we could divide our program in 6 tasks ranged from the highest priority to the lowest priority:
+                                </p>
+                                <div class="frame-highlight">
+                                    <ul>
+                                        <li>Task 1: left-wheel motor</li>
+                                        <li>Task 2: right-wheel motor</li>
+                                        <li>Task 3: front sensors</li>
+                                        <li>Task 4: back sensors</li>
+                                        <li>Task 5: UART/Zigbee</li>
+                                        <li>Task 6: display</li>
+                                    </ul>
+                                </div>
+                                <div class="frame-highlight">
+                                    <p>Each one of these task will have a switch case leading to different codes depending on which current state the robot is in.
+                                        Also, there needs to be a <span class="bold">sleeping time (vTaskDelay)</span> to let time for each task to be executed (starvation problem).
+                                    </p>
+                                </div>
+                                <div> <h5>Tasks 1 & 2</h5>
+                                    <p>Each task handles a motor. They need to be executed in a row whatsoever. To make sure this is the case, I use a semaphore.
+                                        The Task 1 takes a token (if one is available) and then executes its code. When it is done, it releases the token and the Task 2 can take it and execute its code.
+                                        I make it such that they always are next to each other in the semaphore's queue, so that when one releases the token, the other one immediatly takes it.
+                                    </p>
+                                </div>
+                                <div> <h5>Tasks 3 & 4</h5>
+                                    <p>The Task 3 handles an infrared distance sensor the Task 4 handles an ultrasonic distance sensor. To make it easier, the Task 3 will only be used if the robot is going forward,
+                                        and the Task 4 will only be used if the robot is going backward. These tasks give a token to the semaphore which allows Task 1 (and subsequently Task 2) to execute its code.
+                                    </p>
+                                </div>
+                                <div> <h5>Task 5</h5>
+                                    <p>This task handles <span class="bold">external messages</span> (UART or Zigbee). It can wake up Tasks 1 & 2, if a command was detcted by giving a token.</p>
+                                </div>
+                                <div> <h5>Task 6</h5>
+                                    <p>This task handles the display of the current speed and direction, which is useful but not critical. Therefore, it has the lowest priority.</p>
+                                </div>
+                                <p>To see the complete diagrams, go to this section.</p>
+                            </div>
+
+                            <hr>
+                            <div> <h3>State diagram</h3>
+                            </div>
+
+                            <div class="illustration-horiz">
+                                <img src="images/os_proj/TaskDiagram.drawio.png" alt="TaskDiagram">
                             </div>
                         </div>
                     </div>
@@ -208,7 +250,7 @@
 
                     <div class="current-project"> <div class="label"> <h2>Learning AI with tensorflow</h2> </div>
                         <div class="content">
-                            <p>My curiosity and genuine desire to learn more about engineering topics caused me to start this new journey of learning the basics of AI.
+                            <p>My curiosity and genuine desire to learn more about engineering topics launched me on this new journey of learning the basics of AI.
                                 My guide is this freecodecamp <a href="https://www.youtube.com/watch?v=IA3WxTTPXqQ&list=LL&index=2&t=440s" target="_blank">course</a>.
                                 My goal with this web page is to try to explain what I learn and writing it with <span class="bold">my own words</span>. Therefore, <span class="bold">does not take this content as a reference</span>,
                                 there might be some inaccuracies (or even mistakes). While, this page is more dedicated to a theorical approach (because understanding the theory and math is satisfying but not enough),
@@ -303,10 +345,10 @@
                     <div class="current-project"> <div class="label"> <h2>Buidling an OS from Scratch</h2> </div>
                         
                         <div class="content">
-                            <p>In this project, I intend to build an OS from scratch. I want to leverage the knowledge I will acquire along the academic OS project to learn more about this topic.
+                            <p>In this project, I intend to build an OS from scratch. I want to extend my knowledge on OS architecture because I like understanding the core of things.
                                 Therefore, I started off this new OS journey to program a complete OS from scratch. I will be following the contents and tutos provided by <a href="https://wiki.osdev.org/Main_Page">OSDev.org</a>.
                                 Also, I will be picking some information in this <a href="https://www.youtube.com/playlist?list=PLHh55M_Kq4OApWScZyPl5HhgsTJS9MZ6M">Youtube series</a>.
-                                I find it to be really interesting to be able to comprehend thoroughly what building an OS really requires, I mean the whole process.
+                                I find it to be really interesting to be able to grasp thoroughly what building an OS really requires, I mean the whole process.
                                 As for the academic project, you can find a deeper view of this project on this <a href="os_project.html">page</a>. This will be a much harder task, as I will self-teach myself this topic.
                                 This page is not aimed at giving an in-depth view on my project, I just go over the main steps I went through. To see a more detailed version, you can refer to my complete project <a href="os_project.html" target="_blank">description</a>.
                             </p>
@@ -319,8 +361,7 @@
                         </div>
                     </div>
 
-                    <div class="current-project">
-                        <div class="label"> <h2>Website & Web server</h2> </div>
+                    <div class="current-project"> <div class="label"> <h2>Website & Web server</h2> </div>
                         <div class="content">
                             <p>So far, this small presentation website has been hosting on GitHub servers. I want to expand it so that it becomes like a personal blog and host it on my own web server.
                                 This will be a great opportunity to enhance my understanding and skills of network concepts and security. 
@@ -328,14 +369,14 @@
                         </div>
                     </div>
 
-                    <div class="current-project">
-                        <div class="label"> <h2>Podcast</h2> </div>
+                    <!-- <div class="current-project"> <div class="label"> <h2>Podcast</h2> </div>
                         <div class="content">
                             <p>Tech, environmental issuses, personal reflections, book reviews and experience feedback. (no episode released yet)</p>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
+
             </section>
             
 

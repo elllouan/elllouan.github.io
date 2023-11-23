@@ -138,10 +138,10 @@
                 </div>
                
                 <div class="subject-container"> <div class="label"> <h2>Image Processing</h2> </div>
-                    <div class="keywords">Image representation and acquisition, image segmentation, filtering, image classification and recognition, CNN, Matlab</div>
+                    <div class="keywords">Image representation and acquisition, image segmentation, filtering, image classification and recognition, CNN, Matlab, OpenCV</div>
                     <div class="content">
                         <p>You can find out some of my personal experiments regarding image filtering and processing <a href="">here</a>. Also, you will find at the end of this page,
-                            some useful Matlab examples and commands. 
+                            some useful Matlab and OpenCV examples. 
                         </p>
                         <hr>
                         <div class="subject-subdiv"> <h3>1. Introduction</h3>
@@ -156,33 +156,35 @@
                                  and classify textures by identifying patterns. To do so, we can use two approaches: <span class="bold">statistical</span> or <span class="bold">spectral</span>.
                             </p>
                             <div> <h4>Spectral approach</h4>
-                                <p>The <span class="bold">spectral</span> approach consists of computing the Fourier transform of the image's pixels. Now, I have to inroduce the Fourier transform of a 2D signal.
+                                <p>The <span class="bold">spectral</span> approach consists of computing the Fourier transform of the image. Now, let me introduce the Fourier transform of a 2D signal.
                                     \[ I(u,v) = \int^{+\infty}_{-\infty}\int^{+\infty}_{-\infty} I(x,y) e^{-j2\pi(ux+vy)} dxdy \]
                                     The result \( I(u,v) \) is the description of the image in the frequency domain, where \(u\) and \(v\) represent respectively the frequency along the \(x\) and \(y\) axis.
-                                    Below examples of Fourier transforms. This approach is useful to detect periodic textures. For example in this first spectrum, we notice 2 small disks which means that the image
-                                    has a diagonal periodicity. In the second spectrum, we notice a circle which means that the image has a circular periodicity.
+                                    Below, I show examples of images Fourier transform. Each point on the spectrum has an intensity which represents the contribution of each frequency along the x-axis and y-axis.
+                                    This approach is useful to detect periodic textures. For example in the first spectrum, we notice 2 small disks in a diagonal which means that the image is likely to have a diagonal periodicity in this direction.
+                                    In the second spectrum, we notice a circle which means that the image is likely to have a circular periodicity.
                                 </p>
                                 <div class="illustration-horiz">
                                     <img src="images/ai/tf_img1.PNG" alt="">
                                     <img src="images/ai/tf_img2.PNG" alt="">
                                     <img src="images/ai/tf_img3.PNG" alt="">
                                 </div>
-                                <p>With this approach, we only seek to modify the image's module (in the frequency domain). Indeed, modifying the module results in changing the looking of the objects (contrast, luminosity, etc.)
+                                <p>With this approach, we only seek to modify the image's module (in the frequency domain). Indeed, modifying the module results in changing the looking of objects (contrast, luminosity, etc.)
                                     but <span class="bold">NOT the shapes themselves</span>, which are encoded in the phase.
                                     \[ I(u,v) = |I(u,v)| e^{j\phi(u,v)} \]
                                 </p>
                             </div>
                             <div> <h4>Gabor filters</h4>
-                                <p>There are also <span class="bold">Gabor filters</span> that are used to detect orientations in an image. They are band-pass filters and operate a linear filter on the image
+                                <p>There are also <span class="bold">Gabor filters</span> that are used to detect orientations in an image. They are <span class="bold">band-pass filters</span> and operate a linear filtering on the image
                                     to extract information about the frequency and the orientation. They are defined by the following equation:
                                     \[ G(x,y) = e^{-\frac{x^2+\gamma^2 y^2}{2\sigma^2}} e^{j2\pi(\omega_x x + \omega_y y + \psi)} \]
                                     <div class="frame-highlight">
-                                        <p>In the frequency domain, this results in shifting the mean of the gaussian curve from 0 to the frequency \( \omega_x \) and \( \omega_y \). </p>
+                                        <p>In the frequency domain, this results in <span class="bold">shifting the mean of the gaussian curve</span> from 0 to the frequency \( \omega_x \) and \( \omega_y \).
+                                            This shifting comes from the <span class="bold">convolution of in the frequency domain</span> between the gaussian and a shifted impulse.</p>
                                     </div>
                                     It can be easier to consider it as a couple of real functions, dephased of \( \frac {\pi }{2} \), the first one being the real part and the second one the imaginary part.
                                     \[ G_1(x,y) = cos(\omega_x x + \omega_y b) e^{-\frac{x^2+\gamma^2 y^2}{2\sigma^2}}\]
                                     \[ G_2(x,y) = sin(\omega_x x + \omega_y b) e^{-\frac{x^2+\gamma^2 y^2}{2\sigma^2}}\]
-                                    where \( \sigma \) is the standard deviation of the Gaussian function and \(u\) and \(v\) are the frequencies along the \(x\) and \(y\) axis. By changing the value of sigma, we whange the bandwidth of the filter.
+                                    where \( \sigma \) is the standard deviation of the Gaussian function and \(u\) and \(v\) are the frequencies along the \(x\) and \(y\) axis. By changing the value of sigma, we change the bandwidth of the filter.
                                     The more sigma is small, the less the filter is selective. The more sigma is large, the more the filter is selective. Indeed, a compression in the frequency domain is an expansion in the spatial domain.
                                 </p>
                             </div>    
@@ -190,8 +192,8 @@
                             <button id="textures-illustrations"> Show illustrations</button>
 
                             <div> <h4>Statistical approach</h4>
-                                <p>The <span class="bold">statistical</span> approach consists in trying to spot some repetitive interactions between 2 pixels separated by a distance \( d \) and a direction.
-                                    This can be gathered by computing the co-occurrence matrix of the image.
+                                <p>The <span class="bold">statistical</span> approach consists more in considering the occurences of patterns. For example, to spot repetitive interactions between 2 pixels separated by a distance \( d \),
+                                    we can compute the <span class="bold">co-occurrence matrix</span> of the image.
                                     \[
                                         \Gamma(d,\theta) = \Gamma(dx,dy) = \frac{1}{N}
                                         \left(
@@ -202,11 +204,10 @@
                                         \end{matrix}
                                         \right).   
                                     \]
-                                    (N\) is the number of pixels in the image, \(i(x,y)\) is the intensity of the 1st pixel and \(j(x,y)\) of the 2nd one. This formula is makes things look harder than they really are.
+                                    \(N\) is the number of pixels in the image, \(i(x,y)\) is the intensity of the 1st pixel and \(j(x,y)\) of the 2nd one. This formula makes things look harder than they really are.
                                     This matrix simply stores the number of occurences of each pair of intensity values \( i <-> j \). This pair is defined by the distance \(d\) and the angle \(\alpha\) between the two pixels.
-                                    The distance \(d\) is the distance between the two pixels in the image and the angle \(\alpha\) is the angle between the two pixels in the image.
-                                    Hence, a strong diagonal means that the image is homogeneous because the diagonal is where the intensity values \(i\) and \(j\) are the same.
-                                    Usually, we compute multiple co-occurrence matrices with different values of \(d\) and \(\alpha\) and then we compute several characteristics from them such as:
+                                    Hence, a co-occurrence matrix with a <span class="bold">strong diagonal</span> means that the image is <span class="bold">homogeneous</span> because the diagonal is where the intensity values \(i\) and \(j\) are the same.
+                                    Usually, we compute multiple co-occurrence matrices with different values of \(d\) and \(\alpha\). We can extract several characteristics from them such as:
                                 </p>
                                 <div class="frame-highlight">
                                     <ul>
@@ -217,26 +218,28 @@
                                         <li>Correlation: \( Corr(d,\theta) \)</li>
                                     </ul>
                                 </div>
-                                <p>Finally, we put them in a <span class="bold">Haralick vector</span> to represent the image. This vector is a vector of those characteristics and can be used to classify the image.
-                                    On Matlab, we can use the function <span class="bold">graycomatrix</span> to compute the co-occurrence matrix and the function <span class="bold">graycoprops</span> to compute the characteristics.
+                                <p>Those are compliacted math formulas and are quite tough to grasp, so I shan't expand on them. Finally, we put them in a <span class="bold">Haralick vector</span> to represent the image.
+                                    This vector is a vector of those characteristics and can be used to classify the image.
                                 </p>
+                                <p>Of course, the statistical approach is not restricted to this co-occurrence matrix. This is simply an example. Throughout this page, I will refer to other methods that are based on this approach.</p>
                                 <button id="textures-illustrations"> Show illustrations</button>
                             </div>
                             <div> <h4>Texture generation</h4>
-                                <p>The <span class="mark">synthesis of textures</span> is also a common practice in image processing. It consists of generating a texture from a given model. The model can be a texture or a set of textures.
-                                    We start with a texture A and we generate a whole image different from A but looks the same. Neither is it as simple as a copy-paste, nor completely random operation. There exist several methodswhich are not fit for the same type of textures.
+                                <p>The <span class="mark">synthesis of textures</span> is also a common practice in image processing. It consists of <span class="bold">generating a texture from a given model</span>. The model can be a texture or a set of textures.
+                                    We start with a texture A and we generate a whole image different from A but that looks the same. Neither is it as simple as a copy-paste, nor a completely random operation. There exist several methods which are not fit for the same type of textures.
                                 </p>
                                 <div class="frame-highlight">
                                     <ul>
-                                        <li>Image Quilting: we slice the image in rectangles and at each border and we compute the overlapping erro and merge borders where this error is the least significant.</li>
-                                        <li>Chaos Mosaic: we randomly copy-paste the input texture to form an image and we apply a low-pass filter on the image.</li>
-                                        <li>Resampling: we form each pixel by one by one by considering its environment.</li>
+                                        <li><span class="bold">Image Quilting:</span> we slice the image in rectangles and at each border and we compute the overlapping error and merge borders where this error is the least significant.</li>
+                                        <li><span class="bold">Chaos Mosaic:</span> we randomly copy-paste the input texture to form an image and we apply a low-pass filter on the image.</li>
+                                        <li><span class="bold">Resampling:</span> we form each pixel by one, by taking into account its surrounding patterns.</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <hr>
                         <div class="subject-subdiv"> <h3>3. Image preprocessing</h3>
+                            <p>Image preprocessing is fundamental in the field of image processing. It can save heavy computations by improving the quality of an image before processing it. </p>
                             <div> <h4>Histogram</h4>
                                 <p>To describe an image, we can use a <span class="bold">histogram</span> that shows the occurences of each intensity value (it is a statistical approach). A histogram is a good indicator of the <span class="bold">dynamic</span>
                                     of an image. An example of a histogram done with Matlab is shown below. The illustration below shows an <span class="bold">anamorphosis</span> of the histogram. We started with a poorly contrasted image, applied a <span class="bold">normalization</span>
@@ -250,11 +253,11 @@
                                         However, the <span class="bold">resolution</span> refers to the number of pixels in the image.
                                     </p>
                                 </div>
-                                <p>In the example above, we applied a linear transform to go from \( I_e \) to \( I_s \). Nonetheless, we could choose to apply a non-linear transform to emphasize on a particular range of intensities.
+                                <p>In the example above, we applied a linear transform to go from \( I_e \) to \( I_s \). Nonetheless, we could choose to apply a <span class="bold">non-linear transform</span> to emphasize on a particular range of intensities.
                                     In the screenshot below, the brightest pixels have been more scaled than the darkest ones. This results in a histogram that is more spread on the right side.
                                 </p>
                                 <img style="width: 70%; margin: 0.5rem auto;" src="images/ai/histogram_example_nonlinear.PNG" alt="histogram">
-                                <p>With the histogram, we can also spot where details of an image lie. They are located to the lowest occurences. In the image above, details are mainly clustered from the 25th to 100th intensity level.
+                                <p>With the histogram, we can also spot where details of an image lie. <span class="bold">Details are located to the lowest occurences</span>. In the image above, details are mainly clustered from the 25th to 100th intensity level.
                                     To make these details more visible, we can apply a <span class="bold">histogram equalization</span>, which evenly spreads the histogram over the whole range of intensities.
                                 </p>
                                 <div class="frame-highlight">
@@ -266,7 +269,7 @@
                                 <p>We can use this histogram to distinguish objects from the background. Indeed, by choosing a background that is different from the object's overall intensity,
                                     we shall see 2 bumps on the histogram. This is called a <span class="bold">bi-modal histogram</span>. From this histogram, we can determine a <span class="bold">threshold</span>
                                     that will separate the range of intensities of the object from the background. Then, by applying a <span class="bold">binarization (also called thresholding)</span>, a pixel below the threshold,
-                                    is set to 0 and a pixel above the threshold is set to 1.
+                                    is set to 0 and a pixel above the threshold is set to 1. It may also happen that bumps are not clearly set apart, in that case we can use a <span class="bold">hysteresis thresholding</span>.
                                 </p>
                                 <div class="illustration-horiz">
                                     <img style="width: 30%; margin: 0.5rem auto;"" src="images/ai/sic.PNG" alt="sic">
@@ -277,9 +280,9 @@
                                 </p>
                                 <div class="frame-highlight">
                                     <ul>
-                                        <li>Histogram methods: Otsu, local thresholding and multpile thresholding, etc.</li>
-                                        <li>Region transform methods: Division-Fusion, region growth, etc.</li>
-                                        <li>Optimization methods</li>
+                                        <li><span class="bold">Histogram methods:</span> Otsu, local thresholding and multpile thresholding, etc.</li>
+                                        <li><span class="bold">Region transform methods:</span> Division-Fusion, region growth, etc.</li>
+                                        <li><span class="bold">Optimization methods</span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -293,27 +296,27 @@
                                 <div> <h5>Noise</h5>
                                     <p>In image processing, we try as much as possible to get rid of the noise before the actual image modification. This avoids expensive computations.
                                         There exist 2 types of noise in image processing: <span class="bold">additive</span> and <span class="bold">multiplicative</span>.
-                                        In my case, I will only focus on the additive noise as it is the most common one. To modelize the noise, we use probabilities. Therefore, there are different types of :
+                                        In my case, I will only focus on the additive noise as it is the most common one. To modelize the noise, we use probabilities. Therefore, there are different types of noises:
                                     </p>
                                     <div class="frame-highlight">
                                         <ul>
-                                            <li> <span class="bold">Impulse noise</span> (or salt-and-pepper)</li>
-                                            <li> <span class="bold">Gaussian noise</span></li>
+                                            <li> <span class="bold">Impulse noise</span> (or salt-and-pepper).</li>
+                                            <li> <span class="bold">Gaussian noise:</span> noise is centered on 0.</li>
                                             <li> <span class="bold">Uniform noise</span></li>
                                             <li> and many more ...</li> 
                                         </ul>                                     
                                     </div>
-                                    <p>Depending on which probability law we assume the noise follows, we either use <span class="bold">linear filtering</span> or <span class="bold">non-linear-filtering</span>..
+                                    <p>Depending on which probability law we assume the noise follows, we either use <span class="bold">linear filtering</span> or <span class="bold">non-linear-filtering</span>.
                                     </p>
                                 </div>
                                 <div> <h5>Linear Filtering</h5>
                                     <p>In 2D, we also have the concept of <span class="bold">convolution</span> that is used to filter an image. The convolution is defined as follows:
                                         \[ I(u,v) = \sum^{u}_{-\infty}\sum^{v}_{-\infty} I(x,y) h(u-x,v-y) dxdy \]
-                                        I(u,v) is the output image, I(x,y) is the input image, h(u,v) is the filter and \(u\) and \(v\) are the spatial coordonates.
+                                        \(I(u,v)\) is the output image, \(I(x,y)\) is the input image, \(h(u,v)\) is the filter and \(u\) and \(v\) are the spatial coordonates.
                                     </p>
                                     <div class="frame-highlight">
-                                        <p>In signal processing, the filter's impulse response must be <span class="bold">causal</span>, it is a physical limit. However, we do not have this constraint for image processing, as
-                                            we treat the image in <span class="bold">deferred time (spatial filtering)</span>, thus we can use non-causal filters. Our filter will be centered on the pixel we want to filter using all surrounding pixels. 
+                                        <p>In signal processing, the filter's impulse response must be <span class="bold">causal</span>, it is a physical limit. However, <span class="bold">we do not have this constraint</span> for image processing, as
+                                            we treat the image in <span class="bold">deferred time (spatial filtering)</span>, thus we can use non-causal filters. Our filter will be centered on the pixel we want to filter using surrounding pixels. 
                                         </p>
                                     </div>
                                     <p>Our filter requires accessing all surrounding pixels, hence pixels at borders are quite unconvenient.
@@ -321,19 +324,19 @@
                                     </p>
                                     <div class="frame-highlight">
                                         <ul>
-                                            <li>Zero-Padding: can introduce discontinuities to the image</li>
-                                            <li>Image mirroring</li>
-                                            <li>Image periodization</li>
+                                            <li><span class="bold">Zero-Padding:</span> can introduce discontinuities to the image</li>
+                                            <li><span class="bold">Image mirroring</span></li>
+                                            <li><span class="bold">Image periodization</span></li>
                                         </ul>
                                     </div>
                                     <p>Finally, linear filters are fit for filtering the gaussian noise. The pictures below show the impact of an average filter of size 3x3, 5x5, 7x7.
                                     </p>
                                 </div>
                                 <div id="non-linear-filter"> <h5>Non-linear Filtering</h5>
-                                    <p>To filter <div class="bold">impulse noise</div>, we cannot use linear filters because instead of diminishing the noise they would spread it over the surrounding pixels.
-                                        On the other hand, non-linear filters, such as the <div class="bold">median filter</div>, allow to tackle this issue by considering a statistical approach rather than a spectral one.
-                                        In the case of the median filter, all pixels contained within the kernel are <div class="bold">ranged by intensity</div> and the median value is chosen as the output value. As a result,
-                                        the noise is likely to be the among the lowest or highest values and will be discarded.
+                                    <p>To filter <span class="bold">impulse noise</span>, we <span class="bold">cannot use linear filters</span> because instead of diminishing the noise they spread it over the surrounding pixels.
+                                        On the other hand, non-linear filters, such as the <span class="bold">median filter</span>, allow to tackle this issue by considering a statistical approach rather than a spectral one.
+                                        In the case of the median filter, all pixels contained within the kernel are <span class="bold">ranged by intensity</span>. As a result,
+                                        the noise is likely to be the among the lowest or highest values and will be discarded. The median value is chosen as the pixel's output value. 
                                     </p>
                                 </div>
                             </div>
@@ -345,8 +348,8 @@
                                 </p>
                                 <div class="frame-highlight">
                                     <ul>
-                                        <li>Erosion: to erase objects from the image (small imperfections, excrescence ...)</li>
-                                        <li>Dilatation: to fill holes in a shape</li>
+                                        <li><span class="bold">Erosion:</span> to erase objects from the image (small imperfections, excrescence ...)</li>
+                                        <li><span class="bold">Dilatation:</span> to fill holes in a shape</li>
                                     </ul>
                                 </div>
                                 <p>Usually we apply an erosion followed by a dilatation to get rid of small imperfections and fill holes. This is called an <span class="bold">opening</span>.
@@ -359,11 +362,22 @@
                             </div>
 
                             <div> <h4>Blur</h4>
-                                <p>Usually blur is the outcome of a low-pass filtering. A low-pass filter widens the transition area which leads to a reduce the contrast (sharp discontinuities) of objects shapes.
+                                <p>Usually blur is the <span class="bold">outcome of a low-pass filtering</span>. A low-pass filter widens the <span class="bold">transition area</span> between pixels which leads to reducing the contrast (sharp discontinuities) of objects shapes.
                                     To counter this effect, we can substract the original image to the <span class="bold">Laplacian of the image</span>:
                                     \[ I(x,y) = I(x,y) - \lambda \Delta I(x,y) \]
-                                    To have a better understanding of what the Laplacian is, click <a href="math&IT.html">here</a>.
+                                    To have a better understanding of what the Laplacian is, click <a href="math&IT.html">here</a>. In short, this is the second derivative of a 2D function.
+                                    Performing this operation on the image's pixels will enhance the contrast of the image.
                                 </p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div> <h3>Hands-on image processing</h3>
+                            <div> <h4>Matlab</h4>
+                                <p>On Matlab, we can use the function <span class="bold">graycomatrix</span> to compute the co-occurrence matrix and the function <span class="bold">graycoprops</span> to compute the its <span class="bold">Haralick vector</span>.
+                                </p>
+                            </div>
+                            <div> <h4>OpenCV</h4>
+                                <p>I work with Google Colab. I will upload soon a notebook with some examples.</p>
                             </div>
                         </div>
                     </div>
