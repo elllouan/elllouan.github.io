@@ -109,69 +109,94 @@
                 </div>
 
                 <div class="session"> <div class="label"> <h2>3. HTTP</h2> </div>
-                    <p> <span class="bold">HTTP (HyperText Transfer Protocol)</span> is a protocol used to request/retrieve data from a server.
-                        There exist multiple types of request: <span class="bold">GET, POST, PUT, DELETE, HEAD, CONNECT ...</span>.
+                    <p> <span class="bold">HTTP (HyperText Transfer Protocol)</span> is a protocol used to exchange data between a client and a server.
+                        It utilitizes the <span class="bold">TCP (Transport Communication Protocol)</span> to send and receive data.
+                        A client requests a service to a server. There exist multiple types of HTTP methods: <span class="bold">GET, POST, PUT, DELETE, HEAD, CONNECT ...</span>.
+                        Each one of them refers to a specific service. For instance, the <span class="bold">GET</span> request is used to retrieve data from the server.
                     </p>
-                    <div class="frame-highlight">
-                        <ol>
-                            <li>the client connects to the server through a <span class="bold">TCP socket</span></li>
-                            <li>the client sends a text request to the server that looks as follows (simplified):</li>
-                            <div class="linux-terminal">
-                                <div>GET /path/to/resource HTTP/1.1</div>
-                                <div>Host: www.example.com:80</div>
-                                <div>Connection: close</div>
-                                <div>\r\n (empty line)</div>
-                            </div>
-                            <li>the client recieves the HTTP reply header</li>
-                            <li>the client recieves the data requested that it stores in a file</li>
-                        </ol> 
-                    </div>
-                    <div> <h4>Via proxy</h4>
-                        <p>The client can also pass by a <span class="bold">proxy</span> instead of reaching the server direclty.
-                            The sequence of operations does not differ, only will the HTTP request be slighlty different.
-                            <span class="bold">In the HTTP header, there is is reference to the proxy.</span>
-                        </p>
-                        <div class="linux-terminal">
-                            <div>GET https://www.example.com/path/to/resource HTTP/1.1</div>
-                            <div>Host: www.example.com:80</div>
-                            <div>Connection: close</div>
-                            <div>\r\n (empty line)</div>
-                        </div>
-                    </div>
-                    <div> <h4>HTTPS</h4>
-                        <p><span class="bold">HTTP (HyperText Transfer Protocol Secure)</span> is a secure (i.e., encrypted) version of HTTP.
-                            Therefore, prior to the beginning of the communication between the client and the server, there is a SSL negociation.
-                        </p>
+                    <div> <h4>HTTP Client</h4>
+                        <p>The client is the one who initiates the communication with the server. The following sequence of instructions summaries the procedure of a GET request:</p>
                         <div class="frame-highlight">
                             <ol>
                                 <li>the client connects to the server through a <span class="bold">TCP socket</span></li>
-                                <li>the client sends its SSL and encryption configurations to the server</li>
-                                <li>the server replies by sending its certificate (public key)</li>
+                                <li>the client sends a text request to the server that looks as follows (simplified):</li>
                                 <div class="linux-terminal">
                                     <div>GET /path/to/resource HTTP/1.1</div>
                                     <div>Host: www.example.com:80</div>
                                     <div>Connection: close</div>
                                     <div>\r\n (empty line)</div>
                                 </div>
-                                <li>the client recieves the HTTP reply header</li>
-                                <li>the client recieves the data requested that it stores in a file</li>
-                            </ol>
-                        </div> 
+                                <li>the client receives the HTTP reply header</li>
+                                <li>the client receives the data requested that it stores in a file</li>
+                            </ol> 
+                        </div>
+                        <div> <h3>Via proxy</h3>
+                            <p>The client can also pass by a <span class="bold">proxy</span> instead of reaching the server direclty.
+                                The sequence of operations does not differ, only will the HTTP request be slighlty different.
+                                <span class="bold">In the HTTP header, there is is reference to the proxy.</span>
+                            </p>
+                            <div class="linux-terminal">
+                                <div>GET https://www.example.com/path/to/resource HTTP/1.1</div>
+                                <div>Host: www.example.com:80</div>
+                                <div>Connection: close</div>
+                                <div>\r\n (empty line)</div>
+                            </div>
+                        </div>
+                        <div> <h3>HTTPS</h3>
+                            <p><span class="bold">HTTP (HyperText Transfer Protocol Secure)</span> is a secure (i.e., encrypted) version of HTTP.
+                                Therefore, prior to the beginning of the communication between the client and the server, there is a SSL negociation.
+                            </p>
+                            <div class="frame-highlight">
+                                <ol>
+                                    <li>the client connects to the server through a <span class="bold">TCP socket</span></li>
+                                    <li>the client sends its SSL and encryption configurations to the server</li>
+                                    <li>the server replies by sending its certificate (public key)</li>
+                                    <div class="linux-terminal">
+                                        <div>GET /path/to/resource HTTP/1.1</div>
+                                        <div>Host: www.example.com:80</div>
+                                        <div>Connection: close</div>
+                                        <div>\r\n (empty line)</div>
+                                    </div>
+                                    <li>the client recieves the HTTP reply header</li>
+                                    <li>the client recieves the data requested that it stores in a file</li>
+                                </ol>
+                            </div> 
+                        </div>
+                        <div> <h3>HTTPS via proxy</h3>
+                            <p>The sequence of operations slighlty differs. There is a connection request from the proxy to the server.</p>
+                            <div class="frame-highlight">
+                                <ol>
+                                    <li>the client connects to the server through a <span class="bold">TCP socket</span></li>
+                                    <li>the client sends a connection request to the proxy (once this connection is established, the proxy simply passes data from one end to another)</li>
+                                    <div class="linux-terminal">
+                                        <div>CONNECT https://www.example.com/path/to/resource HTTP/1.1</div>
+                                        <div>Host: www.example.com:443</div>
+                                        <div>Connection: close</div>
+                                        <div>\r\n (empty line)</div>
+                                    </div>
+                                    <li>usual SSL negociation ...</li>
+                                    <li>from now on the client crypts its requests and the server its replies</li>
+                                </ol>
+                            </div>
+                        </div>
                     </div>
-                    <div> <h4>HTTPS via proxy</h4>
-                        <p>The sequence of operations slighlty differs. There is a connection request from the proxy to the server.</p>
+
+                    <div> <h4>HTTP Server</h4>
+                        <p>The server simply waits for incoming client requests. When a client is detected, the server performs a sequence of instructions to determine what it should send back.
+
+                        </p>
                         <div class="frame-highlight">
                             <ol>
-                                <li>the client connects to the server through a <span class="bold">TCP socket</span></li>
-                                <li>the client sends a connection request to the proxy (once this connection is established, the proxy simply passes data from one end to another)</li>
-                                <div class="linux-terminal">
-                                    <div>CONNECT https://www.example.com/path/to/resource HTTP/1.1</div>
-                                    <div>Host: www.example.com:443</div>
-                                    <div>Connection: close</div>
-                                    <div>\r\n (empty line)</div>
-                                </div>
-                                <li>usual SSL negociation ...</li>
-                                <li>from now on the client crypts its requests and the server its replies</li>
+                                <li>the server creates a <span class="bold">listen socket</span> waiting for external requests</li>
+                                <li>the server receives the HTTP request header and parses it by extracting some fields such as:</li>
+                                    <ul>
+                                        <li>the HTTP method: GET, POST, PUT, etc.</li>
+                                        <li>the resource requested (URI)</li>
+                                        <li>the type of connection: close or keep-alive</li>
+                                        <li>the content-type: html, png, etc.</li>
+                                    </ul> 
+                                <li>the server sends the HTTP reply header</li>
+                                <li>the server sends the data requested</li>
                             </ol>
                         </div>
                     </div>

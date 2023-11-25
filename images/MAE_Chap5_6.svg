@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="225mm"
+   height="80mm"
+   viewBox="0 0 225 80"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   sodipodi:docname="MAE_Chap5_6.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.99150697"
+     inkscape:cx="585.47244"
+     inkscape:cy="360.56227"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <linearGradient
+       id="linearGradient12"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#ff0101;stop-opacity:1;"
+         offset="0"
+         id="stop12" />
+      <stop
+         style="stop-color:#ff0101;stop-opacity:0;"
+         offset="1"
+         id="stop13" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient12"
+       id="linearGradient13"
+       x1="33.288216"
+       y1="75.588058"
+       x2="135.39787"
+       y2="75.588058"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-1.226493,20.567344)" />
+  </defs>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-22.280951,-19.961715)">
+    <rect
+       style="fill:#e3dedb;stroke:#000000;stroke-width:0.987226"
+       id="rect1"
+       width="139.13582"
+       height="67.257248"
+       x="44.377636"
+       y="28.753922" />
+    <text
+       xml:space="preserve"
+       style="font-size:7.05556px;white-space:pre;inline-size:36.7324;display:inline;fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+       x="50.663597"
+       y="20.095615"
+       id="text1"
+       transform="matrix(0.74748534,0,0,0.74748534,65.440649,10.973781)"><tspan
+         x="50.663597"
+         y="20.095615"
+         id="tspan13">BILAN (N)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5.64444px;white-space:pre;inline-size:15.3449;display:inline;fill:#e3dedb;stroke:#000000;stroke-width:0.505"
+       x="50.663597"
+       y="20.095615"
+       id="text1-9"
+       transform="translate(-37.359258,12.732637)"><tspan
+         x="50.663597"
+         y="20.095615"
+         id="tspan16"><tspan
+           dx="0 3.567286 3.1665359 3.4713287 1.4562626 2.0376434 3.1665363 3.4882641"
+           id="tspan14">Capitaux</tspan></tspan></text>
+    <path
+       style="fill:#e3dedb;stroke:#000000;stroke-width:0.510873"
+       d="M 146.5586,28.918506 V 96.216305"
+       id="path2" />
+    <path
+       style="fill:#e3dedb;stroke:#000000;stroke-width:0.510873"
+       d="M 90.221105,29.19969 V 96.497495"
+       id="path2-7" />
+    <path
+       style="fill:#e3dedb;stroke:#000000;stroke-width:0.510873"
+       d="M 109.01964,28.731736 V 96.029535"
+       id="path2-3" />
+    <path
+       style="fill:#e3dedb;stroke:#000000;stroke-width:0.510873"
+       d="M 128.16795,28.674137 V 95.971935"
+       id="path2-59" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.16435px;fill:#ff0000;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+       x="147.60922"
+       y="42.072769"
+       id="text3"
+       transform="scale(1.0078101,0.99225043)"><tspan
+         sodipodi:role="line"
+         id="tspan3"
+         style="font-size:3.16435px;fill:#ff0000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+         x="147.60922"
+         y="42.072769">Capitaux Propres</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.90066px;fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+       x="148.20766"
+       y="45.910419"
+       id="text3-8"
+       transform="scale(1.0078101,0.99225043)"><tspan
+         sodipodi:role="line"
+         id="tspan3-0"
+         style="font-size:2.90066px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+         x="148.20766"
+         y="45.910419">Capital socia</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:2.90066px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+         x="148.20766"
+         y="49.536243"
+         id="tspan26">Réserves</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:2.90066px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+         x="148.20766"
+         y="53.162071"
+         id="tspan27">Bénéfices</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:2.90066px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+         x="148.20766"
+         y="56.787895"
+         id="tspan28">Subventions</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.21914px;fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+       x="192.34383"
+       y="49.805134"
+       id="text3-8-2"
+       transform="scale(1.0078101,0.99225043)"><tspan
+         sodipodi:role="line"
+         style="font-size:4.21914px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+         x="192.34383"
+         y="49.805134"
+         id="tspan28-0">H.T.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.21914px;fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+       x="23.612307"
+       y="76.796097"
+       id="text3-8-2-8"
+       transform="scale(1.0078101,0.99225043)"><tspan
+         sodipodi:role="line"
+         style="font-size:4.21914px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+         x="23.612307"
+         y="76.796097"
+         id="tspan28-0-8">T.T.C.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.21914px;fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+       x="27.305567"
+       y="49.677059"
+       id="text3-8-2-9"
+       transform="scale(1.0078101,0.99225043)"><tspan
+         sodipodi:role="line"
+         style="font-size:4.21914px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+         x="27.305567"
+         y="49.677059"
+         id="tspan28-0-9">H.T.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.16435px;fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+       x="142.27956"
+       y="71.652718"
+       id="text4"
+       transform="scale(1.0442661,0.95761033)"><tspan
+         sodipodi:role="line"
+         style="font-size:3.16435px;fill:#ff0000;stroke-width:0;stroke-dasharray:none"
+         x="142.27956"
+         y="71.652718"
+         id="tspan5">Dettes</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.16435px;fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+       x="46.440056"
+       y="42.112759"
+       id="text6"
+       transform="scale(1.010071,0.99002941)"><tspan
+         sodipodi:role="line"
+         id="tspan6"
+         style="font-size:3.16435px;fill:#ff0000;stroke-width:0;stroke-dasharray:none"
+         x="46.440056"
+         y="42.112759">Immobilisations</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.16435px;fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+       x="47.993656"
+       y="66.88884"
+       id="text7"
+       transform="scale(0.98456527,1.0156767)"><tspan
+         sodipodi:role="line"
+         id="tspan7"
+         style="font-size:3.16435px;fill:#ff0000;stroke-width:0;stroke-dasharray:none"
+         x="47.993656"
+         y="66.88884">Actifs circulants</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.21914px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+       x="56.223244"
+       y="34.752644"
+       id="text8"><tspan
+         sodipodi:role="line"
+         id="tspan8"
+         style="fill:#000000;stroke-width:0;stroke-dasharray:none"
+         x="56.223244"
+         y="34.752644">Actif <tspan
+   style="font-size:2.90066px;fill:#000000;stroke-width:0;stroke-dasharray:none"
+   id="tspan11">(emplois)</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.21914px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+       x="97.074059"
+       y="34.451191"
+       id="text8-6"><tspan
+         sodipodi:role="line"
+         id="tspan8-47"
+         style="font-size:4.21914px;fill:#000000;stroke-width:0;stroke-dasharray:none"
+         x="97.074059"
+         y="34.451191">VO</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.63696px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+       x="118.61706"
+       y="32.2271"
+       id="text8-6-2"><tspan
+         sodipodi:role="line"
+         id="tspan8-47-0"
+         style="font-size:2.63696px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0;stroke-dasharray:none"
+         x="118.61706"
+         y="32.2271">Accumulation</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:2.63696px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0;stroke-dasharray:none"
+         x="118.61706"
+         y="35.5233"
+         id="tspan12">dotations</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.21914px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+       x="151.533"
+       y="34.49926"
+       id="text9"><tspan
+         sodipodi:role="line"
+         id="tspan9"
+         style="fill:#000000;stroke-width:0;stroke-dasharray:none"
+         x="151.533"
+         y="34.49926">Passif <tspan
+   style="font-size:2.90066px;fill:#000000;stroke-width:0;stroke-dasharray:none"
+   id="tspan10">(ressources)</tspan></tspan></text>
+    <circle
+       id="path13"
+       style="fill:#f80000;stroke:#000000;stroke-width:0.197772"
+       cx="61.76218"
+       cy="73.935707"
+       r="0.0037277967" />
+    <path
+       style="fill:#f80000;fill-opacity:1;stroke:#000000;stroke-width:0.078486;stroke-dasharray:0, 0.863346;stroke-dashoffset:0"
+       d="M 66.980807,74.781985 101.81865,74.499899"
+       id="path14" />
+    <path
+       style="fill:#f80000;fill-opacity:1;stroke:#000000;stroke-width:0.078486;stroke-dasharray:0, 0.863346;stroke-dashoffset:0"
+       d="M 101.81865,74.499899 70.436383,74.429337"
+       id="path15" />
+    <path
+       style="fill:#000000;stroke:#000000;stroke-width:0.556737;stroke-dasharray:none;paint-order:stroke markers fill"
+       d="M 43.717171,36.812173 183.55027,36.515561"
+       id="path1" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.88056px;font-family:Arial;-inkscape-font-specification:Arial;fill:#000000;stroke:#000000;stroke-width:0.600001;stroke-dasharray:none;paint-order:stroke markers fill"
+       x="152.37117"
+       y="49.634045"
+       id="text15"><tspan
+         sodipodi:role="line"
+         id="tspan15"
+         style="stroke-width:0.6"
+         x="152.37117"
+         y="49.634045" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.88056px;fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+       x="110.88554"
+       y="79.824883"
+       id="text3-81"
+       transform="scale(1.0078101,0.99225043)"><tspan
+         sodipodi:role="line"
+         id="tspan3-35"
+         style="font-size:3.88056px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+         x="110.88554"
+         y="79.824883" /></text>
+    <g
+       id="g1-20"
+       transform="translate(-33.746437,28.350204)">
+      <text
+         xml:space="preserve"
+         style="font-size:3.88056px;fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+         x="85.554085"
+         y="45.915695"
+         id="text3-0"
+         transform="scale(1.0078101,0.99225043)"><tspan
+           sodipodi:role="line"
+           id="tspan3-2"
+           style="font-size:3.88056px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+           x="85.554085"
+           y="45.915695" /></text>
+    </g>
+    <g
+       id="g1-1"
+       transform="matrix(0.74748534,0,0,0.74748534,-16.842106,11.174479)">
+      <text
+         xml:space="preserve"
+         style="font-size:3.88056px;fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+         x="85.554085"
+         y="45.915695"
+         id="text3-2"
+         transform="scale(1.0078101,0.99225043)"><tspan
+           sodipodi:role="line"
+           style="font-size:3.88056px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+           x="85.554085"
+           y="45.915695"
+           id="tspan29">Biens durables</tspan><tspan
+           sodipodi:role="line"
+           style="font-size:3.88056px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+           x="85.554085"
+           y="50.766396"
+           id="tspan30">Investissements long-terme</tspan><tspan
+           sodipodi:role="line"
+           style="font-size:3.88056px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+           x="85.554085"
+           y="55.617096"
+           id="tspan17">- R&amp;D</tspan><tspan
+           sodipodi:role="line"
+           style="font-size:3.88056px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+           x="85.554085"
+           y="60.467796"
+           id="tspan18">- Actions</tspan></text>
+    </g>
+    <g
+       id="g1-8"
+       transform="translate(-16.507726,64.693308)" />
+    <text
+       xml:space="preserve"
+       style="font-size:2.90066px;fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+       x="47.438442"
+       y="72.351204"
+       id="text3-98"
+       transform="scale(1.0078101,0.99225043)"><tspan
+         sodipodi:role="line"
+         id="tspan3-22"
+         style="font-size:2.90066px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+         x="47.438442"
+         y="72.351204">Trésorerie</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:2.90066px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+         x="47.438442"
+         y="75.977028"
+         id="tspan34">Créances clients</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:2.90066px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+         x="47.438442"
+         y="79.602852"
+         id="tspan33">Investissements court-terme</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:2.90066px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+         x="47.438442"
+         y="83.228676"
+         id="tspan19">- Obligations</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.78411px;fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+       x="147.67612"
+       y="72.777206"
+       id="text3-7"
+       transform="scale(1.0078101,0.99225043)"><tspan
+         sodipodi:role="line"
+         id="tspan3-20"
+         style="fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+         x="147.67612"
+         y="72.777206"><tspan
+   style="font-size:2.90066px;stroke-width:0"
+   id="tspan20">Dettes</tspan> fournisseurs</tspan><tspan
+         sodipodi:role="line"
+         style="fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+         x="147.67612"
+         y="76.296982"
+         id="tspan31">Dettes sociales</tspan><tspan
+         sodipodi:role="line"
+         style="fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+         x="147.67612"
+         y="79.777122"
+         id="tspan32">TVA due</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.88056px;fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+       x="127.68404"
+       y="115.81354"
+       id="text3-91"
+       transform="scale(1.0078101,0.99225043)"><tspan
+         sodipodi:role="line"
+         id="tspan3-008"
+         style="font-size:3.88056px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+         x="127.68404"
+         y="115.81354" /></text>
+    <g
+       id="g1-22"
+       transform="translate(42.884603,74.164347)" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.88056px;font-family:Arial;-inkscape-font-specification:Arial;fill:#ff0000;stroke:#000000;stroke-width:0.600001;stroke-dasharray:none;paint-order:stroke markers fill"
+       x="121.14976"
+       y="90.195198"
+       id="text21"><tspan
+         sodipodi:role="line"
+         id="tspan21"
+         style="stroke-width:0.6"
+         x="121.14976"
+         y="90.195198" /></text>
+    <path
+       style="opacity:1;fill:none;stroke:#000000;stroke-width:0.484252;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;paint-order:stroke markers fill"
+       d="m 186.5909,58.378026 c 5.43791,0.06727 -0.0481,-8.559327 5.66009,-9.77272 -5.49874,-2.019235 0.23184,-10.676677 -5.62217,-10.488543"
+       id="path26"
+       sodipodi:nodetypes="ccc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.484252;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;paint-order:stroke markers fill"
+       d="m 40.661773,65.229676 c -5.437463,-0.0969 0.0015,8.55941 -5.713248,9.741677 5.487657,2.049157 -0.290001,10.675201 5.564954,10.518961"
+       id="path26-3"
+       sodipodi:nodetypes="ccc" />
+    <text
+       xml:space="preserve"
+       style="font-size:5.64444px;fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+       x="-51.144379"
+       y="-77.192238"
+       id="text3-8-2-5-6"
+       transform="matrix(-1.0077951,-0.00549036,0.00540559,-0.99223574,0,0)"
+       inkscape:transform-center-x="0.52302586"
+       inkscape:transform-center-y="22.994183"><tspan
+         sodipodi:role="line"
+         style="font-size:5.64444px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+         x="-51.144379"
+         y="-77.192238"
+         id="tspan28-0-1-1" /></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.484252;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;paint-order:stroke markers fill"
+       d="m 41.765533,38.194979 c -5.437463,-0.0969 0.0015,8.55941 -5.713248,9.741678 5.487657,2.049156 -0.290001,10.675197 5.564954,10.518958"
+       id="path26-3-9"
+       sodipodi:nodetypes="ccc"
+       inkscape:transform-center-x="-7.7313956"
+       inkscape:transform-center-y="16.954627" />
+    <g
+       id="g1"
+       transform="translate(148.16937,51.595989)">
+      <text
+         xml:space="preserve"
+         style="font-size:3.88056px;fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+         x="69.124817"
+         y="116.41528"
+         id="text3-21"
+         transform="scale(1.0078101,0.99225043)"><tspan
+           sodipodi:role="line"
+           id="tspan3-6"
+           style="font-size:3.88056px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+           x="69.124817"
+           y="116.41528" /></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:5.64444px;font-family:Arial;-inkscape-font-specification:Arial;opacity:1;fill:none;stroke:#000000;stroke-width:0.814999;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;paint-order:stroke markers fill"
+       x="209.87628"
+       y="172.86659"
+       id="text35"><tspan
+         sodipodi:role="line"
+         id="tspan35"
+         style="stroke-width:0.815"
+         x="209.87628"
+         y="172.86659" /></text>
+    <g
+       id="g1-6"
+       transform="matrix(0.74748534,0,0,0.74748534,45.910878,-86.004512)">
+      <text
+         xml:space="preserve"
+         style="font-size:5.64444px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+         x="115.94345"
+         y="161.06931"
+         id="text8-6-9"><tspan
+           sodipodi:role="line"
+           id="tspan8-47-2"
+           style="font-size:5.64444px;fill:#000000;stroke-width:0;stroke-dasharray:none"
+           x="115.94345"
+           y="161.06931">VNC</tspan></text>
+    </g>
+    <path
+       style="fill:#800000;stroke:#000000;stroke-width:0.426921;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle);paint-order:stroke markers fill"
+       d="M 196.84705,73.851848 163.44245,48.978013"
+       id="path12" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.21914px;fill:#000000;stroke:#000000;stroke-width:0;stroke-dasharray:none"
+       x="189.02863"
+       y="79.317802"
+       id="text3-8-2-2"
+       transform="scale(1.0078101,0.99225043)"><tspan
+         sodipodi:role="line"
+         style="font-size:4.21914px;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none"
+         x="189.02863"
+         y="79.317802"
+         id="tspan28-0-3">Reprises - Dotations (en N)</tspan></text>
+  </g>
+</svg>

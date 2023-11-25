@@ -24,7 +24,7 @@
             <h1>OS from scratch</h1>
             <h3 class="page-subtitle">This page describes more throughly the steps of the project and my learning outcomes.</h3>
 
-            <div class="cross-compiler-tuto"> <h2>1. Bootstrapping & Cross-compilation</h2>
+            <div class="cross-compiler-tuto"> <h2>Bootstrapping & Cross-compilation</h2>
 
                 <div class="section"> <h3>1.1 Definitions</h3>
                     <p>Our goal here is to build a GCC cross-compiler for the <span class="mark">i386-elf</span> target.
@@ -67,7 +67,7 @@
                         <div>export PATH="PREFIX/bin:$PATH"</div>
                     </div>
 
-                    <div> <h4>Compilation of Binutils</h4>
+                    <div> <h5>Compilation of Binutils</h5>
                         <p>
                             Download these <a href="https://ftp.gnu.org/gnu/binutils/" target="_blank">Binutils packages</a> in the <span class="mark">$HOME/src</span> directory.
                             <div class="linux-terminal">
@@ -76,15 +76,14 @@
                             </div> 
                         </p>
                     </div>
-                    <div> <h4>Compilation of GDB</h4>
+                    <div> <h5>Compilation of GDB</h5>
                         <a href="https://sourceware.org/pub/gdb/releases/?C=M;O=D" target="_blank">GDB packages</a>
                         <div class="linux-terminal">
                             <div>HOME/src$ mkdir build-gdb</div>
                             <div>$../gdb-x.y.z/configure --target=$TARGET --prefix=$PREFIX</div>
                         </div>
                     </div>
-
-                    <div> <h4>Compilation of GCC</h4>
+                    <div> <h5>Compilation of GCC</h5>
                         <p>Clone the GCC repository. For more detailed information, read through this <a href="https://gcc.gnu.org/wiki/InstallingGCC">page</a>.</p>
                             <div class="linux-terminal">
                                 <div>HOME/src$ git clone https://gcc.gnu.org/git/gcc.git</div>
@@ -113,6 +112,64 @@
 
                 </div>
             </div>
+
+            <div class="cross-compiler-tuto"> <h2>Basic kernel</h2>
+                <div class="section"> <h3>Context</h3>
+                    <p>Within the next paragraphs, I will endeavor to explain concisely, nonetheless clearly, what I am going to do to set up this basic kernel.</p>
+                    <p>First off, my goal here is to to compile, link and run the kernel. This kernel will simply print out a Hello World on the terminal. <span class="bold">I am not aiming to create a bootloader</span>,
+                        instead I will use <span class="bold">GRUB</span>.</p>
+                    <p>My basic setup consists of 4 files: a <span class="bold">kernel.cpp</span> file, a <span class="bold">linker.ld</span> file, a <span class="bold">Makefile</span> and a <span class="bold">loader.s</span> file.
+                    
+                    </p>
+                </div>
+                <div class="section"> <h3>Makefile</h3>
+                    <p>I will be using <span class="bold">C++</span> to program my operating system. The compilation process encompasses several steps and uses different tools.
+                        I will be working with the <span class="bold">GNU Make</span> toolset to automate the build process that owns multiple tools such as:
+                    </p>
+                    <div class="frame-highlight">
+                        <ul>
+                            <li><span class="bold">gcc, g++</span> to compile C and C++ code.</li>
+                            <li><span class="bold">as</span> to create object files from assembler source files.</li>
+                            <li><span class="bold">ld</span> to link object files into an executable file.</li>
+                            <li><span class="bold">ar</span> to create static libraries.</li>
+                            <li> <span class="bold">gdb</span> to debug code.</li>
+                            <li>...</li>
+                        </ul>
+                    </div>
+                    <p>For now, I am only using <span class="bold">g++, as and ld</span> tools. The first step is to build object files from C++ and assembler source files.
+                        Then, we create the actual binary (or executable file) from the object files.
+                        Makefiles uses a specific syntax to build files. The <span class="bold">'\t'</span> means that a tabulation is required for the Makefile to work.
+                    </p>
+                    <div class="linux-terminal">
+                        <div> {output} : {dependencies} </div>
+                        <div> '\t' {command} </div>
+                    </div>
+                    <p></p>
+                    <div class="section"> <h5>ELF format</h5>
+                        <p>There exist different types of binary formats. <span class="bold">.bin</span> files are raw binary files. <span class="bold">.elf (Executable and Linkable Format)</span>
+                            files are more sophistacted as they contain machine code and also information about the program (such as the entry point, the size of the code, etc.) that aids debugging and analysis.
+                        </p>
+                    </div>
+                    <p>I will be uploading the code soon.</p>
+                    <button onclick="">Show Makefile</button>
+                </div>
+                <div class="section"> <h3>Loader file</h3>
+                    <p>The <span class="bold">loader.s</span> file's goal is </p>
+                    <div> <h4>Structure</h4>
+                        <div> <h5>.data</h5>
+                            <p></p>
+                        </div>
+                        <div> <h5>.bss</h5>
+                            <p></p>
+                        </div>
+                        <div> <h5>.text</h5>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </section> <!-- main-container -->
 
         <div id="footer"></div>
