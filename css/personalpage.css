@@ -23,11 +23,6 @@ ol, ul {
         padding: 1.5rem;
     }
 
-    .main-container p {
-        padding: 1rem;
-        text-align: justify; /* justify text */ 
-    }
-
     .podcasts {
         display: flex;
         align-items: flex-start;
