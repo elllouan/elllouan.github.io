@@ -6,7 +6,6 @@
         background-color: var(--clr-light-dark);
         font-family: var(--ff-regular);
         width: 100%;
-        color: var(--clr-light);
     }
 
     .information {
@@ -20,18 +19,12 @@
 
     .information p {
         display: inline-block;
+        text-align: left;
         background-color: orange;
         text-indent: 0.5em;
         width: 350px;
-        border: 2px #444 dashed;
+        border: 2px dashed black;
         line-height: 2em;
-    }
-
-    .email-link:hover,
-    .linkedIn-link:hover,
-    .discord-pseudo:hover,
-    .github-link:hover {
-        font-weight: bold;
     }
 
     .thanks {

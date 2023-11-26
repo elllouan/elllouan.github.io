@@ -21,7 +21,7 @@
 
     --clr-light: papayawhip;
     --clr-light-grey: #f0f0f0;
-    --clr-light-orange: rgb(253, 209, 127);
+    --clr-light-orange: rgb(255, 222, 160);
     --clr-light-dark: #333;
     --clr-dark: rgb(0, 0, 0);
     /* clr stands for 'color' */
@@ -102,8 +102,9 @@ h4 {
     width: 75%;
     margin: 1rem 0rem;
     padding: 0.25rem;
-    border: 1px solid #333;
+    border: 1px solid black;
     text-decoration: underline;
+    color: white;
     background-color: orange;
     line-height: 1.2;
 }
@@ -175,7 +176,7 @@ button {
 }
 
 hr {
-    border: 3px solid var(--clr-dark);
+    border: 2px solid var(--clr-dark);
     margin: 0.75rem 0;
 }
 

@@ -22,7 +22,7 @@
         <section class="main-container">
             <h1>OS Project</h1>
             <div class="page-subtitle">
-                <h3>In this project, our goal is to implement OS functionalities, thereby gaining a deeper understanding of its underlying mechanisms.</h3>
+                <h3>In this project, my goal is to implement basic OS functionalities, thereby gaining a deeper understanding of its underlying mechanisms.</h3>
             </div>
 
             <div> <h2>Structure of the project</h2>
@@ -170,7 +170,13 @@
             </div>
 
             <div> <h2 id="peripherals">4. Peripherals</h2>
-
+                <p>The <span class="bold">VFS (Virtual File System)</span> layer (part of oslib.h) provides the user a layer of abstraction to access peripherals.
+                    Its job is to redirect syscalls to the right peripheral driver.
+                    Let's take an example. Let's say we want to access a file on the SD card we plugged into the board and read it to copy its content elsewhere. We will use
+                    a syscall like <span class="bold">fopen()</span> (the name is can be different). This fopen syscall would then call the real file system that manages the SD card memory.
+                    The VFS layer is the intermediary between the user and the real file system. It is the one that redirects the syscall to the right peripheral driver.
+                    If we wished to access another file on another peripheral, we would use the same syscall, but the VFS layer would redirect it to another file system responsible for this new device.
+                </p>
             </div>
 
         </section> <!-- main-container -->

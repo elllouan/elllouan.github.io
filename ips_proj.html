@@ -77,6 +77,10 @@
                             temperature increases. Therefore, we will be considering the spring as a black box and we will try to find the best PID parameters by trials and errors.
                         </p>
                     </div>
+
+                    <div> <h4>Schema</h4>
+                        <img src="images/ips_proj/Schema.png" alt="">
+                    </div>
                 </div>
             </div>
 
@@ -96,40 +100,81 @@
             </div>
                 
             <div class="section"> <h2>PID implementation</h2>
-                <p>In control systems, ideally we know (or can figure out by stimulating the system) the behavior of the system we aim to control. However here it is slighlty different ...</p>
+                <p>In control systems, ideally we know (or can figure out by stimulating it) the behavior of the system we aim to control. However here it is slightly different ...</p>
                 <div> <h4>Command control</h4>
-                    <p>The STM32 microcontroller implements a PID that outputs a PWM signal. This PWM signal is input to the transistor. As a result, the board pilots the transistor
-                        in an open-closed mode. The duty cycle of this signal directly impacts how much current flows through the spring. We know (from the teacher) that the spring behaves somehow like a low-pass filter (actually, the spring is a black box).
-                        Hence, it will only see the average of the current flowing through it. Then, it is easy to understand that the wider duty cycle, the higher the tension (so the current). 
-                        It is important to mention that we supply the spring with a 3V source. It takes time to heat up. We have experimented different duty cycle to see how the system behaves.
+                    <p>The STM32 microcontroller implements a PID that outputs a <span class="bold">PWM signal</span>. This PWM signal is input to the transistor that is piloted in an <span class="bold">open-closed mode</span>.
+                        The duty cycle of this signal directly impacts how <span class="bold">much current flows through the spring</span>. We know (from the teacher) that the spring behaves somehow like a <span class="bold">low-pass filter</span> (in fact, the spring is a black box).
+                        Hence, it will only see the <span class="bold">average</span> of the current flowing through it. Then, it is easy to understand that the <span class="bold">wider</span> duty cycle, the <span class="bold">higher</span> the tension (so the current). 
+                        It is important to mention that we supply the spring with a 3V source and it takes time to heat up. We have experimented different duty cycle to see how the system behaves.
                         This is aimed at giving us a rough hint about how fast the spring reacts. 
                     </p>
-                    <ol>
-                        <li>Test different duty cycles to control the spring \( T_e = 5ms \)</li>
-                        <li>For each test, store the height evolution of the mass</li>
-                        <li>Provide this web page with those</li>
-                    </ol>
+                    <div class="frame-highlight">
+                        <p>Our main difficultes lie in the fact that we only have <span class="bold">control on the elevation of the mass</span> and we don't have a <span class="bold">model of the system's behavior</span>.</p>
+                    </div>
                 </div>
 
-                <div> <h4>PID algorithm</h4>
-                    <p>As we noticed, we can control the rise process of the system quite decently (e.g., the spring fold), by tweaking the duty cycle of the PWM signal, even though we do not know exactly its behavior.
-                        However, the fall process cannot be controlled as it is the surrounding temperature that makes the spring unfold. We have to wait for the spring to cool to have it go down.
-                        Thus, we should avoid overshooting the target height. Eventually, we want a PID that makes the system reach the target as fast as possible without overshooting it.
-                        We decided to remove the derivative factor \(K_d\). In the end, we only need to tune the proportional \(K_p\) and integral \(K_i\) factors.
-                        The \( K_p \) factor will make the system reach the target faster. The \( K_i \) factor will correct the error over time. Moreover, we know that:
+                <div> <h4>PI algorithm</h4>
+                    <p>As stated, we can only control the <span class="bold">rise process</span> of the system quite decently (e.g., the spring fold), by <span class="bold">tweaking the duty cycle</span> of the PWM signal, even though we do not know exactly its behavior.
+                        However, the fall process depends the surrounding temperature that makes the spring unfold. We have to wait for the spring to cool to have it go down.
+                        Thus, we should <span class="bold">avoid overshooting</span> the target height. Eventually, we want a PI that makes the mass reach the target as fast as possible without overshooting it.
+                        For a first test, we decided to remove the derivative factor \(K_d\), so we only need to tune the proportional \(K_p\) and integral \(K_i\) factors.
+                        The \( K_p \) factor will make the system reach the target faster, while the \( K_i \) factor will correct the error over time. Moreover, we know that:
                         \[ \delta_e \leq \delta_{max} = 100mm \]
                         \[ \delta_e \leq 0 \implies dc=0\% \implies 0V \]
-                        \[ \delta_e=\delta_{max} \implies dc=100\% \implies 3V \]
-                        The duty cycle can vary from 0% to 100%. Now let's consider the algorithm :
+                        \[ \delta_e=\delta_{max} \implies dc=60\% \implies 3V \]
+                        We only make the duty cycle vary up to 60% because beyond this value, we noticed that the spring is dramatically less likely to be reversed. Now let's consider the algorithm :
                         \[ u_p = K_p \cdot \delta_e \]
                         \[ u_i = u_i + K_i \cdot u_p \]
                         \[ u_{cmd} = u_p + u_i \]
-                        \( \delta_e \) represents the error (in mm) between the current position and the target position. Regurlarly, we update the PWM duty cycle using the output variation \( u_{cmd} \).
+                        \( \delta_e \) represents the error (in mm) between the <span class="bold">current position and the target position</span>. Every ms, we update the PWM duty cycle using the output variation \( u_{cmd} \).
                         Thus, we need to map the variation \(u_{cmd}\) to a variation of our PWM duty cycle, because that is how we serve our system.
-                        It is important to note that what we calculated here is a variation of the command, meaning that it should be in the same order of magnitude as the PWM duty cycle (comprised between 0 and 100), to avoid saturation.
+                        It is important to note that what we calculated here is a variation of the command, meaning that it should be in the same order of magnitude as the PWM duty cycle (comprised between 0% and 60%), to avoid saturation.
                         <!-- Therefore, we could map one millimeter for one percent of duty cycle. However, we want to be able to reach the target as fast as possible. So, we will use a linear mapping function
                         I think that our _( K_i \) will be very important. -->
                     </p>
+                </div>
+
+                <div> <h4>First conclusions</h4>
+                    <p>After having tested different values of \(K_p\) and \(K_i\), results turned out to be unsatisfying.
+                        The problem is that the string behaves like a hysterisis: <span class="bold">one threshold to fold but another one to unfold</span>. This is due to the heat accumulation in the spring over time.
+                        The <span class="bold">error accumulated</span> over time is <span class="bold">too important</span> to be reversed within few hundred ms.
+                        Either, the value of \(K_i\) is <span class="bold">too low</span> and the system does not reach the target fast enough (several minutes), or it is <span class="bold">too high</span> and the system <span class="bold">overshoots</span> the target and keeps oscillating around the target.
+                    </p>
+                    <div class="frame-highlight">
+                        <p>The \(K_i\) factor is noticeable on the oscilloscope. It widens the duty cycle of the PWM signal, so long as the system do not reach its target. That widening effect is proportional to the error.</p>
+                    </div>
+                </div>
+
+                <div> <h4>PID?</h4>
+                    <p>After reflection, we could try to use the \(K_d\) factor to <span class="bold">lower the impact</span> of the \(K_i\) factor, especially during the spring's critical state. The \(K_d\) factor plays a role in <span class="bold">emphasizing sharp changes</span> in the system.
+                        This factor could be relevant because we noticed that after a duty cycle threshold value, the spring <span class="bold">skrinks very quickly</span> (i.e., high derivative), which causes the <span class="bold">mass to rise fast</span>.
+                        This sharp change in the mass height can be handled by the <span class="bold">derivative factor</span>.
+                        However, instead of adding this factor, we can <span class="bold">substract</span> it to the command so that when significant changes occur, the <span class="bold">command is slowed down</span>. Otherwise the spring is <span class="bold">almost idle</span>, resuting in a \(K_d\) factor that is has <span class="bold">no influence</span>.
+                        \[ u_p = K_p \cdot \delta_e \]
+                        \[ u_i = u_i + K_i \cdot u_p \]
+                        \[ u_d = K_d (u_d^{n} - u_d^{n-1}) \]
+                        \[ u_{cmd} = u_p + u_i - u_d \]
+                        \(u_d\) is the derivative of the command. \(n\) represents the current iteration and \(n-1\) the previous one.
+                    </p>
+                </div>
+
+                <div> <h4>PID conclusions</h4>
+                    <p>Will try this algorithm next wednesday, trying different values of \(K_d\) and see if it is more efficient than the previous one.
+                    </p>
+                </div>
+
+                <div> <h4>P factor only</h4>
+                    <p>We also decided to implement a P controller only, to fix the PI to fix the problem of error accumulation.
+                        We decied to implement a simple P controller and then when the mass is on the verge of exceeding the target, we switch "instanteniously" to a lower duty cycle.
+                        After some tests, the mass stabilizes quite fast on the target (few seconds) and oscillations are unsignificant.
+                    </p>
+                    <div class="frame-highlight">
+                        <p><span class="bold">Limitations:</span></p>
+                        <ol>
+                            <li>the PWM signal is fixed to be effective in a lukewarm temperature (~20°C) environment. If the environment started to get colder, the PWM would not change because there is no accumulation of error.</li>
+                            <li>the PWM switches from 10% to 60% within a short amount of time (sharp tension changes) and this might damage the system and the board faster.</li>
+                        </ol>
+                    </div>
                 </div>
 
                 <div> <h4>Saturation and unstability</h4>

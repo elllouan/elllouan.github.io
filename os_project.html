@@ -26,7 +26,7 @@
 
             <div class="cross-compiler-tuto"> <h2>Bootstrapping & Cross-compilation</h2>
 
-                <div class="section"> <h3>1.1 Definitions</h3>
+                <div> <h3>1.1 Definitions</h3>
                     <p>Our goal here is to build a GCC cross-compiler for the <span class="mark">i386-elf</span> target.
                         Therefore, I have to build binutils, gdb and gcc myself to set them for this configuration.
                     </p>
@@ -48,7 +48,7 @@
                     </p>
                 </div>
                 <hr>
-                <div class="section"> <h3>1.2 Buidling a GCC cross-compiler</h3>
+                <div> <h3>1.2 Buidling a GCC cross-compiler</h3>
                     <p>I will be working with the Windows Subsystem for Linux (WSL 2) as my platform of developement.
                         <div class="frame-highlight">Note: You cannot have your cross compiler in the /mnt/c/ (or /mnt/"x") areas, as trying to compile your cross-compiler there will generate errors, whereas building to $HOME/opt/cross works perfectly.
                             This is fixed with Windows Update KB3176929
@@ -113,25 +113,25 @@
                 </div>
             </div>
 
-            <div class="cross-compiler-tuto"> <h2>Basic kernel</h2>
-                <div class="section"> <h3>Context</h3>
+            <div class="kernel-tuto"> <h2>Basic kernel</h2>
+                <div> <h3>Context</h3>
                     <p>Within the next paragraphs, I will endeavor to explain concisely, nonetheless clearly, how I am going to set up this basic kernel. My goal here is to compile, link and run the kernel.
                         This first "version" of the kernel will simply print out a Hello World on the terminal. But first off, let's clarify how the computer proceeds the kernel loading when it boots.
                     </p>
                     <div> <h5>Kernel loading and booting</h5>
-                        <p>Your computer mainly uses 3 components to boot: the <span class="bold">BIOS</span>, the <span class="bold">bootloader</span> and the <span class="bold">kernel</span>.
-                            When you turn on your computer, the BIOS (Basic Input/Output System) is the first program to be loaded into the <span class="bold">firmware RAM</span>. The CP register points to the BIOS code and executes it.
+                        <p>A computer mainly uses 3 components to boot: the <span class="bold">BIOS</span>, the <span class="bold">bootloader</span> and the <span class="bold">kernel</span>.
+                            When we turn on a computer, the BIOS (Basic Input/Output System) is the first program to be loaded into the <span class="bold">firmware RAM</span>. The CP register points to the BIOS code and executes it.
                             The BIOS then loads the <span class="bold">bootloader</span> into the RAM by fetching the first sector of the boot device (usually the <span class="bold">hard drive</span>) and jumping to it.
                             <div class="frame-highlight">
-                                <p>The bootloader is a small program responsible for loading the kernel into the RAM. It contains various information about the kernel such as its location on the disk, its size, etc.
+                                <p>The <span class="bold">bootloader</span> is a small program responsible for loading the kernel into the RAM. It contains <span class="bold">various information</span> about the kernel such as its location on the disk, its size, etc.
                                     In this project, I will be using <span class="bold">GRUB</span> as bootloader.
                                 </p>
                             </div>
-                            Finally, the bootloader loads the kernel into the RAM and jumps to it. After this, one problem remains: the <span class="bold">stack pointer (ESP)</span> is not initialized. However, C++ programs expect this pointer to be initialized.
-                            To initialize it, we need to create a small <span class="bold">assembly file (loader.s)</span> that will initialize the <span class="bold">stack pointer (ESP)</span> and jump to the kernel's entry point.
-                            On the other hand, the kernel program will be written in <span class="bold">C++ language</span>. Hence, we will end up with 2 files: a loader.s file and a kernel.cpp file.
-                            Since those are from different natures (assembly and C++), we need to find a way to "merge" them. To do that, we will be using a <span class="bold">linker</span>.
-                            As a result, we will build both files into <span class="bold">object files (.o)</span> and link them using the program linker <span class="bold">ld</span>. All of this is discussed <a href="#makefile">further</a>.
+                            Finally, the bootloader loads the kernel into the RAM and jumps to it. After this, one problem remains: the <span class="bold">stack pointer (ESP)</span> is not initialized. However, C++ programs expect this pointer to be initialized when the program starts.
+                            To initialize it, we need to create a <span class="bold">assembly file (loader.s)</span> that will initialize this pointer and jump to the <span class="bold">kernel's entry point</span>.
+                            On the other hand, the kernel program will be written in <span class="bold">C++ language</span>. Hence, we will end up with 2 files: a <span class="bold">loader.s</span> file and a <span class="bold">kernel.cpp</span> file.
+                            Since those are from different natures (assembler and C++), we need to find a way to "merge" them. To do that, we will be using a <span class="bold">linker</span>.
+                            As a result, we will build both files into <span class="bold">object files (.o)</span> and link them using the linker program <span class="bold">ld</span>. All of this is discussed <a href="#makefile">further</a>.
                             You can view a summary illustration of the booting process below: 
                         </p>
                         <img src="images/os_proj/computer_boot.jpg" alt="computer_boot">
@@ -139,9 +139,9 @@
                     <p>For now, my directory setup consists of 4 files: a <span class="bold">kernel.cpp</span> file, a <span class="bold">linker.ld</span> file, a <span class="bold">Makefile</span> and a <span class="bold">loader.s</span> file. Let's explore each one of them below.</p>
                 </div>
                 <hr>
-                <div class="section" id="makefile"> <h3>Makefile</h3>
+                <div id="makefile"> <h3>Makefile</h3>
                     <p>I will be using <span class="bold">C++</span> to program my operating system. The compilation process encompasses several steps and uses different tools.
-                        I will be working with the <span class="bold">GNU Make</span> toolset to automate the build process that owns multiple tools such as:
+                        I will be working with the <span class="bold">GNU Make</span> toolset to automate the build process. The GNU suite includes multiple tools such as:
                     </p>
                     <div class="frame-highlight">
                         <ul>
@@ -154,39 +154,66 @@
                         </ul>
                     </div>
                     <p>For now, I am only using <span class="bold">g++, as and ld</span> tools. The first step is to build object files from C++ and assembler source files.
-                        Then, we create the actual binary (or executable file) from the object files.
-                        Makefiles uses a specific syntax to build files. The <span class="bold">'\t'</span> means that a tabulation is required for the Makefile to work.
+                        Then, we will be creating the actual binary (or executable file) from the compiled object files.
+                        Makefile uses a specific syntax to build files (see below). The <span class="bold">'\t'</span> means that a tabulation is required for the Makefile to work.
                     </p>
                     <div class="linux-terminal">
                         <div> {output} : {dependencies} </div>
                         <div> '\t' {command} </div>
                     </div>
                     <p></p>
-                    <div class="section"> <h5>ELF format</h5>
+                    <div> <h5>ELF format</h5>
                         <p>There exist different types of binary formats. <span class="bold">.bin</span> files are raw binary files. <span class="bold">.elf (Executable and Linkable Format)</span>
-                            files are more sophistacted as they contain machine code and also information about the program (such as the entry point, the size of the code, etc.) that aids debugging and analysis.
+                            files are more sophisticated as they contain machine code and also <span class="bold">extra information about the program</span> (such as the entry point, the size of the code, etc.) that aids debugging and analysis.
                         </p>
                     </div>
                     <p>I will be uploading the code soon.</p>
                     <button onclick="">Show Makefile</button>
                 </div>
                 <hr>
-                <div class="section"> <h3>Loader file</h3>
-                    <p>The <span class="bold">loader.s</span> file's goal is </p>
+                <div> <h3>Loader file</h3>
+                    <p>There are some issues we need to sort out and that require assemby code. Firstly, the stack pointer has to be initialized. Secondly, when the bootloader loads the kernel into the RAM it searches for a so-called <span class="bold">Magic number</span> that informs it that the kernel.bin file is a valid kernel.
+                    </p>
+                    <div class="frame-highlight">
+                        <p>A <span class="bold">Magic number</span> is a sequence of few bytes likely located at the beginning of a file which are <span class="bold">unique</span> to a particular file type.
+                            They are are used as a <span class="bold">file signature</span> by system. It helps the system to differentiate between different file types.
+                        </p>
+                    </div>
+                    <p>Thirdly, the bootloader will also make the EAX register point to the <span class="bold">Multiboot information structure</span> and the EBX register point to the <span class="bold">Magic number</span>. Knowing that, we could benefit from this to store those values by pushing them on the kernel's stack.
+                        Eventually, the <span class="bold">loader.s</span> file's goals are:                       
+                    </p>
+                    <div class="frame-highlight">
+                        <ul>
+                            <li>to initialize the stack pointer for the kernel</li>
+                            <li>to write the <span class="bold">Magic number</span>: 0x1BADB002</li>
+                            <li>to push the EAX and EBX registers on the stack</li>
+                        </ul>
+                    </div>
                     <div> <h4>Structure</h4>
                         <div> <h5>.data section</h5>
-                            <p></p>
+                            <p>This section defines constant variables.</p>
                         </div>
                         <div> <h5>.bss section</h5>
-                            <p></p>
+                            <p>This section defines various variables such as static, global which can be modified throughout the program.</p>
                         </div>
                         <div> <h5>.text section</h5>
-                            <p></p>
+                            <p>This section contains the code (assembler instructions).</p>
                         </div>
                     </div>
                 </div>
                 <hr>
-                <div class="section"> <h3>Linker file</h3>
+                <div> <h3>Kernel file</h3>
+                    <p>As stated before, for this version of my kernel I just want to <span class="bold">print out some text on the screen</span>. In a traditional manner, this comes really easy as our program runs within an OS (say Linux) that can <span class="bold">dynamically link the glibc library to the program</span>.
+                        In my case, I have <span class="bold">neither an OS, nor an external library</span> to link to. Therefore, I need to write <span class="bold">my own printf function</span>. It appears that at the <span class="bold">address 0xB8000</span>, there is a <span class="bold">memory-mapped VGA buffer</span>.
+                        This means that all bytes written starting from this address will be displayed on the screen.
+                    </p>
+                    <div class="frame-highlight">
+                        <p>It is important to note that I have to let a byte space between each byte written. Indeed, for each character printed out, we can tweak their foreground and background color using this byte in-between. The illustration below shows it.</p>
+                    </div>
+                </div>
+                <hr>
+                <div> <h3>Linker file</h3>
+                    <p>To be honest for this one I hardly understood the code written. I kind of understand what the linker is used for but the code itself is hard to get.</p>
                 </div>
             </div>
 
