@@ -140,8 +140,8 @@
                 <div class="subject-container"> <div class="label"> <h2>Image Processing</h2> </div>
                     <div class="keywords">Image representation and acquisition, image segmentation, filtering, image classification and recognition, CNN, Matlab, OpenCV</div>
                     <div class="content">
-                        <p>You can find out some of my personal experiments regarding image filtering and processing <a href="">here</a>. Also, you will find at the end of this page,
-                            some useful Matlab and OpenCV examples. 
+                        <p>You can find out some of my personal experiments regarding image filtering and processing <a href="currentprojects.html">here</a>. Also, you will find at the end of this page,
+                            some useful Matlab and OpenCV examples. All images used in this section are taken from my Matlab labos.
                         </p>
                         <hr>
                         <div class="subject-subdiv"> <h3>1. Introduction</h3>
@@ -159,15 +159,21 @@
                                 <p>The <span class="bold">spectral</span> approach consists of computing the Fourier transform of the image. Now, let me introduce the Fourier transform of a 2D signal.
                                     \[ I(u,v) = \int^{+\infty}_{-\infty}\int^{+\infty}_{-\infty} I(x,y) e^{-j2\pi(ux+vy)} dxdy \]
                                     The result \( I(u,v) \) is the description of the image in the frequency domain, where \(u\) and \(v\) represent respectively the frequency along the \(x\) and \(y\) axis.
-                                    Below, I show examples of images Fourier transform. Each point on the spectrum has an intensity which represents the contribution of each frequency along the x-axis and y-axis.
-                                    This approach is useful to detect periodic textures. For example in the first spectrum, we notice 2 small disks in a diagonal which means that the image is likely to have a diagonal periodicity in this direction.
-                                    In the second spectrum, we notice a circle which means that the image is likely to have a circular periodicity.
+                                    Below, I show examples of images Fourier transform. Each point on the spectrum has an intensity which represents the <span class="bold">contribution of each frequency</span> along the x-axis and y-axis.
+                                    This approach is useful to detect <span class="bold">periodic textures</span>. For example in the first spectrum, we notice <span class="bold">2 small disks in a diagonal</span> which means that the image
+                                    is likely to have a diagonal periodicity in this direction. In the second spectrum, we notice a <span class="bold">circle</span> which means that the image is likely to have a <span class="bold">circular periodicity</span>.
                                 </p>
-                                <div class="illustration-horiz">
+                                <div class="illustration-horiz-3">
+                                    <img src="images/ai/stris.PNG" alt="">
                                     <img src="images/ai/tf_img1.PNG" alt="">
-                                    <img src="images/ai/tf_img2.PNG" alt="">
-                                    <img src="images/ai/tf_img3.PNG" alt="">
                                 </div>
+                                <div class="illustration-horiz-3">
+                                    <img src="images/ai/grain.PNG" alt="">
+                                    <img src="images/ai/tf_img2.PNG" alt="">
+                                </div>
+                                <!-- <div>
+                                    <img src="images/ai/tf_img3.PNG" alt="">
+                                </div> -->
                                 <p>With this approach, we only seek to modify the image's module (in the frequency domain). Indeed, modifying the module results in changing the looking of objects (contrast, luminosity, etc.)
                                     but <span class="bold">NOT the shapes themselves</span>, which are encoded in the phase.
                                     \[ I(u,v) = |I(u,v)| e^{j\phi(u,v)} \]
@@ -271,7 +277,7 @@
                                     that will separate the range of intensities of the object from the background. Then, by applying a <span class="bold">binarization (also called thresholding)</span>, a pixel below the threshold,
                                     is set to 0 and a pixel above the threshold is set to 1. It may also happen that bumps are not clearly set apart, in that case we can use a <span class="bold">hysteresis thresholding</span>.
                                 </p>
-                                <div class="illustration-horiz">
+                                <div class="illustration-horiz-3">
                                     <img style="width: 30%; margin: 0.5rem auto;"" src="images/ai/sic.PNG" alt="sic">
                                     <img style="width: 30%; margin: 0.5rem auto;"" src="images/ai/sic_thresholding.PNG" alt="thresholding">
                                 </div>
@@ -329,8 +335,10 @@
                                             <li><span class="bold">Image periodization</span></li>
                                         </ul>
                                     </div>
-                                    <p>Finally, linear filters are fit for filtering the gaussian noise. The pictures below show the impact of an average filter of size 3x3, 5x5, 7x7.
+                                    <p>Finally, linear filters are fit for filtering the gaussian noise. The pictures below show the impact of an average filter of size 3x3, 5x5, 7x7 on a noisy image and we can notice that
+                                        the noise is somewhat reduced but also widely spread over the image. The best filter for this type of noise is the <span class="bold">median filter</span> which is a non-linear filter.
                                     </p>
+                                    <img style="width: 75%;" src="images/ai/filter2_ave_otolithe.PNG" alt="">
                                 </div>
                                 <div id="non-linear-filter"> <h5>Non-linear Filtering</h5>
                                     <p>To filter <span class="bold">impulse noise</span>, we <span class="bold">cannot use linear filters</span> because instead of diminishing the noise they spread it over the surrounding pixels.
@@ -339,6 +347,7 @@
                                         the noise is likely to be the among the lowest or highest values and will be discarded. The median value is chosen as the pixel's output value. 
                                     </p>
                                 </div>
+                                <img src="images/ai/medfilt2_otolithe.PNG" alt="">
                             </div>
 
                             <div> <h4>Math morphology</h4>
@@ -351,11 +360,8 @@
                                         <li><span class="bold">Erosion:</span> to erase objects from the image (small imperfections, excrescence ...)</li>
                                         <li><span class="bold">Dilatation:</span> to fill holes in a shape</li>
                                     </ul>
-                                </div>
-                                <p>Usually we apply an erosion followed by a dilatation to get rid of small imperfections and fill holes. This is called an <span class="bold">opening</span>.
-                                    We can also apply a dilatation followed by an erosion to fill holes and get rid of small imperfections. This is called a <span class="bold">closing</span>.
-                                    The order of these operations matters !!!
-                                </p>
+                                    <p>Usually we apply an erosion followed by a dilatation to get rid of small imperfections or noise around objects. This is called an <span class="bold">opening</span>.</p>
+                                    <p>We can also apply a dilatation followed by an erosion to fill holes. This is called a <span class="bold">closing</span>.</p>                                </div>
                                 <div> <h5>Gray levels</h5>
                                     <p>When considering the image with multiple levels of gray, </p>
                                 </div>
@@ -368,13 +374,60 @@
                                     To have a better understanding of what the Laplacian is, click <a href="math&IT.html">here</a>. In short, this is the second derivative of a 2D function.
                                     Performing this operation on the image's pixels will enhance the contrast of the image.
                                 </p>
+                                <div class="illustration-horiz-4">
+                                    <img src="images/ai/floue.PNG" alt="">
+                                    <img src="images/ai/ImR_floue_10Lap.PNG" alt="">
+                                    <img src="images/ai/ImR_floue_15Lap.PNG" alt="">
+                                    <img src="images/ai/ImR_floue_20Lap.PNG" alt="">
+                                </div>
+                                <p>The illustrations above show a slightly blurred image and an increase in the \(\lambda\) factor: 10, 15 and 20. We notice an improvement in the contrast of the image.</p>
                             </div>
+
+                            <div> <h4>Edge detection</h4>
+                                <p>In an image, edges are the result of high-intensity differences between one or several objects. They can be captured using the derivative of the image along
+                                    the \(x\) and \(y\) axis:
+                                    \[ \frac{\partial I(x,y)}{\partial x} = \frac{I(x+1,y_0) - I(x-1,y_0)}{2} \equiv \frac{1}{2} \begin{bmatrix} -1 & 0 & 1 \end{bmatrix} \]
+                                    \[ \frac{\partial I(x,y)}{\partial y} = \frac{I(x_0,y+1) - I(x_0,y-1)}{2} \equiv \frac{1}{2} \begin{bmatrix} -1 \\ 0 \\ 1 \end{bmatrix} \]
+                                    Our purpose though is to emphasize edges, thus we remove the \(\frac{1}{2}\) factor by multiplying those derivatives by 2 to <span class="bold">increase the derivative effect</span>.
+                                    However those operations <span class="bold">amplify noise</span> as well, therefore we also need to apply a <span class="bold">smoothing filter</span> before applying the derivative.
+                                    This action results in doing the following operations, respectively along the \(x\) and \(y\) axis:
+                                    \[ I(x,y) * \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} * \begin{bmatrix} -1 & 0 & 1 \end{bmatrix} \equiv I(x,y) * \begin{bmatrix} -1 & 0 & 1 \\ -1 & 0 & 1 \\ -1 & 0 & 1 \\ \end{bmatrix} \]
+                                    \[ I(x,y) * \begin{bmatrix} 1 & 1 & 1 \end{bmatrix} * \begin{bmatrix} -1 \\ 0 \\ 1 \end{bmatrix} \equiv I(x,y) * \begin{bmatrix} -1 & -1 & -1 \\ 0 & 0 & 0 \\ 1 & 1 & 1 \\ \end{bmatrix} \]
+                                </p>
+                                <div class="frame-highlight">
+                                    <p>The kernels formed above are <span class="bold">Prewitt filters</span> and used to detect edges within an image. There exist vriantes of those filters. One is
+                                        the <span class="bold">Sobel filter</span> which uses a <span class="bold">gaussian-like smoothing filter</span> instead of a <span class="bold">rectangle_like smoothing filter</span>:
+                                        \[ I(x,y) * \begin{bmatrix} 1 \\ 2 \\ 1 \end{bmatrix} * \begin{bmatrix} -1 & 0 & 1 \end{bmatrix} \equiv I(x,y) * \begin{bmatrix} -1 & 0 & 1 \\ -2 & 0 & 2 \\ -1 & 0 & 1 \\ \end{bmatrix} \]
+                                        Indeed, the smoothing filter can introduce <span class="bold">artifacts</span> in the image (consequences in the frequency domain), it should be <span class="bold">as smooth as possible</span>.
+                                    </p>
+                                </div>
+                                <div class="illustration-horiz-3">
+                                        <img src="images/ai/trees.PNG" alt="">
+                                        <img src="images/ai/sobel_trees.PNG" alt="">
+                                </div>
+                                <p>After having passed the image through the Sobel filters, we end up with 2 images. Each one accounts for the gradient along the corresponding axis.
+                                    We can then combine them to get a <span class="bold">single image</span>. To do so, we can use the <span class="bold">gradient magnitude</span> and the <span class="bold">gradient direction</span>:
+                                    \[ m(x,y) = \sqrt{I_x(x,y)^2 + I_y(x,y)^2} \]
+                                    \[ \theta(x,y) = arctan(\frac{I_y(x,y)}{I_x(x,y)}) \]
+                                    This gradient magnitude is the <span class="bold">norm of the gradient</span> and is used to <span class="bold">detect edges</span> in an image.
+                                    Each \(m(x,y\))'s pixel represents the <span class="bold">intensity of the gradient</span> at this pixel. The gradient direction is the <span class="bold">orientation of the gradient</span> at this pixel.'
+                                    We take each \(m(x,y\))'s pixel and we compare it to its surrounding pixels in the direction of the gradient. If it is the <span class="bold">maximum</span> of its surrounding pixels, then it is an edge and the pixel is conserved.'
+                                </p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div> <h3>Mini project</h3>
+                            <p></p>
                         </div>
                         <hr>
                         <div> <h3>Hands-on image processing</h3>
                             <div> <h4>Matlab</h4>
                                 <p>On Matlab, we can use the function <span class="bold">graycomatrix</span> to compute the co-occurrence matrix and the function <span class="bold">graycoprops</span> to compute the its <span class="bold">Haralick vector</span>.
                                 </p>
+                                <ul>
+                                    <li>imshow: display an image</li>
+                                    <li>imagesc: display the result of a mathematical operation on the image (pixels are not "real" pixels and can take a negative value)</li>
+                                </ul>
                             </div>
                             <div> <h4>OpenCV</h4>
                                 <p>I work with Google Colab. I will upload soon a notebook with some examples.</p>

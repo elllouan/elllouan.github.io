@@ -169,14 +169,23 @@
                 </p>
             </div>
 
-            <div> <h2 id="peripherals">4. Peripherals</h2>
-                <p>The <span class="bold">VFS (Virtual File System)</span> layer (part of oslib.h) provides the user a layer of abstraction to access peripherals.
-                    Its job is to redirect syscalls to the right peripheral driver.
-                    Let's take an example. Let's say we want to access a file on the SD card we plugged into the board and read it to copy its content elsewhere. We will use
-                    a syscall like <span class="bold">fopen()</span> (the name is can be different). This fopen syscall would then call the real file system that manages the SD card memory.
-                    The VFS layer is the intermediary between the user and the real file system. It is the one that redirects the syscall to the right peripheral driver.
-                    If we wished to access another file on another peripheral, we would use the same syscall, but the VFS layer would redirect it to another file system responsible for this new device.
+            <div> <h2 id="peripherals">4. Accessing Peripherals</h2>
+                <p>The <span class="bold">VFS (Virtual File System)</span> is an abstraction layer (part of oslib.h) that allows the user to manage all available peripherals with ease.
+                    The VFS layer is part of the OS kernel. It sits between the <span class="bold">userspace</span> and the <span class="bold">real peripheral driver</span>.
+                    Its job is to redirect syscalls like <span class="bold">open(), close(), etc.</span> to the right peripheral driver. Thus, this layer allows to manipulate all peripherals in the same way (i.e., using the same VFS functions).
                 </p>
+                <div class="frame-highlight">
+                    <p>Let's take an example. Let's say we want to access a file on the SD card we plugged into the board and read its content. We will use
+                        a syscall like <span class="bold">open($filepath$)</span> (the name is can be different). This open() syscall would then call the open()
+                        (or equivalent function) of the <span class="bold">real file system</span> that manages the SD card memory.
+                        If we wished to access another file on another peripheral, we would use the same syscall, but the VFS layer would redirect it to another file system responsible for this new device.
+                        This mechanism is illustrated below.
+                    </p>
+                </div>
+                <img style="width: 75%;" src="images/os_proj/vfs_hierarchy.PNG" alt="vfs_hierarchy">
+                <div> <h3>Implementation</h3>
+                    <p></p>
+                </div>
             </div>
 
         </section> <!-- main-container -->

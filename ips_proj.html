@@ -26,10 +26,11 @@
 
             <div class="section"> <h2>Structure of the project</h2>
                 <div class="sub-section"> <h3>General overview</h3>
-                    <p>We are a group of 5 students working on this project. The goal is to control the height of a mass, hooked to a shape memory spring, accordingly to the command done by the user.
-                        To do so, we have a flight time sensor that measures the distance between the mass and the ground. This sensor is connected via I²C to the STM32F4 microcontroller.
-                        The board implements a PID controller that serves the whole system with a PWM signal. The PWM signal is then amplified by a MOSFET to control the current flowing through the shape memory spring.
+                    <p>We are a group of <span class="bold">5 students</span> working on this project. The goal is to <span class="bold">control the height of a mass</span>, hooked to a shape memory spring, according to a target set by a user from an GUI.
+                        To do so, we have a <span class="bold">flight time sensor</span> that measures the distance between the mass and the ground. This sensor is connected via I²C to the STM32F4 microcontroller.
+                        The board implements a PID controller that serves the spring with a PWM signal. The PWM signal is then amplified by a MOSFET to control the current flowing through the shape memory spring.
                     </p>
+                    <img src="images/ips_proj/test.jpg" alt="">
 
                     <div> <h4>Equipment</h4>
                         <p>The basic equipment for this project consisted of:</p>
@@ -48,53 +49,73 @@
                         <p>We divided this project into multiple steps:</p>
                         <div class="frame-highlight">
                             <ul>
-                                <li>Testing and getting familiar the system</li>
-                                <li>Implementing basic functionalities on the microcontroller: PWM generation, ADC, Timer, etc.</li>
+                                <li>Testing and getting familiar with the system</li>
+                                <li>Configuring some microcontroller's peripherals: PWM generation, ADC, Timer, etc.</li>
                                 <li>Devising the PCB structure and testing remote parts</li>
                                 <li>Elaborating the PCB on Eagle</li>
-                                <li>Developing an GUI</li>
+                                <li>Developing an GUI to interact with the system</li>
                                 <li>Figuring out PID parameters</li>
-                                <li>Creating a web page to present our project</li>
+                                <li>Creating a poster and a web page to present our project</li>
                             </ul>
                         </div>
                     </div>
 
                     <div> <h4>Workload repartition</h4>
-                        <p>As mentionned above, we are a group of 5 students. Regarding our preferences, we assign ourselves different parts: </p>
+                        <p>As mentionned above, we are a group of 5 students. Regarding our preferences, we assign each member of the group different parts: </p>
                         <div class="frame-highlight">
                             <ul>
-                                <li><span class="bold">Julien:</span> worked on the hardware electronics (Eagle) and Gantt digram.</li>
-                                <li><span class="bold">Gentilla:</span> worked with Julien (Eagle) and with me for the web page.</li>
+                                <li><span class="bold">Julien:</span> worked on the PCB (Eagle) and Gantt diagram.</li>
+                                <li><span class="bold">Gentilla:</span> worked with Julien (Eagle) and also on a poster for synthesizing the project.</li>
                                 <li><span class="bold">Titouan:</span> worked on the GUI (Python).</li>
-                                <li><span class="bold">Pierre-Nicolas:</span> worked on the software electronics (STM32).</li>
-                                <li><span class="bold">Elouan (me):</span> worked on the web page and also on the PID algorithm (STM32).</li>
+                                <li><span class="bold">Pierre-Nicolas:</span> worked on the PID implementation (STM32).</li>
+                                <li><span class="bold">Elouan (me):</span> worked on the web page, on the firmware (peripherals configuration) and on the PID algorithm.</li>
                             </ul>
                         </div>
                     </div>
 
                     <div> <h4>Upfront difficulties</h4>
-                        <p>The system we aim to serve is a shape memory spring. However, it is very hard to predict the system's behavior because its transfer function changes as the spring
-                            temperature increases. Therefore, we will be considering the spring as a black box and we will try to find the best PID parameters by trials and errors.
+                        <p>The system we aim to serve is a <span class="bold">shape memory spring</span>. However, it is very hard to predict the system's behavior because its transfer function changes as the spring
+                            temperature increases. Therefore, we will be considering the spring as a <span class="bold">black box</span> and we will try to find the best PID parameters by trials and errors.
+                            Also, we have to measure the current flowing through the spring and display it on the GUI. 
                         </p>
                     </div>
 
                     <div> <h4>Schema</h4>
+                        <p>This schema describes all components and their interactions within the whole system. It was elaborated by <span class="bold">Gentilla</span>.</p>
                         <img src="images/ips_proj/Schema.png" alt="">
                     </div>
                 </div>
             </div>
 
             <div class="section"> <h2>PCB</h2>
+                <p>The </p>
                 <div> <h4>Designing the PCB</h4>
+                    <img src="images/ips_proj/SchemaElec.PNG" alt="">
                 </div>
 
                 <div> <h4>Current measurement</h4>
+                    <p>To measure current, we use a <span class="bold">shunt resistor</span> that we put in <span class="bold">serie</span>. It is a very low resistor so that it has no effect on the current.
+                    We need to measure the <span class="bold">voltage</span> at its ends to know the current flowing through it (so in the spring). However, we use a PWM signal, meaning that the tension at the ends of the shunt resistor is not constant.
+                    Therefore, we use a <span class="bold">low pass filter</span> to compute the <span class="bold">average voltage</span> (voltage perceived by the spring).
+                    This average voltage is passed through an <span class="bold">ADC</span> to be read by the microcontroller, which sends it to the <span class="bold">GUI</span>.
+                </p>
                 </div>
 
                 <div> <h4>STM32 peripherals</h4>
+                    <p>To build our system, we needed to configure some peripherals:</p>
+                    <div class="frame-highlight">
+                        <ul>
+                            <li><span class="bold">PWM generation</span>: to serve the spring with a PWM signal.</li>
+                            <li><span class="bold">ADC</span>: to measure the voltage at the ends of the shunt resistor.</li>
+                            <li><span class="bold">Timer</span>: to set a sampling period.</li>
+                            <li><span class="bold">I²C</span>: to communicate with the flight time sensor.</li>
+                            <li><span class="bold">UART</span>: to communicate with the GUI.</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div> <h4>Building the PCB with Eagle</h4>
+                    <p>There will be a photo of the PCB when it will have been printed.</p>
                 </div>
             
             </div>
@@ -106,96 +127,114 @@
                         The duty cycle of this signal directly impacts how <span class="bold">much current flows through the spring</span>. We know (from the teacher) that the spring behaves somehow like a <span class="bold">low-pass filter</span> (in fact, the spring is a black box).
                         Hence, it will only see the <span class="bold">average</span> of the current flowing through it. Then, it is easy to understand that the <span class="bold">wider</span> duty cycle, the <span class="bold">higher</span> the tension (so the current). 
                         It is important to mention that we supply the spring with a 3V source and it takes time to heat up. We have experimented different duty cycle to see how the system behaves.
-                        This is aimed at giving us a rough hint about how fast the spring reacts. 
+                        This was aimed at giving us a approximate hint about how fast the spring reacts. 
                     </p>
                     <div class="frame-highlight">
-                        <p>Our main difficultes lie in the fact that we only have <span class="bold">control on the elevation of the mass</span> and we don't have a <span class="bold">model of the system's behavior</span>.</p>
+                        <p>Our main difficultes lie in the fact that we only have <span class="bold">control over the elevation of the mass</span> (not the fall) and we don't have a <span class="bold">model of the system's behavior</span>.</p>
                     </div>
                 </div>
 
                 <div> <h4>PI algorithm</h4>
-                    <p>As stated, we can only control the <span class="bold">rise process</span> of the system quite decently (e.g., the spring fold), by <span class="bold">tweaking the duty cycle</span> of the PWM signal, even though we do not know exactly its behavior.
-                        However, the fall process depends the surrounding temperature that makes the spring unfold. We have to wait for the spring to cool to have it go down.
-                        Thus, we should <span class="bold">avoid overshooting</span> the target height. Eventually, we want a PI that makes the mass reach the target as fast as possible without overshooting it.
-                        For a first test, we decided to remove the derivative factor \(K_d\), so we only need to tune the proportional \(K_p\) and integral \(K_i\) factors.
-                        The \( K_p \) factor will make the system reach the target faster, while the \( K_i \) factor will correct the error over time. Moreover, we know that:
+                    <p>As stated, we can only control the <span class="bold">rise process</span> of the system (e.g., the spring fold), by <span class="bold">tweaking the duty cycle</span> of the PWM signal, even though we do not know exactly its behavior.
+                        However, the fall process depends on the <span class="bold">surrounding temperature</span> that makes the spring unfold. We have to <span class="bold">wait for the spring to cool down to have it go down</span>.
+                        Thus, we should <span class="bold">avoid overshooting</span> the target height. We remove the derivative \(K_d\) factor as it amplifies the <span class="bold">responsivness</span> of the system while <span class="bold">degrading the accuracy</span>.
+                        Eventually, we are aiming for a <span class="bold">PI</span> that makes the mass reach the target as fast as possible without overshooting it. Thus, we only need to tune the proportional \(K_p\) and integral \(K_i\) factors.
+                        The \( K_p \) factor will make the system reach the <span class="bold">target faster</span>, while the \( K_i \) factor will <span class="bold">accumulate the error</span> over time. Moreover, we know that:
                         \[ \delta_e \leq \delta_{max} = 100mm \]
                         \[ \delta_e \leq 0 \implies dc=0\% \implies 0V \]
-                        \[ \delta_e=\delta_{max} \implies dc=60\% \implies 3V \]
-                        We only make the duty cycle vary up to 60% because beyond this value, we noticed that the spring is dramatically less likely to be reversed. Now let's consider the algorithm :
+                        \[ \delta_e=\delta_{max} \implies dc=50\% \implies 1.5V \]
+                        We only allow the duty cycle to vary from 0% up to 50% because beyond this value, we noticed that the spring is dramatically less likely to be reversed. Now let's consider the algorithm :
                         \[ u_p = K_p \cdot \delta_e \]
                         \[ u_i = u_i + K_i \cdot u_p \]
                         \[ u_{cmd} = u_p + u_i \]
-                        \( \delta_e \) represents the error (in mm) between the <span class="bold">current position and the target position</span>. Every ms, we update the PWM duty cycle using the output variation \( u_{cmd} \).
-                        Thus, we need to map the variation \(u_{cmd}\) to a variation of our PWM duty cycle, because that is how we serve our system.
-                        It is important to note that what we calculated here is a variation of the command, meaning that it should be in the same order of magnitude as the PWM duty cycle (comprised between 0% and 60%), to avoid saturation.
-                        <!-- Therefore, we could map one millimeter for one percent of duty cycle. However, we want to be able to reach the target as fast as possible. So, we will use a linear mapping function
-                        I think that our _( K_i \) will be very important. -->
+                        \( \delta_e \) represents the error (in mm) between the <span class="bold">current position and the target position</span>. Every ms, we update the PWM duty cycle using the <span class="bold">output variation</span> \( u_{cmd} \).
+                        This variation defines the <span class="bold">new duty cycle</span> of our PWM duty cycle.
+                        It is important to note that this is a variation in the command, meaning that it should be in the same order of magnitude as the PWM duty cycle (comprised between 0% and 50%).
+                        To make sure the command stay within the right order of magnitude, beyond a <span class="bold">threshold of 50%</span> we <span class="bold">block</span> the command.
                     </p>
                 </div>
 
-                <div> <h4>First conclusions</h4>
-                    <p>After having tested different values of \(K_p\) and \(K_i\), results turned out to be unsatisfying.
-                        The problem is that the string behaves like a hysterisis: <span class="bold">one threshold to fold but another one to unfold</span>. This is due to the heat accumulation in the spring over time.
-                        The <span class="bold">error accumulated</span> over time is <span class="bold">too important</span> to be reversed within few hundred ms.
-                        Either, the value of \(K_i\) is <span class="bold">too low</span> and the system does not reach the target fast enough (several minutes), or it is <span class="bold">too high</span> and the system <span class="bold">overshoots</span> the target and keeps oscillating around the target.
+                <div> <h4>Issues and solutions</h4>
+                    <p>After having tested different values of \(K_p\) and \(K_i\), results turned out to be <span class="bold">unsatisfying</span>. The problem is that the spring behaves like a hysterisis: <span class="bold">one threshold to fold but another one to unfold</span>.
+                        This inertia is due to <span class="bold">heat accumulation</span> in the spring. Either, the value of \(K_i\) was <span class="bold">too low</span> and the system did not reach the target <span class="bold">fast enough (several minutes)</span>,
+                        or it was <span class="bold">too high</span> causing the system to significantly <span class="bold">overshoot</span> the target. This had the spring <span class="bold">oscillate very slowly</span> around the target. We needed to find a another way to <span class="bold">increase the accuracy</span> of the system.
+                    </p>
+                    <p>After some time, we realised that the problem was mainly due to the fact that, even though we stopped increasing the command after a threshold of 50%, <span class="bold">the term \(ui\) kept increasing anyway</span>.
+                        This was a problem because when the mass reached the target, the command \(u_{cmd}\) was <span class="bold">too high</span> due to an <span class="bold">overaccumulation of error</span>. <span class="bold">The mass kept rising so long as the accumulated error was unwound</span>.
+                        Since our system is sluggish, it takes a lot of time to unwind the error. Hence, the system took too much time to decrease the command (i.e., duty cyle).
+                        As a result, we decided to <span class="bold">put a cap on the integral term</span> \(u_i\) as soon as the command reaches the threshold of 50%. This significantly improved the accuracy of the system.
                     </p>
                     <div class="frame-highlight">
-                        <p>The \(K_i\) factor is noticeable on the oscilloscope. It widens the duty cycle of the PWM signal, so long as the system do not reach its target. That widening effect is proportional to the error.</p>
+                        <p>This technique is known as <span class="bold">integrator windup</span>.</p>
                     </div>
+                    <p>Answered questions:</p>
+                    <ul>
+                        <li>What happens when we increase the \(K_p\) and \(K_i\)?</li>
+                        <li>How can we increase the accuracy of the system?</li>
+                        <li>...</li>
+                    </ul>
                 </div>
 
                 <div> <h4>PID?</h4>
-                    <p>After reflection, we could try to use the \(K_d\) factor to <span class="bold">lower the impact</span> of the \(K_i\) factor, especially during the spring's critical state. The \(K_d\) factor plays a role in <span class="bold">emphasizing sharp changes</span> in the system.
-                        This factor could be relevant because we noticed that after a duty cycle threshold value, the spring <span class="bold">skrinks very quickly</span> (i.e., high derivative), which causes the <span class="bold">mass to rise fast</span>.
-                        This sharp change in the mass height can be handled by the <span class="bold">derivative factor</span>.
-                        However, instead of adding this factor, we can <span class="bold">substract</span> it to the command so that when significant changes occur, the <span class="bold">command is slowed down</span>. Otherwise the spring is <span class="bold">almost idle</span>, resuting in a \(K_d\) factor that is has <span class="bold">no influence</span>.
+                    <p>After reflection, we thought of leveraging the \(K_d\) factor to <span class="bold">lower the impact</span> of the \(K_i\) factor, especially during the <span class="bold">spring rise</span>.</p>
+                    <div class="frame-highlight">
+                        <p>The \(K_d\) factor plays a role in <span class="bold">emphasizing sharp variations</span> in the system.</p>
+                    </div>
+                    <p>This factor could be relevant because we noticed that after a certain duty cycle threshold (40-50%), the spring <span class="bold">skrinks very quickly</span> (i.e., high derivative), which causes the <span class="bold">mass to rise fast</span>.
+                        This sharp variation in the mass height can be ca^ptured by the <span class="bold">derivative component</span> \(u_d\) and can be handled by the <span class="bold">derivative factor</span>.
+                        However, instead of adding this factor, we could <span class="bold">substract</span> it to the command so that when significant variations occur, the <span class="bold">command is reduced</span> and the <span class="bold">rise slowed down</span>.
+                        Otherwise the spring is <span class="bold">almost idle</span>, resuting in a \(K_d\) factor that has <span class="bold">no influence</span>.
                         \[ u_p = K_p \cdot \delta_e \]
                         \[ u_i = u_i + K_i \cdot u_p \]
                         \[ u_d = K_d (u_d^{n} - u_d^{n-1}) \]
                         \[ u_{cmd} = u_p + u_i - u_d \]
-                        \(u_d\) is the derivative of the command. \(n\) represents the current iteration and \(n-1\) the previous one.
-                    </p>
-                </div>
-
-                <div> <h4>PID conclusions</h4>
-                    <p>Will try this algorithm next wednesday, trying different values of \(K_d\) and see if it is more efficient than the previous one.
+                        \(u_d\) is the derivative component of the command. \(n\) represents the current iteration and \(n-1\) the previous one.
                     </p>
                 </div>
 
                 <div> <h4>P factor only</h4>
-                    <p>We also decided to implement a P controller only, to fix the PI to fix the problem of error accumulation.
-                        We decied to implement a simple P controller and then when the mass is on the verge of exceeding the target, we switch "instanteniously" to a lower duty cycle.
-                        After some tests, the mass stabilizes quite fast on the target (few seconds) and oscillations are unsignificant.
+                    <p>We also decided to try a P controller only, to fix the PI to fix the problem of error accumulation. Then when the mass is on the verge of exceeding the target, we switch "instanteniously" to a lower duty cycle.
+                        After some tests, the mass stabilizes quite fast on the target (few seconds) and oscillations are quite unsignificant.
                     </p>
                     <div class="frame-highlight">
                         <p><span class="bold">Limitations:</span></p>
-                        <ol>
+                        <ul>
                             <li>the PWM signal is fixed to be effective in a lukewarm temperature (~20°C) environment. If the environment started to get colder, the PWM would not change because there is no accumulation of error.</li>
                             <li>the PWM switches from 10% to 60% within a short amount of time (sharp tension changes) and this might damage the system and the board faster.</li>
-                        </ol>
+                        </ul>
                     </div>
                 </div>
 
-                <div> <h4>Saturation and unstability</h4>
-                    <p>We want to make sure that our command does not saturate for too long as it can cause quick changes and in the end may lead to unstability.
+                <div> <h4>Conclusions</h4>
+                    <p>As a conclusion, the best option remains the <span class="bold">PI controller</span> using the <span class="bold">integrator windup</span> method. The <span class="bold">P controller</span> using threshold switching is a <span class="bold">good alternative</span> but it is not as accurate as the PI controller.
+                        Moreover, it involves <span class="bold">sharp changes</span> in the PWM signal that might damage the system faster. Finally, from our experiments, the <span class="bold">PID controller</span> is the least accurate. I thought the derivative could compensate for the overshooting but it is not the case. 
                     </p>
                 </div>
 
                 <div> <h4>Current loop</h4>
-                    <p>We also have to be careful about the current flowing through the spring.
+                    <p>By blocking the duty cycle to a certain threshold, we assure that our system will not be supplied with too much current (~0.9A maximum).
                     </p>
+                </div>
+
+                <div> <h4>PID program</h4>
+                    <p>Code will be uploaded soon.</p>
                 </div>
 
             </div>
 
             <div class="section"> <h2>GUI</h2>
                 <div> <h4>Communication</h4>
-
+                    <p></p>
                 </div>
 
-                <div> <h4>Real-time display</h4>
-
+                <div> <h4>Features</h4>
+                    <div class="frame-highlight">
+                        <ul>
+                            <li>Showing values</li>
+                            <li>Sending a height instruction</li>
+                            <li>Real-time display</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
