@@ -3,40 +3,17 @@ ul {
 }
 
 @media screen and (min-width: 481px) {
-    
-    .main-container {
-        line-height: 2rem;
-    }
-
-    .main-container p {
-        text-align: justify; /* justify text */
-        margin: 0.75rem;
-    }
-
-    .main-container a {
-        color: #333;
-    }
 
     .introduction {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        /* align-items:; */
     }
-
-    /* .introduction div {
-        width: 50%;
-    } */
 
     .presentation {
         background-color: lightgray;
         border: 5px solid #333;
         padding: 0.5rem;
-        /* width: 70%; */
     }
-
-    /* .profile-pic {
-        width: 30%;
-    } */
 
 }

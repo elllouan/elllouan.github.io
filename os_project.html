@@ -22,21 +22,21 @@
         <section class="main-container">
 
             <h1>OS from scratch</h1>
-            <h3 class="page-subtitle">This page describes more throughly the steps of the project and my learning outcomes.</h3>
+            <div class="page-subtitle">This page describes more throughly the steps of the project and my learning outcomes.</div>
 
             <div class="cross-compiler-tuto"> <h2>Bootstrapping & Cross-compilation</h2>
 
                 <div> <h3>1.1 Definitions</h3>
-                    <p>Our goal here is to build a GCC cross-compiler for the <span class="mark">i386-elf</span> target.
+                    <p>Our goal here is to build a GCC cross-compiler for the <span class="bold">i386-elf</span> target.
                         Therefore, I have to build binutils, gdb and gcc myself to set them for this configuration.
                     </p>
-                    <p><span class="mark">Bootstrapping</span> is a process in which we use an older version of a compiler to compile its new version.
+                    <p><span class="bold">Bootstrapping</span> is a process in which we use an older version of a compiler to compile its new version.
                         Hence, we start with a basic compiler (compiled with a native compiler) up to buidling a more advanced (and maybe self-hosted) compiler.
                         Bootstrapping is very interesting as it leverages previous features and achievements of a compiler to create a new and more advanced version of it.
                         Here is an illustration with the T-diagram:
                         <img src="images/bootstrapping.svg" alt="bootstrapping">
-                        A <span class="mark">self-hosted</span> compiler is a compiler designed to compile its source programmation language.
-                        A <span class="mark">cross-compiler</span> is a compiler whose purpose is to build executable programs (binary files) which are aimed at another OS or architecture
+                        A <span class="bold">self-hosted</span> compiler is a compiler designed to compile its source programmation language.
+                        A <span class="bold">cross-compiler</span> is a compiler whose purpose is to build executable programs (binary files) which are aimed at another OS or architecture
                         than the one we are working on. For example, if we work on a Linux environment but we want to create executables for Windows whose OS
                         (and maybe architecture) differs, we can use a cross-compiler (such as minGW-64) to do so.
                         <div class="frame-highlight">
@@ -50,64 +50,69 @@
                 <hr>
                 <div> <h3>1.2 Buidling a GCC cross-compiler</h3>
                     <p>I will be working with the Windows Subsystem for Linux (WSL 2) as my platform of developement.
-                        <div class="frame-highlight">Note: You cannot have your cross compiler in the /mnt/c/ (or /mnt/"x") areas, as trying to compile your cross-compiler there will generate errors, whereas building to $HOME/opt/cross works perfectly.
-                            This is fixed with Windows Update KB3176929
+                        <div class="frame-highlight">
+                            <p><span class="bold">Note:</span> You cannot have your cross compiler in the /mnt/c/ (or /mnt/"x") areas, as trying to compile your cross-compiler there will generate errors, whereas building to $HOME/opt/cross works perfectly.
+                                This is fixed with Windows Update KB3176929.
+                            </p>
                         </div>
                         GCC is a comprehensive tool. It can be configured to compile code for various <span class="bold">targets</span> (platforms and architectures). Therefore, I will be using it. Some <a href="https://gcc.gnu.org/install/prerequisites.html">dependencies</a>
                         need to be installed before processing gcc compilation. First off, I need to configure and compile other tools that will be useful for the future of this project. These are <span class="bold">Binutils</span> and <span class="bold">GDB</span>.
                         Though, I don't fully understand what Binutils is used for. I have understood that it is a collection of GNU tools with the <span class="bold">ld</span> linker and <span class="bold">as</span> assembler.
                         On the other hand, GDB is a debugger. It will come handy when I will be debugging my OS.
                     </p>
-                    <p>First, start by setting some environment variables to make our lives easier. <span class="bold">TARGET</span> is the target architecture, <span class="bold">PREFIX</span> is the path to your compiler's root directory.
+                    <p>First, I start by setting some environment variables to make the process easier. <span class="bold">TARGET</span> is the target architecture, <span class="bold">PREFIX</span> is the path to my compiler's root directory.
                         This path can be changed. Finally, <span class="bold">PATH</span> is the path to the compiler binaries (or executable).
                     </p>
                     <div class="linux-terminal">
-                        <div>export TARGET=i686-elf</div>
-                        <div>export PREFIX="$HOME/opt/cross"</div>
-                        <div>export PATH="PREFIX/bin:$PATH"</div>
+                        <div><span class="command">export TARGET=i686-elf</span></div>
+                        <div><span class="command">export PREFIX="$HOME/opt/cross"</span></div>
+                        <div><span class="command">export PATH="PREFIX/bin:$PATH"</span></div>
                     </div>
 
                     <div> <h5>Compilation of Binutils</h5>
-                        <p>
-                            Download these <a href="https://ftp.gnu.org/gnu/binutils/" target="_blank">Binutils packages</a> in the <span class="mark">$HOME/src</span> directory.
-                            <div class="linux-terminal">
-                                <div>HOME/src$ mkdir build-binutils</div>
-                                <div>$../binutils-x.y.z/configure --target=$TARGET --prefix=$PREFIX</div>
-                            </div> 
-                        </p>
+                        <p>Download these <a href="https://ftp.gnu.org/gnu/binutils/" target="_blank">Binutils packages</a> in the <span class="bold">$HOME/src</span> directory.</p>
+                        <div class="linux-terminal">
+                            <div><span class="command">cd HOME/src</span></div>
+                            <div>$ <span class="command">mkdir build-binutils && cd build-binutils</span></div>
+                            <div>/build-binutils$ <span class="command">../binutils-x.y.z/configure --target=$TARGET --prefix=$PREFIX --with-sysroot --disable-nls --disable-werror</span></div>
+                            <div>/build-gdb$ <span class="command">make all</span></div>
+                            <div>/build-gdb$ <span class="command">make install</span></div>
+                        </div> 
                     </div>
                     <div> <h5>Compilation of GDB</h5>
-                        <a href="https://sourceware.org/pub/gdb/releases/?C=M;O=D" target="_blank">GDB packages</a>
+                        <p>Download <a href="https://sourceware.org/pub/gdb/releases/?C=M;O=D" target="_blank">GDB packages</a>.</p>
                         <div class="linux-terminal">
-                            <div>HOME/src$ mkdir build-gdb</div>
-                            <div>$../gdb-x.y.z/configure --target=$TARGET --prefix=$PREFIX</div>
+                            <div><span class="command">cd HOME/src</span></div>
+                            <div>$ <span class="command">mkdir build-gdb && cd build-gdb</span></div>
+                            <div>/build-gdb$ <span class="command">../gdb-x.y.z/configure --target=$TARGET --prefix=$PREFIX --disable-werror</span></div>
+                            <div>/build-gdb$ <span class="command">make all-gdb</span></div>
+                            <div>/build-gdb$ <span class="command">make install-gdb</span></div>
                         </div>
                     </div>
                     <div> <h5>Compilation of GCC</h5>
-                        <p>Clone the GCC repository. For more detailed information, read through this <a href="https://gcc.gnu.org/wiki/InstallingGCC">page</a>.</p>
-                            <div class="linux-terminal">
-                                <div>HOME/src$ git clone https://gcc.gnu.org/git/gcc.git</div>
-                            </div>
+                        <p>Download the latest gcc version <a href="https://ftp.gnu.org/gnu/gcc/">here</a> or clone the GCC repository. For more detailed information, read through this <a href="https://gcc.gnu.org/wiki/InstallingGCC">page</a>.</p>
+                        <div class="linux-terminal">
+                            <div><span class="command">cd HOME/src</span></div>
+                            <div>$ <span class="command">git clone https://gcc.gnu.org/git/gcc.git</span></div>
+                        </div>
 
-                            Once downloaded, make sure to download prerequisites (GMP, MPFR, ISL and MPC libraries).
-                            <div class="linux-terminal">
-                                <div>tar xzf gcc-x.y.z.tar.gz</div>
-                                <div>cd gcc-x.y.z</div>
-                                <div>./contrib/download_prerequisites</div>
-                                <div>cd ..</div>
-                                <div></div>mkdir build-gcc
-                                <div>cd build-gcc</div>
-                                <div>$../gcc-x.y.z/configure --target=$TARGET --prefix=$PREFIX --enable-languages=c,c++</div>
-                                make
-                                make install
-                                <div>HOME/src/gdb$ ./contrib/download_prerequisites</div>
-                            </div>
+                        Once downloaded, make sure to download prerequisites (GMP, MPFR, ISL and MPC libraries).
+                        <div class="linux-terminal">
+                            <div>$ <span class="command">cd gcc</span></div>
+                            <div>/gcc$ <span class="command">./contrib/download_prerequisites</span></div>
+                            <div>$ <span class="command">cd ..</span></div>
+                            <div>$ <span class="command">mkdir build-gcc && cd build-gcc</span></div>
+                            <div>/build-gcc$ <span class="command">../gcc/configure --target=$TARGET --prefix="$PREFIX" --build=x86_64-linux-gnu --enable-languages=c,c++ --disable-nls --without-headers</span></div>
+                            <div>/build-gcc$ <span class="command">make all-gcc</span></div>
+                            <div>/build-gcc$ <span class="command">make all-target-libgcc</span></div>
+                            <div>/build-gcc$ <span class="command">make install-gcc</span></div>
+                            <div>/build-gcc$ <span class="command">make install-target-libgcc</span></div>
+                        </div>
 
-                            Finally, configure and build our GCC cross-compiler for the <span class="mark">i686-elf</span> target. 
-                            <div class="linux-terminal">
-                                <div>HOME/src/build-gdb$ ../gcc/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --enable-languages=c,c++ --without-headers </div>
-                            </div>
-                        </p> 
+                        <p>Finally, configure and build our GCC cross-compiler for the <span class="bold">i686-elf</span> target.</p>
+                        <div class="linux-terminal">
+                            <div>HOME/src/build-gdb$ <span class="command">../gcc/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --enable-languages=c,c++ --without-headers</span></div>
+                        </div>
                     </div>
 
                 </div>
@@ -124,12 +129,12 @@
                             The BIOS then loads the <span class="bold">bootloader</span> into the RAM by fetching the first sector of the boot device (usually the <span class="bold">hard drive</span>) and jumping to it.
                             <div class="frame-highlight">
                                 <p>The <span class="bold">bootloader</span> is a small program responsible for loading the kernel into the RAM. It contains <span class="bold">various information</span> about the kernel such as its location on the disk, its size, etc.
-                                    In this project, I will be using <span class="bold">GRUB</span> as bootloader.
+                                    In this project, I will be using <span class="bold">GRUB</span> as bootloader. It is a tool from the <span class="bold">GNU project</span> and a <span class="bold">multiboot compliant</span> bootloader.
                                 </p>
                             </div>
-                            Finally, the bootloader loads the kernel into the RAM and jumps to it. After this, one problem remains: the <span class="bold">stack pointer (ESP)</span> is not initialized. However, C++ programs expect this pointer to be initialized when the program starts.
+                            Finally, the bootloader loads the kernel into the RAM and jumps to it. After this, one problem remains: the <span class="bold">stack pointer (ESP)</span> is not initialized. However, C/C++ programs expect this pointer to be initialized when the program starts.
                             To initialize it, we need to create a <span class="bold">assembly file (loader.s)</span> that will initialize this pointer and jump to the <span class="bold">kernel's entry point</span>.
-                            On the other hand, the kernel program will be written in <span class="bold">C++ language</span>. Hence, we will end up with 2 files: a <span class="bold">loader.s</span> file and a <span class="bold">kernel.cpp</span> file.
+                            On the other hand, the kernel program will be likely written in <span class="bold">C++ language</span>. Hence, we will end up with 2 files: a <span class="bold">loader.s</span> file and a <span class="bold">kernel.cpp</span> file.
                             Since those are from different natures (assembler and C++), we need to find a way to "merge" them. To do that, we will be using a <span class="bold">linker</span>.
                             As a result, we will build both files into <span class="bold">object files (.o)</span> and link them using the linker program <span class="bold">ld</span>. All of this is discussed <a href="#makefile">further</a>.
                             You can view a summary illustration of the booting process below: 
@@ -171,38 +176,42 @@
                     <button onclick="">Show Makefile</button>
                 </div>
                 <hr>
-                <div> <h3>Loader file</h3>
-                    <p>There are some issues we need to sort out and that require assemby code. Firstly, the stack pointer has to be initialized. Secondly, when the bootloader loads the kernel into the RAM it searches for a so-called <span class="bold">Magic number</span> that informs it that the kernel.bin file is a valid kernel.
+                <div> <h3>loader.s file</h3>
+                    <p>There are some issues we need to sort out that require assemby code. Firstly, the stack pointer has to be initialized. Secondly, when the bootloader loads the kernel into the RAM,
+                        it searches for so-called <span class="bold">magic numbers</span> (known as a multiboot header), that allow it to recognize the kernel as <span class="bold">multiboot compatible</span>.
+                        Hence, it knows how to load the kernel. The multiboot header must be <span class="bold">very early in the kernel binary</span>, or the bootloader will fail to recognize us.
                     </p>
                     <div class="frame-highlight">
                         <p>A <span class="bold">Magic number</span> is a sequence of few bytes likely located at the beginning of a file which are <span class="bold">unique</span> to a particular file type.
-                            They are are used as a <span class="bold">file signature</span> by system. It helps the system to differentiate between different file types.
+                            They are are used as a <span class="bold">file signature</span>. It helps the system to differentiate between different file types.
                         </p>
                     </div>
-                    <p>Thirdly, the bootloader will also make the EAX register point to the <span class="bold">Multiboot information structure</span> and the EBX register point to the <span class="bold">Magic number</span>. Knowing that, we could benefit from this to store those values by pushing them on the kernel's stack.
+                    <p>Thirdly, the bootloader will automatically forward us important information. It will notably make the EAX register point to the <span class="bold">Multiboot information structure</span>
+                        and the EBX register point to the <span class="bold">Magic number</span>. Knowing that, we could benefit from this to store those values by pushing them on the kernel's stack.
                         Eventually, the <span class="bold">loader.s</span> file's goals are:                       
                     </p>
                     <div class="frame-highlight">
                         <ul>
                             <li>to initialize the stack pointer for the kernel</li>
-                            <li>to write the <span class="bold">Magic number</span>: 0x1BADB002</li>
+                            <li>to write the <span class="bold">multiboot header</span> (magic numbers)</li>
                             <li>to push the EAX and EBX registers on the stack</li>
                         </ul>
                     </div>
-                    <div> <h4>Structure</h4>
+                    <div> <h4>Structure of an assembly code</h4>
                         <div> <h5>.data section</h5>
-                            <p>This section defines constant variables.</p>
+                            <p>This section defines constant variables, structures.</p>
                         </div>
                         <div> <h5>.bss section</h5>
-                            <p>This section defines various variables such as static, global which can be modified throughout the program.</p>
+                            <p>This section defines various variables such as static, global which can be modified throughout the program execution.</p>
                         </div>
                         <div> <h5>.text section</h5>
                             <p>This section contains the code (assembler instructions).</p>
                         </div>
                     </div>
+                    <button onclick="">Show loader.s</button>
                 </div>
                 <hr>
-                <div> <h3>Kernel file</h3>
+                <div> <h3>kernel.cpp file</h3>
                     <p>As stated before, for this version of my kernel I just want to <span class="bold">print out some text on the screen</span>. In a traditional manner, this comes really easy as our program runs within an OS (say Linux) that can <span class="bold">dynamically link the glibc library to the program</span>.
                         In my case, I have <span class="bold">neither an OS, nor an external library</span> to link to. Therefore, I need to write <span class="bold">my own printf function</span>. It appears that at the <span class="bold">address 0xB8000</span>, there is a <span class="bold">memory-mapped VGA buffer</span>.
                         This means that all bytes written starting from this address will be displayed on the screen.
@@ -210,10 +219,42 @@
                     <div class="frame-highlight">
                         <p>It is important to note that I have to let a byte space between each byte written. Indeed, for each character printed out, we can tweak their foreground and background color using this byte in-between. The illustration below shows it.</p>
                     </div>
+                    <p>Also, you will notice that I wrote <span class="bold">extern "C"</span> before the main function definition. This intends to tell the compiler to discard <span class="bold">name mangling</span> (C++ feature) but instead to take the <span class="bold">C linkage conventions</span>
+                        so that it can recognize the function during linkage process.
+                    </p>
+                    <div class="frame-highlight">
+                        <p><span class="bold">Name mangling</span> is a C++ compilation convention. C++ includes <span class="bold">function overloading and namespaces</span>, which means that functions with the name can exist. They can have <span class="bold">different return types and arguments</span>.
+                            Therefore C++ compilation changes functions name by <span class="bold">adding new symbols</span> to the function's name (name-mangling) that allows the linker to differentiate functions that have the same name.
+                        </p>
+                    </div>
+                    <button onclick="">Show kernel.cpp</button>
                 </div>
                 <hr>
-                <div> <h3>Linker file</h3>
-                    <p>To be honest for this one I hardly understood the code written. I kind of understand what the linker is used for but the code itself is hard to get.</p>
+                <div> <h3>linker.ld file</h3>
+                    <p>For this file, I made some extra researches because it was really obscure to me. The role of the linker is to determine how the kernel's sections will be organized in memory when it is loaded and executed.
+                        This is done by the <span class="bold">SECTIONS</span> part. I will try to explain each line's purpose. 
+                    </p>
+                    <div class="frame-highlight">
+                        <ol>
+                            <li><span class="bold">. = 0x0100000;</span> is the memory location at which my kernel will be loaded (loader entry).</li>
+                            <li><span class="bold">.text</span> as for the loader.s file, this section encompasses all the executable code.</li>
+                            <li><span class="bold">.data</span> represents the constructors section.</li>
+                            <li><span class="bold">start_ctors = .; ... end_ctors = .;</span> are pointers that define the start and end points of the constructors section.</li>
+                            <li><span class="bold">.bss</span></li>
+                        </ol>
+                    </div>
+                    <button onclick="">Show linker.ld</button>
+                </div>
+            </div>
+
+            <div> <h2>Running the kernel on a VM</h2>
+                <div class="frame-highlight">
+                    <ul>
+                        <li>Tools: VirtualBox, grub-legacy, xorriso (needed for grub-mkrescue command)</li>
+                        <li>What is an ISO image?</li>
+                        <li>Changes in the Makefile (use of grub)</li>
+
+                    </ul>
                 </div>
             </div>
 

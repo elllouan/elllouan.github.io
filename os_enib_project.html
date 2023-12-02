@@ -22,7 +22,7 @@
         <section class="main-container">
             <h1>OS Project</h1>
             <div class="page-subtitle">
-                <h3>In this project, my goal is to implement basic OS functionalities, thereby gaining a deeper understanding of its underlying mechanisms.</h3>
+                In this project, my goal is to implement basic OS functionalities, thereby gaining a deeper understanding of its underlying mechanisms.
             </div>
 
             <div> <h2>Structure of the project</h2>
@@ -93,11 +93,10 @@
                         In the pictures displayed below, we have an illustration of how a task is structured and a code example where <span class="bold">new_task</span> is created and added to the list of tasks.
                         <span class="bold">sp</span> and <span class="bold">splim</span> respectively point to the current task's stack pointer and the stack limit.
                     </p>
-                    <div class="illustration-horiz-4">
-                        <img src="images/os_proj/task_creation.JPG" alt="task_creation">
+                    <div class="illustration-horiz-3">
+                        <!-- <img src="images/os_proj/task_creation.JPG" alt="task_creation"> -->
                         <img src="images/os_proj/task_creation(2).JPG" alt="task_creation">
-                        <img src="images/os_proj/code_task_creation.JPG" alt="code_task_creation">
-                        <img src="images/os_proj/task_creation_dbg.JPG" alt="task_creation_dbg">
+                        <img style="width: 50%;" src="images/os_proj/code_task_creation.JPG" alt="code_task_creation">
                     </div>
                 </div>
 
@@ -114,7 +113,11 @@
                     <div class="illustration-horiz-3">
                         <img src="images/os_proj/switch_context.JPG" alt="switch_context">
                         <img src="images/os_proj/PendSV.JPG" alt="PendSV">
-                        <img src="images/os_proj/code_task_creation_switch_context.JPG" alt="code_task_creation_switch_context">
+                        <div class="sub-illustration">
+                            <img src="images/os_proj/switch_ctx.JPG" alt="">
+                            <img src="images/os_proj/code_task_creation_switch_context.JPG" alt="code_task_creation_switch_context">
+                        </div>
+                        
                     </div>
                     <p>As a result, switching context involves</p>
                     <div class="frame-highlight">
@@ -183,8 +186,29 @@
                     </p>
                 </div>
                 <img style="width: 75%;" src="images/os_proj/vfs_hierarchy.PNG" alt="vfs_hierarchy">
-                <div> <h3>Implementation</h3>
-                    <p></p>
+                <div> <h3>4.1 VFS overall structure</h3>
+                    <p>This virtual layer is located in the device folder of the project. In <span class="bold">vfs.h</span>, we define the <span class="bold">_Device</span> and <span class="bold">_FileObject</span> C structures that will respectively abstract devices and files.
+                        The <span class="bold">_Device</span> structure has a set of functions which allows the user to manipulate a device.
+                        The <span class="bold">_FileObject</span> structure contains some information about the abstracted _FileObject instance, notably the <span class="bold">dev</span> pointer that indicates the device it belongs to.
+                        The last image shows an example of the <span class="bold">open syscall</span> to open any _FileObject on any device. Open _FileObjects are stored in an array and the file descriptor <span class="bold">fd</span> refers to the corresponding _FileObject index.
+                    </p>
+                    <div class="frame-highlight">
+                        <p><span class="bold">Note:</span> a FileObject does not necessarily refer to a classical file (like text file). For that matter, the name file alludes to something that can be manipulated (hence implements read, write ... functions).</p>
+                    </div>
+                    <div class="illustration-horiz-3">
+                        <img src="images/os_proj/device_folder.PNG" alt="sem_new">
+                        <img src="images/os_proj/fd_dev_struct.PNG" alt="sem_p">
+                        <img src="images/os_proj/open_syscall.PNG" alt="sem_v">
+                    </div>
+                </div>
+                <div> <h3>4.2 More devices</h3>
+                    <p>As of now, I have to implement more devices using this structure. I start with </p>
+                    <div> <h4>Serial communication</h4>
+
+                    </div>
+                    <div> <h4>SD card</h4>
+
+                    </div>
                 </div>
             </div>
 

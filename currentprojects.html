@@ -52,8 +52,8 @@
                             <hr>
                             <div> <h3>Introduction</h3>
                                 <p>In this project, our goal is to remotely control a rolling robot by implementing multi-tasking and control command.</p>
+                                <img style="width: 25%;" src="images/os_proj/bot.jpg" alt="">
                             </div>
-
                             <hr>
                             <div> <h3>Motor control</h3>
                                 <p>Our first goal is to control the motors by implementing a PI controller.
@@ -86,6 +86,11 @@
                                         \[ s \rightarrow \frac{1-z^{-1}}{T_e} \implies PI(n) = K_p \cdot \frac{T_e}{T_i} \frac{z}{z+1} + K_p = K_p \cdot K_i \cdot \frac{z}{z+1} + K_p \]
                                     </p>
                                     <div> <h5>Phase margin</h5>
+                                        <p>It is important to consider the phase margin. It represents the <span class="bold">phase gap to the -180°</span> (or \(\pi\)) angle when the <span class="bold">gain of the open-loop system's transfer function is 1</span>. This criterion assures that
+                                            the system will remain <span class="bold">stable</span> even with some noise. Here is the reminder of the equation of a closed-loop system \(H(s)\), \(C(s)\) being the controller and \(G(s)\) the raw system:
+                                            \[H(s) = \frac{C(s)F(s)}{1 + F(s)G(s)} \implies 1 + F(s)G(s) \neq 0 \implies \left\{ \begin{matrix} |F(s)G(s)| \neq 1 \\ arg(F(s)G(s)) \neq \pi \end{matrix}\right. \]
+                                            However, the phase margin should not be too high because it would make the system respond <span class="bold">slower</span>. Usually a phase margin of <span class="bold">45°</span> is a good compromise.
+                                        </p>
                                     </div>
                                 </div>
 
@@ -93,54 +98,58 @@
                                     <img style="width: 20%;" src="images/os_proj/task_motor_robot.PNG" alt="task_motor_robot">
                                 </div>
                             </div>
-
                             <hr>
                             <div> <h3>Multi-threading</h3>
                                 <p>In this project, our goal is to remotely control a rolling robot by implementing multi-tasking and control command.
-                                    We decided that we could divide our program in 6 tasks ranged from the highest priority to the lowest priority:
+                                    We opted into dividing our program in 6 tasks ranged from the highest priority to the lowest priority:
                                 </p>
                                 <div class="frame-highlight">
                                     <ul>
                                         <li>Task 1: left-wheel motor</li>
                                         <li>Task 2: right-wheel motor</li>
-                                        <li>Task 3: front sensors</li>
-                                        <li>Task 4: back sensors</li>
+                                        <li>Task 3: obstacle sensors</li>
+                                        <li>Task 4: PixyCam</li>
                                         <li>Task 5: UART/Zigbee</li>
                                         <li>Task 6: display</li>
                                     </ul>
-                                </div>
-                                <div class="frame-highlight">
-                                    <p>Each one of these task will have a switch case leading to different codes depending on which current state the robot is in.
+                                    <p>Each one of these task will have a switch case leading to different codes depending on the robot's current state.
                                         Also, there needs to be a <span class="bold">sleeping time (vTaskDelay)</span> to let time for each task to be executed (starvation problem).
                                     </p>
                                 </div>
                                 <div> <h5>Tasks 1 & 2</h5>
-                                    <p>Each task handles a motor. They need to be executed in a row whatsoever. To make sure this is the case, I use a semaphore.
+                                    <p>Each task handles a motor. They need to be executed in a row whatsoever. To make sure this is the case, we use a semaphore.
                                         The Task 1 takes a token (if one is available) and then executes its code. When it is done, it releases the token and the Task 2 can take it and execute its code.
-                                        I make it such that they always are next to each other in the semaphore's queue, so that when one releases the token, the other one immediatly takes it.
+                                        I make it such that they are always next to each other in the semaphore's queue, so that when one releases the token, the other one immediatly takes it.
+                                        However, to avoid the <span class="bold">starvation problem</span>, the second motor task will only take the token but will not release it.
                                     </p>
                                 </div>
-                                <div> <h5>Tasks 3 & 4</h5>
-                                    <p>The Task 3 handles an infrared distance sensor the Task 4 handles an ultrasonic distance sensor. To make it easier, the Task 3 will only be used if the robot is going forward,
-                                        and the Task 4 will only be used if the robot is going backward. These tasks give a token to the semaphore which allows Task 1 (and subsequently Task 2) to execute its code.
+                                <div> <h5>Task 3</h5>
+                                    <p>The Task 3 either executes an <span class="bold">infrared distance sensor</span> if the robot is going forward or an <span class="bold">ultrasonic distance sensor</span> if the robot is going backward.
+                                        After its execution, it gives a token to the semaphore which allows Task 1 (and subsequently Task 2) to execute its code.
+                                    </p>
+                                </div>
+                                <div> <h5>Task 4</h5>
+                                    <p>This Task handles the PixyCam that is a camera that can follow a color. It will be used so that the robots follows the color. It has a lower priority than Task 3 because we should privilege
+                                        the bot's safety over its ability to follow a color. It can wake up Tasks 1 & 2 giving a token.
                                     </p>
                                 </div>
                                 <div> <h5>Task 5</h5>
-                                    <p>This task handles <span class="bold">external messages</span> (UART or Zigbee). It can wake up Tasks 1 & 2, if a command was detcted by giving a token.</p>
+                                    <p>This task handles <span class="bold">external messages</span> (UART or Zigbee). It can wake up Tasks 1 & 2, if a user command was detected by giving a token.</p>
                                 </div>
                                 <div> <h5>Task 6</h5>
-                                    <p>This task handles the display of the current speed and direction, which is useful but not critical. Therefore, it has the lowest priority.</p>
+                                    <p>This task handles the display of the <span class="bold">current speed and direction</span>, which is useful but not critical. Therefore, it has the lowest priority.</p>
                                 </div>
                                 <p>To see the complete diagrams, go to this section.</p>
                             </div>
-
                             <hr>
-                            <div> <h3>State diagram</h3>
-                            </div>
-
-                            <div class="illustration-horiz">
+                            <div> <h3>Tasks diagram</h3>
                                 <img src="images/os_proj/TaskDiagram.drawio.png" alt="TaskDiagram">
                             </div>
+                            <hr>
+                            <div> <h3>States diagram</h3>
+                                <img style="width: 100%;" src="images/os_proj/StateDiagram.drawio.png" alt="">
+                            </div>
+
                         </div>
                     </div>
 
@@ -248,13 +257,14 @@
 
                 <div class="personal-projects"> <h2 class="title">Personal projects</h2>
 
-                    <div class="current-project"> <div class="label"> <h2>Learning AI with tensorflow</h2> </div>
+                    <div class="current-project"> <div class="label"> <h2>Learning AI for computer vision</h2> </div>
                         <div class="content">
-                            <p>My curiosity and genuine desire to learn more about engineering topics launched me on this new journey of learning the basics of AI.
+                            <p>My curiosity and genuine desire to learn more about engineering topics launched me on this new journey of learning the basics of AI for computer vision.
                                 My guide is this freecodecamp <a href="https://www.youtube.com/watch?v=IA3WxTTPXqQ&list=LL&index=2&t=440s" target="_blank">course</a>.
                                 My goal with this web page is to try to explain what I learn and writing it with <span class="bold">my own words</span>. Therefore, <span class="bold">does not take this content as a reference</span>,
                                 there might be some inaccuracies (or even mistakes). While, this page is more dedicated to a theorical approach (because understanding the theory and math is satisfying but not enough),
-                                <a href="ai.html">here</a> can be found a more practical approach, using Google Colab with the python module <span class="bold">Tensorflow</span>.
+                                <a href="ai.html">here</a> can be found a more practical approach. I also want to explore and learn about <span class="bold">embedded AI</span>.
+                                I will be using Google Colab with the python module <span class="bold">Tensorflow</span>.
                             </p>
                             <hr>
                             <div> <h3>Introduction to Machine Learning</h3>
@@ -352,10 +362,11 @@
                                 As for the academic project, you can find a deeper view of this project on this <a href="os_project.html">page</a>. This will be a much harder task, as I will self-teach myself this topic.
                                 This page is not aimed at giving an in-depth view on my project, I just go over the main steps I went through. To see a more detailed version, you can refer to my complete project <a href="os_project.html" target="_blank">description</a>.
                             </p>
-                            <p>This project consists of several steps:</p>
+                            <p>This project consists of several parts:</p>
                             <div class="frame-highlight">
                                 <ol>
                                     <li>Bootstrapping & Cross-Compiler;</li>
+                                    <li>Installing and loading a basic kernel;</li>
                                 </ol>
                             </div>
                         </div>

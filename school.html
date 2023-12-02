@@ -293,21 +293,16 @@
                                 </div>
                             </div>
 
-                            <div> <h4>Connectedness</h4>
-                                <p>In an image, to move from one pixel to another one, we can use the <span class="bold">4-connectedness</span> or the <span class="bold">8-connectedness</span>. 
-                                </p>
-                            </div>
-
                             <div> <h4>Filtering</h4>
                                 <div> <h5>Noise</h5>
-                                    <p>In image processing, we try as much as possible to get rid of the noise before the actual image modification. This avoids expensive computations.
+                                    <p>In image processing, we try as much as possible to get rid of the noise before the actual image processing. This avoids <span class="bold">expensive computations</span>.
                                         There exist 2 types of noise in image processing: <span class="bold">additive</span> and <span class="bold">multiplicative</span>.
                                         In my case, I will only focus on the additive noise as it is the most common one. To modelize the noise, we use probabilities. Therefore, there are different types of noises:
                                     </p>
                                     <div class="frame-highlight">
                                         <ul>
                                             <li> <span class="bold">Impulse noise</span> (or salt-and-pepper).</li>
-                                            <li> <span class="bold">Gaussian noise:</span> noise is centered on 0.</li>
+                                            <li> <span class="bold">Gaussian noise:</span> noise centered on 0 \(N(0,\sigma)\).</li>
                                             <li> <span class="bold">Uniform noise</span></li>
                                             <li> and many more ...</li> 
                                         </ul>                                     
@@ -361,9 +356,18 @@
                                         <li><span class="bold">Dilatation:</span> to fill holes in a shape</li>
                                     </ul>
                                     <p>Usually we apply an erosion followed by a dilatation to get rid of small imperfections or noise around objects. This is called an <span class="bold">opening</span>.</p>
-                                    <p>We can also apply a dilatation followed by an erosion to fill holes. This is called a <span class="bold">closing</span>.</p>                                </div>
-                                <div> <h5>Gray levels</h5>
-                                    <p>When considering the image with multiple levels of gray, </p>
+                                    <p>We can also apply a dilatation followed by an erosion to fill holes. This is called a <span class="bold">closing</span>.</p>
+                                </div>
+                                <div> <h5>Connectivity</h5>
+                                    <p>In an image, to measure distances we cannot use the <span class="bold">euclidian distance</span> because an image is a grid of pixels. Hence, we use other methods such as the:
+                                    </p>
+                                    <div class="frame-highlight">
+                                        <ul>
+                                            <li><span class="bold">4-connectivity:</span> \(|x|+|y|\)</li>
+                                            <li><span class="bold">8-connectivity:</span> \(max(x,y)\)</li>
+                                        </ul>
+                                    </div>
+                                    <img src="images/ai/pixel_connectivity.PNG" alt="">
                                 </div>
                             </div>
 
@@ -409,10 +413,19 @@
                                     We can then combine them to get a <span class="bold">single image</span>. To do so, we can use the <span class="bold">gradient magnitude</span> and the <span class="bold">gradient direction</span>:
                                     \[ m(x,y) = \sqrt{I_x(x,y)^2 + I_y(x,y)^2} \]
                                     \[ \theta(x,y) = arctan(\frac{I_y(x,y)}{I_x(x,y)}) \]
-                                    This gradient magnitude is the <span class="bold">norm of the gradient</span> and is used to <span class="bold">detect edges</span> in an image.
-                                    Each \(m(x,y\))'s pixel represents the <span class="bold">intensity of the gradient</span> at this pixel. The gradient direction is the <span class="bold">orientation of the gradient</span> at this pixel.'
+                                    This gradient magnitude \(m(x,y)\) is the <span class="bold">norm of the gradient</span> and is used to <span class="bold">detect edges</span> in an image.
+                                    Each \(m(x,y\))'s pixel represents the <span class="bold">intensity of the gradient</span> at this pixel. 
                                     We take each \(m(x,y\))'s pixel and we compare it to its surrounding pixels in the direction of the gradient. If it is the <span class="bold">maximum</span> of its surrounding pixels, then it is an edge and the pixel is conserved.'
                                 </p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div> <h3>Concrete applications</h3>
+                            <div> <h4>Features extraction</h4>
+
+                            </div>
+                            <div> <h4>Recognition and counting</h4>
+
                             </div>
                         </div>
                         <hr>
@@ -437,14 +450,13 @@
                 </div>
 
                 <div class="subject-container"> <div class="label"> <h2>Digital Embedded Systems</h2> </div>
-                    <div class="keywords">OS architectures, performances, parallelism paradigm (semaphores), process, FreeRTOS</div>
+                    <div class="keywords">OS architecture, performances, parallelism paradigm, semaphores, FreeRTOS</div>
                     <p>You can consult some <a href="currentprojects.html" target="_parent">projects</a> done as part of this course.</p>
                     <div class="content">
-                        <p>Our purpose in this course is to understand what are the impacts of the sampling on an analog signal.</p>
-                        <p style="font-style: italic;">In this course, we had a <a href="sen_proj.html">project</a> in which we had to ... .</p>
-                        <div class="subject-subdiv"> <h3>1. Architectures</h3>
+                        <p style="font-style: italic;">In this course, we had several <a href="currentprojects.html">projects</a>.</p>
+                        <!-- <div class="subject-subdiv"> <h3>1. Architectures</h3>
                             <p>Parallelism</p>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -516,7 +528,7 @@
 
                 <div class="subject-container"> <div class="label"> <h2>Company administration & management</h2> </div>
                     <p style="font-style: italic;">The following section will be in french because I do not know precisely the vocabulary related to finance and management.</p>
-                    <div class="keywords">Mots clés : Comptabilité française, Finance, Gestion, Management</div>
+                    <div class="keywords">Comptabilité française, Finance, Gestion, Management</div>
                     <div class="content">
                         <p>Ce cours couvre les fondamentaux de la gestion comptable d'une entreprise.</p>
                         <hr>
