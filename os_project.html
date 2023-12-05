@@ -96,22 +96,23 @@
                             <div>$ <span class="command">git clone https://gcc.gnu.org/git/gcc.git</span></div>
                         </div>
 
-                        Once downloaded, make sure to download prerequisites (GMP, MPFR, ISL and MPC libraries).
+                        <p>Once downloaded, make sure to download prerequisites (GMP, MPFR, ISL and MPC libraries).</p>
                         <div class="linux-terminal">
                             <div>$ <span class="command">cd gcc</span></div>
                             <div>/gcc$ <span class="command">./contrib/download_prerequisites</span></div>
                             <div>$ <span class="command">cd ..</span></div>
                             <div>$ <span class="command">mkdir build-gcc && cd build-gcc</span></div>
                             <div>/build-gcc$ <span class="command">../gcc/configure --target=$TARGET --prefix="$PREFIX" --build=x86_64-linux-gnu --enable-languages=c,c++ --disable-nls --without-headers</span></div>
-                            <div>/build-gcc$ <span class="command">make all-gcc</span></div>
-                            <div>/build-gcc$ <span class="command">make all-target-libgcc</span></div>
-                            <div>/build-gcc$ <span class="command">make install-gcc</span></div>
-                            <div>/build-gcc$ <span class="command">make install-target-libgcc</span></div>
+                            <div>/build-gcc$ <span class="command">make all-gcc -j4</span></div>
+                            <div>/build-gcc$ <span class="command">make all-target-libgcc -j4</span></div>
+                            <div>/build-gcc$ <span class="command">make install-gcc -j4</span></div>
+                            <div>/build-gcc$ <span class="command">make install-target-libgcc -j4</span></div>
                         </div>
-
-                        <p>Finally, configure and build our GCC cross-compiler for the <span class="bold">i686-elf</span> target.</p>
+                        <p>-j4 makes the build go faster by involving 4 cores in the build process. After the binutils, gdb and gcc builds, I can see those new tools in my directory ($PREFIX).</p>
+                        <p>Finally, I need to include the path to my compiler in the PATH environment variable so that the system knows where to find it.</p>
                         <div class="linux-terminal">
-                            <div>HOME/src/build-gdb$ <span class="command">../gcc/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --enable-languages=c,c++ --without-headers</span></div>
+                            <div><span class="command">export PATH="$HOME/opt/cross/bin:$PATH"</span></div>
+                            <div><span class="command">i686-elf-gcc --version</span></div>
                         </div>
                     </div>
 
@@ -120,11 +121,11 @@
 
             <div class="kernel-tuto"> <h2>Basic kernel</h2>
                 <div> <h3>Context</h3>
-                    <p>Within the next paragraphs, I will endeavor to explain concisely, nonetheless clearly, how I am going to set up this basic kernel. My goal here is to compile, link and run the kernel.
-                        This first "version" of the kernel will simply print out a Hello World on the terminal. But first off, let's clarify how the computer proceeds the kernel loading when it boots.
+                    <p>Within the next paragraphs, I will endeavor to explain concisely, nonetheless clearly, how I am going to set up a <span class="bold">minimal kernel</span> for the <span class="bold">x86 architecture</span>. My goal here is to compile, link and run the kernel.
+                        This first "version" of the kernel will simply print out a Hello World on the terminal. First off, let's clarify how the computer proceeds the <span class="bold">kernel loading</span> when it boots.
                     </p>
                     <div> <h5>Kernel loading and booting</h5>
-                        <p>A computer mainly uses 3 components to boot: the <span class="bold">BIOS</span>, the <span class="bold">bootloader</span> and the <span class="bold">kernel</span>.
+                        <p>A computer uses 3 components to boot: the <span class="bold">BIOS</span>, the <span class="bold">bootloader</span> and the <span class="bold">kernel</span>.
                             When we turn on a computer, the BIOS (Basic Input/Output System) is the first program to be loaded into the <span class="bold">firmware RAM</span>. The CP register points to the BIOS code and executes it.
                             The BIOS then loads the <span class="bold">bootloader</span> into the RAM by fetching the first sector of the boot device (usually the <span class="bold">hard drive</span>) and jumping to it.
                             <div class="frame-highlight">
@@ -142,6 +143,14 @@
                         <img src="images/os_proj/computer_boot.jpg" alt="computer_boot">
                     </div>
                     <p>For now, my directory setup consists of 4 files: a <span class="bold">kernel.cpp</span> file, a <span class="bold">linker.ld</span> file, a <span class="bold">Makefile</span> and a <span class="bold">loader.s</span> file. Let's explore each one of them below.</p>
+                    <div> <h4>Freestanding environment</h4>
+                        <p>The minimal kernel I am aiming to build will be in a <span class="bold">freestanding</span> (as opposed to hosted) environment, meaning that there is <span class="bold">no C standard library</span> I can link to and no <span class="bold">operating system</span> to rely on yet.
+                        </p>
+                        <div class="frame-highlight">
+                            <p>Only some header files such as < stdbool.h >, < stddef.h > and others are available as they are part of the compiler itself.</p>
+                        </div>
+                        <p>However, those freestanding headers only provide macros and data types. Therefore, all C standard functions such as printf(), strlen(), strcmp() and many more, I will have to write those myself.</p>
+                    </div>
                 </div>
                 <hr>
                 <div id="makefile"> <h3>Makefile</h3>
@@ -223,8 +232,8 @@
                         so that it can recognize the function during linkage process.
                     </p>
                     <div class="frame-highlight">
-                        <p><span class="bold">Name mangling</span> is a C++ compilation convention. C++ includes <span class="bold">function overloading and namespaces</span>, which means that functions with the name can exist. They can have <span class="bold">different return types and arguments</span>.
-                            Therefore C++ compilation changes functions name by <span class="bold">adding new symbols</span> to the function's name (name-mangling) that allows the linker to differentiate functions that have the same name.
+                        <p><span class="bold">Name mangling</span> is a C++ compilation convention. C++ includes <span class="bold">function overloading and namespaces</span>, which means that functions with the same name can exist. They can have <span class="bold">different return types and arguments</span>.
+                            Therefore, the C++ compiler would include type information in the assembly name by <span class="bold">adding new symbols</span> (name-mangling) that allows the linker to differentiate between functions that have the same name.
                         </p>
                     </div>
                     <button onclick="">Show kernel.cpp</button>

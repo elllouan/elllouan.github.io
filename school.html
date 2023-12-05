@@ -138,15 +138,15 @@
                 </div>
                
                 <div class="subject-container"> <div class="label"> <h2>Image Processing</h2> </div>
-                    <div class="keywords">Image representation and acquisition, image segmentation, filtering, image classification and recognition, CNN, Matlab, OpenCV</div>
+                    <div class="keywords">Image representation and acquisition, pre-processing, segmentation, filtering, classification and recognition, CNN, Matlab, OpenCV</div>
                     <div class="content">
                         <p>You can find out some of my personal experiments regarding image filtering and processing <a href="currentprojects.html">here</a>. Also, you will find at the end of this page,
-                            some useful Matlab and OpenCV examples. All images used in this section are taken from my Matlab labos.
+                            some useful Matlab and OpenCV examples. All images used in this section are taken from my Matlab labos. This section is not meant to be a comprehensive description of the course but rather summary of my understandings.
                         </p>
                         <hr>
                         <div class="subject-subdiv"> <h3>1. Introduction</h3>
-                            <p>Image processing encompasses several steps from image filtering to classification. The ultimate purpose is to train a machine to recognize patterns on an image
-                                in order to automate image analysis. It is important to note that, we increase the dimension by one (regarding signal processing) and we do not deal with the time coordonate \(t\) anymore
+                            <p>Image processing encompasses several steps with image <span class="bold">pre-processing, filtering, classification</span> and so forth. Eventually, image processing can lead to training a machine learning algorithm which aims to recognize classes of images
+                                in order to automate <span class="bold">image analysis</span> and <span class="bold">decision making</span>. It is important to note that, we increase the dimension by one (regarding signal processing) and we do not deal with the time coordonate \(t\) anymore
                                 but with spatial coordonates represented by \(x\) and \(y\).
                             </p>
                         </div>
@@ -417,23 +417,60 @@
                                     Each \(m(x,y\))'s pixel represents the <span class="bold">intensity of the gradient</span> at this pixel. 
                                     We take each \(m(x,y\))'s pixel and we compare it to its surrounding pixels in the direction of the gradient. If it is the <span class="bold">maximum</span> of its surrounding pixels, then it is an edge and the pixel is conserved.'
                                 </p>
+                                <p>There are also the <span class="bold">Canny filter</span>, which relies on the first derivative of the gaussian.
+                                    \[ I(x,y) = \nabla (I(x,y)*G(x,y)) = (I(x,y)*\nabla G(x,y)) \]
+                                    avec \( G(x,y) = e^{-\frac{x²+y²}{2\sigma²}} \). We can notice that this accounts to first <span class="bold">smoothing</span> the image with a gaussian filter and then applying a <span class="bold">derivative filter</span>.
+                                    The smoothing part can either be <span class="bold">amplified or dimmed</span> by tweaking the \(\sigma\) factor. The derivative filter is a <span class="bold">Prewitt filter</span> or a <span class="bold">Sobel filter</span>.
+                                    Besides, this filter is <span class="bold">separable</span>, hence can be written as \( G(x,y) = G(x)G(y) \), meaning that it can be seen as a 1D filter applied twice, once along the \(x\) axis and once along the \(y\) axis.:
+                                    \[ I(x,y) = (I(x,y)*\nabla G(x)) * \nabla G(y) = (I(x,y)* \frac{dG(x)}{dx}) * \frac{dG(y)}{dy} \]
+                                </p>
+                                <div class="frame-highlight">
+                                    <p>Edge detection also involves a <span class="bold">hysteresis thresholding</span> with a <span class="bold">low and high</span> threshold. This is also called <span class="bold">contour chaining</span>.</p>
+                                </div>
+                                <p>Below is an example of the effect of a <span class="bold">canny filter</span> with several values of \(\sigma\) but consistent thresholds We clearly notice that the <span class="bold">higher</span> \(\sigma\), the <span class="bold">less</span> edges are detected.</p>
+                                <img style="width: 65%;" src="images/ai/canny_sigmas_trees.PNG" alt="">
                             </div>
                         </div>
                         <hr>
-                        <div> <h3>Concrete applications</h3>
-                            <div> <h4>Features extraction</h4>
-
+                        <div> <h3>Features extraction</h3>
+                            <div> <h4>Hough transform</h4>
+                                <p>The <span class="bold">Hough transform</span> was created to recognize shapes in an image such as straight lines, circles and much more intricate ones ...
+                                    This transform takes as an input a <span class="bold">black and white image</span> representing contours only and outputs a so-called <span class="bold">accumulator</span>.
+                                    The dimension of this accumulator depends on the number of parameters we need to describe the shape we are looking for. 
+                                </p>
+                                <div class="frame-highlight">
+                                    <p>For example, if we are looking for straight lines, we only need 2 parameters \( \theta \) and \( \rho \) to describe them. Hence, the accumulator will be a 2D matrix.
+                                        If we are looking for circles, we need 3 parameters: the center \( C(x_0,y_0) \) and the radium \( R \) to describe them. Hence, the accumulator will be a 3D matrix.
+                                    </p>
+                                </div>
+                                <p>Below is an example of a accumulator. We can see both \( \theta \) and \( \rho \) parameters. The brightest points are show the the most chosen \( \theta \) and \( \rho \) parameters.</p>
+                                <img style="width: 35%;" src="images/ai/hough_tab_params.PNG" alt="">
+                                <p></p>
                             </div>
-                            <div> <h4>Recognition and counting</h4>
+                            <div> <h4>Object recognition and counting</h4>
 
                             </div>
                         </div>
                         <hr>
-                        <div> <h3>Mini project</h3>
-                            <p></p>
-                        </div>
                         <hr>
                         <div> <h3>Hands-on image processing</h3>
+                            <div> <h4>Circular shapes extraction</h4>
+                                <img src="images/ai/mini-proj2.PNG" alt="">
+                                <div class="frame-highlight">
+                                    <ol>
+                                        <li>from RGB to gray</li>
+                                        <li>Image segmentation: thresholding + binarization</li>
+                                        <li>Objects labelling: filling + mark</li>
+                                        <li>Shape criterion</li>
+                                    </ol>
+                                </div>
+                            </div>
+                            <div> <h3>Insight of a doctorate project</h3>
+                                <p></p>
+                            </div>
+                            <div> <h4>TensorFlow and embedded computer vision</h4>
+                                <p></p>
+                            </div>
                             <div> <h4>Matlab</h4>
                                 <p>On Matlab, we can use the function <span class="bold">graycomatrix</span> to compute the co-occurrence matrix and the function <span class="bold">graycoprops</span> to compute the its <span class="bold">Haralick vector</span>.
                                 </p>
