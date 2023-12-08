@@ -26,20 +26,19 @@
                 <h1 class="title">Network learnings</h1>
                 <div class="page-subtitle"> In this section, I go more in depth about the concepts I have learnt and the networking tools I used during the lab sessions. </div>
 
-                <div class="session"> <div class="label"> <h2>1. Parallelism</h2> </div>
-                    <div> <h4>1.1 Managing resources with pipes</h4>
+                <div> <div class="label"> <h2>1. Parallelism</h2> </div>
+                    <div> <h3>1.1 Managing resources with pipes</h3>
                         <p>A <span class="bold">file descriptor (fd)</span> is a number which identifies a specific <span class="bold">pipe</span>.
                             A <span class="bold">pipe</span> is a key concept in communication systems. It is a way to write or read from various ressources.
                             It is also a way to communicate between processes. By default, there are already 3 file descriptors open: STDIN_FILENO, STDOUT_FILENO, STDERR_FILENO.
                             To write in a specific pipe, we use the C function <span class="bold">write</span> and to read from a specific pipe, we use the C function <span class="bold">read</span>.
                         </p>
                         <div class="linux-terminal"> <div>$ man 2 [write/read/open/close]</div> </div>
-                        <p>
-                            It is important to note that in an Unix-like environment, every is considered as being a file. In the socket section, we will see that fil descriptors are used to identify sockets.
+                        <p> It is important to note that in an Unix-like environment, every is considered as being a file. In the socket section, we will see that fil descriptors are used to identify sockets.
                         </p>
                     </div>
 
-                    <div> <h4>1.2 Process</h4>
+                    <div> <h3>1.2 Process</h3>
                         <p>A <span class="bold">process</span> (also called task or thread) can be seen as a function that executes a particular task.
                             A <span class="bold">program</span> is a collection of tasks. The point of threads is that, we may need to run several in parallel to achieve different tasks simultaneously.
                             To create a process direclty from the main process (or any other process), we use the C function <span class="bold">fork</span>. A new thread, completely independent from the original one is created.
@@ -49,7 +48,7 @@
                         <div class="linux-terminal"> <div>$ man 2 [fork/waitpid/exit]</div> </div>
                     </div>
 
-                    <div> <h4>1.3 Communication inter-process</h4>
+                    <div> <h3>1.3 Communication inter-process</h3>
                         <p>Now that we have seen how to write to or read from a pipe (identified by a file descriptor) and we are more familiar with the notion of thread, we can bind them together
                             and try to have a pipe connect 2 processes. One would read from the pipe and the second one would write to it. To do so, we use the C function <span class="bold">pipe</span>.
                         </p>
@@ -65,7 +64,7 @@
                         </div>
                     </div>
 
-                    <div> <h4>1.4 Issues</h4>
+                    <div> <h3>1.4 Issues</h3>
                         <p>This Multi-threading paradigm brings with it some issues such as the <span class="bold">starvation problem</span>, in which a thread monopolizes the resources.
                             Another issue is the <span class="bold">deadlock problem</span>, in which two threads are waiting for each other to finish their tasks.
                             To counter these issues, we use <span class="bold">mutexes</span> (mutual exclusion) and <span class="bold">semaphores</span>. They play the role of guardian of the critical or shared
@@ -74,7 +73,7 @@
                     </div>
                 </div>
 
-                <div class="session"> <div class="label"> <h2>2. Sockets</h2> </div>
+                <div> <div class="label"> <h2>2. Sockets</h2> </div>
                     <p>A socket is a <span class="bold">communication point</span> that binds an IP address and a port number. There exist sockets at different levels of the OSI model.
                         We will see in the encryption session that raw sockets are used to send and receive packets at the <span class="bold">network layer</span>.
                         <span class="bold">UDP (User Datagram Protocol)</span>  is a <span class="bold">connectionless</span> protocol, in which the sender does not wait for client's acknowledgment.
@@ -98,13 +97,13 @@
                     </p>
                 </div>
 
-                <div class="session"> <div class="label"> <h2>3. HTTP</h2> </div>
+                <div> <div class="label"> <h2>3. HTTP</h2> </div>
                     <p> <span class="bold">HTTP (HyperText Transfer Protocol)</span> is a protocol used to exchange data between a client and a server.
                         It utilitizes the <span class="bold">TCP (Transport Communication Protocol)</span> to send and receive data.
                         A client requests a service to a server. There exist multiple types of HTTP methods: <span class="bold">GET, POST, PUT, DELETE, HEAD, CONNECT ...</span>.
                         Each one of them refers to a specific service. For instance, the <span class="bold">GET</span> request is used to retrieve data from the server.
                     </p>
-                    <div> <h4>HTTP Client</h4>
+                    <div> <h3>HTTP Client</h3>
                         <p>The client is the one who initiates the communication with the server. The following sequence of instructions summaries the procedure of a GET request:</p>
                         <div class="frame-highlight">
                             <ol>
@@ -120,7 +119,7 @@
                                 <li>the client receives the data requested that it stores in a file</li>
                             </ol> 
                         </div>
-                        <div> <h5>Via proxy</h5>
+                        <div> <h4>Via proxy</h4>
                             <p>The client can also pass by a <span class="bold">proxy</span> instead of reaching the server direclty.
                                 The sequence of operations does not differ, only will the HTTP request be slighlty different.
                                 <span class="bold">In the HTTP header, there is is reference to the proxy.</span>
@@ -132,7 +131,7 @@
                                 <div>\r\n (empty line)</div>
                             </div>
                         </div>
-                        <div> <h5>HTTPS</h5>
+                        <div> <h4>HTTPS</h4>
                             <p><span class="bold">HTTP (HyperText Transfer Protocol Secure)</span> is a secure (i.e., encrypted) version of HTTP.
                                 Therefore, prior to the beginning of the communication between the client and the server, there is a SSL negociation.
                             </p>
@@ -152,7 +151,7 @@
                                 </ol>
                             </div> 
                         </div>
-                        <div> <h5>HTTPS via proxy</h5>
+                        <div> <h4>HTTPS via proxy</h4>
                             <p>The sequence of operations slighlty differs. There is a connection request from the proxy to the server.</p>
                             <div class="frame-highlight">
                                 <ol>
@@ -171,7 +170,7 @@
                         </div>
                     </div>
 
-                    <div> <h4>HTTP Server</h4>
+                    <div> <h3>HTTP Server</h3>
                         <p>The server simply waits for incoming client requests. When a client is detected, the server operates a sequence of instructions to determine what it should send back.
                         </p>
                         <div class="frame-highlight">
@@ -195,13 +194,17 @@
                         </div>
                         <p>To manipulate folders and files, we can use the C functions below. <span class="bold">stat</span> retrieves information about a file and <span class="bold">access</span> allows to know what grants we have on a file or directory.</p>
                         <div class="linux-terminal"><div>$ man 2 [stat/access]</div></div>
-                        <div> <h5>POST requests</h5>
+                        <div> <h4>POST requests</h4>
 
                         </div>
                     </div>
                 </div>
 
-                <div class="session"> <div class="label"> <h2>Summary of useful C functions</h2> </div>
+                <div> <div class="label"> <h2>4. Physical layer</h2> </div>
+
+                </div>
+
+                <div> <div class="label"> <h2>Summary of useful C functions</h2> </div>
                     <div class="linux-terminal"> <div>$ man 2 [write/read/open/close]</div> </div>
                     <div class="linux-terminal"> <div>$ man 2 [fork/waitpid/exit]</div> </div>
                     <div class="linux-terminal"> <div>$ man 2 [pipe]</div> </div>

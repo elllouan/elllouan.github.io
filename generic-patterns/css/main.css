@@ -230,7 +230,8 @@ hr {
 .illustration-horiz-4 {
     display: flex;
     gap: 1rem;
-    margin: 1rem 0;
+    justify-content:space-evenly;
+    margin: auto 0;
 }
 
 .illustration-horiz-2 img {
