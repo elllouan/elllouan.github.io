@@ -7,10 +7,6 @@
     line-height: 2.5rem;
 }
 
-ul, ol {
-    margin-left: 1.5rem;
-}
-
 @media screen and (min-width: 481px) {
 
     .accordion-current-projects {

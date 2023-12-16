@@ -131,6 +131,10 @@ a {
     font-style: italic;
 }
 
+ul, ol {
+    margin-left: 1.5rem;
+}
+
 strong {
     display: block;
     font-family: var(--ff-primary);
@@ -259,5 +263,14 @@ hr {
     color: white;
 }
 
+.question::before {
+    content: "?? ";
+    padding: 0.25rem;
+    border: #000000 2px solid;
+    font-weight: bold;
+}
 
+.question {
+    background-color: var(--clr-light-orange);
+}
 

@@ -3,10 +3,6 @@
     line-height: 2.5rem;
 }
 
-ul, ol {
-    margin-left: 1.5rem;
-}
-
 .illustration {
     display: flex;
     gap: 1rem;

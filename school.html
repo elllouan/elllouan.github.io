@@ -104,35 +104,54 @@
                         </div>
                         <hr>
                         <div class="subject-subdiv"> <h3>5. Signal modulation</h3>
-                            <p>When it comes to transmitting information using signals, we face some issues:</p>
-                            <div class="frame-highlight">
-                                <ol>
-                                    <li>most of the time the signal transmitted is comprised within a range of 20 to 20kHz (voice frequency), thus if we transmit the signal at its original frequency, we would end up having all signals interfering with each other (all the same frequency)</li>
-                                    <li>the size of the receiver should also be ridiculously large for detecting such signals (several kilometers)</li>
-                                </ol>
+                            <div> <h4>Concept</h4>
+                                <p>When it comes to transmitting information using signals, we face some issues:</p>
+                                <div class="frame-highlight">
+                                    <ul>
+                                        <li>most of the time the signal transmitted is comprised within a range of 20 to 20kHz (voice frequency), thus if we transmit the signal at its original frequency, we would end up having all signals interfering with each other (all the same frequency)</li>
+                                        <li>the size of the receiver should also be ridiculously large for detecting such signals (several kilometers)</li>
+                                    </ul>
+                                </div>
+                                <p>Modulation allows to slide the signal spectrum along the frequency axis to a higher frequency, thereby countering the two previous problems. Indeed, we can control the frequency at which we want our signal to be broadcasted, thereby
+                                    <span class="mark">reducing significantly the size of the receiver</span> and also <span class="mark">avoiding signal overlapping</span>.</p>
+                                <p>In the following schema, \(x(t)\) is the signal to be transmitted (carrier signal), \(s(t)\) is the signal modulated and emitted,
+                                    \(m(t)\) is the modulation signal, \(d(t)\) is the demodulation signal and \(y(t)\) is ideally the same as \(x(t)\).
+                                </p>
+                                <img class="modulation-img" src="images/modulation.drawio.png" alt="mod">
                             </div>
-                            <p>Modulation allows to slide the signal spectrum along the frequency axis to a higher frequency, thereby countering the two previous problems. Indeed, we can control the frequency at which we want our signal to be broadcasted, thereby
-                                <span class="mark">reducing significantly the size of the receiver</span> and also <span class="mark">avoiding signal overlapping</span>.</p>
-                            <p>In the following schema, \(x(t)\) is the signal to be transmitted (carrier signal), \(s(t)\) is the signal modulated and emitted,
-                                \(m(t)\) is the modulation signal, \(d(t)\) is the demodulation signal and \(y(t)\) is ideally the same as \(x(t)\).
-                            </p>
-                            <img class="modulation-img" src="images/modulation.drawio.png" alt="mod">
+                            <div> <h4>Other types of modulations</h4>
+                                <p>We have briefly covered some modulations method other than the ASK (Amplitude Shift Keying) method. There are notably:
+                                    <div class="frame-highlight">
+                                        <ul>
+                                            <li><span class="bold">QAM (Quadrature Amplitude Modulation):</span> the carrier signal is modulated by a binary signal (0 or 1) that is represented by 2 different amplitudes.</li>
+                                            <li><span class="bold">QPSM (Quadrature Phase Shift Modulation):</span> the carrier signal is modulated by a binary signal (0 or 1) that is represented by 2 different phases.</li>
+                                            <li><span class="bold">OFDM (Orthogonal Frequency Division Multiplexing):</span> the information is carried by a multi-carrier signal.</li>
+                                        </ul>
+                                    </div>
+                                </p>
+                            </div>
                         </div>
                         <hr>
                         <div class="subject-subdiv"> <h3>6. Intercorrelation</h3>
-                            <p>The correlation method is in the field of radar. When emitting a signal, we want to be able to detect if the signal comes back to us (obstacle detection for instance).
-                                Thus, the detector needs to constantly compare any received signal to with the one that was originally emitted.
+                            <p>The <span class="bold">correlation</span> method is mostly used in the field of radar. When emitting a signal, we want to be able to detect if the signal comes back to us (<span class="bold">obstacle detection</span> for instance).
+                                Thus, the detector needs to constantly <span class="bold">compare</span> any received signal with the one that was originally emitted. The correlation method is a manner to compare two signals. It can be written using the convolution operation, it is defined as follows:
+                                \[ C_{xy}(\tau) = \int^{+\infty}_{-\infty} x(t)y(t+\tau) dt = ( x(t) * y(-t) )(\tau) \]
+                                where \(x(t)\) is the original signal and \(y(t)\) is the received signal. The result of this operation is a function of the delay \(\tau\). A <span class="bold">correlation</span> between the two signals, results in a <span class="bold">peak at the delay</span> \(\tau\) where the two signals are the <span class="bold">most similar</span>.
                             </p>
-                            <div class="frame-highlight">
-                            <ol>
-                                <li>most of the time the signal transmitted is comprised within a range of 20 to 20kHz (voice frequency), thus if we transmit the signal at its original frequency, we would end up having all signals interfering with each other (all the same frequency)</li>
-                                <li>the size of the receiver should also be ridiculously large for detecting such signals (several kilometers)</li>
-                            </ol>
-                            <p>Modulation allows to slide the signal spectrum along the frequency axis to a higher frequency, thereby countering the two previous problems because now we can control the frequency at which we want our signal to be broadcasted and as the frequency gets higher, the receiver gets smaller.</p>
-                            </div>
                         </div>
                         <hr>
                         <div class="subject-subdiv"> <h3>7. Further discussions</h3>
+                            <p>Since I am deeply interested in that topic. I continued to learn more concepts about signal processing. <a href="signal.html">Here</a> are my learnings.
+                                I basically learned about:
+                            </p>
+                            <div class="frame-highlight">
+                                <ol>
+                                    <li>Signal encoding and encryption;</li>
+                                    <li>Even more modulation techniques such as QAM16, OFDM and QPSK;</li>
+                                    <li>Hilbert transform and its concrete applications;</li>
+                                    <li>Some communication protocols on the physical layer such as 4G.</li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
                 </div>

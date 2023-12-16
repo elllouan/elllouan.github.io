@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html lang ="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- make sure that the content fit the device on which we open -->
+        <title> Math </title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong|Arial|Open+Sans">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="js/script.js"></script>
+        <link rel="stylesheet" href="generic-patterns/css/main.css">
+        <link rel="stylesheet" href="generic-patterns/css/horizontalmenu.css">
+        <link rel="stylesheet" href="generic-patterns/css/footer.css">
+        <link rel="stylesheet" href="css/topics.css">
+    </head>
+
+    <!-- Within de web page -->
+    <body>
+        <div id="horizontalmenu"></div>
+        
+        <section class="main-container">
+
+            <h1>Further discussions: Signal processing</h1>
+            <div class="page-subtitle">This page expands on diverse and self-explored topics related to signal processing.
+                I endeavor to convey back what I learn using my own words to strengthen my knowledge. I try to clarify some questions that came to me while studying the subject.
+            </div>
+            
+            <div class="frame-highlight">
+                <p>Here is the overview of the topics that I covered:</p>
+                <ol>
+                    <a href="#hilbert"><li>FFT, Hilbert transform and its concrete applications;</li></a>
+                    <li>Even more modulations techniques such as QAM16, OFDM and QPSK;</li>
+                    <li>Signal encoding and encryption;</li>
+                    <li>Some communication protocols on the physical layer such as 4G.</li>
+                </ol>
+            </div>
+
+            <div id="hilbert"> <h2>Hilbert transform</h2>
+                <div> <h3>Discrete Fourier Transform (DFT)</h3>
+                    <div> <h5>Why is this used for ?</h5>
+                        <p>This transform allows us to better identify the <span class="bold">contribution of frequencies</span> in a signal, which most of time are <span class="bold">not noticeable</span> when looking at the signal in its <span class="bold">time representation</span>.
+                            To be able to manupilate the spectrum density with a computer, it has to be <span class="bold">finite and discrete</span> (limited number of points/samples \(N\)) that is the role of the DFT.
+                            In fact, the DFT is simply a <span class="bold">discrete version</span> of the Fourier transform. As a result, integrals are replaced by <span class="bold">sums</span>.
+                            \[ X[k] = \sum_{n=0}^{N-1} x[n] e^{-i2\pi kn/N} \]
+                            \(k\) is the <span class="bold">frequency index</span> of the discrete spectrum and determines how fast we travel around the complex unit circle (i.e., frequency), and \(n\) is the <span class="bold">time index</span> of the signal sampled at each \(T_e\).
+                        </p>
+                        <div class="frame-highlight">
+                            <p>This can also be viewed as a <span class="bold">dot product</span> between the signal and the complex exponential domain, which evaluates the <span class="bold">correlation</span> between those.</p>
+                        </div>
+                        <p>However, those are not directly the <span class="bold">physical frequency</span> and <span class="bold">time</span> of the signal, which can be retrieved using the following formulas:
+                            \[ f = \frac{k}{N T_e} \]
+                            \[ t = \frac{n}{T_e} \]
+                            where \(f\) is the <span class="bold">physical frequency</span> and \(t\) is the <span class="bold">physical time</span>. \(NT_e\) is the <span class="bold">length of the signal</span>. With the ilustration below, that may come clearer.
+                        </p>
+                        <img src="images/signal/dft_k_meaning.PNG" alt="">
+                    </div>
+                    <div> <h5>Why are there negative frequencies at all ?</h5>
+                        <p>Negative frequencies account for <span class="bold">information redundancy</span>. This redundancy comes from the fact that in the complex domain there is an anti-symmetry of \(\pi\) of the angle regarding the real axis between conjuguate numbers: \( arg(e^{i\theta}) = -arg(e^{i(2\pi-\theta)}) \). 
+                            Therefore performing an <span class="bold">anti-clockwise</span> (positive frequencies first) or <span class="bold">clockwise</span> (negative frequencies first) rotation is equivalent. This does not change the <span class="bold">magnitude</span> of each frequency, but only its <span class="bold">phase</span>.
+                            So all angles below \(\pi\) are redundant (with a change in the sign) because of the \(2\pi\) periodicity.
+                            At some point when \(k\) is greater than \(N/2 \equiv \pi\), the negative frequencies become simply the conjugate of the positive frequencies. As a consequence, we might re-write the DFT as:
+                            \[ X[k] = \sum_{n=0}^{N-1} x[n] e^{i2\pi kn/N} \]
+                            The \(-\) sign is removed which causes to travel around the circle in the positive direction.
+                        </p>
+                    </div>
+                    <div> <h5> Why do we sometimes only consider the absolute value of the FFT ?</h5>
+                        <p>The absolute value informs us about the <span class="bold">contribution</span> (weight) of the specific frequency \(f=\frac{k}{NTe}\) to the signal <span class="bold">regardless of the phase correlation</span>.
+                            Therefore, as far as the magnitude is concerned, it does not matter in which direction we travel the circle around.
+                        </p>
+                    </div>
+                    <div> <h5>To what extent does the <span class="bold">Nyquist frequency</span> theorem explain the redundancy of information with the FFT (negative frequencies) ?</h5>
+                        <p>The value \(k\) accounts for how many cycles (periods) in the length of the signal we travel. Actually, the maximum frequency that can be considered is \( f=\frac{k}{NT_e} \leq \frac{f_e}{2} \implies k_{max}=\frac{N}{2} \).
+                            Beyond this value, the frequency spectrum gets folded back on itself and information is duplicated. This makes the link with the negative frequencies.
+                        </p>
+                    </div>
+                    <div> <h5>Example</h5>
+                        <div class="frame-highlight">
+                            <p>Let's take an example to better understand this. Let's consider we sample a signal over 1 second with 10 points (i.e., \(N=10\)). This implies that \(f_e=10\)Hz so \(f_{max}=5\)Hz.
+                                Therefore, the frequency span (or resolution) is \(\delta \omega=\frac{2\pi}{NT_e} \implies \delta f=\frac{1}{NT_e} \).
+                                <ol>
+                                    <li><p>Now we want to know how much the \(k=1\) frequency contributes to the signal. The frequency tested here is \(f_{k=1}=\frac{1}{NT_e}=1\)Hz which results in traveling the unit circle with this angle pace \(\phi[n]=2\pi\frac{n}{10}\), \(0 \leq n \leq N-1=9\).</p></li>
+                                    <li><p>Also let's consider the case where \(k=9\). The frequency tested here is \(f_{k=9}=\frac{9}{NT_e}=9\)Hz, we have got: \(\phi[n]=2\pi\frac{9n}{10}=-2\pi\frac{n}{10}\), \(0 \leq n \leq N-1=9\).</p></li>
+                                </ol>
+                                <p>As we can see, though we increase the frequency, the <span class="bold">speed</span> at which we travel the circle <span class="bold">does not increase</span>, only the <span class="bold">sign of the direction</span> does <span class="bold">(negative sign)</span>.
+                                    This effect shows clearly the effect of the <span class="bold">Nyquist-Shannon criterion</span>, beyond \(k=\frac{N}{2}\) (so \(k=5\) in that case), the frequency gets <span class="bold">folded back on itself</span> causing negative frequency values to appear.
+                                    As a result, these frequencies do not bring <span class="bold">any new information</span> to the signal.
+                                    We conclude that the \(\pi\) <span class="bold">periodicity</span> of the complex exponential domain is the reason why we have negative frequencies. In fact, the negative frequencies are the conjugate of the positive frequencies.
+                                </p>
+                            </p>
+                        </div>
+                    </div>
+                    <div> <h4>The FFT algorithm</h4>
+                        <p>The DFT formula can be re-written as a matrix multiplication between the sampled signal and the complex exponential domain.
+                            \[ X[k] = \begin{bmatrix} X_0 & X_1 & X_2 & \cdots & X_{N-1} \end{bmatrix} =
+                                      \begin{bmatrix} x_0 & x_1 & x_2 & \cdots & x_{N-1} \end{bmatrix} \times
+                            \begin{bmatrix}
+                                1 & 1 & 1 & \cdots & 1 \\
+                                1 & e^{-i2\pi k/N} & e^{-i2\pi 2k/N} & \cdots & e^{-i2\pi (N-1)k/N} \\
+                                1 & e^{-i2\pi 2k/N} & e^{-i2\pi 4k/N} & \cdots & e^{-i2\pi 2(N-1)k/N} \\
+                                \vdots & \vdots & \vdots & \ddots & \vdots \\
+                                1 & e^{-i2\pi (N-1)k/N} & e^{-i2\pi 2(N-1)k/N} & \cdots & e^{-i2\pi (N-1)^2k/N} \\
+                            \end{bmatrix}
+                            \]
+                            As mentioned earlier, we obtain a <span class="bold">complex vector</span> \(X[k]\) of length \(N\) (the same length as the signal \(x[n]\)).
+                            The matrix has symmetries that can be leveraged to reduce the number of operations, which is the goal of the FFT algo.
+                        </p>
+                    </div>
+                </div>
+                <div> <h3>From the DFT to the HT</h3>
+
+                </div>
+            </div>
+
+        </section> <!-- main-container -->
+
+        <div id="footer"></div>
+
+    </body>
+
+</html>
