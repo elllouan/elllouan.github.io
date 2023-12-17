@@ -30,7 +30,7 @@
                 <p>Here is the overview of the topics that I covered:</p>
                 <ol>
                     <a href="#hilbert"><li>FFT, Hilbert transform and its concrete applications;</li></a>
-                    <li>Even more modulations techniques such as QAM16, OFDM and QPSK;</li>
+                    <li>Some modulations techniques such as QAM16, OFDM and QPSK;</li>
                     <li>Signal encoding and encryption;</li>
                     <li>Some communication protocols on the physical layer such as 4G.</li>
                 </ol>
@@ -43,25 +43,30 @@
                             To be able to manupilate the spectrum density with a computer, it has to be <span class="bold">finite and discrete</span> (limited number of points/samples \(N\)) that is the role of the DFT.
                             In fact, the DFT is simply a <span class="bold">discrete version</span> of the Fourier transform. As a result, integrals are replaced by <span class="bold">sums</span>.
                             \[ X[k] = \sum_{n=0}^{N-1} x[n] e^{-i2\pi kn/N} \]
-                            \(k\) is the <span class="bold">frequency index</span> of the discrete spectrum and determines how fast we travel around the complex unit circle (i.e., frequency), and \(n\) is the <span class="bold">time index</span> of the signal sampled at each \(T_e\).
+                            \(k\) is the <span class="bold">frequency index</span> of the discrete spectrum and determines how fast (frequency) we travel around the complex unit circle (1 round = 1 cycle of the signal's time length), and \(n\) is the <span class="bold">time index</span> of the signal sampled at each \(T_e\).
                         </p>
                         <div class="frame-highlight">
-                            <p>This can also be viewed as a <span class="bold">dot product</span> between the signal and the complex exponential domain, which evaluates the <span class="bold">correlation</span> between those.</p>
+                            <p>This can also be viewed as a <span class="bold">dot product</span> between the signal and the complex exponential domain, whose result evaluates the <span class="bold">correlation</span> between those.</p>
                         </div>
-                        <p>However, those are not directly the <span class="bold">physical frequency</span> and <span class="bold">time</span> of the signal, which can be retrieved using the following formulas:
+                        <p>However, \(k\) and \(n\) are not directly the <span class="bold">physical frequency</span> and <span class="bold">time</span> of the signal, which can be retrieved using the following formulas:
                             \[ f = \frac{k}{N T_e} \]
                             \[ t = \frac{n}{T_e} \]
                             where \(f\) is the <span class="bold">physical frequency</span> and \(t\) is the <span class="bold">physical time</span>. \(NT_e\) is the <span class="bold">length of the signal</span>. With the ilustration below, that may come clearer.
+                            As a result, we iterate over each values of each \(k\) index to get the related <span class="bold">contribution</span> of each frequency to the signal. The illustration below illustrates how the length of the signal \(NT_e\) is related to the index \(k\). 
                         </p>
                         <img src="images/signal/dft_k_meaning.PNG" alt="">
+                        <p>\(k=0 \rightarrow \) 0 cycle around the circle | \(k=1 \rightarrow \) 1 cycle around the circle | \(k=2 \rightarrow \) 2 cycle around the circle</p>
                     </div>
                     <div> <h5>Why are there negative frequencies at all ?</h5>
-                        <p>Negative frequencies account for <span class="bold">information redundancy</span>. This redundancy comes from the fact that in the complex domain there is an anti-symmetry of \(\pi\) of the angle regarding the real axis between conjuguate numbers: \( arg(e^{i\theta}) = -arg(e^{i(2\pi-\theta)}) \). 
-                            Therefore performing an <span class="bold">anti-clockwise</span> (positive frequencies first) or <span class="bold">clockwise</span> (negative frequencies first) rotation is equivalent. This does not change the <span class="bold">magnitude</span> of each frequency, but only its <span class="bold">phase</span>.
+                        <p>Negative frequencies account for <span class="bold">information redundancy</span>. This redundancy comes from the fact that in the complex domain there are <span class="bold">symmetries</span> regarding angles.
+                            Indeed, \(e^{i2\pi\theta}\) is a <span class="bold">periodic</span> function: \( e^{i\theta} = e^{i(2\pi+\theta)} \). This is due to the Euler's formula: \(e^{i\theta} = cos(\theta) + isin(\theta)\).
+                            This results in the follwoing property: \( arg(e^{i2\pi\theta}) = -arg(e^{i(2\pi-\theta)}) \).
+                        </p>
+                        <p>Therefore performing an <span class="bold">anti-clockwise</span> (positive frequencies first) or <span class="bold">clockwise</span> (negative frequencies first) rotation is equivalent. This does not change the <span class="bold">magnitude</span> of each frequency, but only its <span class="bold">phase</span>.
                             So all angles below \(\pi\) are redundant (with a change in the sign) because of the \(2\pi\) periodicity.
                             At some point when \(k\) is greater than \(N/2 \equiv \pi\), the negative frequencies become simply the conjugate of the positive frequencies. As a consequence, we might re-write the DFT as:
                             \[ X[k] = \sum_{n=0}^{N-1} x[n] e^{i2\pi kn/N} \]
-                            The \(-\) sign is removed which causes to travel around the circle in the positive direction.
+                            The \(-\) sign in the exponential term was removed which causes to travel around the circle in the <span class="bold">positive direction</span>.
                         </p>
                     </div>
                     <div> <h5> Why do we sometimes only consider the absolute value of the FFT ?</h5>
@@ -69,20 +74,30 @@
                             Therefore, as far as the magnitude is concerned, it does not matter in which direction we travel the circle around.
                         </p>
                     </div>
+                    <div> <h5>What does the phase of the FFT actually tell us ?</h5>
+                        <p>The phase of the FFT is: \( \phi = arctan(\frac{S_k sin(2\pi\frac{k}{N}n)}{C_k cos(2\pi\frac{k}{N}n)}) \), where \(S_k\) and \(C_k\) are the coefficients computed with the DFT for \(k\) constant.</p>
+                        <ul>
+                            <li>If the phase becomes positive (> 0°), it means that the signal is more correlated with the imaginary part of the complex exponential.</li>
+                            <li>If the phase becomes negative (< 0°), it means that the signal is less correlated with the complex exponential domain.</li>
+                        </ul>
+                        <div class="frame-highlight">
+                            <p>If the phase is around 0° and there is a peak in the magnitude spectrum, this might mean that the signal is just shifted by \(\frac{\pi}{4}\), it means that the signal is more correlated with the imaginary part of the complex exponential.</p>
+                        </div>
+                    </div>
                     <div> <h5>To what extent does the <span class="bold">Nyquist frequency</span> theorem explain the redundancy of information with the FFT (negative frequencies) ?</h5>
-                        <p>The value \(k\) accounts for how many cycles (periods) in the length of the signal we travel. Actually, the maximum frequency that can be considered is \( f=\frac{k}{NT_e} \leq \frac{f_e}{2} \implies k_{max}=\frac{N}{2} \).
-                            Beyond this value, the frequency spectrum gets folded back on itself and information is duplicated. This makes the link with the negative frequencies.
+                        <p>The value \(k\) accounts for how <span class="bold">many cycles</span> (periods) of the length of the signal we travel. Actually, the <span class="bold">maximum frequency</span> that should be considered is \( f=\frac{k}{NT_e} \leq \frac{f_e}{2} \implies k_{max}=\frac{N}{2} \).
+                            Beyond this value, the frequency spectrum <span class="bold">gets folded back on itself</span> and information is <span class="bold">duplicated</span>. This is where negative frequencies show up.
                         </p>
                     </div>
                     <div> <h5>Example</h5>
                         <div class="frame-highlight">
                             <p>Let's take an example to better understand this. Let's consider we sample a signal over 1 second with 10 points (i.e., \(N=10\)). This implies that \(f_e=10\)Hz so \(f_{max}=5\)Hz.
-                                Therefore, the frequency span (or resolution) is \(\delta \omega=\frac{2\pi}{NT_e} \implies \delta f=\frac{1}{NT_e} \).
+                                Therefore, the <span class="bold">frequency resolution</span> is \(\delta \omega=\frac{2\pi}{NT_e} \implies \delta f=\frac{1}{NT_e} = 1\)Hz.
                                 <ol>
                                     <li><p>Now we want to know how much the \(k=1\) frequency contributes to the signal. The frequency tested here is \(f_{k=1}=\frac{1}{NT_e}=1\)Hz which results in traveling the unit circle with this angle pace \(\phi[n]=2\pi\frac{n}{10}\), \(0 \leq n \leq N-1=9\).</p></li>
                                     <li><p>Also let's consider the case where \(k=9\). The frequency tested here is \(f_{k=9}=\frac{9}{NT_e}=9\)Hz, we have got: \(\phi[n]=2\pi\frac{9n}{10}=-2\pi\frac{n}{10}\), \(0 \leq n \leq N-1=9\).</p></li>
                                 </ol>
-                                <p>As we can see, though we increase the frequency, the <span class="bold">speed</span> at which we travel the circle <span class="bold">does not increase</span>, only the <span class="bold">sign of the direction</span> does <span class="bold">(negative sign)</span>.
+                                <p>As we can see, though we increase the frequency, the <span class="bold">speed</span> at which we travel the circle <span class="bold">does not increase</span>, only the <span class="bold">sign of the direction</span> changes <span class="bold">(negative sign)</span>.
                                     This effect shows clearly the effect of the <span class="bold">Nyquist-Shannon criterion</span>, beyond \(k=\frac{N}{2}\) (so \(k=5\) in that case), the frequency gets <span class="bold">folded back on itself</span> causing negative frequency values to appear.
                                     As a result, these frequencies do not bring <span class="bold">any new information</span> to the signal.
                                     We conclude that the \(\pi\) <span class="bold">periodicity</span> of the complex exponential domain is the reason why we have negative frequencies. In fact, the negative frequencies are the conjugate of the positive frequencies.
@@ -91,7 +106,7 @@
                         </div>
                     </div>
                     <div> <h4>The FFT algorithm</h4>
-                        <p>The DFT formula can be re-written as a matrix multiplication between the sampled signal and the complex exponential domain.
+                        <p>The DFT formula can be re-written as a matrix operation (vector rotation) between the <span class="bold">sampled signal</span> and the <span class="bold">complex exponential domain</span>.
                             \[ X[k] = \begin{bmatrix} X_0 & X_1 & X_2 & \cdots & X_{N-1} \end{bmatrix} =
                                       \begin{bmatrix} x_0 & x_1 & x_2 & \cdots & x_{N-1} \end{bmatrix} \times
                             \begin{bmatrix}
@@ -102,8 +117,25 @@
                                 1 & e^{-i2\pi (N-1)k/N} & e^{-i2\pi 2(N-1)k/N} & \cdots & e^{-i2\pi (N-1)^2k/N} \\
                             \end{bmatrix}
                             \]
-                            As mentioned earlier, we obtain a <span class="bold">complex vector</span> \(X[k]\) of length \(N\) (the same length as the signal \(x[n]\)).
-                            The matrix has symmetries that can be leveraged to reduce the number of operations, which is the goal of the FFT algo.
+                            As mentioned earlier, we obtain a <span class="bold">complex vector</span> \(X[k]\) (each point is a complex exponential number) of length \(N\), which is the same length as the signal \(x[n]\).
+                            The matrix has <span class="bold">symmetries</span> (due to the periodicity of the complex exponentials) that can be leveraged to reduce the number of complex multiplications, which is the goal of the <span class="bold">FFT algorithm</span>.
+                        </p>
+                        <p>As considered earlier on this page, traveling the circle with \(2\pi\frac{k+\frac{N}{2}}{N}n = 2\pi\frac{k}{N}n +\pi n \mod 2\pi = -2\pi\frac{k}{N}n \mod 2\pi \). As a result we conclude that for \(k > \frac{N}{2}\) indices the exponential number is the conjugate of the exponential number at \(k\).
+                            The example below illustrates this periodicity for \(n=1\), we take all possible values of \(k < N-1\).
+                            \[ \left\{
+                            \begin{matrix}
+                                X[0] = x[0]e^{-i2\pi 0n/N} \\
+                                X[1] = x[0]e^{-i2\pi n/N} \\
+                                \vdots \\
+                                X[N-2] = x[0]e^{-i2\pi n\frac{N-2}{N}} = x[0]e^{i2\pi \frac{2n}{N}} = Re(X[2])-Im(X[2]) \\
+                                X[N-1] = x[0]e^{-i2\pi n\frac{N-1}{N}} = x[0]e^{i2\pi \frac{n}{N}} = Re(X[1])-Im(X[1]) \\
+                            \end{matrix}
+                            \right.
+                            \]
+                            We clearly notice that we cut <span class="bold">by half the number of complex computations</span>. It is also important to notice that this periodicity applies to the <span class="bold">time axis</span> \(n\) as well.
+                            \[ X[k] = x[0]e^{-i2\pi 0k/N} + x[1]e^{-i2\pi k/N} + \cdots + x[N-2]e^{i2\pi \frac{2k}{N}} + x[N-1]e^{i2\pi \frac{k}{N}} \]
+                            \[ \implies X[k] = x[0]e^{-i2\pi 0k/N} + x[1]e^{-i2\pi k/N} + \cdots + \frac{Re(X[k]_{x[2]})-Im(X[k]_{x[2]})}{x[2]} + \frac{Re(X[k]_{x[1]})-Im(X[k]_{x[1]})}{x[1]} \]
+                            where \(X[k]_{x[n]} = x[n]e^{-i2\pi kn/N}\) is the complex exponential number at \(k\) for \(x[n]\). This value is assumed to be already computed.
                         </p>
                     </div>
                 </div>
