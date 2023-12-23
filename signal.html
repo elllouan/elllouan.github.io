@@ -30,6 +30,7 @@
                 <p>Here is the overview of the topics that I covered:</p>
                 <ol>
                     <a href="#hilbert"><li>FFT, Hilbert transform and its concrete applications;</li></a>
+                    <a href="#laplace"><li>Laplace Transform and Z-transform</li></a>
                     <li>Some modulations techniques such as QAM16, OFDM and QPSK;</li>
                     <li>Signal encoding and encryption;</li>
                     <li>Some communication protocols on the physical layer such as 4G.</li>
@@ -38,71 +39,84 @@
 
             <div id="hilbert"> <h2>Hilbert transform</h2>
                 <div> <h3>Discrete Fourier Transform (DFT)</h3>
-                    <div> <h5>Why is this used for ?</h5>
-                        <p>This transform allows us to better identify the <span class="bold">contribution of frequencies</span> in a signal, which most of time are <span class="bold">not noticeable</span> when looking at the signal in its <span class="bold">time representation</span>.
-                            To be able to manupilate the spectrum density with a computer, it has to be <span class="bold">finite and discrete</span> (limited number of points/samples \(N\)) that is the role of the DFT.
-                            In fact, the DFT is simply a <span class="bold">discrete version</span> of the Fourier transform. As a result, integrals are replaced by <span class="bold">sums</span>.
-                            \[ X[k] = \sum_{n=0}^{N-1} x[n] e^{-i2\pi kn/N} \]
-                            \(k\) is the <span class="bold">frequency index</span> of the discrete spectrum and determines how fast (frequency) we travel around the complex unit circle (1 round = 1 cycle of the signal's time length), and \(n\) is the <span class="bold">time index</span> of the signal sampled at each \(T_e\).
-                        </p>
-                        <div class="frame-highlight">
-                            <p>This can also be viewed as a <span class="bold">dot product</span> between the signal and the complex exponential domain, whose result evaluates the <span class="bold">correlation</span> between those.</p>
-                        </div>
-                        <p>However, \(k\) and \(n\) are not directly the <span class="bold">physical frequency</span> and <span class="bold">time</span> of the signal, which can be retrieved using the following formulas:
-                            \[ f = \frac{k}{N T_e} \]
-                            \[ t = \frac{n}{T_e} \]
-                            where \(f\) is the <span class="bold">physical frequency</span> and \(t\) is the <span class="bold">physical time</span>. \(NT_e\) is the <span class="bold">length of the signal</span>. With the ilustration below, that may come clearer.
-                            As a result, we iterate over each values of each \(k\) index to get the related <span class="bold">contribution</span> of each frequency to the signal. The illustration below illustrates how the length of the signal \(NT_e\) is related to the index \(k\). 
-                        </p>
-                        <img src="images/signal/dft_k_meaning.PNG" alt="">
-                        <p>\(k=0 \rightarrow \) 0 cycle around the circle | \(k=1 \rightarrow \) 1 cycle around the circle | \(k=2 \rightarrow \) 2 cycle around the circle</p>
-                    </div>
-                    <div> <h5>Why are there negative frequencies at all ?</h5>
-                        <p>Negative frequencies account for <span class="bold">information redundancy</span>. This redundancy comes from the fact that in the complex domain there are <span class="bold">symmetries</span> regarding angles.
-                            Indeed, \(e^{i2\pi\theta}\) is a <span class="bold">periodic</span> function: \( e^{i\theta} = e^{i(2\pi+\theta)} \). This is due to the Euler's formula: \(e^{i\theta} = cos(\theta) + isin(\theta)\).
-                            This results in the follwoing property: \( arg(e^{i2\pi\theta}) = -arg(e^{i(2\pi-\theta)}) \).
-                        </p>
-                        <p>Therefore performing an <span class="bold">anti-clockwise</span> (positive frequencies first) or <span class="bold">clockwise</span> (negative frequencies first) rotation is equivalent. This does not change the <span class="bold">magnitude</span> of each frequency, but only its <span class="bold">phase</span>.
-                            So all angles below \(\pi\) are redundant (with a change in the sign) because of the \(2\pi\) periodicity.
-                            At some point when \(k\) is greater than \(N/2 \equiv \pi\), the negative frequencies become simply the conjugate of the positive frequencies. As a consequence, we might re-write the DFT as:
-                            \[ X[k] = \sum_{n=0}^{N-1} x[n] e^{i2\pi kn/N} \]
-                            The \(-\) sign in the exponential term was removed which causes to travel around the circle in the <span class="bold">positive direction</span>.
-                        </p>
-                    </div>
-                    <div> <h5> Why do we sometimes only consider the absolute value of the FFT ?</h5>
-                        <p>The absolute value informs us about the <span class="bold">contribution</span> (weight) of the specific frequency \(f=\frac{k}{NTe}\) to the signal <span class="bold">regardless of the phase correlation</span>.
-                            Therefore, as far as the magnitude is concerned, it does not matter in which direction we travel the circle around.
-                        </p>
-                    </div>
-                    <div> <h5>What does the phase of the FFT actually tell us ?</h5>
-                        <p>The phase of the FFT is: \( \phi = arctan(\frac{S_k sin(2\pi\frac{k}{N}n)}{C_k cos(2\pi\frac{k}{N}n)}) \), where \(S_k\) and \(C_k\) are the coefficients computed with the DFT for \(k\) constant.</p>
-                        <ul>
-                            <li>If the phase becomes positive (> 0°), it means that the signal is more correlated with the imaginary part of the complex exponential.</li>
-                            <li>If the phase becomes negative (< 0°), it means that the signal is less correlated with the complex exponential domain.</li>
-                        </ul>
-                        <div class="frame-highlight">
-                            <p>If the phase is around 0° and there is a peak in the magnitude spectrum, this might mean that the signal is just shifted by \(\frac{\pi}{4}\), it means that the signal is more correlated with the imaginary part of the complex exponential.</p>
-                        </div>
-                    </div>
-                    <div> <h5>To what extent does the <span class="bold">Nyquist frequency</span> theorem explain the redundancy of information with the FFT (negative frequencies) ?</h5>
-                        <p>The value \(k\) accounts for how <span class="bold">many cycles</span> (periods) of the length of the signal we travel. Actually, the <span class="bold">maximum frequency</span> that should be considered is \( f=\frac{k}{NT_e} \leq \frac{f_e}{2} \implies k_{max}=\frac{N}{2} \).
-                            Beyond this value, the frequency spectrum <span class="bold">gets folded back on itself</span> and information is <span class="bold">duplicated</span>. This is where negative frequencies show up.
-                        </p>
-                    </div>
-                    <div> <h5>Example</h5>
-                        <div class="frame-highlight">
-                            <p>Let's take an example to better understand this. Let's consider we sample a signal over 1 second with 10 points (i.e., \(N=10\)). This implies that \(f_e=10\)Hz so \(f_{max}=5\)Hz.
-                                Therefore, the <span class="bold">frequency resolution</span> is \(\delta \omega=\frac{2\pi}{NT_e} \implies \delta f=\frac{1}{NT_e} = 1\)Hz.
-                                <ol>
-                                    <li><p>Now we want to know how much the \(k=1\) frequency contributes to the signal. The frequency tested here is \(f_{k=1}=\frac{1}{NT_e}=1\)Hz which results in traveling the unit circle with this angle pace \(\phi[n]=2\pi\frac{n}{10}\), \(0 \leq n \leq N-1=9\).</p></li>
-                                    <li><p>Also let's consider the case where \(k=9\). The frequency tested here is \(f_{k=9}=\frac{9}{NT_e}=9\)Hz, we have got: \(\phi[n]=2\pi\frac{9n}{10}=-2\pi\frac{n}{10}\), \(0 \leq n \leq N-1=9\).</p></li>
-                                </ol>
-                                <p>As we can see, though we increase the frequency, the <span class="bold">speed</span> at which we travel the circle <span class="bold">does not increase</span>, only the <span class="bold">sign of the direction</span> changes <span class="bold">(negative sign)</span>.
-                                    This effect shows clearly the effect of the <span class="bold">Nyquist-Shannon criterion</span>, beyond \(k=\frac{N}{2}\) (so \(k=5\) in that case), the frequency gets <span class="bold">folded back on itself</span> causing negative frequency values to appear.
-                                    As a result, these frequencies do not bring <span class="bold">any new information</span> to the signal.
-                                    We conclude that the \(\pi\) <span class="bold">periodicity</span> of the complex exponential domain is the reason why we have negative frequencies. In fact, the negative frequencies are the conjugate of the positive frequencies.
-                                </p>
+                    <div> <h4>Questions and clarifications</h4>
+                        <div> <h5>Why is this used for ?</h5>
+                            <p>This transform allows us to better identify the <span class="bold">contribution of frequencies</span> in a signal, which most of time are <span class="bold">not noticeable</span> when looking at the signal in its <span class="bold">time representation</span>.
+                                However, to be able to manupilate the spectrum density with a computer, the signal (represented in both domains) has to be <span class="bold">finite and discrete</span> (i.e., limited number of points/samples \(N\)).
+                                The DFT essentially performs both signal <span class="bold">sampling</span> and spectrum <span class="bold">quantization</span>.
+                                In fact, the DFT is simply a <span class="bold">discrete version</span> of the Fourier transform. As a result, integrals are replaced by <span class="bold">sums</span>.
+                                \[ X[k] = \sum_{n=0}^{N-1} x[n] e^{-i2\pi kn/N} \]
+                                \(k\) is the <span class="bold">frequency index</span> of the discrete spectrum and determines how fast (frequency) we travel around the complex unit circle (1 round = 1 cycle of the signal's time length), and \(n\) is the <span class="bold">time index</span> of the signal sampled at each \(T_e\).
                             </p>
+                            <div class="frame-highlight">
+                                <p>This can also be viewed as a <span class="bold">dot product</span> between the signal and the complex exponential domain. The result evaluates the <span class="bold">correlation</span> between those.</p>
+                            </div>
+                            <p>However, \(k\) and \(n\) are not directly the <span class="bold">physical frequency</span> and <span class="bold">time</span> of the signal, which can be retrieved using the following formulas:
+                                \[ f = \frac{k}{N T_e} \]
+                                \[ t = \frac{n}{T_e} \]
+                                where \(f\) is the <span class="bold">physical frequency</span>, \(t\) is the <span class="bold">physical time</span> and \(NT_e\) is the <span class="bold">length of the signal</span>.
+                            </p>
+                            <p>As a result, we increment the \(k\) index to know the <span class="bold">contribution</span> of each frequency in the signal.
+                                With the illustration below, that may come clearer. It illustrates how the length of the signal \(NT_e\) is related to the index \(k\).
+                            </p>
+                            <img src="images/signal/dft_k_meaning.PNG" alt="">
+                            <p>\(k=0 \rightarrow \) 0 cycle around the circle | \(k=1 \rightarrow \) 1 cycle around the circle | \(k=2 \rightarrow \) 2 cycle around the circle</p>
+                        </div>
+                        <div> <h5>Why are there negative frequencies at all ?</h5>
+                            <p>Negative frequencies account for <span class="bold">information redundancy</span>. This redundancy comes from the fact that in the complex domain there are <span class="bold">symmetries</span>.
+                                Indeed, \(e^{i\theta}\) is a <span class="bold">periodic</span> function: \( e^{i\theta} = e^{i(2\pi+\theta)} \). This is due to the Euler's formula: \(e^{i\theta} = cos(\theta) + isin(\theta)\).
+                                This results in the following property: \( arg(e^{i\omega}) = -arg(e^{i(2\pi-\omega)}) = -arg(e^{-i\omega}) \).
+                            </p>
+                            <p>Therefore, performing an <span class="bold">anti-clockwise</span> (positive frequencies first) or <span class="bold">clockwise</span> (negative frequencies first) rotation is equivalent.
+                                This has no impact on the <span class="bold">magnitude</span> of each frequency, but only their <span class="bold">phase</span>.
+                                So all angles (i.e., each frequency's contribution) taken after \(\pi\) (i.e., \(k > \frac{N}{2}\)) are redundant (with a change in the sign) because we basically measure the same frequencies before and after \(\pi\).The direction of the rotation is the only difference.
+                                <div class="frame-highlight">
+                                    <p>Note that instead of taking negative frequencies \(-i\omega\), we could take \(i(\omega + \pi) \). The result would be a <span class="bold">double-sided</span> graph with all frequencies positive. In Matlab, we can use fftshift to get the graph at the right side.</p>
+                                    <div class="illustration-horiz-3">
+                                        <img src="images/signal/double-sided-fft.webp" alt="">
+                                        <img src="images/signal/single-sided-fft.webp" alt="">
+                                    </div>
+                                </div>
+                                At some point when \(k\) is greater than \(N/2 \equiv \pi\), the negative frequencies become simply the conjugate of the positive frequencies. As a consequence, we might re-write the DFT as:
+                                \[ X[k] = \sum_{n=0}^{N-1} x[n] e^{i2\pi kn/N} \]
+                                The \(-\) sign in the exponential term was removed which causes to travel around the circle in the <span class="bold">positive direction</span>.
+                            </p>
+                        </div>
+                        <div> <h5> Why do we sometimes only consider the absolute value of the FFT ?</h5>
+                            <p>The absolute value informs us about the <span class="bold">contribution</span> (weight) of the specific frequency \(f=\frac{k}{NTe}\) to the signal <span class="bold">regardless of the phase correlation</span>.
+                                Therefore, as far as the magnitude is concerned, it does not matter in which direction we travel the circle around.
+                            </p>
+                        </div>
+                        <div> <h5>What does the phase of the FFT actually tell us ?</h5>
+                            <p>The phase of the FFT is: \( \phi = arctan(\frac{S_k sin(2\pi\frac{k}{N}n)}{C_k cos(2\pi\frac{k}{N}n)}) \), where \(S_k\) and \(C_k\) are the coefficients computed with the DFT for \(k\) constant.</p>
+                            <ul>
+                                <li>If the phase becomes positive (> 0°), it means that the signal is more correlated with the imaginary part of the complex exponential.</li>
+                                <li>If the phase becomes negative (< 0°), it means that the signal is less correlated with the complex exponential domain.</li>
+                            </ul>
+                            <div class="frame-highlight">
+                                <p>If the phase is around 0° and there is a peak in the magnitude spectrum, this might mean that the signal is just shifted by \(\frac{\pi}{4}\), it means that the signal is more correlated with the imaginary part of the complex exponential.</p>
+                            </div>
+                        </div>
+                        <div> <h5>To what extent does the <span class="bold">Nyquist frequency</span> theorem explain the redundancy of information with the FFT (negative frequencies) ?</h5>
+                            <p>The value \(k\) accounts for how <span class="bold">many cycles</span> (periods) of the length of the signal we travel. Actually, the <span class="bold">maximum frequency</span> that should be considered is \( f=\frac{k}{NT_e} \leq \frac{f_e}{2} \implies k_{max}=\frac{N}{2} \).
+                                Beyond this value, the frequency spectrum <span class="bold">gets folded back on itself</span> and information is <span class="bold">duplicated</span>. This is where negative frequencies show up.
+                            </p>
+                        </div>
+                        <div> <h5>Example</h5>
+                            <div class="frame-highlight">
+                                <p>Let's take an example to better understand this. Let's consider we sample a signal over 1 second with 10 points (i.e., \(N=10\)). This implies that \(f_e=10\)Hz so \(f_{max}=5\)Hz.
+                                    Therefore, the <span class="bold">frequency resolution</span> is \(\delta \omega=\frac{2\pi}{NT_e} \implies \delta f=\frac{1}{NT_e} = 1\)Hz.
+                                    <ol>
+                                        <li><p>Now we want to know how much the \(k=1\) frequency contributes to the signal. The frequency tested here is \(f_{k=1}=\frac{1}{NT_e}=1\)Hz which results in traveling the unit circle with this angle pace \(\phi[n]=2\pi\frac{n}{10}\), \(0 \leq n \leq N-1=9\).</p></li>
+                                        <li><p>Also let's consider the case where \(k=9\). The frequency tested here is \(f_{k=9}=\frac{9}{NT_e}=9\)Hz, we have got: \(\phi[n]=2\pi\frac{9n}{10}=-2\pi\frac{n}{10}\), \(0 \leq n \leq N-1=9\).</p></li>
+                                    </ol>
+                                    <p>As we can see, though we increase the frequency, the <span class="bold">speed</span> at which we travel the circle <span class="bold">does not increase</span>, only the <span class="bold">sign of the direction</span> changes <span class="bold">(negative sign)</span>.
+                                        This effect shows clearly the effect of the <span class="bold">Nyquist-Shannon criterion</span>, beyond \(k=\frac{N}{2}\) (so \(k=5\) in that case), the frequency gets <span class="bold">folded back on itself</span> causing negative frequency values to appear.
+                                        As a result, these frequencies do not bring <span class="bold">any new information</span> to the signal.
+                                        We conclude that the \(\pi\) <span class="bold">periodicity</span> of the complex exponential domain is the reason why we have negative frequencies. In fact, the negative frequencies are the conjugate of the positive frequencies.
+                                    </p>
+                                </p>
+                            </div>
                         </div>
                     </div>
                     <div> <h4>The FFT algorithm</h4>
@@ -142,6 +156,51 @@
                 <div> <h3>From the DFT to the HT</h3>
 
                 </div>
+            </div>
+
+            <div id="laplace"> <h2>Laplace transform: beyond the Fourier transform</h2>
+                <p>In this section, I would like to expand on the Laplace transform; its mathematical meaning as well as its usual applications.</p>
+                <p>As indicated in this section's title, the <span class="bold">Laplace transform</span> is an <span class="bold">generalization</span> of the Fourier transform. It means that it can describe and analyse a <span class="bold">wider range</span> of signals.
+                    Indeed, the Fourier transform is limited to describing a signal <span class="bold">only</span> by using its frequency components (the operation involves a scalar product between the signal and the complex unit circle (cf <a href="#hilbert">here</a>)).
+                    It helps us in vizualizing clearly the presence and contribution of each frequency in the signal.
+                    With the <span class="bold">Laplace transform</span>, a new parameter \(\alpha\) is added, which accounts for a <span class="bold">scaling factor</span> in the complex exponential domain.
+                    Thus, besides providing us information about the frequency components of the signal, it also gives us information about the <span class="bold">amplitude dynamics</span> of the signal.
+                    In summary, it identifies the <span class="bold">presence of decreasing or increasing oscillations</span> in the signal.
+
+                </p>
+                <div> <h4>The Z-transform</h4>
+                    <p>The Z-transform is simply the Laplace transform applied to <span class="bold">discrete signals</span>:
+                        \[ X(p) = \int_{0}^{\infty} x(nT_e) e^{-pt}dt
+                                = \int_{0}^{\infty} \sum_{n=0}^{\infty} x(nT_e) \delta(t-nT_e) e^{-pt}dt
+                                = \sum_{n=0}^{\infty} x(nT_e) e^{-pnT_e}
+                                \equiv X(z) = \sum_{n=0}^{\infty} x[n] z^{-n} \]
+                        where \(z\) is a <span class="bold">complex number</span> and can be re-written like this: \(z=e^{pT_e}=e^{(\alpha+i\omega)T_e}=e^{\alpha T_e} e^{i\omega T_e}\).
+                    </p>
+                    <p>What we obtain is a <span class="bold">2D complex vector</span> \(X(z)\), where each \(z\) represents a specific <span class="bold">scaling factor</span> \(\alpha\) associated with a <span class="bold">frequency component</span> \(\omega\).</p>
+                    <div class="frame-highlight">
+                        <p>Note that with \(\alpha=0\), we get back to the Fourier transform \(z=e^{i\omega T_e}=e^{i 2\pi \nu T_e}\), which makes sense because this means no scaling factor in the signal and only <span class="bold">constant oscillations</span> (what the FT measures).</p>
+                    </div>
+                </div>
+                <div> <h4>Applications</h4>
+                    <p>This transform is particularly relevant when it comes to determining the <span class="bold">stability</span> of a system. A system whose impulse response outputs a signal with <span class="bold">increasing oscillations</span> \(\alpha > 0\) is <span class="bold">unstable</span>.
+                        This can also be pictured in the complex exponential plane, where the <span class="bold">poles</span> of the system are located. If the poles are located in the <span class="bold">right half-plane</span> \(\alpha > 0\), the system is unstable. 
+                    </p>
+                    <div class="frame-highlight">
+                        <p>The formula shown above clearly demonstrates that the sampling period \(T_e\) has an impact on the scaling of the system's reponse.
+                            Indeed, the <span class="bold">smaller</span> the sampling period, the <span class="bold">slower</span> the amplitude dynamics \(e^{(\alpha T_e)}\).
+                            <!-- This is why the <span class="bold">sampling frequency</span> is a <span class="bold">critical parameter</span> in the design of a system. -->
+                        </p>
+                    </div>
+                    <p>It has also useful features that make it easy to resolve <span class="bold">linear differential equations</span>.</p>
+                </div>
+            </div>
+
+            <div id="#wavelets"> <h2>Wavelets transform</h2>
+                <p>The Fourier transform is also quite limited because it assumes that a signal is <span class="bold">stationary</span>. This means that it should have the same frequency over time.</p>
+                <div> <h4>Short-Time Fourier transform</h4>
+                    <p>This transform was thought up to measure</p>
+                </div>
+                <p>The <span class="bold">Wavelets transform</span> was created to identify </p>
             </div>
 
         </section> <!-- main-container -->

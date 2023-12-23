@@ -138,12 +138,37 @@
                         </div>
                         <hr>
                         <div class="subject-subdiv"> <h3>6. Signal correlation</h3>
-                            <p>The <span class="bold">correlation</span> method is mostly used in the field of radars. When emitting a signal, we want to be able to detect if the signal comes back to us (<span class="bold">obstacle detection</span> for instance).
-                                Thus, the detector needs to constantly <span class="bold">compare</span> any received signal with the one that was originally emitted. The <span class="bold">correlation</span> method is a way to compare two signals. It can be written using the convolution operation, it is defined as follows:
-                                \[ C_{xy}(\tau) = \int^{+\infty}_{-\infty} x(t)y(t+\tau) dt = ( x(t) * y(-t) )(\tau) \]
-                                where \(x(t)\) is the original signal and \(y(t)\) is the received signal. The result of this operation is a function of the delay \(\tau\). A <span class="bold">correlation</span> between the two signals, results in a <span class="bold">peak at the delay</span> \(\tau\) where the two signals are the <span class="bold">most similar</span>.
-                                However, this method <span class="bold">alters</span> the signal's spectrum by making copies (redundancy) of the spectrum and shifting them every \(k\tau\). We have to be careful because we could detect a <span class="bold">peak at the wrong delay</span>, resulting in wrong conclusions about the distance of the obstacle.
+                            <p>The <span class="bold">correlation</span> method is a technique that consists of multiplying values of 2 signals at each time instant and summing the results.
+                                This is a well known technique in signal processing to identify <span class="bold">similarities</span> between 2 signals or even the <span class="bold">presence</span> of a signal in another one.
+                                This can be viewed as a <span class="bold">scalar product</span> between 2 signals. The formula is as follows:
+                                \[ C_{xy} = \int^{+\infty}_{-\infty} x(t)y(t) dt \equiv \sum^{+\infty}_{-\infty} x[n]y[n] \]
+                                where \(x(t)\) is the original signal and \(y(t)\) is the signal we want to identify in \(x(t)\) (of course they are interchangeable). The result of this operation is a scalar value \(C_{xy}\) which tells us how much both signals are <span class="bold">correlated</span>.
+                                However, the resulting value on its own does not mean much. It is a <span class="bold">relative</span> value not an <span class="bold">absolute</span>. That means that we need to compare it to other values to draw conclusions.
+                                
                             </p>
+                            <div class="frame-highlight">
+                                <p>Some <span class="bold">transforms</span> are based upon this technique so as to identify features of a signal:</p>
+                                <ul>
+                                    <li>Fourier transform identifies frequencies (pure sinusoïd signals).</li>
+                                    <li>Laplace transform measures also frequencies contributions, plus decreasing or increasing amplitudes.</li>
+                                </ul>
+                                <p>This is done by switching to another domain (frequency domain) where the signal is represented by a function of the frequency.</p>
+                            </div>
+                            <div> <h5>Application</h5>
+                                <p>This technique is mostly used in the field of radars. When emitting a signal, we want to be able to detect if the signal comes back to us (<span class="bold">obstacle detection</span> for instance).
+                                    Thus, the detector constantly needs to <span class="bold">compare</span> any received signal with the one that was originally emitted. The <span class="bold">correlation</span> method shown above is a way to compare two signals. It is defined as follows:
+                                    \[ C_{xy}(t) = \int^{+\infty}_{-\infty} x(\tau)y(t+\tau) d\tau \]
+                                    where \(x(t)\) is the original signal and \(y(t)\) is the received signal that we compare to \(x(t)\). The result of this operation is a function of the delay \(t\). A <span class="bold">correlation</span> between the two signals, results in a <span class="bold">peak at the delay</span> \(t\) where the two signals are the <span class="bold">most similar</span>.
+                                    When such a peak is detected, \(t\) gives us the <span class="bold">delay</span> between the emission and the reception of the signal. This delay can be used to <span class="bold">compute the distance</span> between the obstacle and the emitter.
+                                    However, this method <span class="bold">alters</span> the signal's spectrum by making copies (redundancy) of the spectrum and shifting them every \(kt\). We have to be careful because we could detect a <span class="bold">peak at the wrong delay</span>, resulting in wrong conclusions about the distance of the obstacle.
+                                </p>
+                                <div class="frame-highlight">
+                                    <p>Note that this operation can be written using the convolution operator \( C_{xy}(t) = ( x(\tau) * y(-\tau) )(t) \).</p>
+                                </div>
+                                <div class="frame-highlight">
+                                    <p>In this example, the spectrum parameter is not the frequency as opposed to the FT but it is the delay parameter \(t\).</p>
+                                </div>
+                            </div>
                         </div>
                         <hr>
                         <div class="subject-subdiv"> <h3>7. Further discussions</h3>
@@ -156,6 +181,7 @@
                                     <li>Some modulation techniques such as QAM16, OFDM and QPSK;</li>
                                     <li>Hilbert transform and its concrete applications;</li>
                                     <li>Some communication protocols on the physical layer such as 4G.</li>
+                                    <li>And more ...</li>
                                 </ol>
                             </div>
                         </div>
