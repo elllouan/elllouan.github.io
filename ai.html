@@ -21,30 +21,90 @@
         
         <section class="main-container">
 
-            <h1>AI</h1>
+            <h1>AI: Image classifier</h1>
             <div class="page-subtitle">
                 In this page, I cover a more practical approach of AI. Basically, what is a tensor? how to build a model with Tensorflow? What are the steps for building one? And more :)
             </div>
 
-            <div> <h2>Learning AI with TensorFlow</h2>
-                <p>This section is an introduction to TensorFlow. As stated before, I use Google Colab to get familiar with the tensorflow module.
+            <div> <h2>AI with Tensorflow</h2>
+                <p>This section exposes the basics of Tensorflow that I learnt. As stated before, I use Google Colab to get familiar with the tensorflow library.
                     The purpose of this first part is to get more familiar with the concept of tensor and how to manipulate them using tensorflow.
                     I have been introduced to these subjects:
-                    <div class="frame-highlight">
-                        <ul>
-                            <li>Tensor initialization and casting</li>
-                            <li>Math operations</li>
-                            <li>Linear operations</li>
-                            <li>TensorFlow's common functions and tensor manipulation</li>
-                            <li>Types of tensor: RaggedTensor, SparseTensor and string tensors</li>
-                        </ul>
-                    </div>
                 </p>
-                <p>Soon, I will be uploading a <a href="" download="">Google Colab notebook</a> that shows all my code for this.</p>
+                <div class="frame-highlight">
+                    <ul>
+                        <li>Tensor initialization and casting</li>
+                        <li>Math operations</li>
+                        <li>Linear operations</li>
+                        <li>TensorFlow's common functions and tensor manipulation</li>
+                        <li>Types of tensor: RaggedTensor, SparseTensor and string tensors</li>
+                    </ul>
+                </div>
+                <div> <h4>Loading and managing datasets</h4>
+                    <p>When I first started, I found it quite confusing and spent time figuring out how to load and manage datasets. Therefore, I will be summarizing the bare minimum to do so. Tensorflow makes available some pre-built datasets that can be loaded easily.
+                        The <span class="bold">tf.keras.datasets</span> provides few common datasets such as CIFAR10, MNIST ... We just need to invoke the <span class="bold">load_data()</span> method to load the dataset.
+                        The <span class="bold">tensorflow_datasets (tfds)</span> API allows to load a wider range of commonly used datasets: to know more, see <a href="https://www.tensorflow.org/datasets/catalog/overview?hl=fr#all_datasets" target="_blank">there</a>.
+                        This is a high level wrapper intended to make it easy to load commonly used datasets.
+                    </p>
+                    <div class="frame-highlight">
+                        <p>To load its own dataset, I recommand using the <a href="https://www.tensorflow.org/api_docs/python/tf/keras/utils/image_dataset_from_directory" target="_blank">tf.keras.preprocessing.image_dataset_from_directory</a>.
+                            We just need to specify the path to the directory containing all classes put in sub-directories.
+                        </p>
+                    </div>
+                    <p>Over the course of the tutos I have been following, I worked with <span class="bold">tfds</span> as it more convenient to work with pre-built and labelled datasets when we did not have my own.
+                        Anyway, all 3 methods returns images in a <a href="https://www.tensorflow.org/api_docs/python/tf/data/Dataset" target="_blank">tf.data.Dataset</a> class object. As a result, we benefit from all functions of this class.
+                    </p>
+                    <p>Overall, the <span class="bold">tf.data</span> is a powerful API to create <a href="https://www.tensorflow.org/guide/data?hl=fr">complex input data pipelines</a> for various type of datasets. Complex means that it does not just load the dataset but can also perform <span class="bold">shuffling, splitting, resizing ...</span>
+                        This API allows also to create <span class="bold">custom data pipelines</span> for one own dataset.
+                    </p>
+                </div>
             </div>
 
             <div> <h2>Embedded IA for computer vision</h2>
-                <p>Differences between NPU, CPU, GPU, FPGA, ASIC for embedded computer vision.</p>
+                <div> <h3>Building an image classifier</h3>
+                    <div> <h4>Terminology</h4>
+                        <p>Here I expose some basic terminology related to deep learning.</p>
+                        <div> <h5>Batch/Epoch</h5>
+                            <p>A <span class="bold">batch</span> is a set of input samples. Usually, we feed a model using batches of data and not the data sample by sample.
+                                In the case of an image classifier, this means that instead of feeding the model with only one image at a time, we give it several images in row before performing backpropagation (or weight-tuning).
+                            </p>
+                            <p>An <span class="bold">epoch</span> is a full pass through the entire dataset. In other words, it is the number of times the model has seen the entire dataset during the training process.
+                                For example, if we have 1000 images and a batch size of 100, then it will take 10 iterations to complete 1 epoch.
+                            </p>
+                        </div>
+                        <div> <h5>Loss/Accuracy</h5>
+                            <p>A <span class="bold">loss function</span> is computed after each data feeding. This loss function measures the <span class="bold">deviation</span> between the <span class="bold">model prediction</span> and the <span class="bold">actual value</span> (i.e., class of the image) of the data such that the model knows if it predicted well or not.
+                                From this loss function*, the model will perform backpropagation to adjust its weights and biases. The goal is to <span class="">minimize</span> the loss function.
+                            </p>
+                            <p>The <span class="bold">accuracy</span> is the percentage of correct predictions. There exist many metrics to measure the accuracy of a model. The most common one is the <span class="bold">confusion matrix</span>.
+                                It is a matrix that shows the number of correct and incorrect predictions made by the model compared to the actual outcomes (target value) in the data. 
+                            </p>
+                            <img src="images/ai/confusion_matrix.webp" alt="">
+                        </div>
+                        <div> <h5>Supervised/Unsupervised</h5>
+                            <p>* ...</p>
+                        </div>
+                        <div> <h5>Underfitting/Overfitting</h5>
+                            <p>The model does not manage to make the loss function diminish (stabilizes quite fast after a few epochs)</p>
+                            <p>The model does manage to make the loss function's training set diminish but not the loss function's validation set.
+                                In other terms, the model becomes good at predicting but only for the training set.
+                            </p>
+                        </div>
+                    </div>
+                    <div> <h4>Procedure</h4>
+
+                    </div>
+                    <div> <h4>Implementation</h4>
+
+                    </div>
+                </div>
+                <p>Terminology: </p>
+                <ul>
+                    <li></li>
+                    <li>measure loss/accuracy: confusion matrix, true/false positive/negative, per-class accuracy, F1 scores</li>
+                    <li>supervised, unsupervised learning</li>
+                </ul>
+                
             </div>
 
         </section> <!-- main-container -->
