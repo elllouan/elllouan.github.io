@@ -66,33 +66,68 @@
                         <p>Here I expose some basic terminology related to deep learning.</p>
                         <div> <h5>Batch/Epoch</h5>
                             <p>A <span class="bold">batch</span> is a set of input samples. Usually, we feed a model using batches of data and not the data sample by sample.
-                                In the case of an image classifier, this means that instead of feeding the model with only one image at a time, we give it several images in row before performing backpropagation (or weight-tuning).
+                                In the case of an image classifier, this means that instead of feeding the model with only one image at a time, we give it several images in row before performing <span class="bold">backpropagation (or weight-tuning)*</span>.
                             </p>
                             <p>An <span class="bold">epoch</span> is a full pass through the entire dataset. In other words, it is the number of times the model has seen the entire dataset during the training process.
                                 For example, if we have 1000 images and a batch size of 100, then it will take 10 iterations to complete 1 epoch.
                             </p>
+                            <p>* backpropagation generally relies on the <a href="https://en.wikipedia.org/wiki/Gradient_descent">gradient descent</a> optimization method.</p>
+                        </div>
+                        <div> <h5>Training/Validation/Test datasets</h5>
+                            <p>The <span class="bold">training</span> dataset is used to train the model. It merely means that backpropagation is operated while using this dataset.</p>
+                            <p>The <span class="bold">validation</span> dataset is used to test the model while training. The major difference is that backpropagation is not operated with this dataset, so that is does not influence the model.
+                                In fact, it allows to evaluate objectively our model performances.</p>
+                            <p>The <span class="bold">test</span> dataset is used after the training session. It consists of data that the model has never seen.</p>
                         </div>
                         <div> <h5>Loss/Accuracy</h5>
                             <p>A <span class="bold">loss function</span> is computed after each data feeding. This loss function measures the <span class="bold">deviation</span> between the <span class="bold">model prediction</span> and the <span class="bold">actual value</span> (i.e., class of the image) of the data such that the model knows if it predicted well or not.
-                                From this loss function*, the model will perform backpropagation to adjust its weights and biases. The goal is to <span class="">minimize</span> the loss function.
+                                From this loss function, the model will perform <span class="bold">backpropagation*</span> to adjust its weights and biases. The goal is to <span class="">minimize</span> the loss function.
                             </p>
                             <p>The <span class="bold">accuracy</span> is the percentage of correct predictions. There exist many metrics to measure the accuracy of a model. The most common one is the <span class="bold">confusion matrix</span>.
                                 It is a matrix that shows the number of correct and incorrect predictions made by the model compared to the actual outcomes (target value) in the data. 
                             </p>
-                            <img src="images/ai/confusion_matrix.webp" alt="">
+                            <img style="width: 30%;" src="images/ai/confusion_matrix.webp" alt="">
+                            <p>* In fact, we seek to minimize the loss function's average after each batch pass-through.</p>
                         </div>
-                        <div> <h5>Supervised/Unsupervised</h5>
-                            <p>* ...</p>
+                        <div> <h5>Supervised/Unsupervised learning</h5>
+                            <p>...</p>
                         </div>
                         <div> <h5>Underfitting/Overfitting</h5>
-                            <p>The model does not manage to make the loss function diminish (stabilizes quite fast after a few epochs)</p>
-                            <p>The model does manage to make the loss function's training set diminish but not the loss function's validation set.
-                                In other terms, the model becomes good at predicting but only for the training set.
+                            <p>If <span class="bold">underfit</span>, the model does not manage to make the loss function diminish (stabilizes quite fast after a few epochs)</p>
+                            <p>If <span class="bold">overfit</span>, the model does manage to make the loss function's training set diminish but not the loss function's validation set.
+                                In other terms, the model becomes good at predicting but only for the training set. The illustrations* below show the loss and accuracy of a model that overfits.
+                                We notice that after 4 epochs, the loss function's training set diminishes, while the loss function's validation set increases (opposite for the accuracy).
                             </p>
+                            <div class="illustration-horiz-3">
+                                <img src="images/ai/tf/loss_overfitting.JPG" alt="">
+                                <img src="images/ai/tf/accuracy_overfitting.JPG" alt="">
+                            </div>
+                            <p>* This was taken from a training session on my Google Colab notebook with a batch size of 30.</p>
+                        </div>
+                        <div> <h5>Data augmentation</h5>
+                            <p><span class="bold">Data augmentation</span> consists in operating slight changes in the input data in order to create new data. This new data is therefore not exactly the same as the original data but the <span class="bold">object properties</span> are preserved.
+                                This aims to attenuate the <span class="bold">overfitting</span> phenomenon to occur. Among other things, this can consist in modifying the <span class="bold">saturation/brightness</span> of colors, the <span class="bold">orientation</span> of the image, the zoom, etc.</p>
+                        </div>
+                        <div> <h5>Hyper-parameters</h5>
+                            <p> <span class="bold">Hyper-parameters</span> are parameters that are not learned by the model. They are set before the training process and are used to control the training process.
+                                They emcompass settings such as:
+                            </p>
+                            <div class="frame-highlight">
+                                <ul>
+                                    <li>the number of epochs;</li>
+                                    <li>the batch size;</li>
+                                    <li>the learning rate;</li>
+                                    <li>the optimizer (most commonly used is SGD);</li>
+                                    <li>the loss function (such as <a href="https://en.wikipedia.org/wiki/Huber_loss">Huber loss</a>: mix of quadratic and linear difference);</li>
+                                    <li>the activation function (sigmoid, ReLu, tanh ...);</li>
+                                    <li>the number of layers;</li>
+                                    <li>and many more ...</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div> <h4>Procedure</h4>
-
+                        <p>By following this <a href="https://colab.research.google.com/drive/119Tr4PN760gVkyTaXOkw6oHCWy2_3oBO#scrollTo=QT4ydYEwNNxO">link</a>, you will get to my Google Colab notebook.</p>
                     </div>
                     <div> <h4>Implementation</h4>
 
