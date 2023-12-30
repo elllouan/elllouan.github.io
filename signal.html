@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- make sure that the content fit the device on which we open -->
-        <title> Math </title>
+        <title> Signal </title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong|Arial|Open+Sans">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="js/script.js"></script>
@@ -34,7 +34,7 @@
                     <a href="#hilbert"><li>FFT, Hilbert transform and its concrete applications;</li></a>
                     <a href="#laplace"><li>Laplace transform and Z-transform</li></a>
                     <a href="#wavelet"><li>Wavelet analysis</li></a>
-                    <li>Some modulation techniques such as QAM16, OFDM and QPSK;</li>
+                    <a href="#modulation"><li>Some modulation techniques such as QAM16, OFDM and QPSK;</li></a>
                     <li>Signal encoding and encryption;</li>
                     <li>Some communication protocols on the physical layer.</li>
                 </ol>
@@ -48,7 +48,7 @@
                                 However, to be able to manupilate the spectrum density with a computer, the signal (represented in both domains) has to be <span class="bold">finite and discrete</span> (i.e., limited number of points/samples \(N\)).
                                 The DFT essentially performs both signal <span class="bold">sampling</span> and spectrum <span class="bold">quantization</span>.
                                 In fact, the DFT is simply a <span class="bold">discrete version</span> of the Fourier transform. As a result, integrals are replaced by <span class="bold">sums</span>.
-                                \[ X[k] = \sum_{n=0}^{N-1} x[n] e^{-i2\pi kn/N} \]
+                                \[ X[k] = \sum_{n=0}^{N-1} x[n] e^{-i2\pi k\frac{n}{N}} \]
                                 \(k\) is the <span class="bold">frequency index</span> of the discrete spectrum and determines how fast (frequency) we travel around the complex unit circle (1 round = 1 cycle of the signal's time length), and \(n\) is the <span class="bold">time index</span> of the signal sampled at each \(T_e\).
                             </p>
                             <div class="frame-highlight">
@@ -86,8 +86,8 @@
                                 </p>
                                 <img style="width: 20%; margin: 0 auto;" src="images/signal/one-sided-fft.webp" alt="">
                             </div>
-                            <p>At some point when \(k\) is greater than \(N/2 \equiv \pi\), the negative frequencies become simply the <span class="bold">conjugate</span> of the positive frequencies. That means, we could re-write the DFT as:
-                                \[ X[k] = \sum_{n=0}^{N-1} x[n] e^{i2\pi kn/N} \]
+                            <p>At some point when \(k\) is greater than \(\frac{N}{2} \equiv \pi\), the negative frequencies become simply the <span class="bold">conjugate</span> of the positive frequencies. That means, we could re-write the DFT as:
+                                \[ X[k] = \sum_{n=0}^{N-1} x[n] e^{i2\pi k\frac{n}{N}} \]
                                 The \(-\) sign in the exponential term was removed which causes to travel around the circle in the <span class="bold">positive direction</span>.
                             </p>
                             <div class="illustration-horiz-2">
@@ -153,45 +153,76 @@
                             </p>
                             <div class="frame-highlight">
                                 <p>Note that each component of the \(X[k]\) can also be seen as a polynom \( X[k] = \sum_{n=0}^{N-1} \lambda_n \omega^n_k \), with \( \lambda_n = x_n \) and \( \omega_k = e^{-i2\pi k/N} \).
-                                    This representation will be used further in an algorithm.
+                                    This representation is used further in the <a href="#cooley-tukey">Cooley-Tukey</a> algorithm.
                                 </p>
                             </div>
                         </div>
-                        <div> <h5>My understanding</h5>
+                        <div> <h5>Symmetries</h5>
                             <p>As considered earlier on this page, traveling the circle with \(2\pi\frac{k+\frac{N}{2}}{N}n = 2\pi\frac{k}{N}n +\pi n \mod 2\pi = -2\pi\frac{k}{N}n \mod 2\pi \). As a result we conclude that for \(k > \frac{N}{2}\) indices the exponential number is the conjugate of the exponential number at \(k\).
                                 The example below illustrates this periodicity for \(n=1\), we take all possible values of \(k < N-1\).
                                 \[ \left\{
                                 \begin{matrix}
-                                    X[0] = x[0]e^{-i2\pi 0n/N} \\
-                                    X[1] = x[0]e^{-i2\pi n/N} \\
+                                    X[0] = x[0]e^{-i2\pi 0\frac{n}{N}} \\
+                                    X[1] = x[0]e^{-i2\pi \frac{n}{N}} \\
                                     \vdots \\
                                     X[N-2] = x[0]e^{-i2\pi n\frac{N-2}{N}} = x[0]e^{i2\pi \frac{2n}{N}} = Re(X[2])-iIm(X[2]) \\
                                     X[N-1] = x[0]e^{-i2\pi n\frac{N-1}{N}} = x[0]e^{i2\pi \frac{n}{N}} = Re(X[1])-iIm(X[1]) \\
                                 \end{matrix}
                                 \right.
                                 \]
-                                We clearly notice that we cut <span class="bold">by half the number of complex computations</span>. It is also important to notice that this periodicity applies to the <span class="bold">time axis</span> \(n\) as well.
-                                \[ X[k] = x[0]e^{-i2\pi 0k/N} + x[1]e^{-i2\pi k/N} + \cdots + x[N-2]e^{i2\pi \frac{2k}{N}} + x[N-1]e^{i2\pi \frac{k}{N}} \]
-                                \[ \implies X[k] = x[0]e^{-i2\pi 0k/N} + x[1]e^{-i2\pi k/N} + \cdots + x[N-2]\frac{(Re(X[k]_{x[2]})-Im(X[k]_{x[2]}))}{x[2]} + x[N-1]\frac{)Re(X[k]_{x[1]})-Im(X[k]_{x[1]}))}{x[1]} \]
-                                where \(X[k]_{x[n]} = x[n]e^{-i2\pi kn/N}\) is the complex exponential number at \(k\) for \(x[n]\). This value is assumed to be already computed.
                             </p>
                         </div>
-                        <div> <h5>Application: Cooley-Tukey FFT algorithm</h5>
-                            <p>This algorithm separates even and odd signal's indices</p>
-                            <ol>
-                                <li>Even/odd sepration</li>
-                                <li>Circular periodicity</li>
-                                <li>Recursive computations</li>
-                            </ol>
-                            <p>\[ \left\{
+                        <div class="cooley-tukey"> <h5>Application: Cooley-Tukey FFT algorithm</h5>
+                            <p>I will try to explain with my words, my understanding of this algorithm. This method uses the symmetry of the DFT formula (unit complex circle). It notably splits the DFT \(X[k]\) in even and odd frequencies indices.
+                                \[ \left\{
                                 \begin{matrix}
-                                X[k] = E[k] + e^{-i2\pi k/N}O[k] \\
-                                X[k+\frac{N}{2}] = E[k] - e^{-i2\pi k/N}O[k] \\
+                                    X[2k] = \sum_{n=0}^{N-1} x[n]e^{-i2\pi \frac{2k}{N}n} \\
+                                    X[2k+1] = \sum_{n=0}^{N-1} e^{-i2\pi \frac{n}{N}} x[n] e^{-i2\pi \frac{2k}{N}n} \\
+                                    X[k] = X[2k] + X[2k+1]
                                 \end{matrix}
                                 \right.
                                 \]
-
                             </p>
+                            <p>However, we can go further by seeing that for even indices \(2k\), there is a <span class="bold">symmetry</span> of the complex multplication between the first half \(k < \frac{N}{2}\) and the second half \(k \geq \frac{N}{2}\) of the signal
+                                \[ e^{-i2\pi \frac{2k}{N}(n+\frac{N}{2})} = e^{-i2\pi \frac{2k}{N}n} e^{-i2\pi k} = e^{-i2\pi \frac{2k}{N}n} \]
+                            </p>
+                            <p>On the other hand, for odd indices \(2k+1\), we observe an <span class="bold">anti-symmetry</span> between the first half and the second half of the signal:
+                                \[ e^{-i2\pi \frac{(2k+1)}{N}(n+\frac{N}{2})} = e^{-i2\pi \frac{2k}{N}n} e^{-i2\pi k}  e^{-i2\pi \frac{n}{N}} e^{-i\pi}= - e^{-i2\pi \frac{n}{N}} e^{-i2\pi \frac{2k}{N}n} \]
+                            </p>
+                            <p>We can harness these symmetries and previous formulas become:
+                                \[ \left\{
+                                \begin{matrix}
+                                    X[2k] = \sum_{n=0}^{\frac{N}{2}-1} (x[n]+x[n+\frac{N}{2}])e^{-i2\pi \frac{2k}{N}n} \\
+                                    X[2k+1] = \sum_{n=0}^{\frac{N}{2}-1} e^{-i2\pi \frac{n}{N}} (x[n]-x[n+\frac{N}{2}]) e^{-i2\pi \frac{2k}{N}n} \\
+                                \end{matrix}
+                                \right.
+                                \]
+                            </p>
+                            <div class="frame-highlight">
+                                <p>It is important to notice that the symmetry can be expressed by either using \(k\) or \(n\). By this I mean that the previous characteristics also apply if, instead of considering even and odd frequencies indices, we rather consider even and odd samples:
+                                    \( X[k] = \sum_{n=0}^{\frac{N}{2}-1} \lambda_{2n} \omega^{2n}_k + \sum_{n=0}^{\frac{N}{2}-1} \lambda_{2n+1} \omega^{2n+1}_k \)
+                                </p>
+                                <p>We can also consider the symmetries with regard to the <span class="bold">time axis</span> \(n\) by taking either even samples or odd samples.
+                                    \[ \left\{
+                                    \begin{matrix}
+                                        E[k] = \sum_{n=0}^{\frac{N}{2}-1} x[2n] e^{-i2\pi \frac{k}{N}(2n)} \\
+                                        O[k] = e^{-i2\pi \frac{k}{N}} \sum_{n=0}^{\frac{N}{2}-1} x[2n+1] e^{-i2\pi \frac{k}{N}(2n)} \\
+                                    \end{matrix}
+                                    \right.
+                                    \]
+                                    As a result, the <span class="bold">symmetry</span> and <span class="bold">anti-symmetry</span> features also apply to the first half and second half of requencies. Then, we can re-write the previous formulas as:
+                                    \[ \left\{
+                                        \begin{matrix}
+                                        X[k] = E[k] + O[k] \\
+                                        X[k+\frac{N}{2}] = E[k] - O[k] \\
+                                        \end{matrix}
+                                        \right.
+                                    \]
+                                </p>
+                                <p>This shows that computing the DFT of a signal \(x[n]\) can be broken down into <span class="bold">computing the DFT of 2 smaller signals of lentgh \(\frac{N}{2}\)</span> (even and odd samples) separately.</p>
+                            </div>
+                            <p>The <span class="bold">Cooley-Tukey</span> algorithm uses <span class="bold">recursion</span> to recursively compute \(E[k]\) and \(O[k]\). This algorithm comes down to recursively computing DFT of ever smaller signals until we reach a signal of length 2.
+                                An Implementation of this algorithm can be found in my Google Colab <a href="https://colab.research.google.com/drive/1urd-ix9vSj0F_J_-vPLFqPb8ttrotL8a?hl=fr#scrollTo=jm0wkaFrti8H&uniqifier=1">notebook</a>.</p>
                         </div>
                     </div>
                 </div>
@@ -242,12 +273,12 @@
                             that signal from <span class="bold">becoming real</span> again when computing the IFFT (4).
                             Indeed, in the Fourier domain, negative frequencies coefficients allow, when added with positive frequencies coefficients, to <span class="bold">cancel out the imaginary part</span> of the complex exponential, thereby obtaining a <span class="bold">real signal</span>.
                             What the IFFT essentially does is this:
-                            \[ x[n] = \sum_{k=0}^{N-1} X[k] e^{i2\pi kn/N} = X[0] + \sum_{k=1}^{N/2} X[k] e^{i2\pi kn/N} + X[N-k] e^{-i2\pi kn/N},\ with\ X[k]=\overline{X[N-k]} \] 
+                            \[ x[n] = \sum_{k=0}^{N-1} X[k] e^{i2\pi k\frac{n}{N}} = X[0] + \sum_{k=1}^{\frac{N}{2}} X[k] e^{i2\pi k\frac{n}{N}} + X[N-k] e^{-i2\pi k\frac{n}{N}},\ with\ X[k]=\overline{X[N-k]} \] 
                             To obtain the <span class="bold">analytic signal</span>, we actually do this:
-                            \[ x_a[n] = \sum_{k=0}^{N/2} X[k] e^{i2\pi kn/N} = X[0] + 2\sum_{k=1}^{N/2} X[k] e^{i2\pi kn/N} = X[0] + 2\sum_{k=1}^{N/2} (C_k + i S_k) e^{i2\pi kn/N} \]
+                            \[ x_a[n] = \sum_{k=0}^{\frac{N}{2}} X[k] e^{i2\pi k\frac{n}{N}} = X[0] + 2\sum_{k=1}^{\frac{N}{2}} X[k] e^{i2\pi k\frac{n}{N}} = X[0] + 2\sum_{k=1}^{\frac{N}{2}} (C_k + i S_k) e^{i2\pi k\frac{n}{N}} \]
                             where \(C_k\) and \(S_k\) are respectively the cosinus and sinus <span class="bold">correlation coefficients</span> computed with the DFT for a given frequency index \(k\). The \(2\) accounts for <span class="bold">energy conservation</span>, it compensates for the cancellation of negative frequencies.
                             Eventually, we notice that the signal is <span class="bold">complex</span> because we stop at \(k=\frac{N}{2}\) andt to make the link with the parameter calculated in the section just above (\A(t)\) and \(\theta(t)\), we can re-write \(x_a[n]\) such as:
-                            \[ x_a[n] = X[0] + \sum_{k=1}^{N/2} A_k e^{i \theta_k} e^{i2\pi kn/N} = X[0] + A[n] e^{i \theta[n]} \]
+                            \[ x_a[n] = X[0] + \sum_{k=1}^{\frac{N}{2}} A_k e^{i \theta_k} e^{i2\pi k\frac{n}{N}} = X[0] + A[n] e^{i \theta[n]} \]
                             where \(A_k\) and \(\theta_k\) are respectively the <span class="bold">magnitude</span> and <span class="bold">phase</span> of the signal for each \(k\). In the eend, this signal carries the same information as \(C_k\) and \(S_k\) but in a different form.
                             With this approach, we have now a complex signal from which we can extract several features of the original signal such as the instantaneous <span class="bold">amplitude</span> \(A[n]\) and <span class="bold">phase</span> \(\theta[n]\).
                         </p>
@@ -348,6 +379,27 @@
                     </div>
                     <p>A <span class="bold">wavelet</span> is nothing more than a sine wave damped by a gaussian curve \( \psi^{*}(t) = k e^{i\omega t} e^{-\frac{t^2}{2}} \), where \( \omega\) is the wavelet's pulsation.</p>
                     <p></p>
+                </div>
+            </div>
+
+            <div id="#modulation"> <h2>Modulation techniques</h2>
+                <div> <h4>OFDM: Orthogonal Frequency Division Multiplexing</h4>
+                    <p><span class="bold">OFDM</span> uses <span class="bold">orthogonality</span> between frequencies to use the frequency spectrum more efficiently in order to encode and simultaneously send data over different frequencies.
+                        It derives from <span class="bold">FDM</span>, which does not use orthogonality and therefore needs to space frequencies quite far away from each each to avoid frequency overlapping.</p>
+                    <p>When a transmitter sends out a <span class="bold">finite and sinewave-like signal</span> (that carries encoded information), it causes the appearance of a <span class="bold">cardinal sinewave</span> (instead of an impulse) in the signal spectrum.
+                        The cardinal sinewave equals to 0 at <span class="bold">each frequency step</span> \(\Delta f = \frac{1}{NT_e} = \frac{1}{T}\), except at the <span class="bold">signal frequency</span>. This means that we could leverage this feature to have multiple sinewave signals overlapping each other in the <span class="bold">time-domain</span> while not interfering with each other (orthogonal) in the <span class="bold">frequency-domain</span>.
+                        The solution would be to have frequencies such that all the cardinal sinewaves are <span class="bold">orthogonal</span> to each other. This is possible if the frequencies are <span class="bold">multiples</span> of the frequency step \(\Delta f\).
+                        \[ \omega_m - \omega_1 = m\ \Delta \omega= \frac{2\pi}{NT_e} m ,\ m \geq 2\]
+                        The illustration below shows for \(m=2\). The signal* on the left is framed at one second \(T=1\).
+                    </p>
+                    <div class="illustration-horiz-2">
+                        <img style="width: 15%;" src="images/signal/ofdm_time.JPG" alt="">
+                        <img src="images/signal/ofdm.drawio.png" alt="">
+                    </div>
+                    <p>* For sake of simplicity, the signal is represented continuous.</p>
+                    <p>Each cardinal sinewave is called a <span class="bold">subcarrier</span>. All subcarriers are <span class="bold">independent</span> from each other.
+                        Each transmits its own type of data and uses its own <span class="bold">modulation scheme</span>. This is mostly used in <span class="bold">wireless communication</span> (e.g., WiFi, 4G, etc.) which I talk <a href="">here</a>.
+                    </p>
                 </div>
             </div>
 
