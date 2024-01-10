@@ -31,13 +31,145 @@
                 <h4>Overview</h4>
                 <p>Here is the overview of the topics that I covered:</p>
                 <ol>
+                    <a href="#fundamentals">Overview of fundamentals</a>
                     <a href="#hilbert"><li>FFT, Hilbert transform and its concrete applications;</li></a>
                     <a href="#laplace"><li>Laplace transform and Z-transform</li></a>
                     <a href="#wavelet"><li>Wavelet analysis</li></a>
-                    <a href="#modulation"><li>Some modulation techniques such as QAM16, OFDM and QPSK;</li></a>
+                    <a href="#transmission"><li>Data transmission (QAM16, OFDM and QPSK);</li></a>
                     <li>Signal encoding and encryption;</li>
                     <li>Some communication protocols on the physical layer.</li>
                 </ol>
+            </div>
+
+            <div id="#fundamentals"> <h2>Fundamentals</h2>
+                <ol>
+                    <li>DSF, superposition, energy(3) and power(4) of signals: Bessel-Parseval, Wiener</li>
+                    <li>essential properties of TF, sinc orthogonality, FT generalisation</li>
+                    <li>random vs deterministic signals, group propagation phase</li>
+                </ol>
+                <div> <h3>Signals classification</h3>
+                    <div> <h4>Energetic classification</h4>
+                        <p>Signals can be classified using the definitions of <span class="bold">energy</span> and <span class="bold">power</span>.</p>
+                        <div> <h5>Energy</h5>
+                            <p>All signal carry <span class="bold">energy</span> over time. This energy can be used to characterize them. We define the energy of a signal as:
+                                \[ W_{0\rightarrow\tau} = \int_{0}^{\tau} |x(t)|^2 dt \]
+                                where \(x(t)\) is a <span class="bold">complex</span> signal (hence we take the absolute value) and \(\tau\) is the time interval over which we compute the energy.
+                                This approach allows to describe <span class="bold">finite</span> signals such as <span class="bold">transient</span> signals or <span class="bold">ephemeral</span> signals.
+                            </p>
+                        </div>
+                        <div> <h5>Power</h5>
+                            <p>However, for <span class="bold">infinite</span> signals such as <span class="bold">periodic</span> signals or <span class="bold">random</span> signals, we rather consider the <span class="bold">power</span> of the signal, defined as:
+                                \[ P_{0\rightarrow\tau} = \frac{1}{\tau} \int_{0}^{\tau} |x(t)|^2 dt \]
+                                This represents the amount of energy transmitted by the signal <span class="bold">per unit of time</span>. We can also compute the <span class="bold">total average power</span> by taking the limit:
+                                \[ P_s = \lim_{\tau \rightarrow \infty} \frac{1}{\tau} \int_{0}^{\tau} |x(t)|^2 dt \]
+                            </p>
+                            <div class="frame-highlight">
+                                <p>We notice that for <span class="bold">finite-energy</span> signals, their total average power is 0 because \( \int_{0}^{\tau} |x(t)|^2 dt \) (i.e., the energy term) is finite.</p>
+                            </div>
+                            <p>The <span class="bold">Fourier series</span>, which analyze periodic signals, inform about the <span class="bold">power contribution</span> of each frequency \(nf\) in the original signal:
+                                \[ C_n = \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} s(t) e^{j2\pi nf t} dt,\ n\in\mathcal{Z} \]
+                                where \(s(t)\) is the original signal, \(C_n\) is a <span class="bold">complex series</span> and \(T\) is the period of the signal (which can also be seen as the <span class="bold">observation time</span>).
+                            </p>
+                        </div>
+                    </div>
+                    <div> <h4>Phenomenological classification</h4>
+                        <p>This classification will be discussed more thoroughly in the next section. To give an overview of all type of signals, we have:</p>
+                        <div class="frame-highlight">
+                            <ul>
+                                <li>Deterministic signals</li>
+                                <ul>
+                                    <li>periodic signals</li>
+                                    <li>ephemeral signals</li>
+                                    <li>non-periodic signals</li>
+                                    <li>pseudo-periodic signals</li>
+                                </ul>
+                                <li>Random signals</li>
+                                <ul>
+                                    <li>stationary signals</li>
+                                    <li>non-stationary signals</li>
+                                    <li>ergodic signals</li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div> <h3>Signals and probability</h3>
+                    <div> <h4>Deterministic signals</h4>
+                        <p><span class="bold">Deterministic signals</span> are signals which we can precisely predict the behavior. The signal is described with a <span class="bold">mathematical model</span>.</p>
+                    </div>
+                    <div> <h4>Random signals</h4>
+                        <p><span class="bold">Random signals</span> are signals which we cannot precisely predict the behavior. The signal does have a <span class="bold">mathematical model</span>.
+                            To describe the signal, we use <span class="bold">statistical tools</span> such as the <span class="bold">probability density function</span> \(p(x)\).
+                        </p>
+                        <div> <h5>Stationary processus</h5>
+                            <p>A <span class="bold">stationary</span> signal is a signal whose <span class="bold">probability density function</span> is always the same, hence does not change over time.
+                                The probability density function is a 1D function \(p(x)\). This causes the signal's <span class="bold">statistical properties</span> (mean, variance, standard deviation ...) to be constant.
+                            </p>
+                            <p>An <span class="bold">non-stationary</span> signal is a signal whose <span class="bold">probability density function</span> changes over time.
+                                The probability density function is a 2D function \(p(x,t)\). This causes the signal's <span class="bold">statistical properties</span> (mean, variance, standard deviation ...) to change over time.
+                            </p>
+                        </div>
+                        <div> <h5>Ergodic processus</h5>
+                            <p>An <span class="bold">ergodic</span> signal is a signal whose <a href="#math-tools">statistical moments</a> can be linked to its <span class="bold">temporal moments</span>.
+                                In other words, its statistical mean is equal to its temporal mean (up to the 2nd order):
+                                \[\left\{
+                                    \begin{matrix}
+                                    E[s(t)] = \overline{s(t)} \\
+                                    E[s(t)^2] = \overline{s(t)^2} = P_s
+                                    \end{matrix}
+                                    \right.
+                                \]
+                                This means that the study of an ergodic signal can be reduced to the study of a <span class="bold">single realization</span> of the signal.
+                            </p>
+                        </div>
+                        <div id="math-tools"> <h4>Mathematical tools</h4>
+                            <p>For random signals, we have mathematical concepts to describe a signal that are quite closely related to the ones used for deterministic signals</p>
+                            <div> <h5>Probability density function</h5>
+                                <p></p>
+                            </div>
+                            <div> <h5>Esperance</h5>
+                                <p>The mathematical esperance of a signal is equivalent to the arithmetical mean for deterministic signals. For that matter, mean is often use to refer to esperance in probability.
+                                    Instead of summing determined signal values, we use the probability of each event \(p(x)\) multiplied by the value of the event \(x\).
+                                    \[ E[X] = \int_{-\infty}^{\infty} x p(X = x) dx \]
+                                    In the case of signal analysis, the random event \(x\) can represent the tension taken by the signal \(X \equiv s(t)\).
+                                </p>
+                                <div class="frame-highlight">
+                                    <p>For discrete probabilities, we have a sum: \( E[X] = \sum_{x=0}^{N} x p(X = x) \).</p>
+                                </div>
+                            </div>
+                            <div> <h5>Variance</h5>
+                                <p>The variance a signal is a dispersion indicator. It measures the power of random fluctuations around the signal's mean \(\mu_X = E[X] \).
+                                    \[ \sigma_X^2 = V[X] = \int_{-\infty}^{\infty} (x-\mu_X)^2 p(X = x) dx \]
+                                    From the variance definition, we see that we retrieve the concept of <span class="bold">power</span> of a signal.
+                                </p>
+                                <div class="frame-highlight">
+                                    <p>It can also be seen as the statistical moment of order 2 of this signal: \(Y=x-\mu_X\).</p>
+                                </div>
+                            </div>
+                            <div> <h5>Standard deviation</h5>
+                                <p>The standard deviation a signal is also a dispersion indicator but the unit of measurement is brought back to the signal unit (voltage).
+                                    \[ \sigma_X =\sqrt{V[X]} \]
+                                    From the standard deviation definition, we see that we retrieve the concept of <span class="bold">effective value</span> of a signal.
+                                </p>
+                            </div>
+                            <div> <h5>The gaussian distribution</h5>
+                                <p>The gaussian distribution is a common type of probability distribution. In fact, there is the central limit theorem that states that if we take \(n\) random variables and we do a huge number realizations (ideally an infinity),
+                                    the probability distribution function of those realizations will tend to a gaussian distribution.
+                                </p>
+                                <p>This phenomenon can be understood more clearly if we consider convolution and the autocorrelation method. In the theorem above, a random variable refers to 
+                                    Each random variable is associated with a probability density function, which is most of the time uniform (i.e., all events in the set of events have the same probability to occur).
+                                    Now taking \(n\) random variables \(X_1\ X_2 \vdots X_n\) means that at each realization we give a value to each random variable \(X_i\).
+                                    As I already explained <a href="math&IT.html">here</a>, doing this is equivalent to convolve the probability density function of each random variable.
+                                    \[ P_n(y) = (p_1(x)*p_2(x)*...*p_n(x))(y) \]
+                                    With \(p_i(x)\) the probability density function of the random variable \(X_i\) and \(y\) the value of the random variable \(Y=X_1+X_2+...+X_n\).
+                                    We obtain a new probability density function \(P_n(y)\) that is the convolution of all the probability density functions of the random variables, which indeed converges to a gaussian distribution.
+                                    We know that the convolution is close to the autocorrelation of the signal. Therefore, we can link the correlation peak of this new probability density function \(P_n(y)\) the mean. 
+                                </p>
+                            </div>
+                            <p>convolution, autocorrelation, central limit theorem, gaussian distribution</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div id="hilbert"> <h2>Hilbert analysis</h2>
@@ -343,7 +475,7 @@
                 </div>
             </div>
 
-            <div id="#wavelet"> <h2>Wavelet analysis</h2>
+            <div id="wavelet"> <h2>Wavelet analysis</h2>
                 <p>The Fourier transform is also quite limited because it assumes that a signal is <span class="bold">stationary</span>. It does not indicate where frequencies are located in time.
                     For that matter, we need to expand the Fourier transform to a 2D transform, where the second parameter would be the time delay \(\tau\).
                 </p>
@@ -382,8 +514,9 @@
                 </div>
             </div>
 
-            <div id="#modulation"> <h2>Modulation techniques</h2>
-                <div> <h4>OFDM: Orthogonal Frequency Division Multiplexing</h4>
+            <div id="transmission"> <h2>Data transmission</h2>
+                <p>In this section, I talk about how we can use digital signal to send data for <span class="bold">wireless communication</span>. This notably encompasses <span class="bold">digital to analog data conversion (DAC)</span> and <span class="bold">modulation techniques</span> such as QAM16, QPSK, FSK, ASK and many more ...</p>
+                <div> <h3>OFDM: Orthogonal Frequency Division Multiplexing</h3>
                     <p><span class="bold">OFDM</span> uses <span class="bold">orthogonality</span> between frequencies to use the frequency spectrum more efficiently in order to encode and simultaneously send data over different frequencies.
                         It derives from <span class="bold">FDM</span>, which does not use orthogonality and therefore needs to space frequencies quite far away from each each to avoid frequency overlapping.</p>
                     <p>When a transmitter sends out a <span class="bold">finite and sinewave-like signal</span> (that carries encoded information), it causes the appearance of a <span class="bold">cardinal sinewave</span> (instead of an impulse) in the signal spectrum.
@@ -400,6 +533,31 @@
                     <p>Each cardinal sinewave is called a <span class="bold">subcarrier</span>. All subcarriers are <span class="bold">independent</span> from each other.
                         Each transmits its own type of data and uses its own <span class="bold">modulation scheme</span>. This is mostly used in <span class="bold">wireless communication</span> (e.g., WiFi, 4G, etc.) which I talk <a href="">here</a>.
                     </p>
+                </div>
+                <div> <h3>Modulation techniques</h3>
+                    <p></p>
+                    <div> <h4>ASK</h4>
+                        <div> <h5>Definition</h5>
+                            <p><span class="bold">Amplitude Shift Keying</span> </p>
+                            <div class="frame-highlight"> <h5>BASK or (OOK)</h5>
+                                <p>This is a specific type of ASK where the message \(m(t)\) carried by the carrier is in a binary format.</p>
+                            </div>
+                        </div>
+                        <div> <h5>Bandwidth</h5>
+                            <p>The <span class="bold">bandwidth</span> of an ASK signal can be calculated as follows: \( BW = (1+d)\gamma = (1+d)\frac{R}{n} \), where
+                                \(\gamma\) is the <span class="bold">symbol rate</span>, \(d\) is the <span class="bold">duty cycle</span> of the signal, \(R\) is the <span class="bold">bit rate</span> and \(n\) is the <span class="bold">number of bits</span> per symbol.
+                                The bandwidth corresponds to the width of the modulated signal's <span class="bold">main lobe</span>.
+                                In the worst case scenario, the data transmitted keeps switching between 0 and 1, which causes the duty cycle \(d\) to become 1. In that case, the signal's <span class="bold">bandwidth</span> is <span class="bold">maximum</span> because each portion of the modulated sinus is cut by a sqaure which temporal span is \(1\gamma\).
+                                Therefore, the bandwidth is equal to 2 times the <span class="bold">symbol rate</span>.
+                                In the best case scenario, the data transmitted is constant (either 0 or 1), which causes the duty cycle \(d\) to become 0. In that case, the signal's <span class="bold">bandwidth</span> is <span class="bold">minimum</span> because the modulated sinus is cut by a square whose lentgh is longer which causes the spectrum to become thiner.
+                                
+                            </p>
+                            <div class="frame-highlight">
+                                <p>It is important to remember that the more time we spend observing a signal in the <span class="bold">time domain</span>, the <span class="bold">more accurate</span> (hence thiner) the signal spectrum will be. This is a <span class="bold">fundamental property</span> of the time-frequency duality.</p>
+                            </div>
+                        </div>
+                        <p></p>
+                    </div>
                 </div>
             </div>
 
