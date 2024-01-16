@@ -31,13 +31,12 @@
                 <h4>Overview</h4>
                 <p>Here is the overview of the topics that I covered:</p>
                 <ol>
-                    <a href="#fundamentals">Overview of fundamentals</a>
-                    <a href="#hilbert"><li>FFT, Hilbert transform and its concrete applications;</li></a>
-                    <a href="#laplace"><li>Laplace transform and Z-transform</li></a>
-                    <a href="#wavelet"><li>Wavelet analysis</li></a>
-                    <a href="#transmission"><li>Data transmission (QAM16, OFDM and QPSK);</li></a>
-                    <li>Signal encoding and encryption;</li>
-                    <li>Some communication protocols on the physical layer.</li>
+                    <a href="#fundamentals"><li>Overview of fundamentals;</li></a>
+                    <a href="#hilbert"><li>Discrete Fourier Transform and relation with Hilbert transform;</li></a>
+                    <a href="#laplace"><li>Laplace transform and Z-transform;</li></a>
+                    <a href="#wavelet"><li>Wavelet analysis;</li></a>
+                    <a href="#filtering"><li>Signal filtering;</li></a>
+                    <a href="#transmission"><li>Digital communication;</li></a>
                 </ol>
             </div>
 
@@ -111,15 +110,15 @@
                         </div>
                         <div> <h5>Ergodic processus</h5>
                             <p>An <span class="bold">ergodic</span> signal is a signal whose <a href="#math-tools">statistical moments</a> can be linked to its <span class="bold">temporal moments</span>.
-                                In other words, its statistical mean is equal to its temporal mean (up to the 2nd order):
+                                In other words, the <span class="bold">normalized histogram (temporal mean)</span> of an ergodic signal gives relevant information on the <span class="bold">probability density function (statistical mean)</span> of each single realization of the signal at each time \(t\).
                                 \[\left\{
                                     \begin{matrix}
                                     E[s(t)] = \overline{s(t)} \\
-                                    E[s(t)^2] = \overline{s(t)^2} = P_s
+                                    E[s(t)^2] = \overline{s(t)^2}
                                     \end{matrix}
                                     \right.
                                 \]
-                                This means that the study of an ergodic signal can be reduced to the study of a <span class="bold">single realization</span> of the signal.
+                                This means that <span class="bold">statistical properties</span> of an ergodic signal can be known with the study of a <span class="bold">single realization</span> of the signal.
                             </p>
                         </div>
                         <div id="math-tools"> <h4>Mathematical tools</h4>
@@ -128,52 +127,66 @@
                                 <p></p>
                             </div>
                             <div> <h5>Esperance</h5>
-                                <p>The mathematical esperance of a signal is equivalent to the arithmetical mean for deterministic signals. For that matter, mean is often use to refer to esperance in probability.
-                                    Instead of summing determined signal values, we use the probability of each event \(p(x)\) multiplied by the value of the event \(x\).
+                                <p>The mathematical <span class="bold">esperance</span> of a random signal is equivalent to the <span class="bold">arithmetical (or temporal) mean</span> for deterministic signals. For that matter, the term <span class="bold">mean</span> is often used to refer to the term <span class="bold">esperance</span> in probability and statistics.
+                                    Nevertheless, instead of summing <span class="bold">determined</span> signal values, we sum the <span class="bold">probability</span> of each event \(p(x)\) multiplied by the <span class="bold">value of the event</span> \(x\).
                                     \[ E[X] = \int_{-\infty}^{\infty} x p(X = x) dx \]
-                                    In the case of signal analysis, the random event \(x\) can represent the tension taken by the signal \(X \equiv s(t)\).
+                                    In the case of signal analysis, the random event \(x\) can represent the <span class="bold">tension</span> taken by the signal \(X \equiv s(t)\).
                                 </p>
                                 <div class="frame-highlight">
-                                    <p>For discrete probabilities, we have a sum: \( E[X] = \sum_{x=0}^{N} x p(X = x) \).</p>
+                                    <p>For <span class="bold">discrete probabilities</span>, we have a sum: \( E[X] = \sum_{x=0}^{N} x p(X = x) \).</p>
                                 </div>
                             </div>
                             <div> <h5>Variance</h5>
-                                <p>The variance a signal is a dispersion indicator. It measures the power of random fluctuations around the signal's mean \(\mu_X = E[X] \).
+                                <p>The <span class="bold">variance</span> a signal is a <span class="bold">dispersion indicator</span>. It measures the <span class="bold">power of random fluctuations</span> around the signal's mean \(\mu_X = E[X]\).
                                     \[ \sigma_X^2 = V[X] = \int_{-\infty}^{\infty} (x-\mu_X)^2 p(X = x) dx \]
-                                    From the variance definition, we see that we retrieve the concept of <span class="bold">power</span> of a signal.
+                                    From the variance definition, we retrieve the concept of <span class="bold">power</span> of a signal.
                                 </p>
                                 <div class="frame-highlight">
                                     <p>It can also be seen as the statistical moment of order 2 of this signal: \(Y=x-\mu_X\).</p>
                                 </div>
                             </div>
                             <div> <h5>Standard deviation</h5>
-                                <p>The standard deviation a signal is also a dispersion indicator but the unit of measurement is brought back to the signal unit (voltage).
+                                <p>The <span class="bold">standard deviation</span> a signal is also a <span class="bold">dispersion indicator</span> but the unit of measurement is brought back to the <span class="bold">unit of the signal</span> (voltage).
                                     \[ \sigma_X =\sqrt{V[X]} \]
-                                    From the standard deviation definition, we see that we retrieve the concept of <span class="bold">effective value</span> of a signal.
+                                    From the standard deviation definition, we retrieve the concept of <span class="bold">effective value</span> of a signal.
                                 </p>
                             </div>
                             <div> <h5>The gaussian distribution</h5>
-                                <p>The gaussian distribution is a common type of probability distribution. In fact, there is the central limit theorem that states that if we take \(n\) random variables and we do a huge number realizations (ideally an infinity),
-                                    the probability distribution function of those realizations will tend to a gaussian distribution.
+                                <p>The gaussian distribution is the most common probability distribution. In fact, there is the <span class="bold">central limit theorem</span> which states that if we take \(n\) <span class="bold">random variables</span> and we do an <span class="bold">infinite</span> number of realizations,
+                                    the probability distribution function of those realizations will tend to a <span class="bold">gaussian distribution</span>.
                                 </p>
-                                <p>This phenomenon can be understood more clearly if we consider convolution and the autocorrelation method. In the theorem above, a random variable refers to 
+                                <p>This phenomenon can be understood more clearly if we consider <span class="bold">convolution</span> and the <span class="bold">autocorrelation</span> method. In the theorem above, a <span class="bold">random variable</span> refers to 
                                     Each random variable is associated with a probability density function, which is most of the time uniform (i.e., all events in the set of events have the same probability to occur).
                                     Now taking \(n\) random variables \(X_1\ X_2 \vdots X_n\) means that at each realization we give a value to each random variable \(X_i\).
-                                    As I already explained <a href="math&IT.html">here</a>, doing this is equivalent to convolve the probability density function of each random variable.
+                                    As I already explained <a href="math&IT.html">here</a>, doing this is equivalent to <span class="bold">convolve the probability density functions</span> of each random variable.
                                     \[ P_n(y) = (p_1(x)*p_2(x)*...*p_n(x))(y) \]
-                                    With \(p_i(x)\) the probability density function of the random variable \(X_i\) and \(y\) the value of the random variable \(Y=X_1+X_2+...+X_n\).
-                                    We obtain a new probability density function \(P_n(y)\) that is the convolution of all the probability density functions of the random variables, which indeed converges to a gaussian distribution.
-                                    We know that the convolution is close to the autocorrelation of the signal. Therefore, we can link the correlation peak of this new probability density function \(P_n(y)\) the mean. 
+                                    With \(p_i(x)\) the probability density function of the random variable \(X_i\) and \(y\) the value of the random variable \(Y=X_1+X_2+...+X_n\). Since, we repeat \(n\) times the same operation for each realization, all \(p_i\) are the same.
+                                    We obtain a new probability density function \(P_n(y)\) that is the convolution of all the probability density functions of the random variables, which indeed <span class="bold">converges to a gaussian distribution</span>.
+                                    We know that the convolution is <span class="bold">close</span> to the autocorrelation of the signal. Therefore, we can understand the <span class="bold">the mean</span> of this new probability density function \(P_n(y)\) as being a <span class="bold">correlation peak</span> of all these probability density functions \(p_i\). 
                                 </p>
                             </div>
-                            <p>convolution, autocorrelation, central limit theorem, gaussian distribution</p>
+                        </div>
+                        <div> <h4>The autocorrelation function</h4>
+                            <p>The <a href="school.html">autocorrelation</a> function, often refered to as \(r_{xx}\) is essential determining useful properties of a signal. Here I want to understand its meaning and implication in random signals.</p>
+                            <p>First off, this autocorrelation function is defined as:
+                                \[ r_{xx}(\tau) = E[s(t)\ s(\tau-t)] \]
+                                \[ E[s(t)] = \int_{-\infty}^{+\infty} x\ p(s(t)=x) dx \]
+                                This definition becomes really important for <span class="bold">ergodic and stationary</span> signals. Indeed, we can rewrite \(r_{xx}\) with \(s(t)\)'s temporal values:
+                                \[ r_{xx}(\tau) = \lim_{T \rightarrow \infty} \frac{1}{T} \int_{-T/2}^{T/2} s(t)\ s(\tau-t) dt \]
+                                From this function, we can compute the <span class="bold">power density spectrum</span> of the signal:
+                                \[ r_{xx}(\tau) = (s(t)*s(-t))(\tau) \]
+                                \[ \mathcal{FT}[r_{xx}(\tau)] = \phi_{xx}(f) = S(f).S*(f) = |S(f)|^2 \]
+                            </p>
+                        </div>
+                        <div> <h4>Signal sampling</h4>
+                            <p>Consequences</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div id="hilbert"> <h2>Hilbert analysis</h2>
-                <div> <h3>Discrete Fourier Transform (DFT)</h3>
+            <div id="hilbert"> <h2>Discrete Fourier transform</h2>
+                <div> <h3>What is the DFT ?</h3>
                     <div> <h4>Questions and clarifications</h4>
                         <div> <h5>Why is this used for ?</h5>
                             <p>This transform allows us to better identify the <span class="bold">contribution of frequencies</span> in a signal, which most of time are <span class="bold">not noticeable</span> when looking at the signal in its <span class="bold">time representation</span>.
@@ -358,7 +371,7 @@
                         </div>
                     </div>
                 </div>
-                <div> <h3>From the DFT to the HT</h3>
+                <div> <h3>A short intro to Hilbert analysis</h3>
                     <p>The <span class="bold">Hilbert transform</span> relies on the Fourier transform. Its main goal is to construct an <span class="bold">analytic signal</span> which provides relevant information about the real signal.</p>
                     <p></p>
                     <div> <h4>Procedure</h4>
@@ -386,7 +399,7 @@
                         <p>This transform aims at extracting this new analytic <span class="bold">(complex)</span> signal:
                             \[ x_a(t) = x(t) + j \mathcal{H}(x(t)) = x(t) + j \widehat {x}(t) = A(t) e^{j\theta(t)} \rightarrow
                             \left\{
-                            \begin{matrix} A(t) = \sqrt{x(t)^2 + \widehat {x}(t)^2} \\ \theta(t) = arctan(\frac{\widehat {x}(t)}{x(t)}) \end{matrix}
+                            \begin{matrix} A(t) = \sqrt{x(t)^2 + \widehat {x}(t)^2} \\ \theta(t) = \arctan(\frac{\widehat {x}(t)}{x(t)}) \end{matrix}
                             \right.
                             \]
                             where \(x(t)\) is the original signal and is also called the <span class="bold">base-band</span> signal. \(\widehat {x}(t)\) is the <span class="bold">phase shift</span> of the original signal.
@@ -403,16 +416,23 @@
                         </div>
                         <p>It is really important to grasp the purpose of this procedure and how we do end up with this <span class="bold">analytic signal</span> in the end. By setting all negative frequencies coefficients to 0 (2), we actually prevent 
                             that signal from <span class="bold">becoming real</span> again when computing the IFFT (4).
-                            Indeed, in the Fourier domain, negative frequencies coefficients allow, when added with positive frequencies coefficients, to <span class="bold">cancel out the imaginary part</span> of the complex exponential, thereby obtaining a <span class="bold">real signal</span>.
-                            What the IFFT essentially does is this:
-                            \[ x[n] = \sum_{k=0}^{N-1} X[k] e^{i2\pi k\frac{n}{N}} = X[0] + \sum_{k=1}^{\frac{N}{2}} X[k] e^{i2\pi k\frac{n}{N}} + X[N-k] e^{-i2\pi k\frac{n}{N}},\ with\ X[k]=\overline{X[N-k]} \] 
+                            Indeed, in the Fourier domain, negative frequencies coefficients allow, when added with positive frequencies coefficients, to <span class="bold">cancel out the imaginary part</span> of the complex exponential, thereby obtaining a <span class="bold">real signal</span>. We have:
+                            \[ x[n] = \sum_{k=0}^{N-1} X[k] e^{i2\pi k\frac{n}{N}} = X[0] + \sum_{k=1}^{\frac{N}{2}-1} X[k] e^{i2\pi k\frac{n}{N}} + X[N-k] e^{-i2\pi k\frac{n}{N}},\ with\ X[k]=\overline{X[N-k]} \] 
                             To obtain the <span class="bold">analytic signal</span>, we actually do this:
-                            \[ x_a[n] = \sum_{k=0}^{\frac{N}{2}} X[k] e^{i2\pi k\frac{n}{N}} = X[0] + 2\sum_{k=1}^{\frac{N}{2}} X[k] e^{i2\pi k\frac{n}{N}} = X[0] + 2\sum_{k=1}^{\frac{N}{2}} (C_k + i S_k) e^{i2\pi k\frac{n}{N}} \]
+                            \[ x_a[n] = \sum_{k=0}^{N-1} X[k] e^{i2\pi k\frac{n}{N}} = X[0] + 2\sum_{k=1}^{N-1} X[k] e^{i2\pi k\frac{n}{N}} = X[0] + 2\sum_{k=1}^{N-1} (C_k + i S_k) e^{i2\pi k\frac{n}{N}} \]
                             where \(C_k\) and \(S_k\) are respectively the cosinus and sinus <span class="bold">correlation coefficients</span> computed with the DFT for a given frequency index \(k\). The \(2\) accounts for <span class="bold">energy conservation</span>, it compensates for the cancellation of negative frequencies.
-                            Eventually, we notice that the signal is <span class="bold">complex</span> because we stop at \(k=\frac{N}{2}\) andt to make the link with the parameter calculated in the section just above (\A(t)\) and \(\theta(t)\), we can re-write \(x_a[n]\) such as:
-                            \[ x_a[n] = X[0] + \sum_{k=1}^{\frac{N}{2}} A_k e^{i \theta_k} e^{i2\pi k\frac{n}{N}} = X[0] + A[n] e^{i \theta[n]} \]
-                            where \(A_k\) and \(\theta_k\) are respectively the <span class="bold">magnitude</span> and <span class="bold">phase</span> of the signal for each \(k\). In the eend, this signal carries the same information as \(C_k\) and \(S_k\) but in a different form.
-                            With this approach, we have now a complex signal from which we can extract several features of the original signal such as the instantaneous <span class="bold">amplitude</span> \(A[n]\) and <span class="bold">phase</span> \(\theta[n]\).
+                            Eventually, we notice that the signal is <span class="bold">complex</span> because we stop at \(k=N\) and to make the link with the parameter calculated in the section just above \(A(t)\) and \(\theta(t)\), we can re-write \(x_a[n]\) such as:
+                            \[ x_a[n] = X[0] + \sum_{k=1}^{N-1} A_k e^{i \theta_k} e^{i2\pi k\frac{n}{N}} = X[0] + A_k[n] e^{i \theta_k[n]} \]
+                            where \(A_k\) and \(\theta_k\) are respectively the <span class="bold">magnitude</span> and <span class="bold">phase</span> of the signal for each frequency index \(k\). In the end, this signal carries the same information as \(X[k]\) but in a different form (<span class="bold">no information is lost</span>).
+                            With this approach, we have now an <span class="bold">analytic (complex)</span> signal from which we can extract several features of the original signal thanks to the <span class="bold">conservation of the complex form</span> of the DFT. We can notably measure the instantaneous <span class="bold">amplitude</span> \(A_k[n]\) and <span class="bold">phase</span> \(\theta_k[n]\):
+                            \[ \left\{
+                                \begin{matrix} 
+                                A_k[n] = \sum_{k=1}^{N-1} A_k \\
+                                \theta_k[n] = \sum_{k=1}^{N-1} \theta_k + 2\pi k\frac{n}{N}
+                                \end{matrix}
+                                \right.    
+                            \]
+                            At each time index \(n\), we can compute the <span class="bold">contribution</span> of each frequency to the signal's <span class="bold">amplitude and phase</span>.
                         </p>
                     </div>
                     <div> <h4>Application</h4>
@@ -514,7 +534,46 @@
                 </div>
             </div>
 
-            <div id="transmission"> <h2>Data transmission</h2>
+            <div id="filtering"> <h2>Signal filtering</h2>
+                <div> <h3>Noise management</h3>
+                    <p><span class="bold">Noise</span> is an key component of a signal. It determines the minimum signal value that can be transmitted without losing the original information.
+                        Also noise is <span class="bold">stationary (random) process</span> and the main objective is to be able to <span class="bold">characterize</span> it to lower its effect on the signal transmission.
+                        To do so, we can use both the <span class="bold">time and frequency</span> representations of the signal.
+                    </p>
+                    <p>Note that it is impossible to compute the Fourier transform of a <span class="bold">random process</span> because it is not <span class="bold">ephemeral</span>.
+                        By definition, a random process spans from \(-\infty\) to \(+\infty\), so its energy is <span class="bold">infinite</span> as well.
+                        Therefore, we only compute the Fourier transform a <span class="bold">portion</span> (or <span class="bold">temporal period \(T\)</span>) of the signal to get an idea of its behavior in the frequency domain.</p>
+                    <div class="frame-highlight">
+                        <p>In the end, instead of having a classical <span class="bold">density spectrum</span>, we obtain a <a href="#PSD">power spectrum density (PSD)</a>.</p>
+                    </div>
+                    <div id="PSD"> <h4>Power spectrum density</h4>
+                        <p>As exposed <a href="#fundamentals">here</a>, the definition of <span class="bold">average power</span> is:
+                            \[ P_s = \overline{S^2} = \lim_{T \rightarrow \infty} \frac{1}{T} \int_{-\infty}^{\infty} |s(t)|^2 dt = E[s(t)^2] \]
+                            \(T\) is the <span class="bold">observation time</span> of the signal.
+                        </p>
+                        <p>However, this definition does not give much information about the signal because <span class="bold">completely different-looking signals could have the same average power</span>.</p>
+                        <p>For that matter, the <span class="bold">PSD</span> allows to better understand the signal's <span class="bold">power repartition in the frequency domain</span>.
+                            It is a <span class="bold">frequency domain measure</span> of the signal's power repartition. We can compute it by taking different approaches:
+                            \[ \left\{
+                                \begin{matrix}
+                                    S_{xx}(f) = \mathcal{TF}[r_{xx}(\tau)]\ (1) \\
+                                    S_{xx}(f) = \lim_{T \rightarrow \infty} \frac{1}{T} \int_{-\infty}^{\infty} |S(f)|^2 df
+                                \end{matrix}
+                                \right.        
+                            \]
+                            \((1)\) is the <span class="bold">Wiener-Khinchin theorem</span> with \(r_{xx}\) the <span class="bold">autocorrelation</span> of the signal. \(S(f)\) is the <span class="bold">Fourier transform</span> of the signal \(x(t)\).
+                        </p>
+                        <p>From the PSD \( S_{xx}(f) \), we can also compute the energy of the signal in a <span class="bold">frequency band</span> \(\Delta f\):
+                            \[ E_{\Delta f} = \int_{\Delta f} S_{xx}(f) df \]
+                        </p>
+                    </div>
+                </div>
+                <div> <h3>Adaptative filtering</h3>
+                    <p></p>
+                </div>
+            </div>
+
+            <div id="transmission"> <h2>Digital communication</h2>
                 <p>In this section, I talk about how we can use digital signal to send data for <span class="bold">wireless communication</span>. This notably encompasses <span class="bold">digital to analog data conversion (DAC)</span> and <span class="bold">modulation techniques</span> such as QAM16, QPSK, FSK, ASK and many more ...</p>
                 <div> <h3>OFDM: Orthogonal Frequency Division Multiplexing</h3>
                     <p><span class="bold">OFDM</span> uses <span class="bold">orthogonality</span> between frequencies to use the frequency spectrum more efficiently in order to encode and simultaneously send data over different frequencies.
@@ -533,6 +592,12 @@
                     <p>Each cardinal sinewave is called a <span class="bold">subcarrier</span>. All subcarriers are <span class="bold">independent</span> from each other.
                         Each transmits its own type of data and uses its own <span class="bold">modulation scheme</span>. This is mostly used in <span class="bold">wireless communication</span> (e.g., WiFi, 4G, etc.) which I talk <a href="">here</a>.
                     </p>
+                </div>
+                <div> <h3>Source encoding</h3>
+                    <p></p>
+                </div>
+                <div> <h3>Canal encoding</h3>
+                    <p></p>
                 </div>
                 <div> <h3>Modulation techniques</h3>
                     <p></p>
