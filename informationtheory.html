@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<html lang ="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- make sure that the content fit the device on which we open -->
+        <title> Signal </title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong|Arial|Open+Sans">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="js/script.js"></script>
+        <link rel="stylesheet" href="generic-patterns/css/main.css">
+        <link rel="stylesheet" href="generic-patterns/css/horizontalmenu.css">
+        <link rel="stylesheet" href="generic-patterns/css/footer.css">
+        <link rel="stylesheet" href="css/topics.css">
+    </head>
+
+    <!-- Within de web page -->
+    <body>
+        <div id="horizontalmenu"></div>
+        
+        <section class="main-container">
+
+            <h1>The Information Theory</h1>
+            <div class="page-subtitle">This theory aims to give an objective and quantitative measure of information, which is a key aspect of modern communication.
+                It was proposed and developed by Claude Shannon, in 1948. His theory mainly relies on probability theory and statistics. It also uses signal theory at some point.
+                His theory builds upon a probabilist interpretation of information.</div>
+
+            <div id="#introduction"> <h2>Introduction</h2>
+                <p>In this section, I will be exposing my understanding of this theory and the basic (but key) concepts of it.</p>
+                <div> <h3>Transmission chain</h3>
+                    <p>The <span class="bold">transmission chain</span> refers to the process of the circulation of information. It consists of a:</p>
+                    <ul>
+                        <li><span class="bold">Source:</span> generates information;</li>
+                        <li><span class="bold">Canal:</span> conducts information (environment of transmission);</li>
+                        <li><span class="bold">Destination:</span> receives information.</li>
+                    </ul>
+                    <div> <h5>Symbol</h5>
+                        <p></p>
+                    </div>
+                    <div> <h5>Alphabet</h5>
+
+                    </div>
+                    <div> <h4>Encoding</h4>
+                        <p></p>
+                        <div> <h5>Source encoding</h5>
+
+                        </div>
+                        <div> <h5>Canal encoding</h5>
+
+                        </div>
+                        <div> <h5>Information encryption</h5>
+
+                        </div>
+                    </div>
+                </div>
+                <div> <h3>Information</h3>
+                    <p>The key concept behind this theory is the word <span class="bold">information</span> and one can legitimately ask: <span class="bold">What does information mean?</span></p>
+                    <p>Information, as exposed within this theory, does <span class="bold">not refer any intelligible, semantic or meaningful</span> content, whose knowledge would allow any subsequent action.
+                        What the theory really measures though, is not the <span class="bold">qualitative</span> aspect of information, but rather its <span class="bold">quantitative</span> aspect.
+                        Therefore, it does not focus on the <span class="bold">nature of the outcome</span> (meaning), but rather on the <span class="bold">nature of the process</span> behind the realisation of the outcome.
+                        Another way of putting it, is to ask the following question: <span class="bold">To what extent the probality of the occurence of any symbol (random variable) informs me about the uncertainity of the process?</span></p>
+                        This will make more sense when I will talk about the place of probabilities.
+                    </p>
+                    <div> <h4>Entropy: a measure of incertainity</h4>
+                        <div class="frame-highlight"> 
+                            <p>This section does not aim to give a profound mathematical view of the concept of entropy.
+                                I just want to expose what I understood and rephrase it with my own words.
+                            </p>
+                        </div>
+                        <p>Originally, we use <span class="bold">entropy</span> in physics to measure <span class="bold">disorder</span>. Here, entropy has a different purpose.
+                            It aims to measure the <span class="bold">incertainity</span> of a random variable. Before going any further, let's introduce the concept of <span class="bold">random variable</span>.
+                        </p>
+                        <div> <h5>Quantity of information</h5>
+                            <p>The definition must verify the following properties:
+                                \[ \begin{cases}
+                                    h(x) \geq 0 \\
+                                    h(x) = f(\frac{1}{p(x)}) \text{ is a croissant function of the improbability of x} \implies h(x) \text{ is maximal when } p(x) \text{ is minimal} \\
+                                    \text{For 2 independant random variables x and y, each one add its own quantity information to the result: } h(x,y) = f(\frac{1}{p(x)p(y)}) = h(x) + h(y) \\
+                                    \end{cases}
+                                \]                               
+                                Shannon demonstrated that the appropriate mathematical tool for measuring the <span class="bold">quantity of information of a random variable</span> was the \(log_2\) function. Here, I call it the \(h(x)\) and it is defined as:
+                                \[ h(x) = \log_2(\frac{1}{p(x)}) = -\log_2(p(x)) \]
+                                \(p(x)\) is the probability of the occurence of the symbol \(x\). Morever, we easily see that \(\frac{1}{p(x)} \geq 1 \implies h(x) \geq 0\).
+                                Intuitively, we understand that more a symbol \(x\) is likely to occur, more \(h(x)\) tend to 0.
+                            </p>
+                            <div class="frame-highlight">
+                                <p>Shannon also introduced a second formula to measure <span class="bold">mutual information</span>, which aims to give us a precise measuremnt of how we can relate 2 different random processes.
+                                    \[ i(x,y) = \log_2(\frac{p(x,y)}{p(x)}) = h(x) - h(x|y),\ p(x,y)=p(x|y).p(y)=p(y|x).p(x) \]
+                                    I come back to this notion further on this page.
+                                </p>
+                            </div>
+                        </div>
+                        <p>Shannon defined the <span class="bold">entropy</span> as follows:
+                            \[ H(X) = E[h(X)] = \sum_{i} p(x_i)h(x_i) = -\sum_{i} p_i\log_2(p_i) \]
+                            The entropy is the <span class="bold">average quantity of information</span> of a random variable \(X\) in <span class="bold">shannon (binary information unit)</span>.
+                            It is important to note that the entropy <span class="bold">does not direclty depend on the random variable</span> \(X\) (meaning), but rather on its <span class="bold">probability distribution</span> (process).
+                        </p>
+                        <div class="frame-highlight">
+                            <p>Also, we notice that the entropy is <span class="bold">always positive</span> because \(p(x_i) \geq 0\) and that it is <span class="bold">maximal</span> when the probability distribution is <span class="bold">uniform</span>.</p>
+                        </div>
+                    </div>
+                    <div> <h4>Application</h4>
+                        <p>Let's try to better understand this theory through a concrete application.</p>
+                        <p>Imagine, we want to send a message, written with the latin alphabet, to a person. Therefore, we have <span class="bold">26 letters, so 26 different possible outcomes</span> (events).
+                            Now, we would like to send a word, say "prepare" and we have got a <span class="bold">binary source</span>. We can proceed in 2 different ways:
+                            <ul>
+                                <li><span class="bold">Classical approach</span></li>
+                                    <p>We have 26 letters meaning that we can take 26 bits to code each letter of our word. This would result in using \(26\times7=182\) bits in total.</p>
+                                <li><span class="bold">Statistical approach</span></li>
+                                    <p>We have 26 letters, but all of them do not have the same probability to occur. For example, on average, in a text the letter A may occur more frequently than the letter G.
+                                        Knowing this, we can consider that <span class="bold">receiving a A is less informative than receiving a G</span>. Therefore, we can use less bits to code the letter A than the letter G.
+                                        This is what entropy measures in shannon (sh).
+                                    </p>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div> <h3>Source encoding</h3>
+                <p></p>
+            </div>
+            <div> <h3>Canal encoding</h3>
+                <p></p>
+            </div>
+
+        </section> <!-- main-container -->
+
+        <div id="footer"></div>
+
+    </body>
+
+</html>

@@ -36,8 +36,9 @@
                     <a href="#laplace"><li>Laplace transform and Z-transform;</li></a>
                     <a href="#wavelet"><li>Wavelet analysis;</li></a>
                     <a href="#filtering"><li>Signal filtering;</li></a>
-                    <a href="#transmission"><li>Digital communication;</li></a>
+                    <a href="#communication"><li>Digital communication;</li></a>
                 </ol>
+                <p>I am also currenlty learning the <a href="informationtheory.html">Information theory</a>.</p>
             </div>
 
             <div id="#fundamentals"> <h2>Fundamentals</h2>
@@ -50,7 +51,7 @@
                     <div> <h4>Energetic classification</h4>
                         <p>Signals can be classified using the definitions of <span class="bold">energy</span> and <span class="bold">power</span>.</p>
                         <div> <h5>Energy</h5>
-                            <p>All signal carry <span class="bold">energy</span> over time. This energy can be used to characterize them. We define the energy of a signal as:
+                            <p>All signals carry <span class="bold">energy</span> over time. This energy can be used to characterize them. We define the energy of a signal as:
                                 \[ W_{0\rightarrow\tau} = \int_{0}^{\tau} |x(t)|^2 dt \]
                                 where \(x(t)\) is a <span class="bold">complex</span> signal (hence we take the absolute value) and \(\tau\) is the time interval over which we compute the energy.
                                 This approach allows to describe <span class="bold">finite</span> signals such as <span class="bold">transient</span> signals or <span class="bold">ephemeral</span> signals.
@@ -59,7 +60,7 @@
                         <div> <h5>Power</h5>
                             <p>However, for <span class="bold">infinite</span> signals such as <span class="bold">periodic</span> signals or <span class="bold">random</span> signals, we rather consider the <span class="bold">power</span> of the signal, defined as:
                                 \[ P_{0\rightarrow\tau} = \frac{1}{\tau} \int_{0}^{\tau} |x(t)|^2 dt \]
-                                This represents the amount of energy transmitted by the signal <span class="bold">per unit of time</span>. We can also compute the <span class="bold">total average power</span> by taking the limit:
+                                This represents the amount of energy transmitted by the signal <span class="bold">per unit of time</span>. We can also compute the <span class="bold">total average power</span> by taking \(\tau\) to the limit:
                                 \[ P_s = \lim_{\tau \rightarrow \infty} \frac{1}{\tau} \int_{0}^{\tau} |x(t)|^2 dt \]
                             </p>
                             <div class="frame-highlight">
@@ -573,7 +574,7 @@
                 </div>
             </div>
 
-            <div id="transmission"> <h2>Digital communication</h2>
+            <div id="communication"> <h2>Digital communication</h2>
                 <p>In this section, I talk about how we can use digital signal to send data for <span class="bold">wireless communication</span>. This notably encompasses <span class="bold">digital to analog data conversion (DAC)</span> and <span class="bold">modulation techniques</span> such as QAM16, QPSK, FSK, ASK and many more ...</p>
                 <div> <h3>OFDM: Orthogonal Frequency Division Multiplexing</h3>
                     <p><span class="bold">OFDM</span> uses <span class="bold">orthogonality</span> between frequencies to use the frequency spectrum more efficiently in order to encode and simultaneously send data over different frequencies.
@@ -592,12 +593,6 @@
                     <p>Each cardinal sinewave is called a <span class="bold">subcarrier</span>. All subcarriers are <span class="bold">independent</span> from each other.
                         Each transmits its own type of data and uses its own <span class="bold">modulation scheme</span>. This is mostly used in <span class="bold">wireless communication</span> (e.g., WiFi, 4G, etc.) which I talk <a href="">here</a>.
                     </p>
-                </div>
-                <div> <h3>Source encoding</h3>
-                    <p></p>
-                </div>
-                <div> <h3>Canal encoding</h3>
-                    <p></p>
                 </div>
                 <div> <h3>Modulation techniques</h3>
                     <p></p>

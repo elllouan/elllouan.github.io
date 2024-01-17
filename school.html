@@ -38,9 +38,9 @@
                             <p>In linear filtering, convolution plays a fundamental role. Indeed, if we write a signal \(x(t)\) such that \(x(t) = \int^{+\infty}_{-\infty} x(\tau)\delta(t-\tau) d\tau \),
                                 with \( \delta(t) \) the Dirac impulse. Then when applying the filter function on the signal, we have :
                                 \[ f(x) = \int^{+\infty}_{-\infty} f(x(\tau)\delta(t-\tau)) d\tau \]
-                                \[ f(x) = \int^{+\infty}_{-\infty} x(\tau)f(\delta(t-\tau)) d\tau,\ (linearity\ property) \]
-                                \[ y(t) = \int^{+\infty}_{-\infty} x(\tau) h((t-\tau)) d\tau, (time-independent\ property) \]
-                                \( h(t) \) represents the output function when we input the Dirac impulse into the filter and \( y(t) \) is the signal \( x(t) \) filtered.
+                                \[ \text{Linearity property: } f(x) = \int^{+\infty}_{-\infty} x(\tau)f(\delta(t-\tau)) d\tau \]
+                                \[ \text{Time-independent property: } y(t) = \int^{+\infty}_{-\infty} x(\tau) h((t-\tau)) d\tau \]
+                                \(h(t)\) represents the output function when we input the Dirac impulse into the filter and \( y(t) \) is the signal \( x(t) \) filtered.
                                 We end up on the convolution operation between the input signal and the Dirac impulse output function.
                             </p>
                         </div>
@@ -184,7 +184,7 @@
                         </div>
                         <hr>
                         <div class="subject-subdiv"> <h3>7. Further discussions</h3>
-                            <p>Since I am deeply interested in that topic. I continued to learn more concepts about signal processing. <a href="signal.html">Here</a> are my learning outcomes.
+                            <p>Since I am deeply interested in that topic. I continued to learn more concepts about signal processing. On this <a href="signal.html">page</a>, I expand on that topic.
                                 I aim to learn about:
                             </p>
                             <div class="frame-highlight">
@@ -196,6 +196,7 @@
                                     <li>And more ...</li>
                                 </ol>
                             </div>
+                            <p>I have also started to learn about the <a href="informationtheory.html">Information theory</a>.</p>
                         </div>
                     </div>
                 </div>
