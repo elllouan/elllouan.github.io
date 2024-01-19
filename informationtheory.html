@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- make sure that the content fit the device on which we open -->
-        <title> Signal </title>
+        <title> Information theory </title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong|Arial|Open+Sans">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="js/script.js"></script>
@@ -21,10 +21,11 @@
         
         <section class="main-container">
 
-            <h1>The Information Theory</h1>
+            <h1>The Information theory</h1>
             <div class="page-subtitle">This theory aims to give an objective and quantitative measure of information, which is a key aspect of modern communication.
-                It was proposed and developed by Claude Shannon, in 1948. His theory mainly relies on probability theory and statistics. It also uses signal theory at some point.
-                His theory builds upon a probabilist interpretation of information.</div>
+                It was proposed and developed by Claude Shannon, in 1948. His theory mainly relies on probability theory and statistics. It also appeals to signal theory at some point.
+                His theory builds upon a probabilist interpretation of information.
+            </div>
 
             <div id="#introduction"> <h2>Introduction</h2>
                 <p>In this section, I will be exposing my understanding of this theory and the basic (but key) concepts of it.</p>
@@ -36,22 +37,34 @@
                         <li><span class="bold">Destination:</span> receives information.</li>
                     </ul>
                     <div> <h5>Symbol</h5>
-                        <p></p>
+                        <p>When we employ the term <span class="bold">symbol</span>, it refers to a value that can take a <span class="bold">random variable</span> or the <span class="bold">outcome of a source</span>. In statistics, we usually use the term <span class="bold">event</span>.
+                            In communication, the <span class="bold">random variable</span> is the <span class="bold">voltage</span> of the source and a symbol is a <span class="bold">series of bits</span> that carries an information.
+                        </p>
                     </div>
                     <div> <h5>Alphabet</h5>
-
+                        <p>The term <span class="bold">alphabet</span> refers to <span class="bold">all possible values</span> that can take a random variable or <span class="bold">all possible outcomes</span> of a source.
+                            Hence, an alphabet consists of many different symbols, each one carrying a specific information. 
+                        </p>
                     </div>
                     <div> <h4>Encoding</h4>
-                        <p></p>
+                        <p>A huge part of the communication process is <span class="bold">information encoding</span>. There are 3 types of encoding, playing different roles at different times throughout the process:</p>
                         <div> <h5>Source encoding</h5>
-
+                            <p>The <span class="bold">source encoding</span> takes place at the source and its goal is to encode information so as to <span class="bold">eliminate redundancy</span>. To measure the effiency of an algorithm,
+                            we use 3 concepts, which I develop further on this page:
+                                <ul>
+                                    <li>Source entropy: \(H(X)\)</li>
+                                    <li>Code length: \(L(X)\)</li>
+                                    <li>Efficiency (ratio): \(\eta=\frac{H(X)}{L(X)}\)</li>
+                                </ul>
+                            </p>
                         </div>
                         <div> <h5>Canal encoding</h5>
-
+                            <p>The <span class="bold">canal encoding</span> takes place at the canal and its goal is to encode information so as to <span class="bold">introduce redundancy</span> to counter the effects of perturbations.</p>
                         </div>
                         <div> <h5>Information encryption</h5>
-
+                            <p>The goal of <span class="bold">encryption</span> is to make the information <span class="bold">uninterpretable and unintelligible</span>.</p>
                         </div>
+                        <p>Source and canal encoding are by definition complementary.</p>
                     </div>
                 </div>
                 <div> <h3>Information</h3>
@@ -71,46 +84,61 @@
                         <p>Originally, we use <span class="bold">entropy</span> in physics to measure <span class="bold">disorder</span>. Here, entropy has a different purpose.
                             It aims to measure the <span class="bold">incertainity</span> of a random variable. Before going any further, let's introduce the concept of <span class="bold">random variable</span>.
                         </p>
-                        <div> <h5>Quantity of information</h5>
-                            <p>The definition must verify the following properties:
+                        <div> <h5>Quantity of information (QoI)</h5>
+                            <p>The definition of the <span class="bold">QoI</span> must verify the following properties:
                                 \[ \begin{cases}
                                     h(x) \geq 0 \\
                                     h(x) = f(\frac{1}{p(x)}) \text{ is a croissant function of the improbability of x} \implies h(x) \text{ is maximal when } p(x) \text{ is minimal} \\
                                     \text{For 2 independant random variables x and y, each one add its own quantity information to the result: } h(x,y) = f(\frac{1}{p(x)p(y)}) = h(x) + h(y) \\
                                     \end{cases}
                                 \]                               
-                                Shannon demonstrated that the appropriate mathematical tool for measuring the <span class="bold">quantity of information of a random variable</span> was the \(log_2\) function. Here, I call it the \(h(x)\) and it is defined as:
+                                Shannon demonstrated that the appropriate mathematical tool for measuring the <span class="bold">QoI of a random variable</span> was the \(log_2\) function.
+                                Here, I call it the \(h(x)\) and it is defined as:
                                 \[ h(x) = \log_2(\frac{1}{p(x)}) = -\log_2(p(x)) \]
                                 \(p(x)\) is the probability of the occurence of the symbol \(x\). Morever, we easily see that \(\frac{1}{p(x)} \geq 1 \implies h(x) \geq 0\).
-                                Intuitively, we understand that more a symbol \(x\) is likely to occur, more \(h(x)\) tend to 0.
+                                Intuitively, we understand that more a symbol \(x\) is likely to occur, more \(h(x)\) tend to 0 (and vice versa).
+                                Shannon considered taking the \(log_2\) because for a <span class="bold">binary source</span>, whose random variable has an <span class="bold">even</span> probability of \(\frac{1}{2}\) for each of its symbols, the entropy equals to \(1\) Sh.
                             </p>
                             <div class="frame-highlight">
-                                <p>Shannon also introduced a second formula to measure <span class="bold">mutual information</span>, which aims to give us a precise measuremnt of how we can relate 2 different random processes.
-                                    \[ i(x,y) = \log_2(\frac{p(x,y)}{p(x)}) = h(x) - h(x|y),\ p(x,y)=p(x|y).p(y)=p(y|x).p(x) \]
+                                <p>Shannon also introduced a second formula to measure <span class="bold">mutual information of 2 random variables</span> (\(x\) and \(y\) here).
+                                    This aims to give a measurement of <span class="bold">how the QoI of a random variable \(y\) relates to the QoI of a random variable \(x\)</span>.
+                                    Or in other words, what the occurence of a random variable \(y\) means about the occurence of a random variable \(x\).
+                                    \[ i(x,y) = \log_2(\frac{p(x|y)}{p(x)}) = \log_2(\frac{p(x,y)}{p(y)p(x)}) = h(x) - h(x|y),\ p(x,y)=p(x|y).p(y)=p(y|x).p(x) \]
                                     I come back to this notion further on this page.
                                 </p>
                             </div>
                         </div>
-                        <p>Shannon defined the <span class="bold">entropy</span> as follows:
+                        <p>Shannon defined the <span class="bold">entropy</span> as being the <span class="bold">statistical mean of the QoI</span> of a source:
                             \[ H(X) = E[h(X)] = \sum_{i} p(x_i)h(x_i) = -\sum_{i} p_i\log_2(p_i) \]
-                            The entropy is the <span class="bold">average quantity of information</span> of a random variable \(X\) in <span class="bold">shannon (binary information unit)</span>.
+                            Therefore, the entropy is measured in <span class="bold">shannon (binary information unit)</span>.
                             It is important to note that the entropy <span class="bold">does not direclty depend on the random variable</span> \(X\) (meaning), but rather on its <span class="bold">probability distribution</span> (process).
                         </p>
                         <div class="frame-highlight">
                             <p>Also, we notice that the entropy is <span class="bold">always positive</span> because \(p(x_i) \geq 0\) and that it is <span class="bold">maximal</span> when the probability distribution is <span class="bold">uniform</span>.</p>
                         </div>
+                        <div> <h5>Metrics</h5>
+                            <p>To measure the effiency of our code, we must maximize \(\eta\):
+                                \[ L(X) = \sum_i p(x_i).l(x_i) \]
+                                \[ \eta = \frac{H(X)}{L(X)}.100\% \]
+                                \(L(X)\) is the <span class="bold">statistical mean of the code length</span> and \(l(x_i)\) is the <span class="bold">actual length</span> of the code of the symbol \(x_i\).
+                                In theory, the most optimal code verifies \(\eta = 100\% \implies L(X)=H(X)\), but in practice this is rarely the case.
+                            </p>
+                        </div>
                     </div>
                     <div> <h4>Application</h4>
                         <p>Let's try to better understand this theory through a concrete application.</p>
-                        <p>Imagine, we want to send a message, written with the latin alphabet, to a person. Therefore, we have <span class="bold">26 letters, so 26 different possible outcomes</span> (events).
+                        <p>Imagine, we want to send a textual message to a person. The latin alphabet is composed of <span class="bold">26 letters, so 26 different possible outcomes</span> (symbols).
                             Now, we would like to send a word, say "prepare" and we have got a <span class="bold">binary source</span>. We can proceed in 2 different ways:
                             <ul>
                                 <li><span class="bold">Classical approach</span></li>
-                                    <p>We have 26 letters meaning that we can take 26 bits to code each letter of our word. This would result in using \(26\times7=182\) bits in total.</p>
+                                    <p>We have 26 letters meaning that we encode each letter with 26 bits. This would result in using \(26\times7=182\) bits in total.</p>
                                 <li><span class="bold">Statistical approach</span></li>
-                                    <p>We have 26 letters, but all of them do not have the same probability to occur. For example, on average, in a text the letter A may occur more frequently than the letter G.
-                                        Knowing this, we can consider that <span class="bold">receiving a A is less informative than receiving a G</span>. Therefore, we can use less bits to code the letter A than the letter G.
-                                        This is what entropy measures in shannon (sh).
+                                    <p>We have 26 letters, but all of them do not have the same probability to occur.
+                                        For example, on average, in a text the letter A may occur more frequently than the letter G.
+                                        From a statistical approach, we consider that <span class="bold">receiving a A is less informative than receiving a G</span>.
+                                        Therefore, we can use <span class="bold">less bits (i.e., less information)</span> to encode the letter A than the letter G.
+                                        To go further, we could consult a <span class="bold">frequency table</span> of the letters in the english language and use it to encode our message.
+                                        Moreover, with that frequency table, we could measure the entropy of the source (us) in shannon (sh).
                                     </p>
                             </ul>
                         </p>

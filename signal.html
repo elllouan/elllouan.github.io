@@ -21,7 +21,7 @@
         
         <section class="main-container">
 
-            <h1>Further discussions: Signal processing</h1>
+            <h1>Further considerations: Signal processing</h1>
             <div class="page-subtitle">This page expands on diverse and self-explored topics related to signal processing.
                 I endeavor to convey back what I learn using my own words to strengthen my knowledge. I try to clarify some questions that came to me while studying the subject.
                 <a href="https://colab.research.google.com/drive/1urd-ix9vSj0F_J_-vPLFqPb8ttrotL8a?hl=fr#scrollTo=jm0wkaFrti8H&uniqifier=1">Here</a> a notebook where I experiment some of the concepts discussed below.
@@ -32,7 +32,7 @@
                 <p>Here is the overview of the topics that I covered:</p>
                 <ol>
                     <a href="#fundamentals"><li>Overview of fundamentals;</li></a>
-                    <a href="#hilbert"><li>Discrete Fourier Transform and relation with Hilbert transform;</li></a>
+                    <a href="#hilbert"><li>Discrete Fourier Transform and Hilbert transform;</li></a>
                     <a href="#laplace"><li>Laplace transform and Z-transform;</li></a>
                     <a href="#wavelet"><li>Wavelet analysis;</li></a>
                     <a href="#filtering"><li>Signal filtering;</li></a>
@@ -42,23 +42,26 @@
             </div>
 
             <div id="#fundamentals"> <h2>Fundamentals</h2>
-                <ol>
+                <!-- <ol>
                     <li>DSF, superposition, energy(3) and power(4) of signals: Bessel-Parseval, Wiener</li>
                     <li>essential properties of TF, sinc orthogonality, FT generalisation</li>
                     <li>random vs deterministic signals, group propagation phase</li>
-                </ol>
+                </ol> -->
                 <div> <h3>Signals classification</h3>
                     <div> <h4>Energetic classification</h4>
                         <p>Signals can be classified using the definitions of <span class="bold">energy</span> and <span class="bold">power</span>.</p>
                         <div> <h5>Energy</h5>
-                            <p>All signals carry <span class="bold">energy</span> over time. This energy can be used to characterize them. We define the energy of a signal as:
-                                \[ W_{0\rightarrow\tau} = \int_{0}^{\tau} |x(t)|^2 dt \]
+                            <p>All signals carry <span class="bold">energy</span> over time. This energy can be used to characterize <span class="bold">ephemeral and deterministic</span> signals. We define the energy of a signal as:
+                                \[ W = \int_{-\infty}^{+\infty} |x(t)|^2 dt = \int_{-\infty}^{+\infty} |X(f)|^2 dt \]
                                 where \(x(t)\) is a <span class="bold">complex</span> signal (hence we take the absolute value) and \(\tau\) is the time interval over which we compute the energy.
-                                This approach allows to describe <span class="bold">finite</span> signals such as <span class="bold">transient</span> signals or <span class="bold">ephemeral</span> signals.
                             </p>
+                            <div class="frame-highlight">
+                                <p>This approach is used to describe <span class="bold">finite</span> signals such as <span class="bold">transient</span> signals or <span class="bold">ephemeral</span> signals.</p>
+                            </div>
                         </div>
                         <div> <h5>Power</h5>
-                            <p>However, for <span class="bold">infinite</span> signals such as <span class="bold">periodic</span> signals or <span class="bold">random</span> signals, we rather consider the <span class="bold">power</span> of the signal, defined as:
+                            <p>However, for <span class="bold">infinite</span> signals such as <span class="bold">periodic</span> signals or <span class="bold">random</span> signals, their energy is <span class="bold">infinite</span>.
+                                Therefore, we rather consider the <span class="bold">power</span> of the signal. We define the power as:
                                 \[ P_{0\rightarrow\tau} = \frac{1}{\tau} \int_{0}^{\tau} |x(t)|^2 dt \]
                                 This represents the amount of energy transmitted by the signal <span class="bold">per unit of time</span>. We can also compute the <span class="bold">total average power</span> by taking \(\tau\) to the limit:
                                 \[ P_s = \lim_{\tau \rightarrow \infty} \frac{1}{\tau} \int_{0}^{\tau} |x(t)|^2 dt \]
@@ -66,9 +69,11 @@
                             <div class="frame-highlight">
                                 <p>We notice that for <span class="bold">finite-energy</span> signals, their total average power is 0 because \( \int_{0}^{\tau} |x(t)|^2 dt \) (i.e., the energy term) is finite.</p>
                             </div>
-                            <p>The <span class="bold">Fourier series</span>, which analyze periodic signals, inform about the <span class="bold">power contribution</span> of each frequency \(nf\) in the original signal:
+                            <p>The <span class="bold">Fourier series</span>, which analyzes periodic signals, informs about the <span class="bold">power contribution</span> of each frequency \(nf\) in the original signal:
                                 \[ C_n = \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} s(t) e^{j2\pi nf t} dt,\ n\in\mathcal{Z} \]
                                 where \(s(t)\) is the original signal, \(C_n\) is a <span class="bold">complex series</span> and \(T\) is the period of the signal (which can also be seen as the <span class="bold">observation time</span>).
+                                By the <span class="bold">Bessel-Parseval</span> equation, we can retrieve the power repartition of a periodic signal:
+                                \[ P = \sum_{n=-\infty}^{+\infty} |C_n|^2\]
                             </p>
                         </div>
                     </div>
@@ -242,7 +247,7 @@
                                     We can also notice that if we keep only the green part of \(X[k]\), we get back to the real signal \(x[n]\) but we lose information about the instantenous amplitude and phase of the signal.
                                     This complex nature of the signal will be used for the extraction of a so-called <span class="bold">analytic signal</span> that uses the <a href="#hilbert">Hilbert transform</a> section.
                                 </p>
-                                <img src="images/signal/X[k]_complex_illustration.drawio.png" alt="">
+                                <img src="images/signal/DFT_illustration.drawio.png" alt="">
                             </div>
                         </div>
                         <div> <h5> Why do we sometimes only consider the absolute value of the FFT ?</h5>
@@ -372,19 +377,18 @@
                         </div>
                     </div>
                 </div>
-                <div> <h3>A short intro to Hilbert analysis</h3>
-                    <p>The <span class="bold">Hilbert transform</span> relies on the Fourier transform. Its main goal is to construct an <span class="bold">analytic signal</span> which provides relevant information about the real signal.</p>
-                    <p></p>
-                    <div> <h4>Procedure</h4>
-                        <p>Here are the steps that are executed when we operate the Hilbert transform of a signal:</p>
+                <div> <h3>A short introduction to Hilbert analysis</h3>
+                    <p>The <span class="bold">Hilbert transform</span> is somehow related to the Fourier transform. Its main goal is to construct an <span class="bold">analytic signal</span> which provides relevant <span class="bold">instantaneous information about the real signal</span>.</p>
+                    <div> <h4>Hilbert transform</h4>
+                        <p>Here are the steps to compute the Hilbert transform of a signal real signal \(x(t)\):</p>
                         <div class="frame-highlight">
                             <ol>
-                                <li>Compute the original signal's <span class="bold">FFT</span>;</li>
-                                <li>Shift by <span class="bold">-90°</span> all frequencies <span class="bold">above</span> 0 and by <span class="bold">90°</span> all frequencies <span class="bold">below</span> 0 (or above \(\pi\))</li>
-                                <li>Compute the <span class="bold">IFFT</span> of the transformed signal.</li>
+                                <li>Compute the original signal's <span class="bold">FFT</span> \(X(f)\);</li>
+                                <li>Shift by <span class="bold">-90°</span> all <span class="bold">negative</span> frequencies and by <span class="bold">90°</span> all <span class="bold">positive</span> frequencies to obtain a new complex signal \(\widehat{X}(f)\);</li>
+                                <li>Compute the <span class="bold">IFFT</span> of that newly computed signal to obtain new real signal \(\widehat{x}(t) = \mathcal{TF}^{-1}[\widehat{X}(f)] = \mathcal{H}[x(t)]\).</li>
                             </ol>
                         </div>
-                        <p>It is important to see that this procedure does not affect the amplitude spectrum. This means that the <span class="bold">frequency correlation itself does not change</span> (i.e., detected frequencies are the same as before).
+                        <p>It is important to see that this transform <span class="bold">does not affect the amplitude spectrum</span>. This means that the <span class="bold">frequency correlation itself does not change</span> (i.e., detected frequencies are the same as before).
                             This has the new signal become <span class="bold">orthogonal</span> to the original one. As a result the Hilbert transform computes a signal in the <span class="bold">same domain</span> (time domain) but with a <span class="bold">phase shift</span> of 90°. This is given by this formula:
                             \[ \mathcal{H}(x(\tau))(t) = \widehat x(t) = \frac{1}{\pi} \int_{-\infty}^{+\infty} \frac{x(\tau)}{t-\tau} d\tau = (x(\tau)*\frac{1}{\pi \tau})(t) \]
                             where \(x(t)\) is the original signal and \(\widehat {x}(t)\) is the <span class="bold">phase shift</span> of the new signal. This formula might seem daunting but we can switch to the <span class="bold">Fourier domain</span> to make it more understandable.
@@ -393,19 +397,22 @@
                             \begin{matrix} X(\nu)e^{-i2\pi},\ \nu > 0 \\ X(0) = 0 \\ X(\nu)e^{i2\pi},\ \nu < 0 \end{matrix}
                             \right.
                             \]
-                            where \(X(\nu)\) is the original signal's Fourier transform. This formula shows clearly the <span class="bold">+/- 90° phase shift</span>.
+                            where \(X(\nu)\) is the original signal's Fourier transform. This formula shows clearly the <span class="bold">+/- 90° phase shift</span>. The illustration below shows the effect of the Hilbert transform on a signal in the frequency domain.
+                            We notably see that the amplitudes \(A_k\) stay the same but the phases \(\theta_k\) are shifted by 90° such that \(\theta_k'=\theta_k+/-90°\).
                         </p>
+                        <img src="images/signal/Hilbert_illustration.drawio.png" alt="">
+                        <p>In consequence, the real signal \(\widehat{x}(t)\) obtained from this transform is formed with <span class="bold">odd coefficients</span> \(S_k\) and discards <span class="bold">even</span> ones \(C_k\). In other words, it computes the <span class="bold">orthogonal</span> signal \(\widehat{x}(t)\) of the original signal \(x(t)\).</p>
                     </div>
                     <div> <h4>Analytic signal</h4>
-                        <p>This transform aims at extracting this new analytic <span class="bold">(complex)</span> signal:
+                        <p>The Hilbert transform aims at computing this new analytic <span class="bold">(complex)</span> signal:
                             \[ x_a(t) = x(t) + j \mathcal{H}(x(t)) = x(t) + j \widehat {x}(t) = A(t) e^{j\theta(t)} \rightarrow
                             \left\{
                             \begin{matrix} A(t) = \sqrt{x(t)^2 + \widehat {x}(t)^2} \\ \theta(t) = \arctan(\frac{\widehat {x}(t)}{x(t)}) \end{matrix}
                             \right.
                             \]
-                            where \(x(t)\) is the original signal and is also called the <span class="bold">base-band</span> signal. \(\widehat {x}(t)\) is the <span class="bold">phase shift</span> of the original signal.
+                            where \(x(t)\) is the original signal and is also called the <span class="bold">base-band</span> signal. \(\widehat {x}(t)\) is the <span class="bold">Hilbert transform</span> of the original signal.
                         </p>
-                        <p>This signal features an interesting property which is to <span class="bold">remove information redundancy</span>, thereby having only <span class="bold">positive frequencies</span> in its Fourier spectrum.</p>
+                        <p>This new signal features an interesting property which is to <span class="bold">remove information redundancy</span>, thereby having only <span class="bold">positive frequencies</span> in its Fourier spectrum.</p>
                         <div class="frame-highlight">
                             <p>This signal can also be computed by following these steps:</p>
                             <ol>
@@ -418,17 +425,17 @@
                         <p>It is really important to grasp the purpose of this procedure and how we do end up with this <span class="bold">analytic signal</span> in the end. By setting all negative frequencies coefficients to 0 (2), we actually prevent 
                             that signal from <span class="bold">becoming real</span> again when computing the IFFT (4).
                             Indeed, in the Fourier domain, negative frequencies coefficients allow, when added with positive frequencies coefficients, to <span class="bold">cancel out the imaginary part</span> of the complex exponential, thereby obtaining a <span class="bold">real signal</span>. We have:
-                            \[ x[n] = \sum_{k=0}^{N-1} X[k] e^{i2\pi k\frac{n}{N}} = X[0] + \sum_{k=1}^{\frac{N}{2}-1} X[k] e^{i2\pi k\frac{n}{N}} + X[N-k] e^{-i2\pi k\frac{n}{N}},\ with\ X[k]=\overline{X[N-k]} \] 
+                            \[ x[n] = \sum_{k=0}^{N-1} X[k] e^{i2\pi k\frac{n}{N}} = X[0] + \sum_{k=1}^{\frac{N}{2}-1} X[k] e^{i2\pi k\frac{n}{N}} + X[N-k] e^{-i2\pi k\frac{n}{N}},\ with\ X[k]=X^*[N-k] \] 
                             To obtain the <span class="bold">analytic signal</span>, we actually do this:
                             \[ x_a[n] = \sum_{k=0}^{N-1} X[k] e^{i2\pi k\frac{n}{N}} = X[0] + 2\sum_{k=1}^{N-1} X[k] e^{i2\pi k\frac{n}{N}} = X[0] + 2\sum_{k=1}^{N-1} (C_k + i S_k) e^{i2\pi k\frac{n}{N}} \]
                             where \(C_k\) and \(S_k\) are respectively the cosinus and sinus <span class="bold">correlation coefficients</span> computed with the DFT for a given frequency index \(k\). The \(2\) accounts for <span class="bold">energy conservation</span>, it compensates for the cancellation of negative frequencies.
                             Eventually, we notice that the signal is <span class="bold">complex</span> because we stop at \(k=N\) and to make the link with the parameter calculated in the section just above \(A(t)\) and \(\theta(t)\), we can re-write \(x_a[n]\) such as:
-                            \[ x_a[n] = X[0] + \sum_{k=1}^{N-1} A_k e^{i \theta_k} e^{i2\pi k\frac{n}{N}} = X[0] + A_k[n] e^{i \theta_k[n]} \]
+                            \[ x_a[n] = X[0] + \sum_{k=1}^{N-1} A_k e^{i \theta_k} e^{i2\pi k\frac{n}{N}} = X[0] + A_k' e^{i \theta_k[n]} \]
                             where \(A_k\) and \(\theta_k\) are respectively the <span class="bold">magnitude</span> and <span class="bold">phase</span> of the signal for each frequency index \(k\). In the end, this signal carries the same information as \(X[k]\) but in a different form (<span class="bold">no information is lost</span>).
-                            With this approach, we have now an <span class="bold">analytic (complex)</span> signal from which we can extract several features of the original signal thanks to the <span class="bold">conservation of the complex form</span> of the DFT. We can notably measure the instantaneous <span class="bold">amplitude</span> \(A_k[n]\) and <span class="bold">phase</span> \(\theta_k[n]\):
+                            With this approach, we have now an <span class="bold">analytic (complex)</span> signal from which we can extract several features of the original signal thanks to the <span class="bold">conservation of the complex form</span> of the DFT. We can notably measure the instantaneous <span class="bold">amplitude</span> \(A_k\) and <span class="bold">phase</span> \(\theta_k[n]\):
                             \[ \left\{
                                 \begin{matrix} 
-                                A_k[n] = \sum_{k=1}^{N-1} A_k \\
+                                A_k' = \sum_{k=1}^{N-1} A_k \\
                                 \theta_k[n] = \sum_{k=1}^{N-1} \theta_k + 2\pi k\frac{n}{N}
                                 \end{matrix}
                                 \right.    
@@ -454,7 +461,7 @@
                             To preserve this complex nature we only need to operate the IFFT over the <span class="bold">positive frequencies</span> and <span class="bold">double their contribution</span> to account for the loss of negative frequencies (i.e., energy conservation).
                             By doing so, we don't lose any signal's information because all the necessary information is contained in the positive frequencies. 
                         </p>
-                        <img src="images/signal/X[k]_complex_illustration.drawio.png" alt="">
+                        <img src="images/signal/DFT_illustration.drawio.png" alt="">
                     </div>
                 </div>
             </div>
@@ -549,8 +556,8 @@
                     </div>
                     <div id="PSD"> <h4>Power spectrum density</h4>
                         <p>As exposed <a href="#fundamentals">here</a>, the definition of <span class="bold">average power</span> is:
-                            \[ P_s = \overline{S^2} = \lim_{T \rightarrow \infty} \frac{1}{T} \int_{-\infty}^{\infty} |s(t)|^2 dt = E[s(t)^2] \]
-                            \(T\) is the <span class="bold">observation time</span> of the signal.
+                            \[ P_s = \overline{S^2} = \lim_{T \rightarrow \infty} \frac{1}{T} \int_{-\infty}^{\infty} |s(t)|^2 dt \]
+                            \(T\) is the <span class="bold">observation time</span> of the signal. If the signal \(s(t)\) is <span class="bold">ergodic</span>, then the power is also defined as \(E[s(t)^2]\).
                         </p>
                         <p>However, this definition does not give much information about the signal because <span class="bold">completely different-looking signals could have the same average power</span>.</p>
                         <p>For that matter, the <span class="bold">PSD</span> allows to better understand the signal's <span class="bold">power repartition in the frequency domain</span>.
@@ -562,7 +569,7 @@
                                 \end{matrix}
                                 \right.        
                             \]
-                            \((1)\) is the <span class="bold">Wiener-Khinchin theorem</span> with \(r_{xx}\) the <span class="bold">autocorrelation</span> of the signal. \(S(f)\) is the <span class="bold">Fourier transform</span> of the signal \(x(t)\).
+                            \((1)\) is the <span class="bold">Wiener-Khinchin theorem</span> with \(r_{xx}\) the <span class="bold">autocorrelation</span> of the signal. \(S(f)\) is the <span class="bold">Fourier transform</span> of the truncated signal \(x(t)\).
                         </p>
                         <p>From the PSD \( S_{xx}(f) \), we can also compute the energy of the signal in a <span class="bold">frequency band</span> \(\Delta f\):
                             \[ E_{\Delta f} = \int_{\Delta f} S_{xx}(f) df \]
