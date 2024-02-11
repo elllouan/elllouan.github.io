@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="generic-patterns/css/main.css">
         <link rel="stylesheet" href="generic-patterns/css/horizontalmenu.css">
         <link rel="stylesheet" href="generic-patterns/css/footer.css">
-        <link rel="stylesheet" href="css/topics.css">
+        <link rel="stylesheet" href="css/school.css">
     </head>
 
     <!-- Within de web page -->
@@ -32,7 +32,15 @@
                 <p>Here is the overview of the topics that I covered:</p>
                 <ol>
                     <a href="#fundamentals"><li>Overview of fundamentals;</li></a>
-                    <a href="#hilbert"><li>Discrete Fourier Transform and Hilbert transform;</li></a>
+                    <ul>
+                        <a href="#classification"><li>Signals classification</li></a>
+                        <a href="#probabilities"><li>Signal and probabilities</li></a>
+                    </ul>
+                    <a href="#dft"><li>Discrete Fourier Transform and Hilbert transform;</li></a>
+                    <ul>
+                        <a href="#dft?"><li>What is the DFT ?</li></a>
+                        <a href="#hilbert"><li>A short introduction to Hilbert analysis</li></a>
+                    </ul>
                     <a href="#laplace"><li>Laplace transform and Z-transform;</li></a>
                     <a href="#wavelet"><li>Wavelet analysis;</li></a>
                     <a href="#filtering"><li>Signal filtering;</li></a>
@@ -41,592 +49,774 @@
                 <p>I am also currenlty learning the <a href="informationtheory.html">Information theory</a>.</p>
             </div>
 
-            <div id="#fundamentals"> <h2>Fundamentals</h2>
-                <!-- <ol>
-                    <li>DSF, superposition, energy(3) and power(4) of signals: Bessel-Parseval, Wiener</li>
-                    <li>essential properties of TF, sinc orthogonality, FT generalisation</li>
-                    <li>random vs deterministic signals, group propagation phase</li>
-                </ol> -->
-                <div> <h3>Signals classification</h3>
-                    <div> <h4>Energetic classification</h4>
-                        <p>Signals can be classified using the definitions of <span class="bold">energy</span> and <span class="bold">power</span>.</p>
-                        <div> <h5>Energy</h5>
-                            <p>All signals carry <span class="bold">energy</span> over time. This energy can be used to characterize <span class="bold">ephemeral and deterministic</span> signals. We define the energy of a signal as:
-                                \[ W = \int_{-\infty}^{+\infty} |x(t)|^2 dt = \int_{-\infty}^{+\infty} |X(f)|^2 dt \]
-                                where \(x(t)\) is a <span class="bold">complex</span> signal (hence we take the absolute value) and \(\tau\) is the time interval over which we compute the energy.
-                            </p>
-                            <div class="frame-highlight">
-                                <p>This approach is used to describe <span class="bold">finite</span> signals such as <span class="bold">transient</span> signals or <span class="bold">ephemeral</span> signals.</p>
-                            </div>
-                        </div>
-                        <div> <h5>Power</h5>
-                            <p>However, for <span class="bold">infinite</span> signals such as <span class="bold">periodic</span> signals or <span class="bold">random</span> signals, their energy is <span class="bold">infinite</span>.
-                                Therefore, we rather consider the <span class="bold">power</span> of the signal. We define the power as:
-                                \[ P_{0\rightarrow\tau} = \frac{1}{\tau} \int_{0}^{\tau} |x(t)|^2 dt \]
-                                This represents the amount of energy transmitted by the signal <span class="bold">per unit of time</span>. We can also compute the <span class="bold">total average power</span> by taking \(\tau\) to the limit:
-                                \[ P_s = \lim_{\tau \rightarrow \infty} \frac{1}{\tau} \int_{0}^{\tau} |x(t)|^2 dt \]
-                            </p>
-                            <div class="frame-highlight">
-                                <p>We notice that for <span class="bold">finite-energy</span> signals, their total average power is 0 because \( \int_{0}^{\tau} |x(t)|^2 dt \) (i.e., the energy term) is finite.</p>
-                            </div>
-                            <p>The <span class="bold">Fourier series</span>, which analyzes periodic signals, informs about the <span class="bold">power contribution</span> of each frequency \(nf\) in the original signal:
-                                \[ C_n = \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} s(t) e^{j2\pi nf t} dt,\ n\in\mathcal{Z} \]
-                                where \(s(t)\) is the original signal, \(C_n\) is a <span class="bold">complex series</span> and \(T\) is the period of the signal (which can also be seen as the <span class="bold">observation time</span>).
-                                By the <span class="bold">Bessel-Parseval</span> equation, we can retrieve the power repartition of a periodic signal:
-                                \[ P = \sum_{n=-\infty}^{+\infty} |C_n|^2\]
-                            </p>
-                        </div>
-                    </div>
-                    <div> <h4>Phenomenological classification</h4>
-                        <p>This classification will be discussed more thoroughly in the next section. To give an overview of all type of signals, we have:</p>
-                        <div class="frame-highlight">
-                            <ul>
-                                <li>Deterministic signals</li>
-                                <ul>
-                                    <li>periodic signals</li>
-                                    <li>ephemeral signals</li>
-                                    <li>non-periodic signals</li>
-                                    <li>pseudo-periodic signals</li>
-                                </ul>
-                                <li>Random signals</li>
-                                <ul>
-                                    <li>stationary signals</li>
-                                    <li>non-stationary signals</li>
-                                    <li>ergodic signals</li>
-                                </ul>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div> <h3>Signals and probability</h3>
-                    <div> <h4>Deterministic signals</h4>
-                        <p><span class="bold">Deterministic signals</span> are signals which we can precisely predict the behavior. The signal is described with a <span class="bold">mathematical model</span>.</p>
-                    </div>
-                    <div> <h4>Random signals</h4>
-                        <p><span class="bold">Random signals</span> are signals which we cannot precisely predict the behavior. The signal does have a <span class="bold">mathematical model</span>.
-                            To describe the signal, we use <span class="bold">statistical tools</span> such as the <span class="bold">probability density function</span> \(p(x)\).
-                        </p>
-                        <div> <h5>Stationary processus</h5>
-                            <p>A <span class="bold">stationary</span> signal is a signal whose <span class="bold">probability density function</span> is always the same, hence does not change over time.
-                                The probability density function is a 1D function \(p(x)\). This causes the signal's <span class="bold">statistical properties</span> (mean, variance, standard deviation ...) to be constant.
-                            </p>
-                            <p>An <span class="bold">non-stationary</span> signal is a signal whose <span class="bold">probability density function</span> changes over time.
-                                The probability density function is a 2D function \(p(x,t)\). This causes the signal's <span class="bold">statistical properties</span> (mean, variance, standard deviation ...) to change over time.
-                            </p>
-                        </div>
-                        <div> <h5>Ergodic processus</h5>
-                            <p>An <span class="bold">ergodic</span> signal is a signal whose <a href="#math-tools">statistical moments</a> can be linked to its <span class="bold">temporal moments</span>.
-                                In other words, the <span class="bold">normalized histogram (temporal mean)</span> of an ergodic signal gives relevant information on the <span class="bold">probability density function (statistical mean)</span> of each single realization of the signal at each time \(t\).
-                                \[\left\{
-                                    \begin{matrix}
-                                    E[s(t)] = \overline{s(t)} \\
-                                    E[s(t)^2] = \overline{s(t)^2}
-                                    \end{matrix}
-                                    \right.
-                                \]
-                                This means that <span class="bold">statistical properties</span> of an ergodic signal can be known with the study of a <span class="bold">single realization</span> of the signal.
-                            </p>
-                        </div>
-                        <div id="math-tools"> <h4>Mathematical tools</h4>
-                            <p>For random signals, we have mathematical concepts to describe a signal that are quite closely related to the ones used for deterministic signals</p>
-                            <div> <h5>Probability density function</h5>
-                                <p></p>
-                            </div>
-                            <div> <h5>Esperance</h5>
-                                <p>The mathematical <span class="bold">esperance</span> of a random signal is equivalent to the <span class="bold">arithmetical (or temporal) mean</span> for deterministic signals. For that matter, the term <span class="bold">mean</span> is often used to refer to the term <span class="bold">esperance</span> in probability and statistics.
-                                    Nevertheless, instead of summing <span class="bold">determined</span> signal values, we sum the <span class="bold">probability</span> of each event \(p(x)\) multiplied by the <span class="bold">value of the event</span> \(x\).
-                                    \[ E[X] = \int_{-\infty}^{\infty} x p(X = x) dx \]
-                                    In the case of signal analysis, the random event \(x\) can represent the <span class="bold">tension</span> taken by the signal \(X \equiv s(t)\).
-                                </p>
-                                <div class="frame-highlight">
-                                    <p>For <span class="bold">discrete probabilities</span>, we have a sum: \( E[X] = \sum_{x=0}^{N} x p(X = x) \).</p>
-                                </div>
-                            </div>
-                            <div> <h5>Variance</h5>
-                                <p>The <span class="bold">variance</span> a signal is a <span class="bold">dispersion indicator</span>. It measures the <span class="bold">power of random fluctuations</span> around the signal's mean \(\mu_X = E[X]\).
-                                    \[ \sigma_X^2 = V[X] = \int_{-\infty}^{\infty} (x-\mu_X)^2 p(X = x) dx \]
-                                    From the variance definition, we retrieve the concept of <span class="bold">power</span> of a signal.
-                                </p>
-                                <div class="frame-highlight">
-                                    <p>It can also be seen as the statistical moment of order 2 of this signal: \(Y=x-\mu_X\).</p>
-                                </div>
-                            </div>
-                            <div> <h5>Standard deviation</h5>
-                                <p>The <span class="bold">standard deviation</span> a signal is also a <span class="bold">dispersion indicator</span> but the unit of measurement is brought back to the <span class="bold">unit of the signal</span> (voltage).
-                                    \[ \sigma_X =\sqrt{V[X]} \]
-                                    From the standard deviation definition, we retrieve the concept of <span class="bold">effective value</span> of a signal.
-                                </p>
-                            </div>
-                            <div> <h5>The gaussian distribution</h5>
-                                <p>The gaussian distribution is the most common probability distribution. In fact, there is the <span class="bold">central limit theorem</span> which states that if we take \(n\) <span class="bold">random variables</span> and we do an <span class="bold">infinite</span> number of realizations,
-                                    the probability distribution function of those realizations will tend to a <span class="bold">gaussian distribution</span>.
-                                </p>
-                                <p>This phenomenon can be understood more clearly if we consider <span class="bold">convolution</span> and the <span class="bold">autocorrelation</span> method. In the theorem above, a <span class="bold">random variable</span> refers to 
-                                    Each random variable is associated with a probability density function, which is most of the time uniform (i.e., all events in the set of events have the same probability to occur).
-                                    Now taking \(n\) random variables \(X_1\ X_2 \vdots X_n\) means that at each realization we give a value to each random variable \(X_i\).
-                                    As I already explained <a href="math&IT.html">here</a>, doing this is equivalent to <span class="bold">convolve the probability density functions</span> of each random variable.
-                                    \[ P_n(y) = (p_1(x)*p_2(x)*...*p_n(x))(y) \]
-                                    With \(p_i(x)\) the probability density function of the random variable \(X_i\) and \(y\) the value of the random variable \(Y=X_1+X_2+...+X_n\). Since, we repeat \(n\) times the same operation for each realization, all \(p_i\) are the same.
-                                    We obtain a new probability density function \(P_n(y)\) that is the convolution of all the probability density functions of the random variables, which indeed <span class="bold">converges to a gaussian distribution</span>.
-                                    We know that the convolution is <span class="bold">close</span> to the autocorrelation of the signal. Therefore, we can understand the <span class="bold">the mean</span> of this new probability density function \(P_n(y)\) as being a <span class="bold">correlation peak</span> of all these probability density functions \(p_i\). 
-                                </p>
-                            </div>
-                        </div>
-                        <div> <h4>The autocorrelation function</h4>
-                            <p>The <a href="school.html">autocorrelation</a> function, often refered to as \(r_{xx}\) is essential determining useful properties of a signal. Here I want to understand its meaning and implication in random signals.</p>
-                            <p>First off, this autocorrelation function is defined as:
-                                \[ r_{xx}(\tau) = E[s(t)\ s(\tau-t)] \]
-                                \[ E[s(t)] = \int_{-\infty}^{+\infty} x\ p(s(t)=x) dx \]
-                                This definition becomes really important for <span class="bold">ergodic and stationary</span> signals. Indeed, we can rewrite \(r_{xx}\) with \(s(t)\)'s temporal values:
-                                \[ r_{xx}(\tau) = \lim_{T \rightarrow \infty} \frac{1}{T} \int_{-T/2}^{T/2} s(t)\ s(\tau-t) dt \]
-                                From this function, we can compute the <span class="bold">power density spectrum</span> of the signal:
-                                \[ r_{xx}(\tau) = (s(t)*s(-t))(\tau) \]
-                                \[ \mathcal{FT}[r_{xx}(\tau)] = \phi_{xx}(f) = S(f).S*(f) = |S(f)|^2 \]
-                            </p>
-                        </div>
-                        <div> <h4>Signal sampling</h4>
-                            <p>Consequences</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="accordion">
 
-            <div id="hilbert"> <h2>Discrete Fourier transform</h2>
-                <div> <h3>What is the DFT ?</h3>
-                    <div> <h4>Questions and clarifications</h4>
-                        <div> <h5>Why is this used for ?</h5>
-                            <p>This transform allows us to better identify the <span class="bold">contribution of frequencies</span> in a signal, which most of time are <span class="bold">not noticeable</span> when looking at the signal in its <span class="bold">time representation</span>.
-                                However, to be able to manupilate the spectrum density with a computer, the signal (represented in both domains) has to be <span class="bold">finite and discrete</span> (i.e., limited number of points/samples \(N\)).
-                                The DFT essentially performs both signal <span class="bold">sampling</span> and spectrum <span class="bold">quantization</span>.
-                                In fact, the DFT is simply a <span class="bold">discrete version</span> of the Fourier transform. As a result, integrals are replaced by <span class="bold">sums</span>.
-                                \[ X[k] = \sum_{n=0}^{N-1} x[n] e^{-i2\pi k\frac{n}{N}} \]
-                                \(k\) is the <span class="bold">frequency index</span> of the discrete spectrum and determines how fast (frequency) we travel around the complex unit circle (1 round = 1 cycle of the signal's time length), and \(n\) is the <span class="bold">time index</span> of the signal sampled at each \(T_e\).
-                            </p>
-                            <div class="frame-highlight">
-                                <p>This can also be viewed as a <span class="bold">dot product</span> between the signal and the complex exponential domain. The result evaluates the <span class="bold">correlation</span> between those.</p>
-                            </div>
-                            <p>However, \(k\) and \(n\) are not directly the <span class="bold">physical frequency</span> and <span class="bold">time</span> of the signal, which can be retrieved using the following formulas:
-                                \[ f = \frac{k}{N T_e} \]
-                                \[ t = \frac{n}{T_e} \]
-                                where \(f\) is the <span class="bold">physical frequency</span>, \(t\) is the <span class="bold">physical time</span> and \(NT_e\) is the <span class="bold">length of the signal</span>.
-                            </p>
-                            <p>As a result, we increment the \(k\) index to know the <span class="bold">contribution</span> of each frequency in the signal.
-                                With the illustration below, that may come clearer. It illustrates how the length of the signal \(NT_e\) is related to the index \(k\).
-                            </p>
-                            <img src="images/signal/dft_k_meaning.PNG" alt="">
-                            <p>\(k=0 \rightarrow \) 0 cycle around the circle | \(k=1 \rightarrow \) 1 cycle around the circle | \(k=2 \rightarrow \) 2 cycle around the circle</p>
-                        </div>
-                        <div> <h5>Why are there negative frequencies at all ?</h5>
-                            <p>Negative frequencies account for <span class="bold">information redundancy</span>. This redundancy comes from the fact that in the complex domain there is a <span class="bold">complex conjugate symmetry</span>.
-                                This results in the following property: \( arg(e^{i\omega}) = -arg(e^{i(2\pi-\omega)}) = -arg(e^{-i\omega}) \).
-                                Also, \(e^{i\theta}\) is a <span class="bold">periodic</span> function: \( e^{i\theta} = e^{i(2\pi+\theta)} \). This is due to the Euler's formula: \(e^{i\theta} = cos(\theta) + isin(\theta)\).
-                            </p>
-                            <p>Therefore, performing an <span class="bold">anti-clockwise</span> (positive frequencies first) or <span class="bold">clockwise</span> (negative frequencies first) rotation is equivalent.
-                                This has no impact on the <span class="bold">magnitude</span> of each frequency, but only their <span class="bold">phase</span>.
-                                So all angles (i.e., each frequency's contribution) taken after \(\pi\) (i.e., \(k > \frac{N}{2}\)) are redundant (with a change in the sign) because we basically measure the same frequencies before and after \(\pi\).The direction of the rotation is the only difference.
-                            </p>
-                            <div class="frame-highlight">
-                                <p>Note that instead of taking negative frequencies \(-i\omega\), we could take \(i(\omega + \pi) \). The result would be a <span class="bold">double-sided</span> graph with only positive frequencies.
-                                    In Matlab, we can use <span class="bold">fftshift</span> to have the graph centered on 0 and consequently having the negative frequencies appear (right side graph).</p>
-                                <div class="illustration-horiz-4">
-                                    <img src="images/signal/double-sided-fft.webp" alt="">
-                                    <img src="images/signal/double-sided-fftshift.webp" alt="">
+                <div class="sub-container"> <div class="label" id="fundamentals"> <h2>Fundamentals</h2> </div>
+                    <div class="content">
+                        <div id="classification"> <h3>Signals classification</h3>
+                            <div> <h4>Energetic classification</h4>
+                                <p>Signals can be classified using the definitions of <span class="bold">energy</span> and <span class="bold">power</span>.</p>
+                                <div> <h5>Energy</h5>
+                                    <p>All signals carry <span class="bold">energy</span> over time. This energy can be used to characterize <span class="bold">ephemeral and deterministic</span> signals. We define the energy of a signal as:
+                                        \[ W = \int_{-\infty}^{+\infty} |x(t)|^2 dt = \int_{-\infty}^{+\infty} |X(f)|^2 dt \]
+                                        where \(x(t)\) is a <span class="bold">complex</span> signal (hence we take the absolute value) and \(\tau\) is the time interval over which we compute the energy.
+                                    </p>
+                                    <div class="frame-highlight">
+                                        <p>This approach is used to describe <span class="bold">finite</span> signals such as <span class="bold">transient</span> signals or <span class="bold">ephemeral</span> signals.</p>
+                                    </div>
                                 </div>
-                                <p>This redundancy means that we could only deal with the <span class="bold">first half</span> of the graph. By doing so we obtain a so-called <span class="bold">one-sided</span> spectrum where only <span class="bold">positive frequencies</span> remain.
-                                    This graph contains all necessary information to reconstruct the original signal.
-                                </p>
-                                <img style="width: 20%; margin: 0 auto;" src="images/signal/one-sided-fft.webp" alt="">
+                                <div> <h5>Power</h5>
+                                    <p>However, for <span class="bold">infinite</span> signals such as <span class="bold">periodic</span> signals or <span class="bold">random</span> signals, their energy is <span class="bold">infinite</span>.
+                                        Therefore, we rather consider the <span class="bold">power</span> of the signal. We define the power as:
+                                        \[ P_{0\rightarrow\tau} = \frac{1}{\tau} \int_{0}^{\tau} |x(t)|^2 dt \]
+                                        This represents the amount of energy transmitted by the signal <span class="bold">per unit of time</span>. We can also compute the <span class="bold">total average power</span> by taking \(\tau\) to the limit:
+                                        \[ P_s = \lim_{\tau \rightarrow \infty} \frac{1}{\tau} \int_{0}^{\tau} |x(t)|^2 dt \]
+                                    </p>
+                                    <div class="frame-highlight">
+                                        <p>We notice that for <span class="bold">finite-energy</span> signals, their total average power is 0 because \( \int_{0}^{\tau} |x(t)|^2 dt \) (i.e., the energy term) is finite.</p>
+                                    </div>
+                                    <p>The <span class="bold">Fourier series</span>, which analyzes periodic signals, informs about the <span class="bold">power contribution</span> of each frequency \(nf\) in the original signal:
+                                        \[ C_n = \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} s(t) e^{j2\pi nf t} dt,\ n\in\mathcal{Z} \]
+                                        where \(s(t)\) is the original signal, \(C_n\) is a <span class="bold">complex series</span> and \(T\) is the period of the signal (which can also be seen as the <span class="bold">observation time</span>).
+                                        By the <span class="bold">Bessel-Parseval</span> equation, we can retrieve the power repartition of a periodic signal:
+                                        \[ P = \sum_{n=-\infty}^{+\infty} |C_n|^2\]
+                                    </p>
+                                </div>
                             </div>
-                            <p>At some point when \(k\) is greater than \(\frac{N}{2} \equiv \pi\), the negative frequencies become simply the <span class="bold">conjugate</span> of the positive frequencies. That means, we could re-write the DFT as:
-                                \[ X[k] = \sum_{n=0}^{N-1} x[n] e^{i2\pi k\frac{n}{N}} \]
-                                The \(-\) sign in the exponential term was removed which causes to travel around the circle in the <span class="bold">positive direction</span>.
-                            </p>
-                            <div class="illustration-horiz-2">
-                                <p>The image on the right introduces a visual interpretation of this transform. We clearly see that \( X[k] \) is a complex vector composed of \( C_{k_n} \) and \( S_{k_n} \) which respectively account for <span class="bold">frequency correlation</span> of cosinus and sinus for different frequencies.
-                                    From this complex signal, we can calculate the <span class="bold">frequency contribution</span> \(A_{k_n}\) and the <span class="bold">phase</span> \(\theta_{k_n}\) at each frequency index.
-                                    We can also notice that if we keep only the green part of \(X[k]\), we get back to the real signal \(x[n]\) but we lose information about the instantenous amplitude and phase of the signal.
-                                    This complex nature of the signal will be used for the extraction of a so-called <span class="bold">analytic signal</span> that uses the <a href="#hilbert">Hilbert transform</a> section.
+                            <div> <h4>Phenomenological classification</h4>
+                                <p>This classification will be discussed more thoroughly in the next section. To give an overview of all type of signals, we have:</p>
+                                <div class="frame-highlight">
+                                    <ul>
+                                        <li>Deterministic signals</li>
+                                        <ul>
+                                            <li>periodic signals</li>
+                                            <li>ephemeral signals</li>
+                                            <li>non-periodic signals</li>
+                                            <li>pseudo-periodic signals</li>
+                                        </ul>
+                                        <li>Random signals</li>
+                                        <ul>
+                                            <li>stationary signals</li>
+                                            <li>non-stationary signals</li>
+                                            <li>ergodic signals</li>
+                                        </ul>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="probabilities"> <h3>Signal and probabilities</h3>
+                            <div> <h4>Deterministic signals</h4>
+                                <p><span class="bold">Deterministic signals</span> are signals whose behavior is <span class="bold">known</span>, so can be predicted. The signal is described with a <span class="bold">mathematical model</span>.</p>
+                            </div>
+                            <div> <h4>Random processes</h4>
+                                <p><span class="bold">Random signals</span> are signals which we cannot precisely predict the behavior. The signal does have a <span class="bold">mathematical model</span>.
+                                    To describe the signal, we use <span class="bold">statistical tools</span> such as the <span class="bold">probability density function</span> \(p(x)\).
+                                </p>
+                                <div> <h5>Stationary process</h5>
+                                    <p>A <span class="bold">stationary</span> signal is a signal whose <span class="bold">probability density function</span> is always the same, hence does not change over time.
+                                        The probability density function is a 1D function \(p(x)\). This causes the signal's <span class="bold">statistical properties</span> (mean, variance, standard deviation ...) to be constant.
+                                    </p>
+                                    <p>An <span class="bold">non-stationary</span> signal is a signal whose <span class="bold">probability density function</span> changes over time.
+                                        The probability density function is a 2D function \(p(x,t)\). This causes the signal's <span class="bold">statistical properties</span> (mean, variance, standard deviation ...) to change over time.
+                                    </p>
+                                </div>
+                                <div> <h5>Ergodic process</h5>
+                                    <p>An <span class="bold">ergodic</span> signal is a signal whose <a href="#math-tools">statistical moments</a> can be linked to its <span class="bold">temporal moments</span>.
+                                        In other words, the <span class="bold">normalized histogram (temporal mean)</span> of an ergodic signal gives relevant information on the <span class="bold">probability density function (statistical mean)</span> of each single realization of the signal at each time \(t\).
+                                        \[\left\{
+                                            \begin{matrix}
+                                            E[s(t)] = \overline{s(t)} = \lim_{T \rightarrow \infty} \frac{1}{T} \int_{T} |s(t)| dt \\
+                                            E[s(t)^2] = \overline{s(t)^2} = \lim_{T \rightarrow \infty} \frac{1}{T} \int_{T} |s(t)|^2 dt
+                                            \end{matrix}
+                                            \right.
+                                        \]
+                                    </p>
+                                    <div class="frame-highlight">
+                                        <p>This means that <span class="bold">statistical properties</span> of an ergodic signal can be known with the study of a <span class="bold">single realization</span> of the signal.</p>
+                                    </div>
+                                </div>
+                                <div id="math-tools"> <h4>Mathematical tools</h4>
+                                    <p>For random signals, we have mathematical concepts to describe a signal that are quite closely related to the ones used for deterministic signals</p>
+                                    <div> <h5>Esperance</h5>
+                                        <p>The mathematical <span class="bold">esperance</span> of a random signal is equivalent to the <span class="bold">arithmetical (or temporal) mean</span> for deterministic signals. For that matter, the term <span class="bold">mean</span> is often used to refer to the term <span class="bold">esperance</span> in probability and statistics.
+                                            Nevertheless, instead of summing <span class="bold">determined</span> signal values, we sum the <span class="bold">probability</span> of each event \(p(x)\) multiplied by the <span class="bold">value of the event</span> \(x\).
+                                            \[ E[X] = \int_{-\infty}^{\infty} x p(X = x) dx \]
+                                            In the case of signal analysis, the random event \(x\) can represent the <span class="bold">tension</span> taken by the signal \(X \equiv s(t)\).
+                                        </p>
+                                        <div class="frame-highlight">
+                                            <p>For <span class="bold">discrete probabilities</span>, we have a sum: \( E[X] = \sum_{x=0}^{N} x p(X = x) \).</p>
+                                        </div>
+                                    </div>
+                                    <div> <h5>Variance</h5>
+                                        <p>The <span class="bold">variance</span> a signal is a <span class="bold">dispersion indicator</span>. It measures the <span class="bold">power of random fluctuations</span> around the signal's mean \(\mu_X = E[X]\).
+                                            \[ \sigma_X^2 = V[X] = \int_{-\infty}^{\infty} (x-\mu_X)^2 p(X = x) dx \]
+                                            From the variance definition, we retrieve the concept of <span class="bold">power</span> of a signal.
+                                        </p>
+                                        <div class="frame-highlight">
+                                            <p>It can also be seen as the statistical moment of order 2 of this signal: \(Y=x-\mu_X\).</p>
+                                        </div>
+                                    </div>
+                                    <div> <h5>Standard deviation</h5>
+                                        <p>The <span class="bold">standard deviation</span> a signal is also a <span class="bold">dispersion indicator</span> but the unit of measurement is brought back to the <span class="bold">unit of the signal</span> (voltage).
+                                            \[ \sigma_X =\sqrt{V[X]} \]
+                                            From the standard deviation definition, we retrieve the concept of <span class="bold">effective value</span> of a signal.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div> <h4>Probability distributions</h4>
+                                    <div> <h5>Gaussian distribution</h5>
+                                        <p>The gaussian distribution is the most common probability distribution. In fact, there is the <span class="bold">central limit theorem</span> which states that if we take \(n\) <span class="bold">random variables</span> and we do an <span class="bold">infinite</span> number of realizations,
+                                            the probability distribution function of those realizations will tend to a <span class="bold">gaussian distribution</span>.
+                                        </p>
+                                        <p>This phenomenon can be understood more clearly if we consider <span class="bold">convolution</span> and the <span class="bold">autocorrelation</span> method. In the theorem above, a <span class="bold">random variable</span> refers to 
+                                            Each random variable is associated with a probability density function, which is most of the time uniform (i.e., all events in the set of events have the same probability to occur).
+                                            Now taking \(n\) random variables \(X_1\ X_2 \vdots X_n\) means that at each realization we give a value to each random variable \(X_i\).
+                                            As I already explained <a href="math&IT.html">here</a>, doing this is equivalent to <span class="bold">convolve the probability density functions</span> of each random variable.
+                                            \[ P_n(y) = (p_1(x)*p_2(x)*...*p_n(x))(y) \]
+                                            With \(p_i(x)\) the probability density function of the random variable \(X_i\) and \(y\) the value of the random variable \(Y=X_1+X_2+...+X_n\). Since, we repeat \(n\) times the same operation for each realization, all \(p_i\) are the same.
+                                            We obtain a new probability density function \(P_n(y)\) that is the convolution of all the probability density functions of the random variables, which indeed <span class="bold">converges to a gaussian distribution</span>.
+                                            We know that the convolution is <span class="bold">close</span> to the autocorrelation of the signal. Therefore, we can understand the <span class="bold">the mean</span> of this new probability density function \(P_n(y)\) as being a <span class="bold">correlation peak</span> of all these probability density functions \(p_i\). 
+                                        </p>
+                                    </div>
+                                    <div> <h5>Rayleigh distribution</h5>
+                                        <p>The <span class="bold">Rayleigh distribution</span> is a type of distribution based on the gaussian distribution of the <span class="bold">joint probability distribution</span> of 2 random variables \(X\) and \(Y\).
+                                            We can define the Rayleigh distribution as:
+                                            \[ R \sim \text{Rayleigh}(\sigma), R = \sqrt{X^2+Y^2},\ \text{where}\ X,Y \sim \mathcal{N}(0,\sigma) \]
+                                            \(R\) is the <span class="bold">effective value</span> of the signal. It can also be seen as the <span class="bold">magnitude</span> of the signal.
+                                            It is also used in <a href="#ofdm">OFDM</a> to compute the <span class="bold">peak-to-average power ratio</span> of the signal.
+                                        </p>
+                                    </div>
+                                    <div> <h5>Chi-Square distribution</h5>
+                                        <p>The <span class="bold">Chi-Square distribution</span> is a type of distribution based on the gaussian distribution of multiple random variables \(X_n\).
+                                            We can define the Chi-Square distribution as a <span class="bold">sum of all indenpendent squared gaussian random variables</span> \(X_n\):
+                                            \[ \chi_N^2 \sim \text{Chi-Square}_N(\sigma), \chi^2 = \sum_n^N X_n^2,\ \text{where}\ X_n \sim \mathcal{N}(0,\sigma) \]
+                                            \(N\) represents the <span class="bold">degree of freedom</span>.
+                                        </p>
+                                        <div class="frame-highlight">
+                                            <p>While, in random processes, the <span class="bold">gaussian distribution</span> accounts for <span class="bold">voltage</span>, the <span class="bold">Chi-Square distribution</span> relates to the <span class="bold">power</span> of the signal:
+                                                \[ 
+                                                    \begin{cases}
+                                                    V = \mathcal{N}(\nu, \sigma) \\
+                                                    P = \chi_1^2 = X^2
+                                                    \end{cases}
+                                                \]
+                                            </p>
+                                        </div>
+                                        <p>It is also useful to notice that: \(\chi_2^2 \sim R^2\)</p>
+                                    </div>
+                                </div>
+                                <div> <h4>The autocorrelation function</h4>
+                                    <p>The <a href="school.html">autocorrelation</a> function, often refered to as \(r_{xx}\) is essential determining useful properties of a signal. Here I want to understand its meaning and implication in random signals.</p>
+                                    <p>First off, this autocorrelation function is defined as:
+                                        \[ r_{xx}(\tau) = E[s(t)\ s(\tau-t)] \]
+                                        \[ E[s(t)] = \int_{-\infty}^{+\infty} x\ p(s(t)=x) dx \]
+                                        This definition becomes really important for <span class="bold">ergodic and stationary</span> signals. Indeed, we can rewrite \(r_{xx}\) with \(s(t)\)'s temporal values:
+                                        \[ r_{xx}(\tau) = \lim_{T \rightarrow \infty} \frac{1}{T} \int_{-T/2}^{T/2} s(t)\ s(\tau-t) dt \]
+                                        From this function, we can compute the <span class="bold">power density spectrum</span> of the signal:
+                                        \[ r_{xx}(\tau) = (s(t)*s(-t))(\tau) \]
+                                        \[ \mathcal{FT}[r_{xx}(\tau)] = \phi_{xx}(f) = S(f).S^*(f) = |S(f)|^2 \]
+                                    </p>
+                                </div>
+                                <div> <h4>Signal sampling</h4>
+                                    <p>Consequences</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sub-container"> <div class="label" id="dft"> <h2>Discrete Fourier transform</h2> </div>
+                    <div class="content">
+                        <div id="dft?"> <h3>What is the DFT ?</h3>
+                            <div> <h4>Questions and clarifications</h4>
+                                <div> <h5>Why is this used for ?</h5>
+                                    <p>This transform allows us to better identify the <span class="bold">contribution of frequencies</span> in a signal, which most of time are <span class="bold">not noticeable</span> when looking at the signal in its <span class="bold">time representation</span>.
+                                        However, to be able to manupilate the spectrum density with a computer, the signal (represented in both domains) has to be <span class="bold">finite and discrete</span> (i.e., limited number of points/samples \(N\)).
+                                        The DFT essentially performs both signal <span class="bold">sampling</span> and spectrum <span class="bold">quantization</span>.
+                                        In fact, the DFT is simply a <span class="bold">discrete version</span> of the Fourier transform. As a result, integrals are replaced by <span class="bold">sums</span>.
+                                        \[ X[k] = \sum_{n=0}^{N-1} x[n] e^{-i2\pi k\frac{n}{N}} \]
+                                        \(k\) is the <span class="bold">frequency index</span> of the discrete spectrum and determines how fast (frequency) we travel around the complex unit circle (1 round = 1 cycle of the signal's time length), and \(n\) is the <span class="bold">time index</span> of the signal sampled at each \(T_e\).
+                                    </p>
+                                    <div class="frame-highlight">
+                                        <p>This can also be viewed as a <span class="bold">dot product</span> between the signal and the complex exponential domain. The result evaluates the <span class="bold">correlation</span> between those.</p>
+                                    </div>
+                                    <p>However, \(k\) and \(n\) are not directly the <span class="bold">physical frequency</span> and <span class="bold">time</span> of the signal, which can be retrieved using the following formulas:
+                                        \[ f = \frac{k}{N T_e} \]
+                                        \[ t = \frac{n}{T_e} \]
+                                        where \(f\) is the <span class="bold">physical frequency</span>, \(t\) is the <span class="bold">physical time</span> and \(NT_e\) is the <span class="bold">length of the signal</span>.
+                                    </p>
+                                    <p>As a result, we increment the \(k\) index to know the <span class="bold">contribution</span> of each frequency in the signal.
+                                        With the illustration below, that may come clearer. It illustrates how the length of the signal \(NT_e\) is related to the index \(k\).
+                                    </p>
+                                    <img src="images/signal/dft_k_meaning.PNG" alt="">
+                                    <p>\(k=0 \rightarrow \) 0 cycle around the circle | \(k=1 \rightarrow \) 1 cycle around the circle | \(k=2 \rightarrow \) 2 cycle around the circle</p>
+                                </div>
+                                <div> <h5>Why are there negative frequencies at all ?</h5>
+                                    <p>Negative frequencies account for <span class="bold">information redundancy</span>. This redundancy comes from the fact that in the complex domain there is a <span class="bold">complex conjugate symmetry</span>.
+                                        This results in the following property: \( arg(e^{i\omega}) = -arg(e^{i(2\pi-\omega)}) = -arg(e^{-i\omega}) \).
+                                        Also, \(e^{i\theta}\) is a <span class="bold">periodic</span> function: \( e^{i\theta} = e^{i(2\pi+\theta)} \). This is due to the Euler's formula: \(e^{i\theta} = cos(\theta) + isin(\theta)\).
+                                    </p>
+                                    <p>Therefore, performing an <span class="bold">anti-clockwise</span> (positive frequencies first) or <span class="bold">clockwise</span> (negative frequencies first) rotation is equivalent.
+                                        This has no impact on the <span class="bold">magnitude</span> of each frequency, but only their <span class="bold">phase</span>.
+                                        So all angles (i.e., each frequency's contribution) taken after \(\pi\) (i.e., \(k > \frac{N}{2}\)) are redundant (with a change in the sign) because we basically measure the same frequencies before and after \(\pi\).The direction of the rotation is the only difference.
+                                    </p>
+                                    <div class="frame-highlight">
+                                        <p>Note that instead of taking negative frequencies \(-i\omega\), we could take \(i(\omega + \pi) \). The result would be a <span class="bold">double-sided</span> graph with only positive frequencies.
+                                            In Matlab, we can use <span class="bold">fftshift</span> to have the graph centered on 0 and consequently having the negative frequencies appear (right side graph).</p>
+                                        <div class="illustration-horiz-4">
+                                            <img src="images/signal/double-sided-fft.webp" alt="">
+                                            <img src="images/signal/double-sided-fftshift.webp" alt="">
+                                        </div>
+                                        <p>This redundancy means that we could only deal with the <span class="bold">first half</span> of the graph. By doing so we obtain a so-called <span class="bold">one-sided</span> spectrum where only <span class="bold">positive frequencies</span> remain.
+                                            This graph contains all necessary information to reconstruct the original signal.
+                                        </p>
+                                        <img style="width: 20%; margin: 0 auto;" src="images/signal/one-sided-fft.webp" alt="">
+                                    </div>
+                                    <p>At some point when \(k\) is greater than \(\frac{N}{2} \equiv \pi\), the negative frequencies become simply the <span class="bold">conjugate</span> of the positive frequencies. That means, we could re-write the DFT as:
+                                        \[ X[k] = \sum_{n=0}^{N-1} x[n] e^{i2\pi k\frac{n}{N}} \]
+                                        The \(-\) sign in the exponential term was removed which causes to travel around the circle in the <span class="bold">positive direction</span>.
+                                    </p>
+                                    <div class="illustration-horiz-2">
+                                        <p>The image on the right introduces a visual interpretation of this transform. We clearly see that \( X[k] \) is a complex vector composed of \( C_{k_n} \) and \( S_{k_n} \) which respectively account for <span class="bold">frequency correlation</span> of cosinus and sinus for different frequencies.
+                                            From this complex signal, we can calculate the <span class="bold">frequency contribution</span> \(A_{k_n}\) and the <span class="bold">phase</span> \(\theta_{k_n}\) at each frequency index.
+                                            We can also notice that if we keep only the green part of \(X[k]\), we get back to the real signal \(x[n]\) but we lose information about the instantenous amplitude and phase of the signal.
+                                            This complex nature of the signal will be used for the extraction of a so-called <span class="bold">analytic signal</span> that uses the <a href="#hilbert">Hilbert transform</a> section.
+                                        </p>
+                                        <img src="images/signal/DFT_illustration.drawio.png" alt="">
+                                    </div>
+                                </div>
+                                <div> <h5> Why do we sometimes only consider the absolute value of the FFT ?</h5>
+                                    <p>The absolute value informs us about the <span class="bold">contribution</span> (weight) of the specific frequency \(f=\frac{k}{NTe}\) to the signal <span class="bold">regardless of the phase correlation</span>.
+                                        Therefore, as far as the magnitude is concerned, it does not matter in which direction we travel the circle around.
+                                    </p>
+                                </div>
+                                <div> <h5>What does the phase of the FFT actually tell us ?</h5>
+                                    <p>The phase of the FFT is: \( \phi(t) = arctan(\frac{S_k sin(2\pi\frac{k}{N}n)}{C_k cos(2\pi\frac{k}{N}n)}) \), where \(S_k\) and \(C_k\) are <span class="bold">correlation coefficients</span> computed with the DFT for a given frequency index \(k\).</p>
+                                    <ul>
+                                        <li>If the phase becomes positive (> 0°), it means that the signal is <span class="bold">more correlated</span> with the imaginary part (sinus) of the complex exponential.</li>
+                                        <li>If the phase becomes negative (< 0°), it means that the signal is also <span class="bold">more correlated</span> with the imaginary part.</li>
+                                        <li>If the phase is around 0°, it means that the signal is also <span class="bold">more correlated</span> with the real part part (cosinus).</li>
+                                    </ul>
+                                </div>
+                                <div> <h5>To what extent does the <span class="bold">Nyquist frequency</span> theorem explain the redundancy of information with the FFT (negative frequencies) ?</h5>
+                                    <p>The value \(k\) accounts for how <span class="bold">many cycles</span> (periods) of the length of the signal we travel. Actually, the <span class="bold">maximum frequency</span> that should be considered is \( f=\frac{k}{NT_e} \leq \frac{f_e}{2} \implies k_{max}=\frac{N}{2} \).
+                                        Beyond this value, the frequency spectrum <span class="bold">gets folded back on itself</span> and information is <span class="bold">duplicated</span>. This is where negative frequencies show up.
+                                    </p>
+                                </div>
+                                <div> <h5>Example</h5>
+                                    <div class="frame-highlight">
+                                        <p>Let's take an example to better understand this. Let's consider we sample a signal over 1 second with 10 points (i.e., \(N=10\)). This implies that \(f_e=10\)Hz so \(f_{max}=5\)Hz.
+                                            Therefore, the <span class="bold">frequency resolution</span> is \(\delta \omega=\frac{2\pi}{NT_e} \implies \delta f=\frac{1}{NT_e} = 1\)Hz.
+                                            <ol>
+                                                <li><p>Now we want to know how much the \(k=1\) frequency contributes to the signal. The frequency tested here is \(f_{k=1}=\frac{1}{NT_e}=1\)Hz which results in traveling the unit circle with this angle pace \(\widehat {x}[n]=2\pi\frac{n}{10}\), \(0 \leq n \leq N-1=9\).</p></li>
+                                                <li><p>Also let's consider the case where \(k=9\). The frequency tested here is \(f_{k=9}=\frac{9}{NT_e}=9\)Hz, we have got: \(\widehat {x}[n]=2\pi\frac{9n}{10}=-2\pi\frac{n}{10}\), \(0 \leq n \leq N-1=9\).</p></li>
+                                            </ol>
+                                            <p>As we can see, though we increase the frequency, the <span class="bold">speed</span> at which we travel the circle <span class="bold">does not increase</span>, only the <span class="bold">sign of the direction</span> changes <span class="bold">(negative sign)</span>.
+                                                This effect shows clearly the effect of the <span class="bold">Nyquist-Shannon criterion</span>, beyond \(k=\frac{N}{2}\) (so \(k=5\) in that case), the frequency gets <span class="bold">folded back on itself</span> causing negative frequency values to appear.
+                                                As a result, these frequencies do not bring <span class="bold">any new information</span> to the signal.
+                                                We conclude that the \(\pi\) <span class="bold">periodicity</span> of the complex exponential domain is the reason why we have negative frequencies. In fact, the negative frequencies are the conjugate of the positive frequencies.
+                                            </p>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div> <h4>The FFT</h4>
+                                <div> <h5>A different approach</h5>
+                                    <p>The DFT formula can be re-written as a matrix operation (vector rotation) between the <span class="bold">sampled signal</span> and the <span class="bold">complex exponential domain</span>.
+                                        \[ X[k] = \begin{bmatrix} X_0 \\ X_1 \\ \vdots \\ X_{N-1} \end{bmatrix} = \frac{1}{N}
+                                        \begin{bmatrix}
+                                            1 & 1 & 1 & \cdots & 1 \\
+                                            1 & e^{-i2\pi k/N} & e^{-i2\pi (2k)/N} & \cdots & e^{-i2\pi (N-1)k/N} \\
+                                            1 & e^{-i2\pi k/N} & e^{-i2\pi (2k)/N} & \cdots & e^{-i2\pi (N-1)k/N} \\
+                                            \vdots & \vdots & \vdots & \ddots & \vdots \\
+                                            1 & e^{-i2\pi k/N} & e^{-i2\pi (2k)/N} & \cdots & e^{-i2\pi (N-1)k/N} \\
+                                        \end{bmatrix}
+                                        \times
+                                        \begin{bmatrix} x_0 \\ x_1 \\ \vdots \\ x_{N-1} \end{bmatrix}
+                                        \]
+                                        As mentioned earlier, we obtain a <span class="bold">complex vector</span> \(X[k]\) (each component is a complex exponential number) of length \(N\), which is the same length as the signal \(x[n]\).
+                                        The matrix has <span class="bold">symmetries</span> (due to the periodicity of the complex exponentials) that can be leveraged to reduce the number of complex multiplications, which is the goal of the <span class="bold">FFT algorithm</span>.
+                                    </p>
+                                    <div class="frame-highlight">
+                                        <p>Note that each component of the \(X[k]\) can also be seen as a polynom \( X[k] = \sum_{n=0}^{N-1} \lambda_n \omega^n_k \), with \( \lambda_n = x_n \) and \( \omega_k = e^{-i2\pi k/N} \).
+                                            This representation is used further in the <a href="#cooley-tukey">Cooley-Tukey</a> algorithm.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div> <h5>Symmetries</h5>
+                                    <p>As considered earlier on this page, traveling the circle with \(2\pi\frac{k+\frac{N}{2}}{N}n = 2\pi\frac{k}{N}n +\pi n \mod 2\pi = -2\pi\frac{k}{N}n \mod 2\pi \). As a result we conclude that for \(k > \frac{N}{2}\) indices the exponential number is the conjugate of the exponential number at \(k\).
+                                        The example below illustrates this periodicity for \(n=1\), we take all possible values of \(k < N-1\).
+                                        \[ \left\{
+                                        \begin{matrix}
+                                            X[0] = x[0]e^{-i2\pi 0\frac{n}{N}} \\
+                                            X[1] = x[0]e^{-i2\pi \frac{n}{N}} \\
+                                            \vdots \\
+                                            X[N-2] = x[0]e^{-i2\pi n\frac{N-2}{N}} = x[0]e^{i2\pi \frac{2n}{N}} = Re(X[2])-iIm(X[2]) \\
+                                            X[N-1] = x[0]e^{-i2\pi n\frac{N-1}{N}} = x[0]e^{i2\pi \frac{n}{N}} = Re(X[1])-iIm(X[1]) \\
+                                        \end{matrix}
+                                        \right.
+                                        \]
+                                    </p>
+                                </div>
+                                <div class="cooley-tukey"> <h5>Application: Cooley-Tukey FFT algorithm</h5>
+                                    <p>I will try to explain with my words, my understanding of this algorithm. This method uses the symmetry of the DFT formula (unit complex circle). It notably splits the DFT \(X[k]\) in even and odd frequencies indices.
+                                        \[ \left\{
+                                        \begin{matrix}
+                                            X[2k] = \sum_{n=0}^{N-1} x[n]e^{-i2\pi \frac{2k}{N}n} \\
+                                            X[2k+1] = \sum_{n=0}^{N-1} e^{-i2\pi \frac{n}{N}} x[n] e^{-i2\pi \frac{2k}{N}n} \\
+                                            X[k] = X[2k] + X[2k+1]
+                                        \end{matrix}
+                                        \right.
+                                        \]
+                                    </p>
+                                    <p>However, we can go further by seeing that for even indices \(2k\), there is a <span class="bold">symmetry</span> of the complex multplication between the first half \(k < \frac{N}{2}\) and the second half \(k \geq \frac{N}{2}\) of the signal
+                                        \[ e^{-i2\pi \frac{2k}{N}(n+\frac{N}{2})} = e^{-i2\pi \frac{2k}{N}n} e^{-i2\pi k} = e^{-i2\pi \frac{2k}{N}n} \]
+                                    </p>
+                                    <p>On the other hand, for odd indices \(2k+1\), we observe an <span class="bold">anti-symmetry</span> between the first half and the second half of the signal:
+                                        \[ e^{-i2\pi \frac{(2k+1)}{N}(n+\frac{N}{2})} = e^{-i2\pi \frac{2k}{N}n} e^{-i2\pi k}  e^{-i2\pi \frac{n}{N}} e^{-i\pi}= - e^{-i2\pi \frac{n}{N}} e^{-i2\pi \frac{2k}{N}n} \]
+                                    </p>
+                                    <p>We can harness these symmetries and previous formulas become:
+                                        \[ \left\{
+                                        \begin{matrix}
+                                            X[2k] = \sum_{n=0}^{\frac{N}{2}-1} (x[n]+x[n+\frac{N}{2}])e^{-i2\pi \frac{2k}{N}n} \\
+                                            X[2k+1] = \sum_{n=0}^{\frac{N}{2}-1} e^{-i2\pi \frac{n}{N}} (x[n]-x[n+\frac{N}{2}]) e^{-i2\pi \frac{2k}{N}n} \\
+                                        \end{matrix}
+                                        \right.
+                                        \]
+                                    </p>
+                                    <div class="frame-highlight">
+                                        <p>It is important to notice that the symmetry can be expressed by either using \(k\) or \(n\). By this I mean that the previous characteristics also apply if, instead of considering even and odd frequencies indices, we rather consider even and odd samples:
+                                            \( X[k] = \sum_{n=0}^{\frac{N}{2}-1} \lambda_{2n} \omega^{2n}_k + \sum_{n=0}^{\frac{N}{2}-1} \lambda_{2n+1} \omega^{2n+1}_k \)
+                                        </p>
+                                        <p>We can also consider the symmetries with regard to the <span class="bold">time axis</span> \(n\) by taking either even samples or odd samples.
+                                            \[ \left\{
+                                            \begin{matrix}
+                                                E[k] = \sum_{n=0}^{\frac{N}{2}-1} x[2n] e^{-i2\pi \frac{k}{N}(2n)} \\
+                                                O[k] = e^{-i2\pi \frac{k}{N}} \sum_{n=0}^{\frac{N}{2}-1} x[2n+1] e^{-i2\pi \frac{k}{N}(2n)} \\
+                                            \end{matrix}
+                                            \right.
+                                            \]
+                                            As a result, the <span class="bold">symmetry</span> and <span class="bold">anti-symmetry</span> features also apply to the first half and second half of requencies. Then, we can re-write the previous formulas as:
+                                            \[ \left\{
+                                                \begin{matrix}
+                                                X[k] = E[k] + O[k] \\
+                                                X[k+\frac{N}{2}] = E[k] - O[k] \\
+                                                \end{matrix}
+                                                \right.
+                                            \]
+                                        </p>
+                                        <p>This shows that computing the DFT of a signal \(x[n]\) can be broken down into <span class="bold">computing the DFT of 2 smaller signals of lentgh \(\frac{N}{2}\)</span> (even and odd samples) separately.</p>
+                                    </div>
+                                    <p>The <span class="bold">Cooley-Tukey</span> algorithm uses <span class="bold">recursion</span> to recursively compute \(E[k]\) and \(O[k]\). This algorithm comes down to recursively computing DFT of ever smaller signals until we reach a signal of length 2.
+                                        An Implementation of this algorithm can be found in my Google Colab <a href="https://colab.research.google.com/drive/1urd-ix9vSj0F_J_-vPLFqPb8ttrotL8a?hl=fr#scrollTo=jm0wkaFrti8H&uniqifier=1">notebook</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="hilbert"> <h3>A short introduction to Hilbert analysis</h3>
+                            <p>The <span class="bold">Hilbert transform</span> is somehow related to the Fourier transform. Its main goal is to construct an <span class="bold">analytic signal</span> which provides relevant <span class="bold">instantaneous information about the real signal</span>.</p>
+                            <div> <h4>Hilbert transform</h4>
+                                <p>Here are the steps to compute the Hilbert transform of a signal real signal \(x(t)\):</p>
+                                <div class="frame-highlight">
+                                    <ol>
+                                        <li>Compute the original signal's <span class="bold">FFT</span> \(X(f)\);</li>
+                                        <li>Shift by <span class="bold">-90°</span> all <span class="bold">negative</span> frequencies and by <span class="bold">90°</span> all <span class="bold">positive</span> frequencies to obtain a new complex signal \(\widehat{X}(f)\);</li>
+                                        <li>Compute the <span class="bold">IFFT</span> of that newly computed signal to obtain new real signal \(\widehat{x}(t) = \mathcal{TF}^{-1}[\widehat{X}(f)] = \mathcal{H}[x(t)]\).</li>
+                                    </ol>
+                                </div>
+                                <p>It is important to see that this transform <span class="bold">does not affect the amplitude spectrum</span>. This means that the <span class="bold">frequency correlation itself does not change</span> (i.e., detected frequencies are the same as before).
+                                    This has the new signal become <span class="bold">orthogonal</span> to the original one. As a result the Hilbert transform computes a signal in the <span class="bold">same domain</span> (time domain) but with a <span class="bold">phase shift</span> of 90°. This is given by this formula:
+                                    \[ \mathcal{H}(x(\tau))(t) = \widehat x(t) = \frac{1}{\pi} \int_{-\infty}^{+\infty} \frac{x(\tau)}{t-\tau} d\tau = (x(\tau)*\frac{1}{\pi \tau})(t) \]
+                                    where \(x(t)\) is the original signal and \(\widehat {x}(t)\) is the <span class="bold">phase shift</span> of the new signal. This formula might seem daunting but we can switch to the <span class="bold">Fourier domain</span> to make it more understandable.
+                                    \[ \mathcal{F}(\frac{1}{\pi t}) = -i sgn(\nu) \implies \mathcal{F}(\widehat x(t)) =
+                                    \left\{
+                                    \begin{matrix} X(\nu)e^{-i2\pi},\ \nu > 0 \\ X(0) = 0 \\ X(\nu)e^{i2\pi},\ \nu < 0 \end{matrix}
+                                    \right.
+                                    \]
+                                    where \(X(\nu)\) is the original signal's Fourier transform. This formula shows clearly the <span class="bold">+/- 90° phase shift</span>. The illustration below shows the effect of the Hilbert transform on a signal in the frequency domain.
+                                    We notably see that the amplitudes \(A_k\) stay the same but the phases \(\theta_k\) are shifted by 90° such that \(\theta_k'=\theta_k+/-90°\).
+                                </p>
+                                <img src="images/signal/Hilbert_illustration.drawio.png" alt="">
+                                <p>In consequence, the real signal \(\widehat{x}(t)\) obtained from this transform is formed with <span class="bold">odd coefficients</span> \(S_k\) and discards <span class="bold">even</span> ones \(C_k\). In other words, it computes the <span class="bold">orthogonal</span> signal \(\widehat{x}(t)\) of the original signal \(x(t)\).</p>
+                            </div>
+                            <div> <h4>Analytic signal</h4>
+                                <p>The Hilbert transform aims at computing this new analytic <span class="bold">(complex)</span> signal:
+                                    \[ x_a(t) = x(t) + j \mathcal{H}(x(t)) = x(t) + j \widehat {x}(t) = A(t) e^{j\theta(t)} \rightarrow
+                                    \left\{
+                                    \begin{matrix} A(t) = \sqrt{x(t)^2 + \widehat {x}(t)^2} \\ \theta(t) = \arctan(\frac{\widehat {x}(t)}{x(t)}) \end{matrix}
+                                    \right.
+                                    \]
+                                    where \(x(t)\) is the original signal and is also called the <span class="bold">base-band</span> signal. \(\widehat {x}(t)\) is the <span class="bold">Hilbert transform</span> of the original signal.
+                                </p>
+                                <p>This new signal features an interesting property which is to <span class="bold">remove information redundancy</span>, thereby having only <span class="bold">positive frequencies</span> in its Fourier spectrum.</p>
+                                <div class="frame-highlight">
+                                    <p>This signal can also be computed by following these steps:</p>
+                                    <ol>
+                                        <li>Compute the original signal's <span class="bold">FFT</span>;</li>
+                                        <li>Set all <span class="bold">negative</span> frequencies coefficients to 0;</li>
+                                        <li>Double all <span class="bold">positive</span> frequencies coefficients for <span class="bold">energy conservation</span>;</li>
+                                        <li>Compute the <span class="bold">IFFT</span> of the transformed signal.</li>
+                                    </ol>
+                                </div>
+                                <p>It is really important to grasp the purpose of this procedure and how we do end up with this <span class="bold">analytic signal</span> in the end. By setting all negative frequencies coefficients to 0 (2), we actually prevent 
+                                    that signal from <span class="bold">becoming real</span> again when computing the IFFT (4).
+                                    Indeed, in the Fourier domain, negative frequencies coefficients allow, when added with positive frequencies coefficients, to <span class="bold">cancel out the imaginary part</span> of the complex exponential, thereby obtaining a <span class="bold">real signal</span>. We have:
+                                    \[ x[n] = \sum_{k=0}^{N-1} X[k] e^{i2\pi k\frac{n}{N}} = X[0] + \sum_{k=1}^{\frac{N}{2}-1} X[k] e^{i2\pi k\frac{n}{N}} + X[N-k] e^{-i2\pi k\frac{n}{N}},\ with\ X[k]=X^*[N-k] \] 
+                                    To obtain the <span class="bold">analytic signal</span>, we actually do this:
+                                    \[ x_a[n] = \sum_{k=0}^{N-1} X[k] e^{i2\pi k\frac{n}{N}} = X[0] + 2\sum_{k=1}^{N-1} X[k] e^{i2\pi k\frac{n}{N}} = X[0] + 2\sum_{k=1}^{N-1} (C_k + i S_k) e^{i2\pi k\frac{n}{N}} \]
+                                    where \(C_k\) and \(S_k\) are respectively the cosinus and sinus <span class="bold">correlation coefficients</span> computed with the DFT for a given frequency index \(k\). The \(2\) accounts for <span class="bold">energy conservation</span>, it compensates for the cancellation of negative frequencies.
+                                    Eventually, we notice that the signal is <span class="bold">complex</span> because we stop at \(k=N\) and to make the link with the parameter calculated in the section just above \(A(t)\) and \(\theta(t)\), we can re-write \(x_a[n]\) such as:
+                                    \[ x_a[n] = X[0] + \sum_{k=1}^{N-1} A_k e^{i \theta_k} e^{i2\pi k\frac{n}{N}} = X[0] + A_k' e^{i \theta_k[n]} \]
+                                    where \(A_k\) and \(\theta_k\) are respectively the <span class="bold">magnitude</span> and <span class="bold">phase</span> of the signal for each frequency index \(k\). In the end, this signal carries the same information as \(X[k]\) but in a different form (<span class="bold">no information is lost</span>).
+                                    With this approach, we have now an <span class="bold">analytic (complex)</span> signal from which we can extract several features of the original signal thanks to the <span class="bold">conservation of the complex form</span> of the DFT. We can notably measure the instantaneous <span class="bold">amplitude</span> \(A_k\) and <span class="bold">phase</span> \(\theta_k[n]\):
+                                    \[ \left\{
+                                        \begin{matrix} 
+                                        A_k' = \sum_{k=1}^{N-1} A_k \\
+                                        \theta_k[n] = \sum_{k=1}^{N-1} \theta_k + 2\pi k\frac{n}{N}
+                                        \end{matrix}
+                                        \right.    
+                                    \]
+                                    At each time index \(n\), we can compute the <span class="bold">contribution</span> of each frequency to the signal's <span class="bold">amplitude and phase</span>.
+                                </p>
+                            </div>
+                            <div> <h4>Application</h4>
+                                <p>Let's take a simple example to understand that better.</p>
+                                <div class="frame-highlight">
+                                    <p>Imagine we want to analyse the following real signal: \( x[n] = cos(2\pi \omega_0 nT_e) + 4 sin(2\pi \omega_1 nT_e) + 2 cos(2\pi \omega_2 nT_e) + 3 sin(2\pi \omega_2 nT_e) \).</p>
+                                    <p>We know already its Fourier representation, it is: \( X[k] = C_{k_0} + C_{-k_{0}} + i (S_{k_1}+S_{-k_{1}}) + C_{k_2} + iS_{k_2} + C_{-k_{2}} + iS_{-k_{2}} \), with \( S_{-k_n} = -S_{k_n} \) and \( \omega_n = 2\pi\frac{k_n}{NT_e} \).</p>
+                                    <p>We can now apply the IFFT but only over <span class="bold">positive frequencies</span> to retrieve the analytic signal: \( x_a[n] = 2 (C_{k_0} e^{i\omega_0 n} + iS_{k_1} e^{i\omega_1 n} + C_{k_2} e^{i\omega_2 n} + iS_{k_2} e^{i\omega_2 n} ) = x[n] + i \mathcal{H}(x[n]) \).</p>
+                                    <p>Note that if we take only the <span class="bold">real part</span> (band-base) of this signal, we end up with the <span class="bold">real signal</span> \(x[n]\).
+                                        Also, the conservation of the complex form with the Fourier transform in the time domain is great because now the signal carries all the <span class="bold">necessary information</span> to compute useful <span class="bold">instantenous</span>
+                                        (i.e., at a particular moment \(t_0=n_0T_e\) in time) properties of the signal because it includes both <span class="bold">sinus and cosinus correlations</span>.
+                                        In fact, at each time index \(n\), we can compute the <span class="bold">instantaneous amplitude</span> and <span class="bold">phase</span> of the signal.
+                                        Moreover, the Fourier transform of this signal is much more convenient to work with because it has only <span class="bold">positive frequencies</span>.
+                                    </p>
+                                </div>
+                                <p>To summarize, we use the <span class="bold">Fourier analysis</span> to extract properties of a signal that are <span class="bold">not blatant</span> when considered in its time representation.
+                                    Then, we keep these newly acquired informations (frequencies contributions and phases) by <span class="bold">preserving the complex nature</span> of the signal. This allows to carry more information because the analytic signal has one more dimension (imaginary axis).
+                                    To preserve this complex nature we only need to operate the IFFT over the <span class="bold">positive frequencies</span> and <span class="bold">double their contribution</span> to account for the loss of negative frequencies (i.e., energy conservation).
+                                    By doing so, we don't lose any signal's information because all the necessary information is contained in the positive frequencies. 
                                 </p>
                                 <img src="images/signal/DFT_illustration.drawio.png" alt="">
                             </div>
                         </div>
-                        <div> <h5> Why do we sometimes only consider the absolute value of the FFT ?</h5>
-                            <p>The absolute value informs us about the <span class="bold">contribution</span> (weight) of the specific frequency \(f=\frac{k}{NTe}\) to the signal <span class="bold">regardless of the phase correlation</span>.
-                                Therefore, as far as the magnitude is concerned, it does not matter in which direction we travel the circle around.
+                    </div>
+                </div>
+
+                <div class="sub-container"> <div class="label" id="laplace"> <h2>Laplace: beyond the Fourier transform</h2> </div>
+                    <div class="content">
+                        <p>In this section, I would like to expand on the Laplace transform; its mathematical meaning as well as its usual applications.</p>
+                        <p>As indicated in this section's title, the <span class="bold">Laplace transform</span> is an <span class="bold">generalization</span> of the Fourier transform. It means that it can describe and analyse a <span class="bold">wider range</span> of signals.
+                            Indeed, the Fourier transform is limited to describing a signal <span class="bold">only</span> by using its frequency components (the operation involves a scalar product between the signal and the complex unit circle (cf <a href="#hilbert">here</a>)).
+                            It helps us in vizualizing clearly the presence and contribution of each frequency in the signal.
+                            With the <span class="bold">Laplace transform</span>, a new parameter \(\alpha\) is added, which accounts for a <span class="bold">scaling factor</span> in the complex exponential domain.
+                            Thus, besides providing us information about the frequency components of the signal, it also gives us information about the <span class="bold">amplitude dynamics</span> of the signal.
+                            In summary, it identifies the <span class="bold">presence of decreasing or increasing oscillations</span> in the signal.
+
+                        </p>
+                        <div> <h4>The Z-transform</h4>
+                            <p>The Z-transform is simply the Laplace transform applied to <span class="bold">discrete signals</span>:
+                                \[ X(p) = \int_{0}^{\infty} x(nT_e) e^{-pt}dt
+                                        = \int_{0}^{\infty} \sum_{n=0}^{\infty} x(nT_e) \delta(t-nT_e) e^{-pt}dt
+                                        = \sum_{n=0}^{\infty} x(nT_e) e^{-pnT_e}
+                                        \equiv X(z) = \sum_{n=0}^{\infty} x[n] z^{-n} \]
+                                where \(z\) is a <span class="bold">complex number</span> and can be re-written like this: \(z=e^{pT_e}=e^{(\alpha+i\omega)T_e}=e^{\alpha T_e} e^{i\omega T_e}\).
                             </p>
-                        </div>
-                        <div> <h5>What does the phase of the FFT actually tell us ?</h5>
-                            <p>The phase of the FFT is: \( \phi(t) = arctan(\frac{S_k sin(2\pi\frac{k}{N}n)}{C_k cos(2\pi\frac{k}{N}n)}) \), where \(S_k\) and \(C_k\) are <span class="bold">correlation coefficients</span> computed with the DFT for a given frequency index \(k\).</p>
-                            <ul>
-                                <li>If the phase becomes positive (> 0°), it means that the signal is <span class="bold">more correlated</span> with the imaginary part (sinus) of the complex exponential.</li>
-                                <li>If the phase becomes negative (< 0°), it means that the signal is also <span class="bold">more correlated</span> with the imaginary part.</li>
-                                <li>If the phase is around 0°, it means that the signal is also <span class="bold">more correlated</span> with the real part part (cosinus).</li>
-                            </ul>
-                        </div>
-                        <div> <h5>To what extent does the <span class="bold">Nyquist frequency</span> theorem explain the redundancy of information with the FFT (negative frequencies) ?</h5>
-                            <p>The value \(k\) accounts for how <span class="bold">many cycles</span> (periods) of the length of the signal we travel. Actually, the <span class="bold">maximum frequency</span> that should be considered is \( f=\frac{k}{NT_e} \leq \frac{f_e}{2} \implies k_{max}=\frac{N}{2} \).
-                                Beyond this value, the frequency spectrum <span class="bold">gets folded back on itself</span> and information is <span class="bold">duplicated</span>. This is where negative frequencies show up.
-                            </p>
-                        </div>
-                        <div> <h5>Example</h5>
+                            <p>What we obtain is a <span class="bold">2D complex vector</span> \(X(z)\), where each \(z\) represents a specific <span class="bold">scaling factor</span> \(\alpha\) associated with a <span class="bold">frequency component</span> \(\omega\).</p>
                             <div class="frame-highlight">
-                                <p>Let's take an example to better understand this. Let's consider we sample a signal over 1 second with 10 points (i.e., \(N=10\)). This implies that \(f_e=10\)Hz so \(f_{max}=5\)Hz.
-                                    Therefore, the <span class="bold">frequency resolution</span> is \(\delta \omega=\frac{2\pi}{NT_e} \implies \delta f=\frac{1}{NT_e} = 1\)Hz.
-                                    <ol>
-                                        <li><p>Now we want to know how much the \(k=1\) frequency contributes to the signal. The frequency tested here is \(f_{k=1}=\frac{1}{NT_e}=1\)Hz which results in traveling the unit circle with this angle pace \(\widehat {x}[n]=2\pi\frac{n}{10}\), \(0 \leq n \leq N-1=9\).</p></li>
-                                        <li><p>Also let's consider the case where \(k=9\). The frequency tested here is \(f_{k=9}=\frac{9}{NT_e}=9\)Hz, we have got: \(\widehat {x}[n]=2\pi\frac{9n}{10}=-2\pi\frac{n}{10}\), \(0 \leq n \leq N-1=9\).</p></li>
-                                    </ol>
-                                    <p>As we can see, though we increase the frequency, the <span class="bold">speed</span> at which we travel the circle <span class="bold">does not increase</span>, only the <span class="bold">sign of the direction</span> changes <span class="bold">(negative sign)</span>.
-                                        This effect shows clearly the effect of the <span class="bold">Nyquist-Shannon criterion</span>, beyond \(k=\frac{N}{2}\) (so \(k=5\) in that case), the frequency gets <span class="bold">folded back on itself</span> causing negative frequency values to appear.
-                                        As a result, these frequencies do not bring <span class="bold">any new information</span> to the signal.
-                                        We conclude that the \(\pi\) <span class="bold">periodicity</span> of the complex exponential domain is the reason why we have negative frequencies. In fact, the negative frequencies are the conjugate of the positive frequencies.
-                                    </p>
+                                <p>Note that with \(\alpha=0\), we get back to the Fourier transform \(z=e^{i\omega T_e}=e^{i 2\pi \nu T_e}\), which makes sense because this means no scaling factor in the signal and only <span class="bold">constant oscillations</span> (what the FT measures).</p>
+                            </div>
+                        </div>
+                        <div> <h4>Applications</h4>
+                            <p>This transform is particularly relevant when it comes to determining the <span class="bold">stability</span> of a system. A system whose impulse response outputs a signal with <span class="bold">increasing oscillations</span> \(\alpha > 0\) is <span class="bold">unstable</span>.
+                                This can also be pictured in the complex exponential plane, where the <span class="bold">poles</span> of the system are located. If the poles are located in the <span class="bold">right half-plane</span> \(\alpha > 0\), the system is unstable. 
+                            </p>
+                            <div class="frame-highlight">
+                                <p>The formula shown above clearly demonstrates that the sampling period \(T_e\) has an impact on the scaling of the system's reponse.
+                                    Indeed, the <span class="bold">smaller</span> the sampling period, the <span class="bold">slower</span> the amplitude dynamics \(e^{(\alpha T_e)}\).
+                                    <!-- This is why the <span class="bold">sampling frequency</span> is a <span class="bold">critical parameter</span> in the design of a system. -->
                                 </p>
                             </div>
+                            <p>It has also useful features that make it easy to resolve <span class="bold">linear differential equations</span>.</p>
                         </div>
                     </div>
-                    <div> <h4>The FFT</h4>
-                        <div> <h5>A different approach</h5>
-                            <p>The DFT formula can be re-written as a matrix operation (vector rotation) between the <span class="bold">sampled signal</span> and the <span class="bold">complex exponential domain</span>.
-                                \[ X[k] = \begin{bmatrix} X_0 \\ X_1 \\ \vdots \\ X_{N-1} \end{bmatrix} =
-                                \begin{bmatrix}
-                                    1 & 1 & 1 & \cdots & 1 \\
-                                    1 & e^{-i2\pi k/N} & e^{-i2\pi (2k)/N} & \cdots & e^{-i2\pi (N-1)k/N} \\
-                                    1 & e^{-i2\pi k/N} & e^{-i2\pi (2k)/N} & \cdots & e^{-i2\pi (N-1)k/N} \\
-                                    \vdots & \vdots & \vdots & \ddots & \vdots \\
-                                    1 & e^{-i2\pi k/N} & e^{-i2\pi (2k)/N} & \cdots & e^{-i2\pi (N-1)k/N} \\
-                                \end{bmatrix}
-                                \times
-                                \begin{bmatrix} x_0 \\ x_1 \\ \vdots \\ x_{N-1} \end{bmatrix}
-                                \]
-                                As mentioned earlier, we obtain a <span class="bold">complex vector</span> \(X[k]\) (each component is a complex exponential number) of length \(N\), which is the same length as the signal \(x[n]\).
-                                The matrix has <span class="bold">symmetries</span> (due to the periodicity of the complex exponentials) that can be leveraged to reduce the number of complex multiplications, which is the goal of the <span class="bold">FFT algorithm</span>.
+                </div>
+                
+                <div class="sub-container"> <div class="label" id="wavelet"> <h2>Wavelet analysis</h2> </div>
+                    <div class="content">
+                        <p>The Fourier transform is also quite limited because it assumes that a signal is <span class="bold">stationary</span>. It does not indicate where frequencies are located in time.
+                            For that matter, we need to expand the Fourier transform to a 2D transform, where the second parameter would be the time delay \(\tau\).
+                        </p>
+                        <div> <h4>Short-Time Fourier transform</h4>
+                            <p>This transform was thought up to temporally identify frequencies in a signal. Unlike the Fourier transform, here we restrain the identification of frequencies within a <span class="bold">window function</span>.
+                                We slide this function over the signal and perform for each delay \(\tau\) a localized Fourier transform. The formula is defined as follows: 
+                                \[ X(\tau, \omega) = \int^{+\infty}_{-\infty} x(t)w(t-\tau)e^{i\omega t} dt \]
+                                where \(w(t-\tau)\) is a <span class="bold">window function</span> that is applied to the signal \(x(t)\) to <span class="bold">localize</span> the frequencies in time.
+                                However, this technique has a limitation because the size of the window does not change with the frequency tested.
+                                We know that higher frequencies need <span class="bold">high time resolution</span> because they last short (i.e., it takes little time to identify them properly), which also means <span class="bold">low frequency resolution</span>.
+                                On the other hand, lower frequencies need <span class="bold">low time resolution</span> because they last long (i.e., it takes time to identify them properly), which also means <span class="bold">high frequency resolution</span>.
+                                Considering what I just brought up, we need to adjust the <span class="bold">size of the window</span> according to the frequency tested. This will be the goal of the <span class="bold">Wavelets transform</span>.
                             </p>
                             <div class="frame-highlight">
-                                <p>Note that each component of the \(X[k]\) can also be seen as a polynom \( X[k] = \sum_{n=0}^{N-1} \lambda_n \omega^n_k \), with \( \lambda_n = x_n \) and \( \omega_k = e^{-i2\pi k/N} \).
-                                    This representation is used further in the <a href="#cooley-tukey">Cooley-Tukey</a> algorithm.
+                                <p>Note that the truncature of the signal with the window function has <span class="bold">consequences</span> in the spectrum density. Indeed, jitters can appear depending on the type of window.
+                                    Therefore, the type of truncature should be wisely chosen according to our goals. <a href="https://en.wikipedia.org/wiki/Window_function">Here</a> is a wide selection of window functions to chose from.
+                                    This is explained by the <span class="bold">Heisenberg uncertainty principle</span> which states that we cannot have a <span class="bold">perfect time and frequency resolution</span> at the same time.
                                 </p>
                             </div>
                         </div>
-                        <div> <h5>Symmetries</h5>
-                            <p>As considered earlier on this page, traveling the circle with \(2\pi\frac{k+\frac{N}{2}}{N}n = 2\pi\frac{k}{N}n +\pi n \mod 2\pi = -2\pi\frac{k}{N}n \mod 2\pi \). As a result we conclude that for \(k > \frac{N}{2}\) indices the exponential number is the conjugate of the exponential number at \(k\).
-                                The example below illustrates this periodicity for \(n=1\), we take all possible values of \(k < N-1\).
-                                \[ \left\{
-                                \begin{matrix}
-                                    X[0] = x[0]e^{-i2\pi 0\frac{n}{N}} \\
-                                    X[1] = x[0]e^{-i2\pi \frac{n}{N}} \\
-                                    \vdots \\
-                                    X[N-2] = x[0]e^{-i2\pi n\frac{N-2}{N}} = x[0]e^{i2\pi \frac{2n}{N}} = Re(X[2])-iIm(X[2]) \\
-                                    X[N-1] = x[0]e^{-i2\pi n\frac{N-1}{N}} = x[0]e^{i2\pi \frac{n}{N}} = Re(X[1])-iIm(X[1]) \\
-                                \end{matrix}
-                                \right.
-                                \]
-                            </p>
-                        </div>
-                        <div class="cooley-tukey"> <h5>Application: Cooley-Tukey FFT algorithm</h5>
-                            <p>I will try to explain with my words, my understanding of this algorithm. This method uses the symmetry of the DFT formula (unit complex circle). It notably splits the DFT \(X[k]\) in even and odd frequencies indices.
-                                \[ \left\{
-                                \begin{matrix}
-                                    X[2k] = \sum_{n=0}^{N-1} x[n]e^{-i2\pi \frac{2k}{N}n} \\
-                                    X[2k+1] = \sum_{n=0}^{N-1} e^{-i2\pi \frac{n}{N}} x[n] e^{-i2\pi \frac{2k}{N}n} \\
-                                    X[k] = X[2k] + X[2k+1]
-                                \end{matrix}
-                                \right.
-                                \]
-                            </p>
-                            <p>However, we can go further by seeing that for even indices \(2k\), there is a <span class="bold">symmetry</span> of the complex multplication between the first half \(k < \frac{N}{2}\) and the second half \(k \geq \frac{N}{2}\) of the signal
-                                \[ e^{-i2\pi \frac{2k}{N}(n+\frac{N}{2})} = e^{-i2\pi \frac{2k}{N}n} e^{-i2\pi k} = e^{-i2\pi \frac{2k}{N}n} \]
-                            </p>
-                            <p>On the other hand, for odd indices \(2k+1\), we observe an <span class="bold">anti-symmetry</span> between the first half and the second half of the signal:
-                                \[ e^{-i2\pi \frac{(2k+1)}{N}(n+\frac{N}{2})} = e^{-i2\pi \frac{2k}{N}n} e^{-i2\pi k}  e^{-i2\pi \frac{n}{N}} e^{-i\pi}= - e^{-i2\pi \frac{n}{N}} e^{-i2\pi \frac{2k}{N}n} \]
-                            </p>
-                            <p>We can harness these symmetries and previous formulas become:
-                                \[ \left\{
-                                \begin{matrix}
-                                    X[2k] = \sum_{n=0}^{\frac{N}{2}-1} (x[n]+x[n+\frac{N}{2}])e^{-i2\pi \frac{2k}{N}n} \\
-                                    X[2k+1] = \sum_{n=0}^{\frac{N}{2}-1} e^{-i2\pi \frac{n}{N}} (x[n]-x[n+\frac{N}{2}]) e^{-i2\pi \frac{2k}{N}n} \\
-                                \end{matrix}
-                                \right.
-                                \]
+                        <div> <h4>Wavelets transform</h4>
+                            <p>The <span class="bold">Wavelets transform</span> follows up the STFT but adjusts the time (i.e., frequency) resolution accordingly. It is defined as follows:
+                                \[ X(\tau, s) = \frac{1}{\sqrt{s}} \int^{+\infty}_{-\infty} x(t)\psi^{*}(\frac{t-\tau}{s}) dt \]
+                                where \(\psi^{*}(\frac{t-\tau}{s})\) is the <span class="bold">mother wavelet</span>. \(s\) is the <span class="bold">scale</span> parameter that adjusts the size of the window according to the frequency tested.
+                                \(\tau\) is the <span class="bold">time delay</span> parameter that slides the window over the signal.
                             </p>
                             <div class="frame-highlight">
-                                <p>It is important to notice that the symmetry can be expressed by either using \(k\) or \(n\). By this I mean that the previous characteristics also apply if, instead of considering even and odd frequencies indices, we rather consider even and odd samples:
-                                    \( X[k] = \sum_{n=0}^{\frac{N}{2}-1} \lambda_{2n} \omega^{2n}_k + \sum_{n=0}^{\frac{N}{2}-1} \lambda_{2n+1} \omega^{2n+1}_k \)
-                                </p>
-                                <p>We can also consider the symmetries with regard to the <span class="bold">time axis</span> \(n\) by taking either even samples or odd samples.
-                                    \[ \left\{
-                                    \begin{matrix}
-                                        E[k] = \sum_{n=0}^{\frac{N}{2}-1} x[2n] e^{-i2\pi \frac{k}{N}(2n)} \\
-                                        O[k] = e^{-i2\pi \frac{k}{N}} \sum_{n=0}^{\frac{N}{2}-1} x[2n+1] e^{-i2\pi \frac{k}{N}(2n)} \\
-                                    \end{matrix}
-                                    \right.
+                                <p>A wavelet must verify <span class="bold">two conditions</span>:</p>
+                                <ul>
+                                    <p><li>It does not have an <span class="bold">offset</span> value: \( \int^{+\infty}_{-\infty} \psi^{*}(t) dt = 0 \).</li></p>
+                                    <p><li>It has a <span class="bold">finite energy</span>: \( \int^{+\infty}_{-\infty} |\psi^{*}(t)|^2 dt < \infty \).</li></p>
+                                </ul>
+                            </div>
+                            <p>A <span class="bold">wavelet</span> is nothing more than a sine wave damped by a gaussian curve \( \psi^{*}(t) = k e^{i\omega t} e^{-\frac{t^2}{2}} \), where \( \omega\) is the wavelet's pulsation.</p>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sub-container"> <div class="label" id="filtering"> <h2>Signal filtering</h2> </div>
+                    <div class="content">
+                        <div> <h3>Random processes</h3>
+                            <p><span class="bold">Random processes</span> are a key component of a signal processing.
+                                For example, there is <a href="#noise">noise</class=> that represents the <span class="bold">minimum</span> signal that can be transmitted without losing the original signal.
+                                Also noise is <span class="bold">stationary (random) process</span> and the main objective is to be able to <span class="bold">characterize</span> it to lower its effect on the signal transmission.
+                                To do so, we can use both the <span class="bold">time and frequency</span> representations of the signal.
+                            </p>
+                            <p>Note that it is impossible to compute the Fourier transform of a <span class="bold">random process</span> because it is not <span class="bold">ephemeral</span>.
+                                By definition, a random process spans to \(\infty\), so its energy is <span class="bold">infinite</span> as well.
+                                Therefore, we only compute the Fourier transform a <span class="bold">truncated version</span> (or <span class="bold">temporal period \(T\)</span>) of the signal to get an idea of its behavior in the frequency domain.</p>
+                            <div class="frame-highlight">
+                                <p>Instead of having a classical <span class="bold">density spectrum</span>, we compute the <a href="#PSD">power spectrum density (PSD)</a> of the signal.</p>
+                            </div>
+                            <div id="PSD"> <h4>Power spectrum density (PSD)</h4>
+                                <p>The question we ask is the following: <span class="bold">What sinusoid (elementary) signals do I need to use in order to build the particular random process \(s(t)\)?</span></p>
+                                <p>The goal behind the PSD is to <span class="bold">characterize random signals (or processes) in the frequency domain</span>.</p>
+                                <div class="frame-highlight">
+                                    <p>Most of random process signals are <span class="bold">power signals</span> because they last for <span class="bold">infinity</span>. So we can only analyze a <span class="bold">portion</span> \(x(t)\) of the random process \(s(t)\).
+                                        Then, we compute the Fourier transform of that truncated version \(X(f)\) and we analyze what happens when we make <span class="bold">its period of duration \(T\) tend to infinity</span>. If it <span class="bold">converges</span>, the computed value \(P_{av}\) is called the <span class="bold">power average of the random process signal</span>.
+                                        It is important to grasp the difference between \(x(t)\) and \(s(t)\). \(x(t)\) is a <span class="bold">finite realization</span> of the <span class="bold">infinite random process</span> \(s(t)\). Hence, \(X(f)\) does not represent the Fourier transform of \(s(t)\).
+                                    </p>
+                                </div>
+                                <p>With more details, we compute the <a href="#fundamentals">power</a> \(P_s\) of the signal \(s(t)\) as:
+                                    \[ \begin{cases}
+                                        x(t) = \int_{T} s(t) dt \\
+                                        P_s = \overline{X^2} = \frac{1}{T} \int_{T} |x(t)|^2 dt
+                                        \end{cases}    
                                     \]
-                                    As a result, the <span class="bold">symmetry</span> and <span class="bold">anti-symmetry</span> features also apply to the first half and second half of requencies. Then, we can re-write the previous formulas as:
+                                    \(T\) is the <span class="bold">observation time</span> of the signal.
+                                </p>
+                                <div class="frame-highlight">
+                                    <p>If the signal \(s(t)\) is <span class="bold">ergodic</span>, then the power is also as \(E[\frac{x(t)^2}{T}]\).</p>
+                                </div>
+                                <p>However, this time-domain based approach <span class="bold">does not give much information</span> about the signal because <span class="bold">completely different-looking signals could have the same power</span>.</p>
+                                <p>For that matter, we switch to the <span class="bold">frequency domain</span> to better understand the signal's <span class="bold">power repartition in the frequency domain</span>.
+                                    The PSD is a <span class="bold">frequency domain measure</span> of the signal's power repartition and we can compute it by taking different approaches:
                                     \[ \left\{
                                         \begin{matrix}
-                                        X[k] = E[k] + O[k] \\
-                                        X[k+\frac{N}{2}] = E[k] - O[k] \\
+                                            S_{x}(f) = \mathcal{TF}[r_{xx}(\tau)]\ (1) \\
+                                            S_{x}(f) = \lim_{T \rightarrow \infty} E[\frac{X(f)^2}{T}]\ (2)
                                         \end{matrix}
-                                        \right.
+                                        \right.        
                                     \]
+                                    \((1)\) is the <span class="bold">Wiener-Khinchin theorem</span> with \(r_{xx}\) the <span class="bold">autocorrelation</span> of the signal \(x(t)\).
+                                    \(X(f)\) is the <span class="bold">Fourier transform</span> of the truncated signal \(x(t)\).
                                 </p>
-                                <p>This shows that computing the DFT of a signal \(x[n]\) can be broken down into <span class="bold">computing the DFT of 2 smaller signals of lentgh \(\frac{N}{2}\)</span> (even and odd samples) separately.</p>
+                                <p>If the random process \(s(t)\) is <span class="bold">ergodic</span>, \((2)\) can also be written as follows:
+                                    \[ S_{x}(f) = \lim_{T \rightarrow \infty} \frac{1}{T} \int_{T} |X(f)|^2 df \]
+                                </p>
+                                <p>With the PSD \( S_{x}(f) \), we can also compute the energy of a realization \(x(t)\) of the signal \(s(t)\) in a <span class="bold">frequency band</span> \(\Delta f\):
+                                    \[ E_{\Delta f} = \int_{\Delta f} S_{x}(f) df \]
+                                </p>
                             </div>
-                            <p>The <span class="bold">Cooley-Tukey</span> algorithm uses <span class="bold">recursion</span> to recursively compute \(E[k]\) and \(O[k]\). This algorithm comes down to recursively computing DFT of ever smaller signals until we reach a signal of length 2.
-                                An Implementation of this algorithm can be found in my Google Colab <a href="https://colab.research.google.com/drive/1urd-ix9vSj0F_J_-vPLFqPb8ttrotL8a?hl=fr#scrollTo=jm0wkaFrti8H&uniqifier=1">notebook</a>.</p>
+                        </div>
+                        <div> <h3>Adaptative filtering</h3>
+                            <div> <h4>Noise</h4>
+        
+                            </div>
+                            <p></p>
                         </div>
                     </div>
                 </div>
-                <div> <h3>A short introduction to Hilbert analysis</h3>
-                    <p>The <span class="bold">Hilbert transform</span> is somehow related to the Fourier transform. Its main goal is to construct an <span class="bold">analytic signal</span> which provides relevant <span class="bold">instantaneous information about the real signal</span>.</p>
-                    <div> <h4>Hilbert transform</h4>
-                        <p>Here are the steps to compute the Hilbert transform of a signal real signal \(x(t)\):</p>
-                        <div class="frame-highlight">
-                            <ol>
-                                <li>Compute the original signal's <span class="bold">FFT</span> \(X(f)\);</li>
-                                <li>Shift by <span class="bold">-90°</span> all <span class="bold">negative</span> frequencies and by <span class="bold">90°</span> all <span class="bold">positive</span> frequencies to obtain a new complex signal \(\widehat{X}(f)\);</li>
-                                <li>Compute the <span class="bold">IFFT</span> of that newly computed signal to obtain new real signal \(\widehat{x}(t) = \mathcal{TF}^{-1}[\widehat{X}(f)] = \mathcal{H}[x(t)]\).</li>
-                            </ol>
+    
+                <div class="sub-container"> <div class="label" id="communication"> <h2>Digital communication</h2> </div>
+                    <div class="content">
+                        <p>In this section, I talk about how we can use digital signal to send data for <span class="bold">wireless communication</span>. This notably encompasses <span class="bold">digital to analog data conversion (DAC)</span> and <span class="bold">modulation techniques</span> such as QAM16, QPSK, FSK, ASK and many more ...</p>
+                        <div> <h3>Modulation techniques</h3>
+                            <div> <h4>ASK</h4>
+                                <div> <h5>Definition</h5>
+                                    <p><span class="bold">Amplitude Shift Keying</span> </p>
+                                    <div class="frame-highlight"> <h5>BASK or (OOK)</h5>
+                                        <p>This is a specific type of ASK where the message \(m(t)\) carried by the carrier is in a binary format.</p>
+                                    </div>
+                                </div>
+                                <div> <h5>Bandwidth</h5>
+                                    <p>The <span class="bold">bandwidth</span> of an ASK signal can be calculated as follows: \( BW = (1+d)\gamma = (1+d)\frac{R}{n} \), where
+                                        \(\gamma\) is the <span class="bold">symbol rate</span>, \(d\) is the <span class="bold">duty cycle</span> of the signal, \(R\) is the <span class="bold">bit rate</span> and \(n\) is the <span class="bold">number of bits</span> per symbol.
+                                        The bandwidth corresponds to the width of the modulated signal's <span class="bold">main lobe</span>.
+                                        In the worst case scenario, the data transmitted keeps switching between 0 and 1, which causes the duty cycle \(d\) to become 1. In that case, the signal's <span class="bold">bandwidth</span> is <span class="bold">maximum</span> because each portion of the modulated sinus is cut by a sqaure which temporal span is \(1\gamma\).
+                                        Therefore, the bandwidth is equal to 2 times the <span class="bold">symbol rate</span>.
+                                        In the best case scenario, the data transmitted is constant (either 0 or 1), which causes the duty cycle \(d\) to become 0. In that case, the signal's <span class="bold">bandwidth</span> is <span class="bold">minimum</span> because the modulated sinus is cut by a square whose lentgh is longer which causes the spectrum to become thiner.
+                                        
+                                    </p>
+                                    <div class="frame-highlight">
+                                        <p>It is important to remember that the more time we spend observing a signal in the <span class="bold">time domain</span>, the <span class="bold">more accurate</span> (hence thiner) the signal spectrum will be. This is a <span class="bold">fundamental property</span> of the time-frequency duality.</p>
+                                    </div>
+                                </div>
+                                <p></p>
+                            </div>
+                            <div> <h4>PSK</h4>
+                                <p></p>
+                            </div>
+                            <div> <h4>QAM</h4>
+                                <p></p>
+                            </div>
                         </div>
-                        <p>It is important to see that this transform <span class="bold">does not affect the amplitude spectrum</span>. This means that the <span class="bold">frequency correlation itself does not change</span> (i.e., detected frequencies are the same as before).
-                            This has the new signal become <span class="bold">orthogonal</span> to the original one. As a result the Hilbert transform computes a signal in the <span class="bold">same domain</span> (time domain) but with a <span class="bold">phase shift</span> of 90°. This is given by this formula:
-                            \[ \mathcal{H}(x(\tau))(t) = \widehat x(t) = \frac{1}{\pi} \int_{-\infty}^{+\infty} \frac{x(\tau)}{t-\tau} d\tau = (x(\tau)*\frac{1}{\pi \tau})(t) \]
-                            where \(x(t)\) is the original signal and \(\widehat {x}(t)\) is the <span class="bold">phase shift</span> of the new signal. This formula might seem daunting but we can switch to the <span class="bold">Fourier domain</span> to make it more understandable.
-                            \[ \mathcal{F}(\frac{1}{\pi t}) = -i sgn(\nu) \implies \mathcal{F}(\widehat x(t)) =
-                            \left\{
-                            \begin{matrix} X(\nu)e^{-i2\pi},\ \nu > 0 \\ X(0) = 0 \\ X(\nu)e^{i2\pi},\ \nu < 0 \end{matrix}
-                            \right.
-                            \]
-                            where \(X(\nu)\) is the original signal's Fourier transform. This formula shows clearly the <span class="bold">+/- 90° phase shift</span>. The illustration below shows the effect of the Hilbert transform on a signal in the frequency domain.
-                            We notably see that the amplitudes \(A_k\) stay the same but the phases \(\theta_k\) are shifted by 90° such that \(\theta_k'=\theta_k+/-90°\).
-                        </p>
-                        <img src="images/signal/Hilbert_illustration.drawio.png" alt="">
-                        <p>In consequence, the real signal \(\widehat{x}(t)\) obtained from this transform is formed with <span class="bold">odd coefficients</span> \(S_k\) and discards <span class="bold">even</span> ones \(C_k\). In other words, it computes the <span class="bold">orthogonal</span> signal \(\widehat{x}(t)\) of the original signal \(x(t)\).</p>
-                    </div>
-                    <div> <h4>Analytic signal</h4>
-                        <p>The Hilbert transform aims at computing this new analytic <span class="bold">(complex)</span> signal:
-                            \[ x_a(t) = x(t) + j \mathcal{H}(x(t)) = x(t) + j \widehat {x}(t) = A(t) e^{j\theta(t)} \rightarrow
-                            \left\{
-                            \begin{matrix} A(t) = \sqrt{x(t)^2 + \widehat {x}(t)^2} \\ \theta(t) = \arctan(\frac{\widehat {x}(t)}{x(t)}) \end{matrix}
-                            \right.
-                            \]
-                            where \(x(t)\) is the original signal and is also called the <span class="bold">base-band</span> signal. \(\widehat {x}(t)\) is the <span class="bold">Hilbert transform</span> of the original signal.
-                        </p>
-                        <p>This new signal features an interesting property which is to <span class="bold">remove information redundancy</span>, thereby having only <span class="bold">positive frequencies</span> in its Fourier spectrum.</p>
-                        <div class="frame-highlight">
-                            <p>This signal can also be computed by following these steps:</p>
-                            <ol>
-                                <li>Compute the original signal's <span class="bold">FFT</span>;</li>
-                                <li>Set all <span class="bold">negative</span> frequencies coefficients to 0;</li>
-                                <li>Double all <span class="bold">positive</span> frequencies coefficients for <span class="bold">energy conservation</span>;</li>
-                                <li>Compute the <span class="bold">IFFT</span> of the transformed signal.</li>
-                            </ol>
-                        </div>
-                        <p>It is really important to grasp the purpose of this procedure and how we do end up with this <span class="bold">analytic signal</span> in the end. By setting all negative frequencies coefficients to 0 (2), we actually prevent 
-                            that signal from <span class="bold">becoming real</span> again when computing the IFFT (4).
-                            Indeed, in the Fourier domain, negative frequencies coefficients allow, when added with positive frequencies coefficients, to <span class="bold">cancel out the imaginary part</span> of the complex exponential, thereby obtaining a <span class="bold">real signal</span>. We have:
-                            \[ x[n] = \sum_{k=0}^{N-1} X[k] e^{i2\pi k\frac{n}{N}} = X[0] + \sum_{k=1}^{\frac{N}{2}-1} X[k] e^{i2\pi k\frac{n}{N}} + X[N-k] e^{-i2\pi k\frac{n}{N}},\ with\ X[k]=X^*[N-k] \] 
-                            To obtain the <span class="bold">analytic signal</span>, we actually do this:
-                            \[ x_a[n] = \sum_{k=0}^{N-1} X[k] e^{i2\pi k\frac{n}{N}} = X[0] + 2\sum_{k=1}^{N-1} X[k] e^{i2\pi k\frac{n}{N}} = X[0] + 2\sum_{k=1}^{N-1} (C_k + i S_k) e^{i2\pi k\frac{n}{N}} \]
-                            where \(C_k\) and \(S_k\) are respectively the cosinus and sinus <span class="bold">correlation coefficients</span> computed with the DFT for a given frequency index \(k\). The \(2\) accounts for <span class="bold">energy conservation</span>, it compensates for the cancellation of negative frequencies.
-                            Eventually, we notice that the signal is <span class="bold">complex</span> because we stop at \(k=N\) and to make the link with the parameter calculated in the section just above \(A(t)\) and \(\theta(t)\), we can re-write \(x_a[n]\) such as:
-                            \[ x_a[n] = X[0] + \sum_{k=1}^{N-1} A_k e^{i \theta_k} e^{i2\pi k\frac{n}{N}} = X[0] + A_k' e^{i \theta_k[n]} \]
-                            where \(A_k\) and \(\theta_k\) are respectively the <span class="bold">magnitude</span> and <span class="bold">phase</span> of the signal for each frequency index \(k\). In the end, this signal carries the same information as \(X[k]\) but in a different form (<span class="bold">no information is lost</span>).
-                            With this approach, we have now an <span class="bold">analytic (complex)</span> signal from which we can extract several features of the original signal thanks to the <span class="bold">conservation of the complex form</span> of the DFT. We can notably measure the instantaneous <span class="bold">amplitude</span> \(A_k\) and <span class="bold">phase</span> \(\theta_k[n]\):
-                            \[ \left\{
-                                \begin{matrix} 
-                                A_k' = \sum_{k=1}^{N-1} A_k \\
-                                \theta_k[n] = \sum_{k=1}^{N-1} \theta_k + 2\pi k\frac{n}{N}
-                                \end{matrix}
-                                \right.    
-                            \]
-                            At each time index \(n\), we can compute the <span class="bold">contribution</span> of each frequency to the signal's <span class="bold">amplitude and phase</span>.
-                        </p>
-                    </div>
-                    <div> <h4>Application</h4>
-                        <p>Let's take a simple example to understand that better.</p>
-                        <div class="frame-highlight">
-                            <p>Imagine we want to analyse the following real signal: \( x[n] = cos(2\pi \omega_0 nT_e) + 4 sin(2\pi \omega_1 nT_e) + 2 cos(2\pi \omega_2 nT_e) + 3 sin(2\pi \omega_2 nT_e) \).</p>
-                            <p>We know already its Fourier representation, it is: \( X[k] = C_{k_0} + C_{-k_{0}} + i (S_{k_1}+S_{-k_{1}}) + C_{k_2} + iS_{k_2} + C_{-k_{2}} + iS_{-k_{2}} \), with \( S_{-k_n} = -S_{k_n} \) and \( \omega_n = 2\pi\frac{k_n}{NT_e} \).</p>
-                            <p>We can now apply the IFFT but only over <span class="bold">positive frequencies</span> to retrieve the analytic signal: \( x_a[n] = 2 (C_{k_0} e^{i\omega_0 n} + iS_{k_1} e^{i\omega_1 n} + C_{k_2} e^{i\omega_2 n} + iS_{k_2} e^{i\omega_2 n} ) = x[n] + i \mathcal{H}(x[n]) \).</p>
-                            <p>Note that if we take only the <span class="bold">real part</span> (band-base) of this signal, we end up with the <span class="bold">real signal</span> \(x[n]\).
-                                Also, the conservation of the complex form with the Fourier transform in the time domain is great because now the signal carries all the <span class="bold">necessary information</span> to compute useful <span class="bold">instantenous</span>
-                                (i.e., at a particular moment \(t_0=n_0T_e\) in time) properties of the signal because it includes both <span class="bold">sinus and cosinus correlations</span>.
-                                In fact, at each time index \(n\), we can compute the <span class="bold">instantaneous amplitude</span> and <span class="bold">phase</span> of the signal.
-                                Moreover, the Fourier transform of this signal is much more convenient to work with because it has only <span class="bold">positive frequencies</span>.
+                        <div> <h3>Orthogonality principle</h3>
+                            <p>When a transmitter sends out a <span class="bold">finite and sinewave-like signal</span> (that carries encoded information), it causes the appearance of a <span class="bold">cardinal sinewave</span> (instead of an impulse) in the signal spectrum.
+                                The cardinal sinewave equals to 0 at <span class="bold">each frequency step</span> \(\Delta f = \frac{1}{NT_e} = \frac{1}{T}\), except at the <span class="bold">signal frequency</span>. This means that we could leverage this feature to have multiple sinewave signals overlapping each other in the <span class="bold">time-domain</span> while not interfering with each other (orthogonal) in the <span class="bold">frequency-domain</span>.
+                                The solution would consist of having frequencies such that all the cardinal sinewaves are <span class="bold">orthogonal</span> to each other. This is possible if the frequencies are <span class="bold">multiples</span> of the frequency step \(\Delta f\).
+                                \[ \omega_m - \omega_1 = m\ \Delta \omega= \frac{2\pi}{NT_e} m ,\ m \geq 2\]
+                                The illustration below shows for \(m=2\). The signal* on the left is framed at one second \(T=1\).
+                            </p>
+                            <div class="illustration-horiz-2">
+                                <img style="width: 15%;" src="images/signal/ofdm_time.JPG" alt="">
+                                <img src="images/signal/ofdm.drawio.png" alt="">
+                            </div>
+                            <p>* For sake of simplicity, the signal is represented continuous.</p>
+                            <p>Each cardinal sinewave is called a <span class="bold">subcarrier</span>. All subcarriers are <span class="bold">independent</span> from each other.
+                                Each transmits its own type of data and uses its own <span class="bold">modulation scheme</span>. This is mostly used in <span class="bold">wireless communication</span> (e.g., WiFi, 4G, etc.) which I talk <a href="">here</a>.
                             </p>
                         </div>
-                        <p>To summarize, we use the <span class="bold">Fourier analysis</span> to extract properties of a signal that are <span class="bold">not blatant</span> when considered in its time representation.
-                            Then, we keep these newly acquired informations (frequencies contributions and phases) by <span class="bold">preserving the complex nature</span> of the signal. This allows to carry more information because the analytic signal has one more dimension (imaginary axis).
-                            To preserve this complex nature we only need to operate the IFFT over the <span class="bold">positive frequencies</span> and <span class="bold">double their contribution</span> to account for the loss of negative frequencies (i.e., energy conservation).
-                            By doing so, we don't lose any signal's information because all the necessary information is contained in the positive frequencies. 
-                        </p>
-                        <img src="images/signal/DFT_illustration.drawio.png" alt="">
-                    </div>
-                </div>
-            </div>
-
-            <div id="laplace"> <h2>Laplace: beyond the Fourier transform</h2>
-                <p>In this section, I would like to expand on the Laplace transform; its mathematical meaning as well as its usual applications.</p>
-                <p>As indicated in this section's title, the <span class="bold">Laplace transform</span> is an <span class="bold">generalization</span> of the Fourier transform. It means that it can describe and analyse a <span class="bold">wider range</span> of signals.
-                    Indeed, the Fourier transform is limited to describing a signal <span class="bold">only</span> by using its frequency components (the operation involves a scalar product between the signal and the complex unit circle (cf <a href="#hilbert">here</a>)).
-                    It helps us in vizualizing clearly the presence and contribution of each frequency in the signal.
-                    With the <span class="bold">Laplace transform</span>, a new parameter \(\alpha\) is added, which accounts for a <span class="bold">scaling factor</span> in the complex exponential domain.
-                    Thus, besides providing us information about the frequency components of the signal, it also gives us information about the <span class="bold">amplitude dynamics</span> of the signal.
-                    In summary, it identifies the <span class="bold">presence of decreasing or increasing oscillations</span> in the signal.
-
-                </p>
-                <div> <h4>The Z-transform</h4>
-                    <p>The Z-transform is simply the Laplace transform applied to <span class="bold">discrete signals</span>:
-                        \[ X(p) = \int_{0}^{\infty} x(nT_e) e^{-pt}dt
-                                = \int_{0}^{\infty} \sum_{n=0}^{\infty} x(nT_e) \delta(t-nT_e) e^{-pt}dt
-                                = \sum_{n=0}^{\infty} x(nT_e) e^{-pnT_e}
-                                \equiv X(z) = \sum_{n=0}^{\infty} x[n] z^{-n} \]
-                        where \(z\) is a <span class="bold">complex number</span> and can be re-written like this: \(z=e^{pT_e}=e^{(\alpha+i\omega)T_e}=e^{\alpha T_e} e^{i\omega T_e}\).
-                    </p>
-                    <p>What we obtain is a <span class="bold">2D complex vector</span> \(X(z)\), where each \(z\) represents a specific <span class="bold">scaling factor</span> \(\alpha\) associated with a <span class="bold">frequency component</span> \(\omega\).</p>
-                    <div class="frame-highlight">
-                        <p>Note that with \(\alpha=0\), we get back to the Fourier transform \(z=e^{i\omega T_e}=e^{i 2\pi \nu T_e}\), which makes sense because this means no scaling factor in the signal and only <span class="bold">constant oscillations</span> (what the FT measures).</p>
-                    </div>
-                </div>
-                <div> <h4>Applications</h4>
-                    <p>This transform is particularly relevant when it comes to determining the <span class="bold">stability</span> of a system. A system whose impulse response outputs a signal with <span class="bold">increasing oscillations</span> \(\alpha > 0\) is <span class="bold">unstable</span>.
-                        This can also be pictured in the complex exponential plane, where the <span class="bold">poles</span> of the system are located. If the poles are located in the <span class="bold">right half-plane</span> \(\alpha > 0\), the system is unstable. 
-                    </p>
-                    <div class="frame-highlight">
-                        <p>The formula shown above clearly demonstrates that the sampling period \(T_e\) has an impact on the scaling of the system's reponse.
-                            Indeed, the <span class="bold">smaller</span> the sampling period, the <span class="bold">slower</span> the amplitude dynamics \(e^{(\alpha T_e)}\).
-                            <!-- This is why the <span class="bold">sampling frequency</span> is a <span class="bold">critical parameter</span> in the design of a system. -->
-                        </p>
-                    </div>
-                    <p>It has also useful features that make it easy to resolve <span class="bold">linear differential equations</span>.</p>
-                </div>
-            </div>
-
-            <div id="wavelet"> <h2>Wavelet analysis</h2>
-                <p>The Fourier transform is also quite limited because it assumes that a signal is <span class="bold">stationary</span>. It does not indicate where frequencies are located in time.
-                    For that matter, we need to expand the Fourier transform to a 2D transform, where the second parameter would be the time delay \(\tau\).
-                </p>
-                <div> <h4>Short-Time Fourier transform</h4>
-                    <p>This transform was thought up to temporally identify frequencies in a signal. Unlike the Fourier transform, here we restrain the identification of frequencies within a <span class="bold">window function</span>.
-                        We slide this function over the signal and perform for each delay \(\tau\) a localized Fourier transform. The formula is defined as follows: 
-                        \[ X(\tau, \omega) = \int^{+\infty}_{-\infty} x(t)w(t-\tau)e^{i\omega t} dt \]
-                        where \(w(t-\tau)\) is a <span class="bold">window function</span> that is applied to the signal \(x(t)\) to <span class="bold">localize</span> the frequencies in time.
-                        However, this technique has a limitation because the size of the window does not change with the frequency tested.
-                        We know that higher frequencies need <span class="bold">high time resolution</span> because they last short (i.e., it takes little time to identify them properly), which also means <span class="bold">low frequency resolution</span>.
-                        On the other hand, lower frequencies need <span class="bold">low time resolution</span> because they last long (i.e., it takes time to identify them properly), which also means <span class="bold">high frequency resolution</span>.
-                        Considering what I just brought up, we need to adjust the <span class="bold">size of the window</span> according to the frequency tested. This will be the goal of the <span class="bold">Wavelets transform</span>.
-                    </p>
-                    <div class="frame-highlight">
-                        <p>Note that the truncature of the signal with the window function has <span class="bold">consequences</span> in the spectrum density. Indeed, jitters can appear depending on the type of window.
-                            Therefore, the type of truncature should be wisely chosen according to our goals. <a href="https://en.wikipedia.org/wiki/Window_function">Here</a> is a wide selection of window functions to chose from.
-                            This is explained by the <span class="bold">Heisenberg uncertainty principle</span> which states that we cannot have a <span class="bold">perfect time and frequency resolution</span> at the same time.
-                        </p>
-                    </div>
-                </div>
-                <div> <h4>Wavelets transform</h4>
-                    <p>The <span class="bold">Wavelets transform</span> follows up the STFT but adjusts the time (i.e., frequency) resolution accordingly. It is defined as follows:
-                        \[ X(\tau, s) = \frac{1}{\sqrt{s}} \int^{+\infty}_{-\infty} x(t)\psi^{*}(\frac{t-\tau}{s}) dt \]
-                        where \(\psi^{*}(\frac{t-\tau}{s})\) is the <span class="bold">mother wavelet</span>. \(s\) is the <span class="bold">scale</span> parameter that adjusts the size of the window according to the frequency tested.
-                        \(\tau\) is the <span class="bold">time delay</span> parameter that slides the window over the signal.
-                    </p>
-                    <div class="frame-highlight">
-                        <p>A wavelet must verify <span class="bold">two conditions</span>:</p>
-                        <ul>
-                            <p><li>It does not have an <span class="bold">offset</span> value: \( \int^{+\infty}_{-\infty} \psi^{*}(t) dt = 0 \).</li></p>
-                            <p><li>It has a <span class="bold">finite energy</span>: \( \int^{+\infty}_{-\infty} |\psi^{*}(t)|^2 dt < \infty \).</li></p>
-                        </ul>
-                    </div>
-                    <p>A <span class="bold">wavelet</span> is nothing more than a sine wave damped by a gaussian curve \( \psi^{*}(t) = k e^{i\omega t} e^{-\frac{t^2}{2}} \), where \( \omega\) is the wavelet's pulsation.</p>
-                    <p></p>
-                </div>
-            </div>
-
-            <div id="filtering"> <h2>Signal filtering</h2>
-                <div> <h3>Noise management</h3>
-                    <p><span class="bold">Noise</span> is an key component of a signal. It determines the minimum signal value that can be transmitted without losing the original information.
-                        Also noise is <span class="bold">stationary (random) process</span> and the main objective is to be able to <span class="bold">characterize</span> it to lower its effect on the signal transmission.
-                        To do so, we can use both the <span class="bold">time and frequency</span> representations of the signal.
-                    </p>
-                    <p>Note that it is impossible to compute the Fourier transform of a <span class="bold">random process</span> because it is not <span class="bold">ephemeral</span>.
-                        By definition, a random process spans from \(-\infty\) to \(+\infty\), so its energy is <span class="bold">infinite</span> as well.
-                        Therefore, we only compute the Fourier transform a <span class="bold">portion</span> (or <span class="bold">temporal period \(T\)</span>) of the signal to get an idea of its behavior in the frequency domain.</p>
-                    <div class="frame-highlight">
-                        <p>In the end, instead of having a classical <span class="bold">density spectrum</span>, we obtain a <a href="#PSD">power spectrum density (PSD)</a>.</p>
-                    </div>
-                    <div id="PSD"> <h4>Power spectrum density</h4>
-                        <p>As exposed <a href="#fundamentals">here</a>, the definition of <span class="bold">average power</span> is:
-                            \[ P_s = \overline{S^2} = \lim_{T \rightarrow \infty} \frac{1}{T} \int_{-\infty}^{\infty} |s(t)|^2 dt \]
-                            \(T\) is the <span class="bold">observation time</span> of the signal. If the signal \(s(t)\) is <span class="bold">ergodic</span>, then the power is also defined as \(E[s(t)^2]\).
-                        </p>
-                        <p>However, this definition does not give much information about the signal because <span class="bold">completely different-looking signals could have the same average power</span>.</p>
-                        <p>For that matter, the <span class="bold">PSD</span> allows to better understand the signal's <span class="bold">power repartition in the frequency domain</span>.
-                            It is a <span class="bold">frequency domain measure</span> of the signal's power repartition. We can compute it by taking different approaches:
-                            \[ \left\{
-                                \begin{matrix}
-                                    S_{xx}(f) = \mathcal{TF}[r_{xx}(\tau)]\ (1) \\
-                                    S_{xx}(f) = \lim_{T \rightarrow \infty} \frac{1}{T} \int_{-\infty}^{\infty} |S(f)|^2 df
-                                \end{matrix}
-                                \right.        
-                            \]
-                            \((1)\) is the <span class="bold">Wiener-Khinchin theorem</span> with \(r_{xx}\) the <span class="bold">autocorrelation</span> of the signal. \(S(f)\) is the <span class="bold">Fourier transform</span> of the truncated signal \(x(t)\).
-                        </p>
-                        <p>From the PSD \( S_{xx}(f) \), we can also compute the energy of the signal in a <span class="bold">frequency band</span> \(\Delta f\):
-                            \[ E_{\Delta f} = \int_{\Delta f} S_{xx}(f) df \]
-                        </p>
-                    </div>
-                </div>
-                <div> <h3>Adaptative filtering</h3>
-                    <p></p>
-                </div>
-            </div>
-
-            <div id="communication"> <h2>Digital communication</h2>
-                <p>In this section, I talk about how we can use digital signal to send data for <span class="bold">wireless communication</span>. This notably encompasses <span class="bold">digital to analog data conversion (DAC)</span> and <span class="bold">modulation techniques</span> such as QAM16, QPSK, FSK, ASK and many more ...</p>
-                <div> <h3>OFDM: Orthogonal Frequency Division Multiplexing</h3>
-                    <p><span class="bold">OFDM</span> uses <span class="bold">orthogonality</span> between frequencies to use the frequency spectrum more efficiently in order to encode and simultaneously send data over different frequencies.
-                        It derives from <span class="bold">FDM</span>, which does not use orthogonality and therefore needs to space frequencies quite far away from each each to avoid frequency overlapping.</p>
-                    <p>When a transmitter sends out a <span class="bold">finite and sinewave-like signal</span> (that carries encoded information), it causes the appearance of a <span class="bold">cardinal sinewave</span> (instead of an impulse) in the signal spectrum.
-                        The cardinal sinewave equals to 0 at <span class="bold">each frequency step</span> \(\Delta f = \frac{1}{NT_e} = \frac{1}{T}\), except at the <span class="bold">signal frequency</span>. This means that we could leverage this feature to have multiple sinewave signals overlapping each other in the <span class="bold">time-domain</span> while not interfering with each other (orthogonal) in the <span class="bold">frequency-domain</span>.
-                        The solution would be to have frequencies such that all the cardinal sinewaves are <span class="bold">orthogonal</span> to each other. This is possible if the frequencies are <span class="bold">multiples</span> of the frequency step \(\Delta f\).
-                        \[ \omega_m - \omega_1 = m\ \Delta \omega= \frac{2\pi}{NT_e} m ,\ m \geq 2\]
-                        The illustration below shows for \(m=2\). The signal* on the left is framed at one second \(T=1\).
-                    </p>
-                    <div class="illustration-horiz-2">
-                        <img style="width: 15%;" src="images/signal/ofdm_time.JPG" alt="">
-                        <img src="images/signal/ofdm.drawio.png" alt="">
-                    </div>
-                    <p>* For sake of simplicity, the signal is represented continuous.</p>
-                    <p>Each cardinal sinewave is called a <span class="bold">subcarrier</span>. All subcarriers are <span class="bold">independent</span> from each other.
-                        Each transmits its own type of data and uses its own <span class="bold">modulation scheme</span>. This is mostly used in <span class="bold">wireless communication</span> (e.g., WiFi, 4G, etc.) which I talk <a href="">here</a>.
-                    </p>
-                </div>
-                <div> <h3>Modulation techniques</h3>
-                    <p></p>
-                    <div> <h4>ASK</h4>
-                        <div> <h5>Definition</h5>
-                            <p><span class="bold">Amplitude Shift Keying</span> </p>
-                            <div class="frame-highlight"> <h5>BASK or (OOK)</h5>
-                                <p>This is a specific type of ASK where the message \(m(t)\) carried by the carrier is in a binary format.</p>
+                        <div> <h3>OFDM: Orthogonal Frequency Division Multiplexing</h3>
+                            <p><span class="bold">OFDM</span> is a technique used in digital communication that uses <span class="bold">frequency orthogonality</span> to transmit data over a wireless channel.
+                                Each piece of data (symbol) is carried by a <span class="bold">subcarrier</span> and the <span class="bold">modulation scheme</span> used may vary (ASK, QPSK, QAM ...).
+                                OFDM was invented to transmit signals within a <span class="bold">dispersive channel</span> (e.g., multipath propagation) and to <span class="bold">increase the bit rate</span> of the transmission.
+                                It relies on the fact that with the DFT, cardinal sinewaves can be made orthogonal to each other (see previous section).
+                            </p>
+                            <div> <h4>Transmitter</h4>
+                                <div> <h5>FEC encoding</h5>
+        
+                                </div>
+                                <div> <h5>Subcarriers modulation</h5>
+                                    <p>A <span class="bold">symbol</span> is a stream of input binary data. It can be a sequence of bits, a byte, a word, etc. 
+                                        Each symbol modulates a subcarrier:
+                                        \[ 
+                                            \begin{cases}
+                                            S(f) = \sum_{k=0}^{K-1} S[k] \delta(f - k\Delta f) \\
+                                            S[k] = |S_k| e^{i\theta_k}
+                                            \end{cases} 
+                                        \]
+                                        where \(S(f)\) is the <span class="bold">symbol's modulated signal</span> and \(S[k]\) is the <span class="bold">modulated subcarrier</span>.
+                                        \(|S_k|\) and \(\theta_k\) are the <span class="bold">modulation parameters</span> of the subcarrier.
+                                        \(K\) determines the <span class="bold">number of subcarriers</span>, (i.e. number of symbols) and \(\Delta f = \frac{1}{T}\) is the <span class="bold">frequency step</span>, where \(T = K.T_{sym}\) is the time length of all symbols.
+                                        \(T_{sym}\) is the <span class="bold">symbol duration</span> (or sampling).
+                                    </p>
+                                    <p>Then, we transform the signal in its time representation using the IFFT:
+                                        \[ s(n) = \mathcal{F}^{-1}[S(f)] = \frac{1}{K} \sum_{k=0}^{K-1} S[k] e^{i2\pi k\frac{n}{N}} \]
+                                        where \(s(n)\) is the <span class="bold">time-domain</span> representation of \(S(f)\). The \(K\) factor is used to <span class="bold">normalize</span> the signal.
+                                    </p>
+                                    <div class="frame-highlight">
+                                        <p>We also add a <span class="bold">cyclic prefix (CP)</span> to \(s_{CP}(t)\) in order to prevent <a href="#">ISI</a>. The time of this cyclic prefix must at least <span class="bold">2 times greater</span> than the delay spreading (\tau_{max} = \tau_L\)</p>
+                                    </div>
+                                    <p>Finally, we send the signal \(x(t)\) over the channel, which is composed of the symbol signal \(s(n)\) and the CP \(s_{CP}(n)\):
+                                        \[ x(n) = (s(n) + s_{CP}(n)).cos(2\pi f_c n) \]
+                                        where \(f_c\) is the <span class="bold">carrier frequency</span>.
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <div> <h5>Bandwidth</h5>
-                            <p>The <span class="bold">bandwidth</span> of an ASK signal can be calculated as follows: \( BW = (1+d)\gamma = (1+d)\frac{R}{n} \), where
-                                \(\gamma\) is the <span class="bold">symbol rate</span>, \(d\) is the <span class="bold">duty cycle</span> of the signal, \(R\) is the <span class="bold">bit rate</span> and \(n\) is the <span class="bold">number of bits</span> per symbol.
-                                The bandwidth corresponds to the width of the modulated signal's <span class="bold">main lobe</span>.
-                                In the worst case scenario, the data transmitted keeps switching between 0 and 1, which causes the duty cycle \(d\) to become 1. In that case, the signal's <span class="bold">bandwidth</span> is <span class="bold">maximum</span> because each portion of the modulated sinus is cut by a sqaure which temporal span is \(1\gamma\).
-                                Therefore, the bandwidth is equal to 2 times the <span class="bold">symbol rate</span>.
-                                In the best case scenario, the data transmitted is constant (either 0 or 1), which causes the duty cycle \(d\) to become 0. In that case, the signal's <span class="bold">bandwidth</span> is <span class="bold">minimum</span> because the modulated sinus is cut by a square whose lentgh is longer which causes the spectrum to become thiner.
+                            <div> <h4>(Dispersive) Channel</h4>
+                                <div class="frame-highlight">
+                                    <p>A <span class="bold">dispersive channel</span> does not modify the shape of the transmitted signal but it can change its <span class="bold">amplitude</span> and <span class="bold">phase</span> due to sinewave overlapping.</p>
+                                </div>
+                                <p>After having been emitted, the signal can take various ways (<span class="bold">multipath propagation</span>) before reaching the receiver. Thus the receiver may receive the signal symbol \(x(t)\) multiple times.
+                                    A <span class="bold">time-dispersive</span> channel can be characterized by its <span class="bold">finite impulse response (FIR)</span> as follows:
+                                    \[ h(n) = \sum_{l=0}^{L-1} h_s[l] \delta(t-\tau_l) \]
+                                    where \(h(n)\) is the <span class="bold">channel's impulse response</span> sampled at \(T_{sym}\) and \(h_s[l]\) is the <span class="bold">channel's coefficients</span>.
+                                    \(L\) is the <span class="bold">filter's length</span> (or number of times a symbol is received) and \(\tau_l\) is the <span class="bold">spread delay</span>.
+                                </p>
+                                <div> <h5>Channel estimation</h5>
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div> <h4>Receiver</h4>
+                                <div> <h5>Equalization</h5>
+                                    <p>The objective of equalization is to compensate the effect of <span class="bold">phase shifting</span> and <span class="bold">power loss</span> caused by the channel.
+                                        This is performed by adding an additional <span class="bold">filter (equalizer)</span> to the receiver that is the <span class="bold">inverse</span> of the channel's impulse response.
+                                    </p>
+                                    <p>There exist different types of equalizer: </p>
+                                    <ul>
+                                        <li><span class="bold">ZF equalizer</span></li>
+                                        <p>The ISI introduced by the channel is canceled off. The equalizer transfer function is: \(ZF(f) = \frac{1}{H(f)}\).
+                                            The major problem is that when some frequencies are significantly damped by the channel, the equalizer amplifies them, which causes <span class="bold">noise</span> to be amplified as well and degrades the overall received signal (SNR increases).
+                                        </p>
+                                        <li><span class="bold">MMSE equalizer</span></li>
+                                        <p></p>
+                                        <li></li>
+                                    </ul>
+                                    
+                                </div>
+                                <div> <h5>Synchronization</h5>
+                                    <p>The receiver needs to synchronize in time and frequency. There might be some slight </p>
+                                    <p>Timing error \(\delta t\) and frequency error \(\delta \omega\)</p>
+                                </div>
+                                <div> <h5>CP removal</h5>
+                                    <p>Finally, the signal received by the receiver has gone through the channel, therefore it is echoed and also noise came along. A received symbol signal \(y_s(t)\) can be written as:
+                                        \[ y_s(n) = s(n) * h(n) + n(n) = \sum_{l=0}^{L-1} h_s[l] s(n-l) + n(n) \]
+                                        where \(n(n)\) is the <span class="bold">noise</span> and \(L\) is the <span class="bold">filter's length</span>.
+                                    </p>
+                                    <p>Circular convolution can be represented as a matrix operation:</p>
+                                </div>
+                                <div>
+                                    
+                                </div>
+                            </div>
+                            <div> <h4>Advantages & Disadvantages</h4>
+                                <p></p>
+                            </div>
+                            <div> <h5>OFDM design</h5>
+                                <p>To design an SFDM system, there are several requirements to consider:</p>
+                                <ul>
+                                    <li>Bandwidth available</li>
+                                    <li>Bit rate of at least 10Mbps</li>
+                                    <li>Delay spread \(\tau_{max}\)</li>
+                                </ul>
+                                <p>According to the requirements, there are several parameters to modify:</p>
+                                <ul>
+                                    <li>Number of subcarriers \(K\)</li>
+                                    <li>Symbol duration \(T_{sym}\) and CP duration \(T_{CP}\)</li>
+                                    <li>Subcarrier frequency step \(\Delta f = \frac{1}{T_{sym}}\)</li>
+                                    <li>Number of symbols \(N_{sym}\)</li>
+                                    <li>Channel's impulse response \(h(t)\)</li>
+                                </ul>
                                 
-                            </p>
-                            <div class="frame-highlight">
-                                <p>It is important to remember that the more time we spend observing a signal in the <span class="bold">time domain</span>, the <span class="bold">more accurate</span> (hence thiner) the signal spectrum will be. This is a <span class="bold">fundamental property</span> of the time-frequency duality.</p>
+                            </div>
+                            <!-- <div class="frame-highlight">
+                                <p>Increasing the OFDM symbol duration does not increase the number of subcarriers but increases the information content carried by each subcarrier.</p>
+                            </div> -->
+                        </div>
+                        <div> <h3>Other multi-carrier based access techniques</h3>
+                            <div> <h4>OFDM-TDMA</h4>
+        
+                            </div>
+                            <div> <h4>OFDMA</h4>
+        
+                            </div>
+                            <div> <h4>OFDM-CDMA</h4>
+        
                             </div>
                         </div>
-                        <p></p>
                     </div>
                 </div>
-            </div>
+
+            </div> <!-- accordion -->
 
         </section> <!-- main-container -->
 

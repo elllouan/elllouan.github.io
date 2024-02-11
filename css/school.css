@@ -35,33 +35,33 @@
         height: fit-content;
     }
 
-    .accordion-y4 {
+    .accordion {
         display: block;
         margin-left: auto;
         margin-right: auto;
-        width: 90%;
+        width: 98%;
         text-align: left;
-        border: 2px solid #333;
+        /* border: 2px solid #333; */
         background-color: lightgrey;
     }
 
-    .accordion-y4 .subject-container {
+    .accordion .sub-container {
         position: relative;
         border: solid orange;
         padding: 0.5rem;
         margin: 1rem 0;
     }
 
-    .accordion-y4 .subject-container:hover {
+    .accordion .sub-container:hover {
         background-color: #dedede;
     }
 
-    .accordion-y4 .label {
+    .accordion .label {
         cursor: pointer;
         position: relative;
     }
 
-    .accordion-y4 .label::before {
+    .accordion .label::before {
         content: '+';
         color: black;
         position: absolute;
@@ -71,7 +71,7 @@
         transform: translateY(-50%);
       }
 
-    .accordion-y4 .content {
+    .accordion .content {
         position: relative;
         background-color: #f0f0f0;
         height: 0;
@@ -81,13 +81,13 @@
         transition: 0.5s;
       }
 
-    .accordion-y4 .subject-container.active .content {
+    .accordion .sub-container.active .content {
         height: fit-content;
         margin: 1rem 0.3rem 0.3rem 0.3rem;
         cursor:auto;
     }
 
-    .accordion-y4 .subject-container.active .label::before {
+    .accordion .sub-container.active .label::before {
         content: '-';
         font-size: 30px;
     }
